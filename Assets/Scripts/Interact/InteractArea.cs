@@ -22,7 +22,8 @@ public class InteractArea : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            PopUp.SetActive(true);
+            col.gameObject.GetComponent<InteractComponent>().inArea = true;
+            col.gameObject.GetComponent<InteractComponent>().AreaImIn = this;
         }
     }
 
@@ -30,7 +31,20 @@ public class InteractArea : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            PopUp.SetActive(false);
+            col.gameObject.GetComponent<InteractComponent>().inArea = false;
+            col.gameObject.GetComponent<InteractComponent>().AreaImIn = null;
         }
+    }
+
+    public void FunctionIDO()
+    {
+        StartCoroutine(PopUpTest());
+    }
+
+    IEnumerator PopUpTest()
+    {
+        PopUp.SetActive(true);
+        yield return new WaitForSeconds(3);
+        PopUp.SetActive(false);
     }
 }
