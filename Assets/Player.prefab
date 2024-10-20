@@ -218,9 +218,25 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7c6e6835-bc8b-4c8c-958f-355a258b3e50
+    m_ActionName: Player/Movement[/Keyboard/a,/Keyboard/d,/Keyboard/w,/Keyboard/s,/DualShock4GamepadHID/leftStick/left,/DualShock4GamepadHID/leftStick/right,/DualShock4GamepadHID/leftStick/up,/DualShock4GamepadHID/leftStick/down]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 514675cf-1ba9-4cf8-b71e-95b494b9e9ab
+    m_ActionName: Player/Jump[/Keyboard/space,/DualShock4GamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 31606e7f-53fe-46a2-9996-d2021a903a3c
+    m_ActionName: Player/Interact[/Keyboard/e,/DualShock4GamepadHID/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2fda6019-63c5-4f2b-8c70-b6d3d01b2311
+    m_ActionName: Player/Taunt[/Keyboard/q,/DualShock4GamepadHID/buttonNorth]
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Keyboard
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -237,7 +253,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 08de54ea4d107644f98b90f391cc44c0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.506
-  m_Pitch: 3
+  m_Pitch: 1.94
   Loop: 0
   Mute: 0
   Spatialize: 0

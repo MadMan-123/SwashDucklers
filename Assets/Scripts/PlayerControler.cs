@@ -164,7 +164,14 @@ public class PlayerControler : MonoBehaviour
     private void OnTauntPerformed(InputAction.CallbackContext value)
     {
         //Taunt behaviour
-
+        if (Random.Range(1, 1000) < 1000)
+        {
+            Quack.pitch = Random.Range(1.0f, 2.0f);
+        }
+        else 
+        {
+            Quack.pitch = Random.Range(0.0f, 1.0f);
+        }
         Quack.Play(0);
         this.gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
         this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y-0.5f, this.gameObject.transform.position.z);
