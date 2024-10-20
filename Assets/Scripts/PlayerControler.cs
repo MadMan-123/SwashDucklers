@@ -12,6 +12,7 @@ public class PlayerControler : MonoBehaviour
     private Rigidbody rb = null;
     [SerializeField] float moveSpeed;
     [SerializeField] float playerID;
+    [SerializeField] AudioSource Quack;
 
     //On Awake
     private void Awake()
@@ -29,6 +30,18 @@ public class PlayerControler : MonoBehaviour
         //Movement
         input.Player.Movement.performed += OnMovementPerformed;
         input.Player.Movement.canceled += OnMovementCancelled;
+
+        //Jump
+        input.Player.Jump.performed += OnJumpPerformed;
+        input.Player.Jump.canceled += OnJumpCancelled;
+
+        //Interact
+        input.Player.Interact.performed += OnInteractPerformed;
+        input.Player.Interact.canceled += OnInteractCancelled;
+
+        //Taunt
+        input.Player.Taunt.performed += OnTauntPerformed;
+        input.Player.Taunt.canceled += OnTauntCancelled;
     }
 
     //On Disable
@@ -40,6 +53,18 @@ public class PlayerControler : MonoBehaviour
         //Movement
         input.Player.Movement.performed -= OnMovementPerformed;
         input.Player.Movement.canceled -= OnMovementCancelled;
+
+        //Jump
+        input.Player.Jump.performed -= OnJumpPerformed;
+        input.Player.Jump.canceled -= OnJumpCancelled;
+
+        //Interact
+        input.Player.Interact.performed -= OnInteractPerformed;
+        input.Player.Interact.canceled -= OnInteractCancelled;
+
+        //Taunt
+        input.Player.Taunt.performed -= OnTauntPerformed;
+        input.Player.Taunt.canceled -= OnTauntCancelled;
     }
 
     //On start
@@ -108,6 +133,47 @@ public class PlayerControler : MonoBehaviour
     {
         //Setup Movevector to Zero
         moveVector = Vector3.zero;
+    }
+
+    //Jump
+    //Performed
+    private void OnJumpPerformed(InputAction.CallbackContext value)
+    {
+        //Jump behaviour
+    }
+    //Cancelled
+    private void OnJumpCancelled(InputAction.CallbackContext value)
+    {
+        //Jump Interact behaviour
+    }
+
+    //Interact
+    //Performed
+    private void OnInteractPerformed(InputAction.CallbackContext value)
+    {
+        //Interact behaviour
+    }
+    //Cancelled
+    private void OnInteractCancelled(InputAction.CallbackContext value)
+    {
+        //Stop Interact behaviour
+    }
+
+    //Taunt
+    //Performed
+    private void OnTauntPerformed(InputAction.CallbackContext value)
+    {
+        //Taunt behaviour
+
+        Quack.Play(0);
+        this.gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+        this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y-0.5f, this.gameObject.transform.position.z);
+    }
+    //Cancelled
+    private void OnTauntCancelled(InputAction.CallbackContext value)
+    {
+        //Stop Taunt behaviour
+        this.gameObject.transform.localScale = new Vector3(1, 1, 1);
     }
 
     //Controler disconected
