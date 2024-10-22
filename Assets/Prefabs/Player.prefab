@@ -1,5 +1,88 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3838191854928786008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 551932061035993783}
+  - component: {fileID: 3180420835629431048}
+  - component: {fileID: 9098009210183664881}
+  m_Layer: 0
+  m_Name: Wings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &551932061035993783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3838191854928786008}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.217, z: 0}
+  m_LocalScale: {x: 1.5, y: 0.2, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7265253197350797133}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3180420835629431048
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3838191854928786008}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &9098009210183664881
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3838191854928786008}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4857625557555851493
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +95,7 @@ GameObject:
   - component: {fileID: 2087416017280374829}
   - component: {fileID: 694434221154508120}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -138,7 +221,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5368657179478143323}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d62d7e886a8f7724aabb9f87c3dd1d1e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -166,7 +249,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133f363b79e9aa1429dc8902a2a19f6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  acceleration: 5
+  maxSpeed: 5
+  deceleration: 2
+  jumpPower: 0.5
+  jumpDuration: 0.2
+  airControl: 0.1
+  glideDuration: 0.5
   playerID: 0
   Quack: {fileID: -5957354204565098106}
 --- !u!54 &3701548156983837710
@@ -353,6 +442,7 @@ MonoBehaviour:
   tool: {fileID: 0}
   inArea: 0
   tempIndicator: {fileID: 8910317409946814105}
+  AreaImIn: {fileID: 0}
 --- !u!1 &6126699181604521978
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +455,7 @@ GameObject:
   - component: {fileID: 3792499615085081143}
   - component: {fileID: 4093686432426882677}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -469,6 +559,7 @@ Transform:
   - {fileID: 3513945729596075954}
   - {fileID: 2314549706014987679}
   - {fileID: 8422764322561125169}
+  - {fileID: 551932061035993783}
   m_Father: {fileID: 6753484992610774399}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7976255656536489947
@@ -483,7 +574,7 @@ GameObject:
   - component: {fileID: 1735039416443080086}
   - component: {fileID: 641958369747526060}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Beak
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -566,7 +657,7 @@ GameObject:
   - component: {fileID: 690873523308123267}
   - component: {fileID: 5629892997590223126}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
