@@ -32,6 +32,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] float airControl;
     [SerializeField] float glideDuration;
     [SerializeField] float playerID;
+    [SerializeField] public bool interacting;
     [SerializeField] AudioSource Quack;
 
     //On Awake
@@ -502,6 +503,29 @@ public class PlayerControler : MonoBehaviour
             }
         }
 
+    }
+
+    public IEnumerator disableMovement()
+    {
+        input.Disable();
+        Debug.Log("Input disabled");
+        for (int i = 0; i < 5; i++)
+        {
+            if (i < 5 & interacting)
+            {
+                yield return new WaitForSeconds(2);
+            }
+            else
+            {
+                input.Enable();
+                Debug.Log("Input enabled auto");
+            }
+        }
+    }
+    public void enableMovement()
+    {
+        input.Enable();
+        Debug.Log("Input enabled");
     }
 
 }

@@ -63,13 +63,22 @@ public class InteractArea : MonoBehaviour
     public virtual void FunctionIDO(bool faster, GameObject player)
     {
         int speed = faster ? 1 : 3;
-        StartCoroutine(PopUpTest(speed));
+        StartCoroutine(PopUpTest(speed, player));
     }
 
-    IEnumerator PopUpTest(int sec)
+    IEnumerator PopUpTest(int sec, GameObject player)
     {
         PopUp.SetActive(true);
+       StartCoroutine(player.GetComponent<PlayerControler>().disableMovement());
         yield return new WaitForSeconds(sec);
         PopUp.SetActive(false);
+        player.GetComponent<PlayerControler>().interacting = false;
+        player.GetComponent<PlayerControler>().enableMovement();
+    }
+
+    public void InteractCancel()
+    {
+        StopAllCoroutines();
+        PopUp.gameObject.SetActive(false);
     }
 }

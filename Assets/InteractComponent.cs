@@ -23,8 +23,9 @@ public class InteractComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && inArea && !this.gameObject.GetComponent<PlayerControler>().interacting)
         {
+            this.gameObject.GetComponent<PlayerControler>().interacting = true;
             if (tool != null)
             {
                 Interact(tool);
@@ -33,6 +34,12 @@ public class InteractComponent : MonoBehaviour
             {
                 Interact();
             }
+        }
+        else if(Input.GetKeyDown(KeyCode.E) && this.gameObject.GetComponent<PlayerControler>().interacting)
+        {
+            this.gameObject.GetComponent<PlayerControler>().interacting = false;
+            this.gameObject.GetComponent<PlayerControler>().enableMovement();
+            AreaImIn.InteractCancel();
         }
     }
 
