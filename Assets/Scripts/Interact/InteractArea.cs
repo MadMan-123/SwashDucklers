@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class InteractArea : MonoBehaviour
 {
+    [SerializeField] public bool needTool;
+    [SerializeField] bool fasterWithTool;
+    [SerializeField] public bool isTool;
+    [SerializeField] public bool isStation;
 
+
+    [SerializeField] public string toolUsed;
     [SerializeField] GameObject PopUp;
     // Start is called before the first frame update
     void Start()
@@ -36,15 +42,34 @@ public class InteractArea : MonoBehaviour
         }
     }
 
-    public void FunctionIDO()
+    public void Interact(GameObject player)
     {
-        StartCoroutine(PopUpTest());
+        FunctionIDO(false, player);
     }
 
-    IEnumerator PopUpTest()
+    public void Interact(string tool, GameObject player)
+    {
+       if (toolUsed == tool && fasterWithTool)
+        {
+            FunctionIDO(true,player);
+        }
+        else
+        {
+            FunctionIDO(false,player);
+        }
+
+    }
+
+    public virtual void FunctionIDO(bool faster, GameObject player)
+    {
+        int speed = faster ? 1 : 3;
+        StartCoroutine(PopUpTest(speed));
+    }
+
+    IEnumerator PopUpTest(int sec)
     {
         PopUp.SetActive(true);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(sec);
         PopUp.SetActive(false);
     }
 }
