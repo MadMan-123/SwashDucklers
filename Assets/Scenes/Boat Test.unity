@@ -437,6 +437,7 @@ GameObject:
   - component: {fileID: 740729576}
   - component: {fileID: 740729577}
   - component: {fileID: 740729578}
+  - component: {fileID: 740729579}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Untagged
@@ -506,6 +507,25 @@ MonoBehaviour:
   acceleration: 2
   maxSpeed: 5
   maxRotation: 30
+--- !u!114 &740729579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 740729575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b894d634c2ed029419adac7d8505839e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxShipHealth: 100
+  fillRate: 20
+  shipFilled: 0
+  shipHealth: 0
+  percentageDamaged: 0
+  fillSpeed: 0
+  gm: {fileID: 1630204421}
 --- !u!1001 &925680145
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -934,6 +954,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1630204420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1630204422}
+  - component: {fileID: 1630204421}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1630204421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630204420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 492d30aa8d9f94842bbe04ff9fecafd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paused: 0
+  gameOver: 0
+--- !u!4 &1630204422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630204420}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.0406437, y: -0.85497653, z: 5.8697886}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -942,3 +1008,4 @@ SceneRoots:
   - {fileID: 740729576}
   - {fileID: 1612936932}
   - {fileID: 1024975124}
+  - {fileID: 1630204422}
