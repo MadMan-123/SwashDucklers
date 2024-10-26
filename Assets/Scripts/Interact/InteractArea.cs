@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractArea : MonoBehaviour
 {
     [SerializeField] public bool needTool;
+    
     [SerializeField] bool fasterWithTool;
     [SerializeField] public bool isTool;
     [SerializeField] public bool isStation;
@@ -12,18 +13,6 @@ public class InteractArea : MonoBehaviour
 
     [SerializeField] public string toolUsed;
     [SerializeField] GameObject PopUp;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.CompareTag("Player"))
@@ -60,6 +49,7 @@ public class InteractArea : MonoBehaviour
 
     }
 
+    //Perhaps we could use a UnityEvent here as so designers and developers can add their own functions to the interactable objects with ease - MW
     public virtual void FunctionIDO(bool faster, GameObject player)
     {
         int speed = faster ? 1 : 3;

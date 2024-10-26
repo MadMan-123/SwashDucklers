@@ -10,7 +10,7 @@ public class ToolInteractScript : InteractArea
     public override void FunctionIDO(bool faster, GameObject player)
     {
         player.GetComponent<InteractComponent>().tool = myTool;
-        this.gameObject.SetActive(false);
-        Destroy(this.gameObject);
+        //gameObject.SetActive(false); - Set false then destroy it? no need for this line if we destroy it MW
+        Destroy(gameObject);
     }
 }

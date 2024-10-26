@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviour
 
         PlayerNo = PlayerNo + 1;
         Debug.Log("Player joined");
-        Debug.Log("Players:" + PlayerNo);
+        Debug.Log($"Players:{PlayerNo}");
 
     }
 
@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour
 
         PlayerNo = PlayerNo - 1;
         Debug.Log("Player left");
-        Debug.Log("Players:" + PlayerNo);
+        Debug.Log($"Players:{PlayerNo}");
 
     }
 }

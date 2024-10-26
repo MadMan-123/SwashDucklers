@@ -25,7 +25,7 @@ public class ShipHealth : MonoBehaviour
     {
         if(percentageDamaged != 0 && fill)
         {
-            StartCoroutine(fillShip());
+            StartCoroutine(FillShip());
             fill = false;
         }
     }
@@ -36,13 +36,13 @@ public class ShipHealth : MonoBehaviour
         percentageDamaged = Mathf.Lerp(shipHealth, 0, maxShipHealth) * 100;
     }
 
-    public void repairShip(int repair)
+    public void RepairShip(int repair)
     {
         shipHealth = Mathf.Clamp(shipHealth + repair, 0, maxShipHealth);
         percentageDamaged = 100-(Mathf.Lerp(shipHealth, 0, maxShipHealth) * 100);
     }
 
-    IEnumerator fillShip()
+    IEnumerator FillShip()
     {
         fillSpeed = percentageDamaged / fillRate;
         shipFilled=shipFilled + Mathf.Clamp(fillSpeed,0,100);
@@ -54,7 +54,7 @@ public class ShipHealth : MonoBehaviour
         fill = true;
     }
 
-    public void emptyShip(float remove)
+    public void EmptyShip(float remove)
     {
         shipFilled = Mathf.Clamp(0,100,remove);
     }

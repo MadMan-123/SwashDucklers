@@ -30,9 +30,13 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] float jumpDuration;
     [SerializeField] float airControl;
     [SerializeField] float glideDuration;
-    [SerializeField] float playerID;
+    [SerializeField] int playerID; //Why the fuck is an id a float, its never going to need to be a real number - MW
     [SerializeField] public bool interacting;
     [SerializeField] AudioSource Quack;
+    [SerializeField] private Transform modelTransform; 
+    private MeshRenderer[] modelRenderers;
+
+    private static readonly int Color1 = Shader.PropertyToID("_Color");
 
     //On Awake
     private void Awake()
@@ -43,6 +47,10 @@ public class PlayerControler : MonoBehaviour
 
         playerInput = GetComponent<PlayerInput>();
         playerID = playerInput.playerIndex;
+        
+        // Cache model renderers
+        modelTransform = transform.GetChild(0);
+        modelRenderers = modelTransform.GetComponentsInChildren<MeshRenderer>();
 
     }
 
@@ -50,43 +58,27 @@ public class PlayerControler : MonoBehaviour
     private void Start()
     {
 
-        //Temporary
-        //Set material based on player id
-        //In the future we can use simalar logic to set models
-        switch (playerID)
+        SetPlayerColor(playerID);
+ 
+    }
+    private void SetPlayerColor(int playerId)
+    {
+        Color primaryColor = Color.white;
+        Color secondaryColor = Color.yellow;
+
+        switch (playerId)
         {
-            case 0:
-                //this is the single worst line of code ive ever written but it works for now and im not changing it because its 3am
-                this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-                this.gameObject.transform.GetChild(0).GetChild(1).GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                this.gameObject.transform.GetChild(0).GetChild(2).GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-                this.gameObject.transform.GetChild(0).GetChild(3).GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                this.gameObject.transform.GetChild(0).GetChild(4).GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-                break;
-            case 1:
-                this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
-                this.gameObject.transform.GetChild(0).GetChild(1).GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                this.gameObject.transform.GetChild(0).GetChild(2).GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
-                this.gameObject.transform.GetChild(0).GetChild(3).GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                this.gameObject.transform.GetChild(0).GetChild(4).GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
-                break;
-            case 2:
-                this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", Color.green);
-                this.gameObject.transform.GetChild(0).GetChild(1).GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                this.gameObject.transform.GetChild(0).GetChild(2).GetComponent<Renderer>().material.SetColor("_Color", Color.green);
-                this.gameObject.transform.GetChild(0).GetChild(3).GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                this.gameObject.transform.GetChild(0).GetChild(4).GetComponent<Renderer>().material.SetColor("_Color", Color.green);
-                break;
-            case 3:
-                this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", Color.white);
-                this.gameObject.transform.GetChild(0).GetChild(1).GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                this.gameObject.transform.GetChild(0).GetChild(2).GetComponent<Renderer>().material.SetColor("_Color", Color.white);
-                this.gameObject.transform.GetChild(0).GetChild(3).GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                this.gameObject.transform.GetChild(0).GetChild(4).GetComponent<Renderer>().material.SetColor("_Color", Color.white);
-                break;
+            case 0: primaryColor = Color.red; break;
+            case 1: primaryColor = Color.blue; break;
+            case 2: primaryColor = Color.green; break;
+            case 3: primaryColor = Color.white; break;
+        }
+
+        for (int i = 0; i < modelRenderers.Length; i++)
+        {
+            modelRenderers[i].material.SetColor(Color1, i % 2 == 0 ? primaryColor : secondaryColor);
         }
     }
-
     //FixedUpdate
     void FixedUpdate()
     {
@@ -95,12 +87,12 @@ public class PlayerControler : MonoBehaviour
         if (isGrounded)
         {
             //add direction * acceleration to velocity
-            rb.velocity = rb.velocity + (moveVector * acceleration);
+            rb.velocity += (moveVector * acceleration);
         }
         else
         {
             //add direction * acceleration to velocity changed by the air control modifier
-            rb.velocity = rb.velocity + (moveVector * (acceleration * airControl));
+            rb.velocity += (moveVector * (acceleration * airControl));
         }
 
         PrevRelative0 = relative0;
@@ -110,7 +102,7 @@ public class PlayerControler : MonoBehaviour
         {
 
             //Find 0 velocity relative to current platform
-            relative0 = new Vector3(platform.velocity.x, platform.velocity.y, platform.velocity.z);
+            relative0 = platform.velocity;
             
         }
         else
@@ -124,8 +116,8 @@ public class PlayerControler : MonoBehaviour
         if (PrevRelative0 != relative0)
         {
             //Remove speed of old patform and replace with speed of new platform
-            rb.velocity = rb.velocity - PrevRelative0;
-            rb.velocity = rb.velocity + relative0;
+            rb.velocity -= PrevRelative0;
+            rb.velocity += relative0;
         }
 
         //Make sure velocity doesnt exceed maxSpeed
@@ -160,7 +152,7 @@ public class PlayerControler : MonoBehaviour
                     else  //If Velocity X is Negative
                     {
                         //Lower velocity by deceleration value
-                        rb.velocity = rb.velocity + new Vector3(deceleration, 0.0f, 0.0f);
+                        rb.velocity += new Vector3(deceleration, 0.0f, 0.0f);
 
                         //If raised below 0
                         if (rb.velocity.x > relative0.x)
@@ -296,7 +288,8 @@ public class PlayerControler : MonoBehaviour
                 glideTimer = glideDuration;
 
                 //Messy code for temporary animation
-                this.gameObject.transform.GetChild(0).GetChild(4).GetComponent<MeshRenderer>().enabled = false;
+                //every GetComponent is expensive (not too much but it will stack eventually), cache it -MW
+                modelRenderers[4].enabled = false;
             }
         }
 
@@ -308,13 +301,13 @@ public class PlayerControler : MonoBehaviour
        
         if (value.performed) //Performed
         {
-            //Setup Movevector to contain direction from input
+            //Setup Move vector to contain direction from input
             moveVector = value.ReadValue<Vector3>();
         }
         else if (value.canceled) //Cancelled
         {
 
-            //Setup Movevector to Zero
+            //Setup Move vector to Zero
             moveVector = Vector3.zero;
 
         }
@@ -331,7 +324,7 @@ public class PlayerControler : MonoBehaviour
             if (isGrounded)
             {
                 //Start to Jump (Inital jump is more powerful to make the arc nicer)
-                rb.velocity = rb.velocity + new Vector3(0f, jumpPower * 1.5f, 0f);
+                rb.AddForce(0,jumpPower * 1.5f,0);
                 isGrounded = false;
                 isJumping = true;
                 jumpTimer = jumpDuration;
@@ -343,7 +336,7 @@ public class PlayerControler : MonoBehaviour
                 glideTimer = glideDuration;
 
                 //Messy code for temporary animation
-                this.gameObject.transform.GetChild(0).GetChild(4).GetComponent<MeshRenderer>().enabled = true;
+                modelRenderers[4].enabled = true;
             }
         }
         else if (value.canceled) //Cancelled
@@ -353,7 +346,7 @@ public class PlayerControler : MonoBehaviour
             isGliding = false;
 
             //Messy code for temporary animation
-            this.gameObject.transform.GetChild(0).GetChild(4).GetComponent<MeshRenderer>().enabled = false;
+            modelRenderers[4].enabled = false;
         }
 
     }
@@ -389,13 +382,13 @@ public class PlayerControler : MonoBehaviour
                 Quack.pitch = Random.Range(0.0f, 1.0f);
             }
             Quack.Play(0);
-            this.gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
-            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y - 0.5f, this.gameObject.transform.position.z);
+            transform.localScale = new Vector3(1, 0.5f, 1);
+            transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
         }
         else if (value.canceled) //Cancelled
         {
             //Stop Taunt behaviour
-            this.gameObject.transform.localScale = new Vector3(1, 1, 1);
+            gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
       
     }
@@ -407,17 +400,16 @@ public class PlayerControler : MonoBehaviour
         Debug.Log("Device lost");
 
         //Disconect player
-        Destroy(this.gameObject);//Bad idea but works for now
+        Destroy(gameObject);//Bad idea but works for now
     }
 
     //On initial collision
     void OnCollisionEnter(Collision collision)
     {
-
         //For each collision
-        foreach (ContactPoint contact in collision.contacts)
+        for (var i = 0; i < collision.contacts.Length; i++)
         {
-
+            var contact = collision.contacts[i];
             //If colliding with the object from above
             if (-45 <= Vector3.Angle(Vector3.up, contact.normal) && 45 >= Vector3.Angle(Vector3.up, contact.normal))
             {
@@ -432,9 +424,7 @@ public class PlayerControler : MonoBehaviour
                 {
                     rb.velocity = platform.velocity;
                 }
-
             }
-
         }
     }
 
@@ -442,24 +432,21 @@ public class PlayerControler : MonoBehaviour
     void OnCollisionStay(Collision collision)
     {
         //For each collision
-        foreach (ContactPoint contact in collision.contacts)
+        for (var index = 0; index < collision.contacts.Length; index++)
         {
-
+            var contact = collision.contacts[index];
             //Draw collision normals in gizmos
             Debug.DrawRay(contact.point, contact.normal, Color.white);
-
         }
-
     }
 
     //On leaving collision
     void OnCollisionExit(Collision collision)
     {
-
         //For each collision
-        foreach (ContactPoint contact in collision.contacts)
+        for (var index = 0; index < collision.contacts.Length; index++)
         {
-
+            var contact = collision.contacts[index];
             //If colliding with the object from above
             if (-45 <= Vector3.Angle(Vector3.up, contact.normal) && 45 >= Vector3.Angle(Vector3.up, contact.normal))
             {
@@ -469,7 +456,6 @@ public class PlayerControler : MonoBehaviour
                 relative0 = new Vector3(0.0f, 0.0f, 0.0f);
             }
         }
-
     }
 
     public IEnumerator disableMovement()
@@ -478,7 +464,7 @@ public class PlayerControler : MonoBehaviour
         Debug.Log("Input disabled");
         for (int i = 0; i < 5; i++)
         {
-            if (i < 5 & interacting)
+            if (interacting)
             {
                 yield return new WaitForSeconds(2);
             }

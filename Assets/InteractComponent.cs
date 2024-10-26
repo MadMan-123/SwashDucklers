@@ -52,6 +52,7 @@ public class InteractComponent : MonoBehaviour
 
     void Interact()
     {
+       if(!AreaImIn) return; 
         if (AreaImIn.isStation)
         {
             if (inArea && !AreaImIn.needTool)
