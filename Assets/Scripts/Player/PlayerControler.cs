@@ -323,8 +323,10 @@ public class PlayerControler : MonoBehaviour
             //If on Ground
             if (isGrounded)
             {
+                //calculate force needed to jump to desired height for how everlong the duration is - MW
+                float force = ((2 * jumpPower / jumpDuration) - 9.81f * jumpDuration); 
                 //Start to Jump (Inital jump is more powerful to make the arc nicer)
-                rb.AddForce(0,jumpPower * 1.5f,0);
+                rb.AddForce(0,force * 1.5f,0);
                 isGrounded = false;
                 isJumping = true;
                 jumpTimer = jumpDuration;
