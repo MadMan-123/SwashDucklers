@@ -39,13 +39,13 @@ public class InteractArea : MonoBehaviour
     public void Interact(string tool, GameObject player)
     {
        if (toolUsed == tool && fasterWithTool)
-        {
-            FunctionIDO(true,player);
-        }
-        else
-        {
-            FunctionIDO(false,player);
-        }
+       {
+           FunctionIDO(true,player);
+       }
+       else
+       {
+           FunctionIDO(false,player);
+       }
 
     }
 

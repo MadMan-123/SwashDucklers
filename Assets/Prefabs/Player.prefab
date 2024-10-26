@@ -499,7 +499,7 @@ MonoBehaviour:
   jumpPower: 0.5
   jumpDuration: 0.2
   airControl: 0.1
-  glideDuration: 0.5
+  glideDuration: 0.75
   playerID: 1
   interacting: 0
   Quack: {fileID: -5957354204565098106}
@@ -512,7 +512,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5368657179478143323}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.25
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -528,7 +528,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &3543456042686794598
@@ -750,6 +750,8 @@ MonoBehaviour:
   toolPU: {fileID: 2955794612422327071}
   inArea: 0
   AreaImIn: {fileID: 0}
+  slapForce: 5
+  slapRadius: 0.75
 --- !u!1 &6126699181604521978
 GameObject:
   m_ObjectHideFlags: 0

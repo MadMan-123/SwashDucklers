@@ -17,6 +17,8 @@ public class InteractComponent : MonoBehaviour
     private PlayerControler playerControler;
     private PlayerInput input;
     private InputAction interact;
+    [SerializeField] private float slapForce = 10;
+    [SerializeField] private float slapRadius = 0.75f;
 
     // Start is called before the first frame update
     void Start()
@@ -38,8 +40,14 @@ public class InteractComponent : MonoBehaviour
             //AreaImIn.InteractCancel();
             return;
         }
+        
         playerControler.interacting = true;
 
+        if (!inArea)
+        {
+            Slap();
+            return;
+        }
         if (!String.IsNullOrEmpty(tool))
         {
             Interact(tool);
@@ -48,6 +56,22 @@ public class InteractComponent : MonoBehaviour
         {
             Interact();
         }
+    }
+
+    private void Slap()
+    {
+        Collider[] colliders = new Collider[10];
+        int count = Physics.OverlapSphereNonAlloc(transform.position + transform.forward, slapRadius, colliders);
+        bool canSlapSfx = false;
+        //for each collider in colliders, if can get rigidbody, add force
+        for (int i = 0; i < count; i++)
+        {
+            if (colliders[i].gameObject == gameObject || !colliders[i].TryGetComponent(out Rigidbody rb)) continue;
+            canSlapSfx = true;
+            rb.AddForce(((transform.forward + ((transform.up * 0.1f))) * slapForce ), ForceMode.Impulse);
+        }
+        if(canSlapSfx)
+            AudioManager.PlayAudioClip("Slap",transform.position + transform.forward,1f);
     }
 
     void Interact()
@@ -108,5 +132,16 @@ public class InteractComponent : MonoBehaviour
             tempIndicator.SetActive(true);
             yield return new WaitForSeconds(2);
             tempIndicator.SetActive(false);
+    }
+
+    private void OnDrawGizmos()
+    {
+        //draw the force velocity
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, ((transform.forward + ((transform.up * 0.1f))) * slapForce ));
+        //draw the sphere cast
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position + transform.forward, slapRadius);
+
     }
 }
