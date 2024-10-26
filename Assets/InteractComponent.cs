@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using UnityEngine.InputSystem;
 
 public class InteractComponent : MonoBehaviour
 {
@@ -10,36 +12,41 @@ public class InteractComponent : MonoBehaviour
     [SerializeField] GameObject tempIndicator;
     [SerializeField] GameObject toolPU;
 
-    [SerializeField] public bool inArea;
+    [SerializeField] public bool inArea;    
     [SerializeField] public InteractArea AreaImIn;
-
+    private PlayerControler playerControler;
+    private PlayerInput input;
+    private InputAction interact;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        TryGetComponent(out playerControler);
+        if (TryGetComponent(out input))
+        {
+            interact = input.actions["Interact"];
+            interact.performed += ctx => TryInteract();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void TryInteract()
     {
-        if (Input.GetKeyDown(KeyCode.E) && inArea && !this.gameObject.GetComponent<PlayerControler>().interacting)
+        if (playerControler.interacting)
         {
-            this.gameObject.GetComponent<PlayerControler>().interacting = true;
-            if (tool != null)
-            {
-                Interact(tool);
-            }
-            else
-            {
-                Interact();
-            }
+            playerControler.interacting = false;
+            playerControler.enableMovement();
+            //AreaImIn.InteractCancel();
+            return;
         }
-        else if(Input.GetKeyDown(KeyCode.E) && this.gameObject.GetComponent<PlayerControler>().interacting)
+        playerControler.interacting = true;
+
+        if (!String.IsNullOrEmpty(tool))
         {
-            this.gameObject.GetComponent<PlayerControler>().interacting = false;
-            this.gameObject.GetComponent<PlayerControler>().enableMovement();
-            AreaImIn.InteractCancel();
+            Interact(tool);
+        }
+        else
+        {
+            Interact();
         }
     }
 
@@ -47,22 +54,20 @@ public class InteractComponent : MonoBehaviour
     {
         if (AreaImIn.isStation)
         {
-            if(inArea)
-            if (AreaImIn.needTool == false)
+            if (inArea && !AreaImIn.needTool)
             {
                 AreaImIn.Interact(this.gameObject);
                 StartCoroutine(InteractTimer());
             }
-            else if (AreaImIn.needTool == true)
+            else 
             {
                 WrongTool();
             }
         }
-        if (AreaImIn.isTool)
-        {
-            AreaImIn.Interact(this.gameObject);
-            StartCoroutine(InteractTimer());
-        }
+
+        if (!AreaImIn.isTool) return;
+        AreaImIn.Interact(this.gameObject);
+        StartCoroutine(InteractTimer());
     }
 
     void Interact(string tool)

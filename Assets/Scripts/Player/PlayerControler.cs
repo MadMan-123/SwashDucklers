@@ -100,7 +100,7 @@ public class PlayerControler : MonoBehaviour
         else
         {
             //add direction * acceleration to velocity changed by the air control modifier
-            rb.velocity = rb.velocity + (moveVector * acceleration *airControl);
+            rb.velocity = rb.velocity + (moveVector * (acceleration * airControl));
         }
 
         PrevRelative0 = relative0;

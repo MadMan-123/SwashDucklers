@@ -26,7 +26,7 @@ public class InteractArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.CompareTag("Player"))
         {
             col.gameObject.GetComponent<InteractComponent>().inArea = true;
             col.gameObject.GetComponent<InteractComponent>().AreaImIn = this;
@@ -35,7 +35,7 @@ public class InteractArea : MonoBehaviour
 
     private void OnTriggerExit(Collider col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.CompareTag("Player"))
         {
             col.gameObject.GetComponent<InteractComponent>().inArea = false;
             col.gameObject.GetComponent<InteractComponent>().AreaImIn = null;
