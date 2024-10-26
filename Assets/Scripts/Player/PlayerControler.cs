@@ -11,8 +11,6 @@ using Quaternion = UnityEngine.Quaternion;
 public class PlayerControler : MonoBehaviour
 {
 
-    //Pointer to input system
-    private InputManager input = null;
     private Vector3 moveVector = Vector3.zero;
     private Rigidbody rb = null;
     private bool isGrounded = false;
@@ -21,6 +19,7 @@ public class PlayerControler : MonoBehaviour
     private float jumpTimer;
     private float glideTimer;
     private float glideHeight;
+    private PlayerInput playerInput;
     private Rigidbody platform; //Rigidbody of object player is standing on if there is one
     private Vector3 relative0; //A vector representing 0 relative to whatever platform you are currently on
     private Vector3 PrevRelative0; //A vector representing the last platform you where on
@@ -38,55 +37,13 @@ public class PlayerControler : MonoBehaviour
     //On Awake
     private void Awake()
     {
-        input = new InputManager();
+        //input = new InputManager();
         rb = GetComponent<Rigidbody>();
         relative0 = new Vector3(0.0f, 0.0f, 0.0f);
-    }
 
-    //On Enable
-    private void OnEnable()
-    {
-        //Enable inputs
-        input.Enable();
+        playerInput = GetComponent<PlayerInput>();
+        playerID = playerInput.playerIndex;
 
-        //Movement
-        input.Player.Movement.performed += OnMovementPerformed;
-        input.Player.Movement.canceled += OnMovementCancelled;
-
-        //Jump
-        input.Player.Jump.performed += OnJumpPerformed;
-        input.Player.Jump.canceled += OnJumpCancelled;
-
-        //Interact
-        input.Player.Interact.performed += OnInteractPerformed;
-        input.Player.Interact.canceled += OnInteractCancelled;
-
-        //Taunt
-        input.Player.Taunt.performed += OnTauntPerformed;
-        input.Player.Taunt.canceled += OnTauntCancelled;
-    }
-
-    //On Disable
-    private void OnDisable()
-    {
-        //Disable inputs
-        input.Disable();
-
-        //Movement
-        input.Player.Movement.performed -= OnMovementPerformed;
-        input.Player.Movement.canceled -= OnMovementCancelled;
-
-        //Jump
-        input.Player.Jump.performed -= OnJumpPerformed;
-        input.Player.Jump.canceled -= OnJumpCancelled;
-
-        //Interact
-        input.Player.Interact.performed -= OnInteractPerformed;
-        input.Player.Interact.canceled -= OnInteractCancelled;
-
-        //Taunt
-        input.Player.Taunt.performed -= OnTauntPerformed;
-        input.Player.Taunt.canceled -= OnTauntCancelled;
     }
 
     //On start
@@ -346,95 +303,105 @@ public class PlayerControler : MonoBehaviour
     }
 
     //Movement
-    //Performed
-    private void OnMovementPerformed(InputAction.CallbackContext value)
+    public void OnMovement(InputAction.CallbackContext value)
     {
-        //Setup Movevector to contain direction from input
-        moveVector = value.ReadValue<Vector3>();
+       
+        if (value.performed) //Performed
+        {
+            //Setup Movevector to contain direction from input
+            moveVector = value.ReadValue<Vector3>();
+        }
+        else if (value.canceled) //Cancelled
+        {
 
-    }
-    //Cancelled
-    private void OnMovementCancelled(InputAction.CallbackContext value)
-    {
-        //Setup Movevector to Zero
-        moveVector = Vector3.zero;
+            //Setup Movevector to Zero
+            moveVector = Vector3.zero;
+
+        }
 
     }
 
     //Jump
-    //Performed
-    private void OnJumpPerformed(InputAction.CallbackContext value)
+    public void OnJump(InputAction.CallbackContext value)
     {
-        //Jump behaviour
-        //If on Ground
-        if (isGrounded)
+        if (value.performed) //Performed
         {
-           //Start to Jump (Inital jump is more powerful to make the arc nicer)
-           rb.velocity = rb.velocity + new Vector3(0f, jumpPower * 1.5f, 0f);
-           isGrounded = false;
-           isJumping = true;
-           jumpTimer = jumpDuration;
+            //Jump behaviour
+            //If on Ground
+            if (isGrounded)
+            {
+                //Start to Jump (Inital jump is more powerful to make the arc nicer)
+                rb.velocity = rb.velocity + new Vector3(0f, jumpPower * 1.5f, 0f);
+                isGrounded = false;
+                isJumping = true;
+                jumpTimer = jumpDuration;
+            }
+            else
+            {
+                glideHeight = rb.position.y;
+                isGliding = true;
+                glideTimer = glideDuration;
+
+                //Messy code for temporary animation
+                this.gameObject.transform.GetChild(0).GetChild(4).GetComponent<MeshRenderer>().enabled = true;
+            }
         }
-        else
+        else if (value.canceled) //Cancelled
         {
-            glideHeight = rb.position.y;
-            isGliding = true;
-            glideTimer = glideDuration;
+            //Stop jumping or gliding
+            isJumping = false;
+            isGliding = false;
 
             //Messy code for temporary animation
-            this.gameObject.transform.GetChild(0).GetChild(4).GetComponent<MeshRenderer>().enabled = true;
+            this.gameObject.transform.GetChild(0).GetChild(4).GetComponent<MeshRenderer>().enabled = false;
         }
-        
-    }
-    //Cancelled
-    private void OnJumpCancelled(InputAction.CallbackContext value)
-    {
-        //Stop jumping or gliding
-        isJumping = false;
-        isGliding = false;
 
-        //Messy code for temporary animation
-        this.gameObject.transform.GetChild(0).GetChild(4).GetComponent<MeshRenderer>().enabled = false;
     }
 
     //Interact
-    //Performed
-    private void OnInteractPerformed(InputAction.CallbackContext value)
+    public void OnInteract(InputAction.CallbackContext value)
     {
-        //Interact behaviour
-    }
-    //Cancelled
-    private void OnInteractCancelled(InputAction.CallbackContext value)
-    {
-        //Stop Interact behaviour
+        if (value.performed) //Performed
+        {
+
+            //Interact behaviour
+        }
+        else if (value.canceled) //Cancelled
+        {
+            //Stop Interact behaviour
+        }
+
     }
 
     //Taunt
-    //Performed
-    private void OnTauntPerformed(InputAction.CallbackContext value)
+    public void OnTaunt(InputAction.CallbackContext value)
     {
-        //Taunt behaviour
-        if (Random.Range(1, 1000) < 1000)
+
+        if (value.performed) //Performed
         {
-            Quack.pitch = Random.Range(1.0f, 2.0f);
+            //Taunt behaviour
+            if (Random.Range(1, 1000) < 1000)
+            {
+                Quack.pitch = Random.Range(1.0f, 2.0f);
+            }
+            else
+            {
+                Quack.pitch = Random.Range(0.0f, 1.0f);
+            }
+            Quack.Play(0);
+            this.gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y - 0.5f, this.gameObject.transform.position.z);
         }
-        else
+        else if (value.canceled) //Cancelled
         {
-            Quack.pitch = Random.Range(0.0f, 1.0f);
+            //Stop Taunt behaviour
+            this.gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
-        Quack.Play(0);
-        this.gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
-        this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y - 0.5f, this.gameObject.transform.position.z);
-    }
-    //Cancelled
-    private void OnTauntCancelled(InputAction.CallbackContext value)
-    {
-        //Stop Taunt behaviour
-        this.gameObject.transform.localScale = new Vector3(1, 1, 1);
+      
     }
 
     //Controler disconected
-    private void OnDeviceLost()
+    public void OnDeviceLost()
     {
 
         Debug.Log("Device lost");
@@ -507,7 +474,7 @@ public class PlayerControler : MonoBehaviour
 
     public IEnumerator disableMovement()
     {
-        input.Disable();
+        playerInput.DeactivateInput();
         Debug.Log("Input disabled");
         for (int i = 0; i < 5; i++)
         {
@@ -517,14 +484,14 @@ public class PlayerControler : MonoBehaviour
             }
             else
             {
-                input.Enable();
+                playerInput.ActivateInput();
                 Debug.Log("Input enabled auto");
             }
         }
     }
     public void enableMovement()
     {
-        input.Enable();
+        playerInput.ActivateInput();
         Debug.Log("Input enabled");
     }
 
