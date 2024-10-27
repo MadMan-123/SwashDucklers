@@ -35,6 +35,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] AudioSource Quack;
     [SerializeField] private Transform modelTransform; 
     private MeshRenderer[] modelRenderers;
+    [SerializeField] private Animator animator;
 
     private static readonly int Color1 = Shader.PropertyToID("_Color");
 
@@ -129,6 +130,8 @@ public class PlayerControler : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(moveVector, Vector3.up);
             transform.rotation = rotation;
 
+            animator.SetBool("IsWalking", true);
+
             //Code to come to a stop quicker if diffrent keys are being pressed than current acceleration
             //If moveVector X = 0
             if (moveVector.x == 0)
@@ -199,6 +202,9 @@ public class PlayerControler : MonoBehaviour
         }
         else //If moveVector = 0 then no movement is being provided
         {
+
+            animator.SetBool("IsWalking", false);
+
             //Code to come to a stop quicker if no movement keys are being pressed
             //If velocity X isnt 0
             if (rb.velocity.x != relative0.x)
@@ -303,6 +309,7 @@ public class PlayerControler : MonoBehaviour
         {
             //Setup Move vector to contain direction from input
             moveVector = value.ReadValue<Vector3>();
+
         }
         else if (value.canceled) //Cancelled
         {
