@@ -91,7 +91,7 @@ public class InteractComponent : MonoBehaviour
         }
 
         if (!AreaImIn.isTool) return;
-        AreaImIn.Interact(this.gameObject);
+        AreaImIn.Interact(gameObject);
         StartCoroutine(InteractTimer());
     }
 
@@ -101,12 +101,12 @@ public class InteractComponent : MonoBehaviour
         {
             if (!AreaImIn.needTool)
             {
-                AreaImIn.Interact(tool, this.gameObject);
+                AreaImIn.InteractWithTool(tool, gameObject);
                 StartCoroutine(InteractTimer());
             }
             else if (tool == AreaImIn.toolUsed)
             {
-                AreaImIn.Interact(tool, this.gameObject);
+                AreaImIn.InteractWithTool(tool, gameObject);
                 StartCoroutine(InteractTimer());
             }
             else

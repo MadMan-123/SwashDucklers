@@ -2961,6 +2961,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1331037373}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1384432374 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7233907227822897998, guid: 1984179ec35ac0d42af9a49ae4071556,
+    type: 3}
+  m_PrefabInstance: {fileID: 796881957732853590}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1432320129
 GameObject:
   m_ObjectHideFlags: 0
@@ -3342,6 +3354,21 @@ MonoBehaviour:
   isStation: 0
   toolUsed: 
   PopUp: {fileID: 0}
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1529406050}
+        m_TargetAssemblyTypeName: ToolInteractScript, Assembly-CSharp
+        m_MethodName: SetAndRemoveItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   myTool: Sword
 --- !u!136 &1529406051
 CapsuleCollider:
@@ -3974,6 +4001,21 @@ MonoBehaviour:
   isStation: 1
   toolUsed: Sword
   PopUp: {fileID: 1432320129}
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2014282158}
+        m_TargetAssemblyTypeName: InteractArea, Assembly-CSharp
+        m_MethodName: StartPopUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &2014282159
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4181,6 +4223,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InteractArea(WIP)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7233907227822897998, guid: 1984179ec35ac0d42af9a49ae4071556,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7233907227822897998, guid: 1984179ec35ac0d42af9a49ae4071556,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1384432374}
+    - target: {fileID: 7233907227822897998, guid: 1984179ec35ac0d42af9a49ae4071556,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7233907227822897998, guid: 1984179ec35ac0d42af9a49ae4071556,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartPopUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7233907227822897998, guid: 1984179ec35ac0d42af9a49ae4071556,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InteractArea, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7233907227822897998, guid: 1984179ec35ac0d42af9a49ae4071556,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7799439448300427548, guid: 1984179ec35ac0d42af9a49ae4071556,
         type: 3}

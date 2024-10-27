@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InteractArea : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class InteractArea : MonoBehaviour
 
     [SerializeField] public string toolUsed;
     [SerializeField] GameObject PopUp;
+    [SerializeField] UnityEvent<GameObject,float> OnInteract;
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.CompareTag("Player"))
@@ -36,7 +38,7 @@ public class InteractArea : MonoBehaviour
         FunctionIDO(false, player);
     }
 
-    public void Interact(string tool, GameObject player)
+    public void InteractWithTool(string tool, GameObject player)
     {
        if (toolUsed == tool && fasterWithTool)
        {
@@ -50,13 +52,22 @@ public class InteractArea : MonoBehaviour
     }
 
     //Perhaps we could use a UnityEvent here as so designers and developers can add their own functions to the interactable objects with ease - MW
-    public virtual void FunctionIDO(bool faster, GameObject player)
+    //idk how i feel about the bool faster bit, for now the unity event will hold the speed but may change later - MW
+    private void FunctionIDO(bool faster, GameObject player)
     {
         int speed = faster ? 1 : 3;
-        StartCoroutine(PopUpTest(speed, player));
+        //invoke the event and pass the source object as the player
+        OnInteract?.Invoke(player, speed);
+
     }
 
-    IEnumerator PopUpTest(int sec, GameObject player)
+    public void StartPopUp(GameObject source, float time)
+    {
+        IEnumerator pop = PopUpTest(source, time);
+        StartCoroutine(pop);
+    }
+    
+    IEnumerator PopUpTest(GameObject player, float sec)
     {
         PopUp.SetActive(true);
        StartCoroutine(player.GetComponent<PlayerControler>().disableMovement());
