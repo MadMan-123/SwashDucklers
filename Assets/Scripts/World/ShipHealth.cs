@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ShipHealth : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class ShipHealth : MonoBehaviour
     [SerializeField] float shipHealth;
     [SerializeField] float percentageDamaged;
     [SerializeField] float fillSpeed;
+    float displayhealth;
+    [SerializeField] public TextMeshProUGUI healthText;
+    [SerializeField] float transitionspeed;
     [SerializeField] GameManager gm;
     bool fill=true;
 
@@ -18,8 +23,17 @@ public class ShipHealth : MonoBehaviour
     {
         shipHealth = maxShipHealth;
         shipFilled = 0;
-    }
 
+
+    }
+    
+   void Update()
+    {
+        shipHealth -= fillSpeed * Time.deltaTime;
+       
+        displayhealth = Mathf.MoveTowards(displayhealth, shipHealth,  transitionspeed * Time.deltaTime);
+        UpdateScoreDisplay();
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -52,6 +66,11 @@ public class ShipHealth : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
         fill = true;
+    }
+
+    public void UpdateScoreDisplay()
+    {
+        healthText.text = string.Format("ship health: {0:0}%", displayhealth);
     }
 
     public void EmptyShip(float remove)
