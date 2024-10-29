@@ -70,7 +70,7 @@ public class InteractArea : MonoBehaviour
     IEnumerator PopUpTest(GameObject player, float sec)
     {
         PopUp.SetActive(true);
-       StartCoroutine(player.GetComponent<PlayerControler>().disableMovement());
+        player.GetComponent<PlayerControler>().disableMovement();
         yield return new WaitForSeconds(sec);
         PopUp.SetActive(false);
         player.GetComponent<PlayerControler>().interacting = false;

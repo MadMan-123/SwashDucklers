@@ -25,6 +25,7 @@ public class PlayerControler : MonoBehaviour
     private Vector3 PrevRelative0; //A vector representing the last platform you where on
     [SerializeField] float acceleration;
     [SerializeField] float maxSpeed;
+    [SerializeField] float vMaxSpeed;
     [SerializeField] float deceleration;
     [SerializeField] float jumpPower;
     [SerializeField] float jumpDuration;
@@ -120,7 +121,7 @@ public class PlayerControler : MonoBehaviour
         }
 
         //Make sure velocity doesnt exceed maxSpeed
-        rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, relative0.x - maxSpeed, relative0.x + maxSpeed), rb.velocity.y, Mathf.Clamp(rb.velocity.z, relative0.z - maxSpeed, relative0.z + maxSpeed));
+        rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, relative0.x - maxSpeed, relative0.x + maxSpeed),rb.velocity.y, Mathf.Clamp(rb.velocity.z, relative0.z - maxSpeed, relative0.z + maxSpeed));
 
         //Rotate to face direction moving
         if (moveVector != Vector3.zero)
@@ -465,27 +466,15 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    public IEnumerator disableMovement()
+    public void disableMovement()
     {
         playerInput.DeactivateInput();
         Debug.Log("Input disabled");
-        for (int i = 0; i < 5; i++)
-        {
-            if (interacting)
-            {
-                yield return new WaitForSeconds(2);
-            }
-            else
-            {
-                playerInput.ActivateInput();
-                Debug.Log("Input enabled auto");
-            }
-        }
     }
     public void enableMovement()
     {
         playerInput.ActivateInput();
-        
+        Debug.Log("Input enabled");
     }
 
 }
