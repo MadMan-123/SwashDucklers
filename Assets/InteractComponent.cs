@@ -42,7 +42,9 @@ public class InteractComponent : MonoBehaviour
         }
         
         playerControler.interacting = true;
+        playerControler.animator.SetBool("IsSlapping", true);
 
+        playerControler.animator.CrossFade("Slap", 0.1f);
         if (!inArea)
         {
             Slap();
@@ -56,6 +58,13 @@ public class InteractComponent : MonoBehaviour
         {
             Interact();
         }
+        //Reset the flag
+        Invoke(nameof(ResetSlapAnim), 0.5f);
+    }
+
+    private void ResetSlapAnim()
+    {
+        playerControler.animator.SetBool("IsSlapping", false);
     }
 
     private void Slap()

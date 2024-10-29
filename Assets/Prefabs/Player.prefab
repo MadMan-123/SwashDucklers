@@ -757,7 +757,7 @@ MonoBehaviour:
   acceleration: 3
   maxSpeed: 5
   deceleration: 2
-  jumpPower: 0.5
+  jumpPower: 0.45
   jumpDuration: 0.2
   airControl: 0.1
   glideDuration: 0.75
@@ -808,6 +808,7 @@ MonoBehaviour:
   m_Actions: {fileID: -944628639613478452, guid: 42114e03210b63947af24185b68f6441,
     type: 3}
   m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls:

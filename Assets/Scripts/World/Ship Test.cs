@@ -28,7 +28,7 @@ public class Shiptest : MonoBehaviour
         //Clamp speed to Maxspeed
         rb.velocity = new Vector3(0.0f,0.0f, Mathf.Clamp(rb.velocity.z, -maxSpeed, maxSpeed));
 
-        Vector3 euler = transform.rotation.eulerAngles;
+/*        Vector3 euler = transform.rotation.eulerAngles;
         
         //Fix rotation
         
@@ -36,7 +36,7 @@ public class Shiptest : MonoBehaviour
         {
             rb.rotation = Quaternion.Euler(0.0f, 0.0f, Mathf.Clamp(rb.velocity.z, -maxSpeed, maxSpeed));
 
-        }
+        }*/
         //when at max go up
 
     }

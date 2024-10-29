@@ -34,8 +34,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] public bool interacting;
     [SerializeField] AudioSource Quack;
     [SerializeField] private Transform modelTransform; 
-    private MeshRenderer[] modelRenderers;
-    [SerializeField] private Animator animator;
+    public Animator animator;
 
     private static readonly int Color1 = Shader.PropertyToID("_Color");
 
@@ -51,7 +50,6 @@ public class PlayerControler : MonoBehaviour
         
         // Cache model renderers
         modelTransform = transform.GetChild(0);
-        modelRenderers = modelTransform.GetComponentsInChildren<MeshRenderer>();
 
     }
 
@@ -75,10 +73,7 @@ public class PlayerControler : MonoBehaviour
             case 3: primaryColor = Color.white; break;
         }
 
-        for (int i = 0; i < modelRenderers.Length; i++)
-        {
-            modelRenderers[i].material.SetColor(Color1, i % 2 == 0 ? primaryColor : secondaryColor);
-        }
+
     }
     //FixedUpdate
     void FixedUpdate()
@@ -87,11 +82,14 @@ public class PlayerControler : MonoBehaviour
         //If on the ground
         if (isGrounded)
         {
+
             //add direction * acceleration to velocity
             rb.velocity += (moveVector * acceleration);
         }
         else
         {
+
+
             //add direction * acceleration to velocity changed by the air control modifier
             rb.velocity += (moveVector * (acceleration * airControl));
         }
@@ -130,7 +128,9 @@ public class PlayerControler : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(moveVector, Vector3.up);
             transform.rotation = rotation;
 
-            animator.SetBool("IsWalking", true);
+            if(!animator.GetBool("IsWalking") )
+                //animator.CrossFade("IsWalking")
+                animator.SetBool("IsWalking", true);
 
             //Code to come to a stop quicker if diffrent keys are being pressed than current acceleration
             //If moveVector X = 0
@@ -202,8 +202,10 @@ public class PlayerControler : MonoBehaviour
         }
         else //If moveVector = 0 then no movement is being provided
         {
-
+            if(!animator.GetBool("IsSlapping"))
+                animator.CrossFade("Idle", 0.1f);
             animator.SetBool("IsWalking", false);
+            
 
             //Code to come to a stop quicker if no movement keys are being pressed
             //If velocity X isnt 0
@@ -280,6 +282,8 @@ public class PlayerControler : MonoBehaviour
                 isJumping = false;
                 jumpTimer = jumpDuration;
             }
+
+
         }
         if (isGliding)
         {
@@ -293,9 +297,6 @@ public class PlayerControler : MonoBehaviour
                 isGliding = false;
                 glideTimer = glideDuration;
 
-                //Messy code for temporary animation
-                //every GetComponent is expensive (not too much but it will stack eventually), cache it -MW
-                modelRenderers[4].enabled = false;
             }
         }
 
@@ -330,6 +331,8 @@ public class PlayerControler : MonoBehaviour
             //If on Ground
             if (isGrounded)
             {
+                animator.CrossFade("Jump", 0.1f);
+
                 //calculate force needed to jump to desired height for how everlong the duration is - MW
                 float force = ((2 * jumpPower / jumpDuration) - 9.81f * jumpDuration); 
                 //Start to Jump (Inital jump is more powerful to make the arc nicer)
@@ -343,9 +346,6 @@ public class PlayerControler : MonoBehaviour
                 glideHeight = rb.position.y;
                 isGliding = true;
                 glideTimer = glideDuration;
-
-                //Messy code for temporary animation
-                modelRenderers[4].enabled = true;
             }
         }
         else if (value.canceled) //Cancelled
@@ -354,8 +354,6 @@ public class PlayerControler : MonoBehaviour
             isJumping = false;
             isGliding = false;
 
-            //Messy code for temporary animation
-            modelRenderers[4].enabled = false;
         }
 
     }
@@ -424,7 +422,7 @@ public class PlayerControler : MonoBehaviour
             {
                 //The player is now grounded
                 isGrounded = true;
-
+                
                 //Check if ground is a rigidbody
                 platform = collision.gameObject.GetComponent<Rigidbody>();
 
@@ -487,7 +485,7 @@ public class PlayerControler : MonoBehaviour
     public void enableMovement()
     {
         playerInput.ActivateInput();
-        Debug.Log("Input enabled");
+        
     }
 
 }
