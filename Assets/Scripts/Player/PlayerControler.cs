@@ -466,15 +466,15 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    public void disableMovement()
+    public void DisableMovment()
     {
         playerInput.DeactivateInput();
-        Debug.Log("Input disabled");
+        //Debug.Log("Input disabled"); 
     }
-    public void enableMovement()
+    public void EnableMovement()
     {
         playerInput.ActivateInput();
-        Debug.Log("Input enabled");
+        //Debug.Log("Input enabled");
     }
 
 }

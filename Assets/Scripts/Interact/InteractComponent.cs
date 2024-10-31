@@ -36,7 +36,7 @@ public class InteractComponent : MonoBehaviour
         if (playerControler.interacting)
         {
             playerControler.interacting = false;
-            playerControler.enableMovement();
+            playerControler.EnableMovement();
             //AreaImIn.InteractCancel();
             return;
         }
@@ -80,7 +80,7 @@ public class InteractComponent : MonoBehaviour
             rb.AddForce(((transform.forward + ((transform.up * 0.1f))) * slapForce ), ForceMode.Impulse);
         }
         if(canSlapSfx)
-            AudioManager.PlayAudioClip("Slap",transform.position + transform.forward,1f);
+            SoundManager.PlayAudioClip("Slap",transform.position + transform.forward,1f);
     }
 
     void Interact()

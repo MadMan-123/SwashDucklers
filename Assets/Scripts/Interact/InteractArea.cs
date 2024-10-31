@@ -40,18 +40,13 @@ public class InteractArea : MonoBehaviour
 
     public void InteractWithTool(string tool, GameObject player)
     {
-       if (toolUsed == tool && fasterWithTool)
-       {
-           FunctionIDO(true,player);
-       }
-       else
-       {
-           FunctionIDO(false,player);
-       }
-
+        //was looking over this and saw that the if condition could just be thrown into the functionIDO - MW
+        FunctionIDO(
+            toolUsed == tool && fasterWithTool,
+            player
+        );
     }
 
-    //Perhaps we could use a UnityEvent here as so designers and developers can add their own functions to the interactable objects with ease - MW
     //idk how i feel about the bool faster bit, for now the unity event will hold the speed but may change later - MW
     private void FunctionIDO(bool faster, GameObject player)
     {
@@ -69,12 +64,14 @@ public class InteractArea : MonoBehaviour
     
     IEnumerator PopUpTest(GameObject player, float sec)
     {
+        player.TryGetComponent(out Health health);
+        health.TakeDamage(10);
         PopUp.SetActive(true);
-        player.GetComponent<PlayerControler>().disableMovement();
+        player.GetComponent<PlayerControler>().DisableMovment();
         yield return new WaitForSeconds(sec);
         PopUp.SetActive(false);
         player.GetComponent<PlayerControler>().interacting = false;
-        player.GetComponent<PlayerControler>().enableMovement();
+        player.GetComponent<PlayerControler>().EnableMovement();
     }
 
     public void InteractCancel()

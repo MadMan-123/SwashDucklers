@@ -21,7 +21,7 @@ public class KillZone : MonoBehaviour
     IEnumerator ShootBackToDeck(GameObject player)
     {
         
-        player.GetComponent<PlayerControler>().disableMovement();
+        player.GetComponent<PlayerControler>().DisableMovment();
         Rigidbody rb = player.GetComponent<Rigidbody>();
         //rb.constraints = RigidbodyConstraints.FreezePosition;
         yield return new WaitForSeconds(1);
@@ -32,6 +32,6 @@ public class KillZone : MonoBehaviour
         rb.MovePosition(new Vector3(CentrePoint.transform.position.x, player.transform.position.y, CentrePoint.transform.position.z));
         player.transform.position = new Vector3(CentrePoint.transform.position.x, player.transform.position.y ,CentrePoint.transform.position.z);
         yield return new WaitForSeconds(10);
-        player.GetComponent<PlayerControler>().enableMovement();
+        player.GetComponent<PlayerControler>().EnableMovement();
     }
 }
