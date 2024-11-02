@@ -19,8 +19,8 @@ public class ShipHealth : MonoBehaviour
     [SerializeField] GameManager gm;
     [SerializeField] GameObject ship;
     float currentShipHeight;
-    float maxShipHeight = -0.5f;
-    float minShipHeight = -8.5f;
+    [SerializeField]float maxShipHeight = 0f;
+    [SerializeField] float minShipHeight = -6.5f;
     bool fill=true;
 
     // Start is called before the first frame update
@@ -60,20 +60,20 @@ public class ShipHealth : MonoBehaviour
     public void RepairShip(int repair)
     {
         shipHealth = Mathf.Clamp(shipHealth + repair, 0, maxShipHealth);
-        percentageDamaged = 100-(Mathf.Lerp(shipHealth, 0, maxShipHealth) * 100);
+        percentageDamaged = Mathf.Clamp(100-(Mathf.Lerp(shipHealth, 0, maxShipHealth) * 100),0, 100);
     }
 
     IEnumerator FillShip()
     {
         fillSpeed = percentageDamaged / fillRate;
-        shipFilled=shipFilled + Mathf.Clamp(fillSpeed,0,100);
+        shipFilled= Mathf.Clamp((shipFilled + fillSpeed),0,100);
         if (shipFilled == 100)
         {
             gm.gameOver = true;
         }
         yield return new WaitForSeconds(0.25f);
         fill = true;
-        currentShipHeight = Mathf.Clamp((Mathf.Lerp(0,1,shipFilled/100)* -6.5f),-6.5f, 0);
+        currentShipHeight = Mathf.Clamp((Mathf.Lerp(0,1,shipFilled/100)* minShipHeight),minShipHeight, maxShipHeight);
         ship.transform.position = new Vector3(ship.transform.position.x,currentShipHeight,ship.transform.position.z);
     }
 
