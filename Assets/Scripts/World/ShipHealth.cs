@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.InputSystem.XR.Haptics;
 
 public class ShipHealth : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class ShipHealth : MonoBehaviour
     [SerializeField] public TextMeshProUGUI healthText;
     [SerializeField] float transitionspeed;
     [SerializeField] GameManager gm;
+    [SerializeField] GameObject ship;
+    float currentShipHeight;
+    float maxShipHeight = -0.5f;
+    float minShipHeight = -8.5f;
     bool fill=true;
 
     // Start is called before the first frame update
@@ -29,19 +34,21 @@ public class ShipHealth : MonoBehaviour
     
    void Update()
     {
-        shipHealth -= fillSpeed * Time.deltaTime;
-       
-        displayhealth = Mathf.MoveTowards(displayhealth, shipHealth,  transitionspeed * Time.deltaTime);
-        UpdateScoreDisplay();
+        //dont know what the belows for really
+        //shipHealth -= fillSpeed * Time.deltaTime;
+      
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(percentageDamaged != 0 && fill)
+        if (shipHealth != 0 && fill && gm.gameOver == false)
         {
             StartCoroutine(FillShip());
             fill = false;
         }
+
+        displayhealth = Mathf.MoveTowards(displayhealth, shipHealth, transitionspeed * Time.deltaTime);
+        UpdateScoreDisplay();
     }
 
     public void DamageShip(int damage)
@@ -64,8 +71,10 @@ public class ShipHealth : MonoBehaviour
         {
             gm.gameOver = true;
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         fill = true;
+        currentShipHeight = Mathf.Clamp((Mathf.Lerp(0,1,shipFilled/100)* -6.5f),-6.5f, 0);
+        ship.transform.position = new Vector3(ship.transform.position.x,currentShipHeight,ship.transform.position.z);
     }
 
     public void UpdateScoreDisplay()
