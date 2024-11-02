@@ -86,4 +86,14 @@ public class ShipHealth : MonoBehaviour
     {
         shipFilled = Mathf.Clamp(0,100,remove);
     }
+
+
+    public void bucket()
+    {
+        if (shipFilled > 10 && shipFilled < 100)
+        {
+            shipFilled -= 10;
+        }
+    }
 }
+
