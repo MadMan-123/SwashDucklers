@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.InputSystem.XR.Haptics;
 
 public class ShipHealth : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class ShipHealth : MonoBehaviour
     [SerializeField] public TextMeshProUGUI healthText;
     [SerializeField] float transitionspeed;
     [SerializeField] GameManager gm;
+    [SerializeField] GameObject ship;
+    float currentShipHeight;
+    [SerializeField]float maxShipHeight = 0f;
+    [SerializeField] float minShipHeight = -6.5f;
     bool fill=true;
 
     // Start is called before the first frame update
@@ -29,19 +34,21 @@ public class ShipHealth : MonoBehaviour
     
    void Update()
     {
-        shipHealth -= fillSpeed * Time.deltaTime;
-       
-        displayhealth = Mathf.MoveTowards(displayhealth, shipHealth,  transitionspeed * Time.deltaTime);
-        UpdateScoreDisplay();
+        //dont know what the belows for really
+        //shipHealth -= fillSpeed * Time.deltaTime;
+      
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(percentageDamaged != 0 && fill)
+        if (shipHealth != 0 && fill && gm.gameOver == false)
         {
             StartCoroutine(FillShip());
             fill = false;
         }
+
+        displayhealth = Mathf.MoveTowards(displayhealth, shipHealth, transitionspeed * Time.deltaTime);
+        UpdateScoreDisplay();
     }
 
     public void DamageShip(int damage)
@@ -53,19 +60,21 @@ public class ShipHealth : MonoBehaviour
     public void RepairShip(int repair)
     {
         shipHealth = Mathf.Clamp(shipHealth + repair, 0, maxShipHealth);
-        percentageDamaged = 100-(Mathf.Lerp(shipHealth, 0, maxShipHealth) * 100);
+        percentageDamaged = Mathf.Clamp(100-(Mathf.Lerp(shipHealth, 0, maxShipHealth) * 100),0, 100);
     }
 
     IEnumerator FillShip()
     {
         fillSpeed = percentageDamaged / fillRate;
-        shipFilled=shipFilled + Mathf.Clamp(fillSpeed,0,100);
+        shipFilled= Mathf.Clamp((shipFilled + fillSpeed),0,100);
         if (shipFilled == 100)
         {
             gm.gameOver = true;
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         fill = true;
+        currentShipHeight = Mathf.Clamp((Mathf.Lerp(0,1,shipFilled/100)* minShipHeight),minShipHeight, maxShipHeight);
+        ship.transform.position = new Vector3(ship.transform.position.x,currentShipHeight,ship.transform.position.z);
     }
 
     public void UpdateScoreDisplay()
@@ -77,4 +86,14 @@ public class ShipHealth : MonoBehaviour
     {
         shipFilled = Mathf.Clamp(0,100,remove);
     }
+
+
+    public void bucket()
+    {
+        if (shipFilled > 10 && shipFilled < 100)
+        {
+            shipFilled -= 10;
+        }
+    }
 }
+
