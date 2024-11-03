@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[Serializable]
 public class InteractArea : MonoBehaviour
 {
     [SerializeField] public bool needTool;
@@ -13,14 +15,27 @@ public class InteractArea : MonoBehaviour
 
 
     [SerializeField] public string toolUsed;
-    [SerializeField] GameObject PopUp;
     [SerializeField] UnityEvent<GameObject,float> OnInteract;
+    [SerializeField] private InteractComponent currentInteractable;
+    [SerializeField] private PlayerControler currentController;
+    
+    [SerializeField] public string TaskName;
+    [SerializeField] private int toolTime = 2;
+    [SerializeField] private int regularTime = 4;
+
+
+    private void Start()
+    {
+    }
+
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Player") && 
+            col.TryGetComponent(out currentInteractable) && 
+            col.TryGetComponent(out currentController))
         {
-            col.gameObject.GetComponent<InteractComponent>().inArea = true;
-            col.gameObject.GetComponent<InteractComponent>().AreaImIn = this;
+            currentInteractable.inArea = true;
+            currentInteractable.AreaImIn = this;
         }
     }
 
@@ -28,55 +43,59 @@ public class InteractArea : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            col.gameObject.GetComponent<InteractComponent>().inArea = false;
-            col.gameObject.GetComponent<InteractComponent>().AreaImIn = null;
+            currentInteractable.inArea = false;
+            currentInteractable.AreaImIn = null;
+            currentInteractable = null;
+            currentController = null;
         }
     }
 
+    public void CheckTask()
+    {
+        if(TaskName != "")
+        {
+            TaskManager.instance.CompleteTask(TaskName);
+            
+            //if the task is completed, and we are a dynamic object then return the object to the pool
+            if (!TaskManager.TaskHashMap[TaskName].isStatic)
+            {
+                TaskManager.TaskHashMap[TaskName].isCompleted = false;
+            }
+            
+            TaskManager.instance.ReturnTask(gameObject);
+        }
+    }
     public void Interact(GameObject player)
     {
-        FunctionIDO(false, player);
+        CheckTask(); 
+        OnInteract?.Invoke(player,regularTime);
     }
 
     public void InteractWithTool(string tool, GameObject player)
     {
-        //was looking over this and saw that the if condition could just be thrown into the functionIDO - MW
-        FunctionIDO(
-            toolUsed == tool && fasterWithTool,
-            player
-        );
-    }
-
-    //idk how i feel about the bool faster bit, for now the unity event will hold the speed but may change later - MW
-    private void FunctionIDO(bool faster, GameObject player)
-    {
-        int speed = faster ? 1 : 3;
+        CheckTask();
+        var time = toolUsed == tool && fasterWithTool ? regularTime : toolTime;
         //invoke the event and pass the source object as the player
-        OnInteract?.Invoke(player, speed);
-
+        OnInteract?.Invoke(player, time);
     }
 
-    public void StartPopUp(GameObject source, float time)
+    public void DisableAndReEnable(GameObject source, float time)
     {
-        IEnumerator pop = PopUpTest(source, time);
-        StartCoroutine(pop);
+        var routine = _DisableAndReEnable(source, time);
+        StartCoroutine(routine);
     }
     
-    IEnumerator PopUpTest(GameObject player, float sec)
+    private IEnumerator _DisableAndReEnable(GameObject player, float sec)
     {
-        player.TryGetComponent(out Health health);
-        health.TakeDamage(10);
-        PopUp.SetActive(true);
-        player.GetComponent<PlayerControler>().DisableMovment();
+        if(!currentController) yield break;
+        currentController.DisableMovement();
+        currentController.rb.velocity = Vector3.zero;
         yield return new WaitForSeconds(sec);
-        PopUp.SetActive(false);
-        player.GetComponent<PlayerControler>().interacting = false;
-        player.GetComponent<PlayerControler>().EnableMovement();
+        currentController.EnableMovement();
     }
 
     public void InteractCancel()
     {
         StopAllCoroutines();
-        PopUp.gameObject.SetActive(false);
     }
 }

@@ -19,6 +19,8 @@ public class InteractComponent : MonoBehaviour
     private InputAction interact;
     [SerializeField] private float slapForce = 10;
     [SerializeField] private float slapRadius = 0.75f;
+    [SerializeField] private float howMuchUp = 0.125f;
+    [SerializeField] private float slapDamage = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -75,9 +77,17 @@ public class InteractComponent : MonoBehaviour
         //for each collider in colliders, if can get rigidbody, add force
         for (int i = 0; i < count; i++)
         {
+            float extraForce = 0f;
             if (colliders[i].gameObject == gameObject || !colliders[i].TryGetComponent(out Rigidbody rb)) continue;
             canSlapSfx = true;
-            rb.AddForce(((transform.forward + ((transform.up * 0.1f))) * slapForce ), ForceMode.Impulse);
+            if (colliders[i].TryGetComponent(out Health health))
+            {
+                health.TakeDamage(slapDamage);
+                extraForce = health.GetHealth();
+            }
+            
+            rb.AddForce(((transform.forward ) * (slapForce + extraForce) )+ ((transform.up * howMuchUp) * slapForce / 5), ForceMode.Impulse);
+            
         }
         if(canSlapSfx)
             SoundManager.PlayAudioClip("Slap",transform.position + transform.forward,1f);
@@ -85,23 +95,25 @@ public class InteractComponent : MonoBehaviour
 
     void Interact()
     {
-       if(!AreaImIn) return; 
-        if (AreaImIn.isStation)
-        {
-            if (inArea && !AreaImIn.needTool)
-            {
-                AreaImIn.Interact(this.gameObject);
-                StartCoroutine(InteractTimer());
-            }
-            else 
-            {
-                WrongTool();
-            }
-        }
+       if(!AreaImIn ) return;
+       var task = TaskManager.TaskHashMap[AreaImIn.TaskName];
+       if (task is { isCompleted: true }) return;
+       if (AreaImIn.isStation)
+       {
+           if (inArea && !AreaImIn.needTool)
+           {
+               AreaImIn.Interact(gameObject);
+               StartCoroutine(InteractTimer());
+           }
+           else
+           {
+               WrongTool();
+           }
+       }
 
-        if (!AreaImIn.isTool) return;
-        AreaImIn.Interact(gameObject);
-        StartCoroutine(InteractTimer());
+       if (!AreaImIn.isTool) return;
+       AreaImIn.Interact(gameObject);
+       StartCoroutine(InteractTimer());
     }
 
     void Interact(string tool)

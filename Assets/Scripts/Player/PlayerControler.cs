@@ -12,7 +12,7 @@ public class PlayerControler : MonoBehaviour
 {
 
     private Vector3 moveVector = Vector3.zero;
-    private Rigidbody rb = null;
+    public Rigidbody rb = null;
     private bool isGrounded = false;
     private bool isJumping = true;
     private bool isGliding = false;
@@ -36,6 +36,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] AudioSource Quack;
     [SerializeField] private Transform modelTransform; 
     public Animator animator;
+    public bool canMove = true;
 
     private static readonly int Color1 = Shader.PropertyToID("_Color");
 
@@ -79,64 +80,144 @@ public class PlayerControler : MonoBehaviour
     //FixedUpdate
     void FixedUpdate()
     {
-
-        //If on the ground
-        if (isGrounded)
+        if (canMove)
         {
-
-            //add direction * acceleration to velocity
-            rb.velocity += (moveVector * acceleration);
-        }
-        else
-        {
-
-
-            //add direction * acceleration to velocity changed by the air control modifier
-            rb.velocity += (moveVector * (acceleration * airControl));
-        }
-
-        PrevRelative0 = relative0;
-
-        //If on moving object
-        if (platform != null)
-        {
-
-            //Find 0 velocity relative to current platform
-            relative0 = platform.velocity;
-            
-        }
-        else
-        {
-            //Relative 0 is just 0
-            relative0 = new Vector3(0.0f,0.0f,0.0f);
-
-        }
-
-        //If platform has changed, or changed direction
-        if (PrevRelative0 != relative0)
-        {
-            //Remove speed of old patform and replace with speed of new platform
-            rb.velocity -= PrevRelative0;
-            rb.velocity += relative0;
-        }
-
-        //Make sure velocity doesnt exceed maxSpeed
-        rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, relative0.x - maxSpeed, relative0.x + maxSpeed),rb.velocity.y, Mathf.Clamp(rb.velocity.z, relative0.z - maxSpeed, relative0.z + maxSpeed));
-
-        //Rotate to face direction moving
-        if (moveVector != Vector3.zero)
-        {
-            Quaternion rotation = Quaternion.LookRotation(moveVector, Vector3.up);
-            transform.rotation = rotation;
-
-            if(!animator.GetBool("IsWalking") )
-                //animator.CrossFade("IsWalking")
-                animator.SetBool("IsWalking", true);
-
-            //Code to come to a stop quicker if diffrent keys are being pressed than current acceleration
-            //If moveVector X = 0
-            if (moveVector.x == 0)
+            //If on the ground
+            if (isGrounded)
             {
+
+                //add direction * acceleration to velocity
+                rb.velocity += (moveVector * acceleration);
+            }
+            else
+            {
+
+
+                //add direction * acceleration to velocity changed by the air control modifier
+                rb.velocity += (moveVector * (acceleration * airControl));
+            }
+
+            PrevRelative0 = relative0;
+
+            //If on moving object
+            if (platform != null)
+            {
+
+                //Find 0 velocity relative to current platform
+                relative0 = platform.velocity;
+
+            }
+            else
+            {
+                //Relative 0 is just 0
+                relative0 = new Vector3(0.0f, 0.0f, 0.0f);
+
+            }
+
+            //If platform has changed, or changed direction
+            if (PrevRelative0 != relative0)
+            {
+                //Remove speed of old patform and replace with speed of new platform
+                rb.velocity -= PrevRelative0;
+                rb.velocity += relative0;
+            }
+
+
+            //Make sure velocity doesnt exceed maxSpeed
+            rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, relative0.x - maxSpeed, relative0.x + maxSpeed),
+                rb.velocity.y, Mathf.Clamp(rb.velocity.z, relative0.z - maxSpeed, relative0.z + maxSpeed));
+
+            //Rotate to face direction moving
+            if (moveVector != Vector3.zero && canMove)
+            {
+                Quaternion rotation = Quaternion.LookRotation(moveVector, Vector3.up);
+                transform.rotation = rotation;
+
+                if (!animator.GetBool("IsWalking"))
+                    //animator.CrossFade("IsWalking")
+                    animator.SetBool("IsWalking", true);
+
+                //Code to come to a stop quicker if diffrent keys are being pressed than current acceleration
+                //If moveVector X = 0
+                if (moveVector.x == 0)
+                {
+                    //If velocity X isnt 0
+                    if (rb.velocity.x != relative0.x)
+                    {
+                        //If Velocity X is positive
+                        if (Mathf.Sign(rb.velocity.x) == 1)
+                        {
+                            //Lower velocity by deceleration value
+                            rb.velocity = rb.velocity - new Vector3(deceleration, 0.0f, 0.0f);
+
+                            //If lowered below 0
+                            if (rb.velocity.x < relative0.x)
+                            {
+                                //Set X value to 0
+                                rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
+                                ;
+                            }
+                        }
+                        else //If Velocity X is Negative
+                        {
+                            //Lower velocity by deceleration value
+                            rb.velocity += new Vector3(deceleration, 0.0f, 0.0f);
+
+                            //If raised below 0
+                            if (rb.velocity.x > relative0.x)
+                            {
+                                //Set X value to 0
+                                rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
+                                ;
+                            }
+                        }
+                    }
+                }
+
+                //If moveVector Z = 0
+                if (moveVector.z == 0)
+                {
+                    //If velocity Z isnt 0
+                    if (rb.velocity.z != relative0.z)
+                    {
+                        //If Velocity z is positive
+                        if (Mathf.Sign(rb.velocity.z) == 1)
+                        {
+                            //Lower velocity by deceleration value
+                            rb.velocity = rb.velocity - new Vector3(0.0f, 0.0f, deceleration);
+
+                            //If lowered below 0
+                            if (rb.velocity.z < relative0.z)
+                            {
+                                //Set z value to 0
+                                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
+                                ;
+                            }
+                        }
+                        else //If Velocity Z is Negative
+                        {
+                            //Lower velocity by deceleration value
+                            rb.velocity = rb.velocity + new Vector3(0.0f, 0.0f, deceleration);
+
+                            //If raised above 0
+                            if (rb.velocity.z < 0f)
+                            {
+                                //Set z value to 0
+                                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
+                                ;
+                            }
+                        }
+                    }
+                }
+            }
+            else //If moveVector = 0 then no movement is being provided
+            {
+                if (!animator.GetBool("IsSlapping"))
+                    animator.CrossFade("Idle", 0.1f);
+                animator.SetBool("IsWalking", false);
+
+
+                //Code to come to a stop quicker if no movement keys are being pressed
                 //If velocity X isnt 0
                 if (rb.velocity.x != relative0.x)
                 {
@@ -150,26 +231,25 @@ public class PlayerControler : MonoBehaviour
                         if (rb.velocity.x < relative0.x)
                         {
                             //Set X value to 0
-                            rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z); ;
+                            rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
+                            ;
                         }
                     }
-                    else  //If Velocity X is Negative
+                    else //If Velocity X is Negative
                     {
                         //Lower velocity by deceleration value
-                        rb.velocity += new Vector3(deceleration, 0.0f, 0.0f);
+                        rb.velocity = rb.velocity + new Vector3(deceleration, 0.0f, 0.0f);
 
                         //If raised below 0
                         if (rb.velocity.x > relative0.x)
                         {
                             //Set X value to 0
-                            rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z); ;
+                            rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
+                            ;
                         }
                     }
                 }
-            }
-            //If moveVector Z = 0
-            if (moveVector.z == 0)
-            {
+
                 //If velocity Z isnt 0
                 if (rb.velocity.z != relative0.z)
                 {
@@ -183,95 +263,28 @@ public class PlayerControler : MonoBehaviour
                         if (rb.velocity.z < relative0.z)
                         {
                             //Set z value to 0
-                            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z); ;
+                            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
+                            ;
                         }
                     }
-                    else  //If Velocity Z is Negative
+                    else //If Velocity Z is Negative
                     {
                         //Lower velocity by deceleration value
                         rb.velocity = rb.velocity + new Vector3(0.0f, 0.0f, deceleration);
 
                         //If raised above 0
-                        if (rb.velocity.z < 0f)
+                        if (rb.velocity.z < relative0.z)
                         {
                             //Set z value to 0
-                            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z); ;
+                            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
+                            ;
                         }
                     }
                 }
             }
         }
-        else //If moveVector = 0 then no movement is being provided
-        {
-            if(!animator.GetBool("IsSlapping"))
-                animator.CrossFade("Idle", 0.1f);
-            animator.SetBool("IsWalking", false);
-            
-
-            //Code to come to a stop quicker if no movement keys are being pressed
-            //If velocity X isnt 0
-            if (rb.velocity.x != relative0.x)
-            {
-                //If Velocity X is positive
-                if (Mathf.Sign(rb.velocity.x) == 1)
-                {
-                    //Lower velocity by deceleration value
-                    rb.velocity = rb.velocity - new Vector3(deceleration, 0.0f, 0.0f);
-
-                    //If lowered below 0
-                    if (rb.velocity.x < relative0.x)
-                    {
-                        //Set X value to 0
-                        rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z); ;
-                    }
-                }
-                else  //If Velocity X is Negative
-                {
-                    //Lower velocity by deceleration value
-                    rb.velocity = rb.velocity + new Vector3(deceleration, 0.0f, 0.0f);
-
-                    //If raised below 0
-                    if (rb.velocity.x > relative0.x)
-                    {
-                        //Set X value to 0
-                        rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z); ;
-                    }
-                }
-            }
-
-            //If velocity Z isnt 0
-            if (rb.velocity.z != relative0.z)
-            {
-                //If Velocity z is positive
-                if (Mathf.Sign(rb.velocity.z) == 1)
-                {
-                    //Lower velocity by deceleration value
-                    rb.velocity = rb.velocity - new Vector3(0.0f, 0.0f, deceleration);
-
-                    //If lowered below 0
-                    if (rb.velocity.z < relative0.z)
-                    {
-                        //Set z value to 0
-                        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z); ;
-                    }
-                }
-                else  //If Velocity Z is Negative
-                {
-                    //Lower velocity by deceleration value
-                    rb.velocity = rb.velocity + new Vector3(0.0f, 0.0f, deceleration);
-
-                    //If raised above 0
-                    if (rb.velocity.z < relative0.z)
-                    {
-                        //Set z value to 0
-                        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z); ;
-                    }
-                }
-            }
-        }
-
         //Jumping
-        if (isJumping)
+        /*if (isJumping)
         {
             //Continue to jump
             rb.velocity = rb.velocity + new Vector3(relative0.x, jumpPower, relative0.z);
@@ -299,7 +312,7 @@ public class PlayerControler : MonoBehaviour
                 glideTimer = glideDuration;
 
             }
-        }
+        }*/
 
     }
 
@@ -307,7 +320,7 @@ public class PlayerControler : MonoBehaviour
     public void OnMovement(InputAction.CallbackContext value)
     {
        
-        if (value.performed) //Performed
+        if (value.performed && canMove) //Performed
         {
             //Setup Move vector to contain direction from input
             moveVector = value.ReadValue<Vector3>();
@@ -326,7 +339,7 @@ public class PlayerControler : MonoBehaviour
     //Jump
     public void OnJump(InputAction.CallbackContext value)
     {
-        if (value.performed) //Performed
+        /*if (value.performed) //Performed
         {
             //Jump behaviour
             //If on Ground
@@ -355,7 +368,7 @@ public class PlayerControler : MonoBehaviour
             isJumping = false;
             isGliding = false;
 
-        }
+        }*/
 
     }
 
@@ -466,15 +479,17 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    public void DisableMovment()
+    public void DisableMovement()
     {
-        playerInput.DeactivateInput();
+        //playerInput.DeactivateInput(); // for the pump we want to read if the player is mashing the button
         //Debug.Log("Input disabled"); 
+        canMove = false; //new implementation
     }
     public void EnableMovement()
     {
-        playerInput.ActivateInput();
+        //playerInput.ActivateInput();
         //Debug.Log("Input enabled");
+        canMove = true;
     }
 
 }

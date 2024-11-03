@@ -40,6 +40,9 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
         healthText.text = $"{gameObject.name} Health: {health}%"; //updating the text 
     }
     
-    
-    
+    //Get Health : float
+    public float GetHealth() => health;
+
+
+
 }

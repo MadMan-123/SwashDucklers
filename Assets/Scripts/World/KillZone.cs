@@ -21,7 +21,7 @@ public class KillZone : MonoBehaviour
     IEnumerator ShootBackToDeck(GameObject player)
     {
         
-        player.GetComponent<PlayerControler>().DisableMovment();
+        player.GetComponent<PlayerControler>().DisableMovement();
         Rigidbody rb = player.GetComponent<Rigidbody>();
         //rb.constraints = RigidbodyConstraints.FreezePosition;
         yield return new WaitForSeconds(1);
