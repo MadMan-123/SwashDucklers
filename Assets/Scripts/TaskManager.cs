@@ -45,6 +45,8 @@ public class TaskManager : MonoBehaviour
 
         private void Start()
         {
+                //track all ids
+                var taskIds = new List<int>();
                 //for each task in the task list
                 for (var i = 0; i < taskList.Count; i++)
                 {
