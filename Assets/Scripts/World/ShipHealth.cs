@@ -39,9 +39,9 @@ public class ShipHealth : MonoBehaviour
       
     }
     // Update is called once per frame
-    void FixedUpdate()
+    /*void FixedUpdate()
     {
-        if (shipHealth != 0 && fill && gm.gameOver == false)
+        if (shipHealth != 0 && fill)
         {
             StartCoroutine(FillShip());
             fill = false;
@@ -49,7 +49,7 @@ public class ShipHealth : MonoBehaviour
 
         displayhealth = Mathf.MoveTowards(displayhealth, shipHealth, transitionspeed * Time.deltaTime);
         UpdateScoreDisplay();
-    }
+    }*/
 
     public void DamageShip(int damage)
     {

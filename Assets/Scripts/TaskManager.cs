@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
 using Core;
 using UnityEngine;
 
@@ -18,8 +20,10 @@ public class TaskManager : MonoBehaviour
         public static Dictionary<string,Task> TaskHashMap = new();
        
         //dynamic pools
-        List<ObjectPool> dynamicPools = new();
+        List<GameObjectPool> dynamicPools = new();
         
+        //track all ids
+        private readonly List<int> dynamicIds = new List<int>();
         //Singleton
         public static TaskManager instance;
         
@@ -41,8 +45,6 @@ public class TaskManager : MonoBehaviour
 
         private void Start()
         {
-                //track all ids
-                var taskIds = new List<int>();
                 //for each task in the task list
                 for (var i = 0; i < taskList.Count; i++)
                 {
@@ -53,18 +55,38 @@ public class TaskManager : MonoBehaviour
                         //log out progress
                         Debug.Log($"{taskList[i].taskName} : is added to the task hash map, Capacity: {TaskHashMap.Count}");
                         //set up object pools
-                        if(taskList[i].dynamicObjectPrefab)
-                                taskIds.Add(i);
+                        if((taskList[i].task.isDynamic || !taskList[i].task.isStatic) || taskList[i].dynamicObjectPrefab)
+                                dynamicIds.Add(i);
                 }
                 
                 //get all the dynamic tasks
-                for (int i = 0; i < taskIds.Count; i++)
+                for (int i = 0; i < dynamicIds.Count; i++)
                 {
                         //get the task descriptor
-                        var taskDesc = taskList[taskIds[i]];
-                        //make object pool
-                        dynamicPools.Add(new ObjectPool(taskDesc.dynamicObjectPrefab,5,transform));
-                        
+                        var taskDesc = taskList[dynamicIds[i]];
+                        if (taskDesc.task.isDynamic && taskDesc.task.isStatic)
+                        {
+                                dynamicPools.Add(new GameObjectPool(taskDesc.dynamicStaticIAreas.Count,transform));
+                                
+                                //turn the dynamicStaticIAreas into a list of game objects
+                                List<GameObject> gameObjects = taskDesc.dynamicStaticIAreas.Select(item => item.gameObject).ToList();
+                                //set buffer
+                                dynamicPools[^1].SetBuffer(gameObjects);
+                                //set the object pools to the dynamic static areas 
+                                for(int j = 0; j < taskDesc.dynamicStaticIAreas.Count; j++)
+                                {
+                                        var poolObj = dynamicPools[^1][j];
+
+                                        if(poolObj.TryGetComponent(out InteractArea iArea))
+                                                iArea.gameObject.SetActive(false);
+                                }
+
+                        }
+                        else if (taskDesc.task.isDynamic)
+                        {
+                                //make object pool
+                                dynamicPools.Add(new GameObjectPool(taskDesc.dynamicObjectPrefab, 5, transform));
+                        }
                 }
                 //setup the coroutine
                 SpawnDynamicTasks = _SpawnDynamicTasks();
@@ -74,25 +96,38 @@ public class TaskManager : MonoBehaviour
         private IEnumerator _SpawnDynamicTasks()
         {
                 float timeToTake = 0f;
+                
                 //todo: this might change, right now its just randomly spawning all dynamic tasks
                 for (int i = 0; i < dynamicPools.Count; i++)
                 {
                         //ref to pool
                         var pool = dynamicPools[i];
                         //current object
-                        var obj = pool.GetObject();
-                        //set the position
-                        //todo: i can forsee an issue in the way im getting the task
-                        var task = TaskHashMap[taskList[i].taskName]; 
-                        obj.transform.position = AreaManager.GetArea(task.areaName).GeneratePositionInArea();
-
-                        if (!task.isStatic)
+                        GameObject obj = null;
+                        var task = TaskHashMap[taskList[dynamicIds[i]].taskName];
+                        
+                        //if the task is static and dynamic choose a random one to be active
+                        if (task.isStatic && task.isDynamic)
                         {
-                                //todo: change this later but for now every 25 tasks its getting faster
-                                timeToTake= task.dynamicCounter / 25f;
+                                //get a random index 
+                                var index = UnityEngine.Random.Range(0, pool.Count);
+                                //enable the interact area
+                                obj = pool[index];
+                                //enable the object
+                                if (obj.TryGetComponent(out InteractArea iArea))
+                                {
+                                        iArea.gameObject.SetActive(true);
+                                }
+                        }
+                        //if its just dynamic then set it to a new position in its area
+                        else if (task.isDynamic)
+                        {
+                                obj = pool.GetObject();
+                                //set the position
+                                obj.transform.position = AreaManager.GetArea(task.areaName).GeneratePositionInArea();
                         }
                 }
-                //wait for X
+                //wait for X seconds
                 yield return new WaitForSeconds(taskSecondInterval - timeToTake);
                 //recursively call this coroutine
                 SpawnDynamicTasks = _SpawnDynamicTasks();
@@ -112,19 +147,26 @@ public class TaskManager : MonoBehaviour
                 }
                 
                 //if the task is dynamic then dont set isComplete to true, just add to counter
-                if (!task.isStatic)
+
+                if (task.isStatic || !task.isDynamic)
                 {
-                        task.dynamicCounter++;
-						
-						if (!task.dynamicCounter < task.target)
-						{
-							 task.isCompleted = true;
-						}
+                        task.isCompleted = true;
                 }
-                else
+                else if (task.isDynamic || !task.isStatic)
                 {
                         //complete the task
-                        task.isCompleted = true;
+                        task.dynamicCounter++;
+                        
+                        if (task.dynamicCounter >= task.target)
+                        {
+                                task.isCompleted = true;
+                                task.dynamicCounter = 0;
+                        }
+                        else
+                        {
+                                return;
+                        }
+                        
                 }
                 //add to the counter
                 tasksCompleted++;
@@ -160,6 +202,7 @@ public class TaskManager : MonoBehaviour
                 public string taskName;
                 public Task task;
                 public GameObject dynamicObjectPrefab;
+                public List<InteractArea> dynamicStaticIAreas = new();
         }
         
         //the actual meat and bones (well kinda more the bones) of the Task
@@ -169,9 +212,11 @@ public class TaskManager : MonoBehaviour
                 private string taskName;
                 public bool isStatic;
                 public bool isCompleted;
+                public bool isDynamic;
                 //public int currentTaskId = -1;
                 public string areaName;
                 public int dynamicCounter = 0;
+                public int target = 1;
                 public void SetName(string name) => taskName = name;       
                 public string GetName() => taskName;
         }

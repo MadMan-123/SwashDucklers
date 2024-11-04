@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -52,20 +53,15 @@ public class InteractArea : MonoBehaviour
 
     public void CheckTask()
     {
-        if(TaskName != "")
-        {
-			
-			if (task.dynamicCounter <= task.target)
-			{
-                TaskManager.instance.CompleteTask(TaskName);
-			}
-
-            //if the task is completed, and we are a dynamic object then return the object to the pool
-            if (!TaskManager.TaskHashMap[TaskName].isStatic)
-            {
-                TaskManager.TaskHashMap[TaskName].isCompleted = false;
-            }
+        if (TaskName == "") return;
+        TaskManager.instance.CompleteTask(TaskName);
+        var task = TaskManager.TaskHashMap[TaskName];
+        
             
+        //if the task is completed, and we are a dynamic object then return the object to the pool
+        if (task.isDynamic && task.isCompleted)
+        {
+            task.isCompleted = false;
             TaskManager.instance.ReturnTask(gameObject);
         }
     }
@@ -101,5 +97,11 @@ public class InteractArea : MonoBehaviour
     public void InteractCancel()
     {
         StopAllCoroutines();
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(TaskName != "")
+            Handles.Label(transform.position + transform.up * 1.5f,$"Task: {TaskName}"); 
     }
 }

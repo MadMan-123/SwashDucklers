@@ -200,7 +200,7 @@ public class PlayerControler : MonoBehaviour
                             rb.velocity = rb.velocity + new Vector3(0.0f, 0.0f, deceleration);
 
                             //If raised above 0
-                            if (rb.velocity.z < 0f)
+                            if (rb.velocity.z < relative0.z)
                             {
                                 //Set z value to 0
                                 rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);

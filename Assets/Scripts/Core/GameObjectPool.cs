@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
     namespace Core
     {
         //Simple object pool system - MW
-        public class ObjectPool 
+        public class GameObjectPool 
         {
             private List<GameObject> objects = new List<GameObject>();
             private GameObject prefab;
@@ -18,7 +18,7 @@ using Object = UnityEngine.Object;
             public bool SetActiveOnGet = true;
 
             // Constructor to initialize the pool with a prefab, initial size, and parent transform
-            public ObjectPool(GameObject prefab, int initialSize, Transform parent)
+            public GameObjectPool(GameObject prefab, int initialSize, Transform parent)
             {
                 this.prefab = prefab;
                 if (parent != null)
@@ -29,8 +29,8 @@ using Object = UnityEngine.Object;
                 {
                     CreateObjectInPool();
                 }
-            
-                Debug.Log($"Pool Created: {prefab.name}, Pool Size: {objects.Count}");
+                var str =  prefab ? prefab.name : "Empty Object";
+                Debug.Log($"Pool Created: {str}, Pool Size: {objects.Count}");
             }
         
        
@@ -40,8 +40,10 @@ using Object = UnityEngine.Object;
             {
 
                 GameObject obj;
-                obj = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity, pTransform ? pTransform : null);
-
+                if(prefab)
+                    obj = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity, pTransform ? pTransform : null);
+                else
+                    obj = new GameObject();
                 obj.SetActive(false);
                 // Give the object the "Pooled" tag
                 obj.tag = "Pooled";
@@ -103,7 +105,9 @@ using Object = UnityEngine.Object;
             {
                 return objects;
             }
-
+            
+            public void SetBuffer(List<GameObject> buffer) => objects = buffer;
+            
             // Return an object to the pool by deactivating it
             public void ReturnObject(GameObject obj)
             {
@@ -129,8 +133,35 @@ using Object = UnityEngine.Object;
 
                     return objects[index];
                 }
+                set
+                {
+                    if (index < 0 || index >= objects.Count)
+                        throw new IndexOutOfRangeException("Index is out of range for ObjectPool");
+
+                    objects[index] = value;
+                }
             }
-        
+            public GameObjectPool(int size, Transform parent)
+            {
+                prefab = null;
+                objects = new List<GameObject>(size);
+            
+                if (parent != null)
+                    pTransform = parent;
+
+                // Create empty buffer of GameObjects
+                for (int i = 0; i < size; i++)
+                {
+                    GameObject obj = new GameObject($"Empty_{i}");
+                    obj.transform.SetParent(pTransform);
+                    obj.SetActive(false);
+                    obj.tag = "Pooled";
+                    objects.Add(obj);
+                }
+            
+                Debug.Log($"Empty Buffer Created, Size: {objects.Count}");
+            }
+ 
             // Implementation of IEnumerable
 
 
