@@ -116,7 +116,7 @@ public class TaskManager : MonoBehaviour
                 {
                         task.dynamicCounter++;
 						
-						if (!task.dynamicCounter < task.target)
+						if (!(task.dynamicCounter < task.target))
 						{
 							 task.isCompleted = true;
 						}
@@ -172,6 +172,7 @@ public class TaskManager : MonoBehaviour
                 //public int currentTaskId = -1;
                 public string areaName;
                 public int dynamicCounter = 0;
+                public int target = 10;
                 public void SetName(string name) => taskName = name;       
                 public string GetName() => taskName;
         }

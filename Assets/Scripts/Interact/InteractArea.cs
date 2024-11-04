@@ -55,7 +55,7 @@ public class InteractArea : MonoBehaviour
         if(TaskName != "")
         {
 			
-			if (task.dynamicCounter <= task.target)
+			if (TaskManager.TaskHashMap[TaskName].dynamicCounter <= TaskManager.TaskHashMap[TaskName].target)
 			{
                 TaskManager.instance.CompleteTask(TaskName);
 			}
