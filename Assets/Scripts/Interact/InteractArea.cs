@@ -54,8 +54,12 @@ public class InteractArea : MonoBehaviour
     {
         if(TaskName != "")
         {
-            TaskManager.instance.CompleteTask(TaskName);
-            
+			
+			if (task.dynamicCounter <= task.target)
+			{
+                TaskManager.instance.CompleteTask(TaskName);
+			}
+
             //if the task is completed, and we are a dynamic object then return the object to the pool
             if (!TaskManager.TaskHashMap[TaskName].isStatic)
             {

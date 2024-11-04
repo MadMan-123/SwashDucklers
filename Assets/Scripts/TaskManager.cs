@@ -115,6 +115,11 @@ public class TaskManager : MonoBehaviour
                 if (!task.isStatic)
                 {
                         task.dynamicCounter++;
+						
+						if (!task.dynamicCounter < task.target)
+						{
+							 task.isCompleted = true;
+						}
                 }
                 else
                 {
