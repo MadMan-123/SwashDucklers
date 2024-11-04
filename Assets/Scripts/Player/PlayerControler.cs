@@ -314,9 +314,6 @@ public class PlayerControler : MonoBehaviour
             }
         }*/
 
-        Debug.Log(relative0);
-        Debug.Log(rb.velocity);
-
     }
 
     //Movement
