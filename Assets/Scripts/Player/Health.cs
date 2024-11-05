@@ -44,13 +44,21 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
 
     private void ApplyKnockback()
     {
-        //GM: Calculate the knockback force based on health percentage
+        // GM: Calculate the knockback force based on the player's current health percentage.
+        // As the player's health increases, the knockback force also increases, up to maxKnockbackForce.
         float knockbackForce = (health / maxHealth) * maxKnockbackForce;
 
-        //GM: Apply the knockback force
-        Vector3 knockbackDirection = -transform.forward; //GM: Adjust direction as needed
+        // GM: Set the direction of the knockback.
+        // We use '-transform.forward' to push the player backward relative to their current facing direction.
+        // Adjust this direction if you want knockback to go in a different direction.
+        Vector3 knockbackDirection = -transform.forward;
+
+        // GM: Apply the calculated knockback force to the player's Rigidbody.
+        //'AddForce' applies the force instantly (due to 'ForceMode.Impulse') to simulate a knockback effect.
+        // The direction and magnitude of the force are determined by 'knockbackDirection * knockbackForce'.
         rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
     }
+
 
 
     private void UpdateHealthUI()
