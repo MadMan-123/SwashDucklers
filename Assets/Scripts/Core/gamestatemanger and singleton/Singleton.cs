@@ -18,10 +18,10 @@ public abstract class SingletonPersistent<T> : Singleton<T> where T : MonoBehavi
 {
     protected override void Awake()
     {
-        base.Awake() {
+       
             if (instance != null) Destroy(gameObject);
             DontDestroyOnLoad(gameObject); 
             base.Awake();
-        }
+        
     }
 }
