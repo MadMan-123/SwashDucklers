@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class pausemenu : MonoBehaviour
 {
@@ -68,6 +69,13 @@ public class pausemenu : MonoBehaviour
         //set to controls screen
         controls.SetActive(true);
         settings.SetActive(false);
+
+    }
+
+    public void gameoverButton()
+    {
+        // go back to main menu
+        UnityEngine.SceneManagement.SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     }
 
