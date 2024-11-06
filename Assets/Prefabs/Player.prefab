@@ -986,7 +986,7 @@ MonoBehaviour:
   acceleration: 3
   maxSpeed: 5
   vMaxSpeed: 20
-  deceleration: 2
+  deceleration: 0.05
   jumpPower: 0.00001
   jumpDuration: 0.000001
   airControl: 0.1
@@ -1007,7 +1007,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 0.25
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1248,6 +1248,7 @@ MonoBehaviour:
   slapRadius: 0.75
   howMuchUp: 0.125
   slapDamage: 5
+  slapMat: {fileID: 13400000, guid: 1b10faf58ed0ad04995fc6eab73d09e0, type: 2}
 --- !u!114 &-9071919049437517695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1261,6 +1262,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
+  maxHealth: 100
+  maxKnockbackForce: 10
+  rb: {fileID: 0}
   healthText: {fileID: 5690518441012888640}
   onDamageTaken:
     m_PersistentCalls:

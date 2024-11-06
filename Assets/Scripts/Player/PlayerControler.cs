@@ -26,7 +26,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] float acceleration;
     [SerializeField] float maxSpeed;
     [SerializeField] float vMaxSpeed;
-    [SerializeField] float deceleration;
+    [SerializeField] public float deceleration;
     [SerializeField] float jumpPower;
     [SerializeField] float jumpDuration;
     [SerializeField] float airControl;
