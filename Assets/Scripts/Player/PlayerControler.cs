@@ -88,6 +88,8 @@ public class PlayerControler : MonoBehaviour
 
                 //add direction * acceleration to velocity
                 rb.velocity += (moveVector * acceleration);
+
+                Debug.Log(rb.velocity);
             }
             else
             {
@@ -122,10 +124,9 @@ public class PlayerControler : MonoBehaviour
                 rb.velocity += relative0;
             }
 
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
 
-            //Make sure velocity doesnt exceed maxSpeed
-            rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, relative0.x - maxSpeed, relative0.x + maxSpeed),
-                rb.velocity.y, Mathf.Clamp(rb.velocity.z, relative0.z - maxSpeed, relative0.z + maxSpeed));
+            Debug.Log(rb.velocity);
 
             //Rotate to face direction moving
             if (moveVector != Vector3.zero && canMove)
