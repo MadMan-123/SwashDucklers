@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-    namespace Core
-    {
+namespace Core
+{
         //Simple object pool system - MW
         public class GameObjectPool 
         {

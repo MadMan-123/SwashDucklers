@@ -404,13 +404,13 @@ public class PlayerControler : MonoBehaviour
                 Quack.pitch = Random.Range(0.0f, 1.0f);
             }
             Quack.Play(0);
-            transform.localScale = new Vector3(1, 0.5f, 1);
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y /2, transform.localScale.z);
             transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
         }
         else if (value.canceled) //Cancelled
         {
             //Stop Taunt behaviour
-            gameObject.transform.localScale = new Vector3(1, 1, 1);
+            gameObject.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x, transform.localScale.x);
         }
       
     }
