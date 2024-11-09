@@ -984,9 +984,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   acceleration: 0.25
-  maxSpeed: 5
+  maxSpeed: 3.5
   vMaxSpeed: 20
-  deceleration: 0.3
+  deceleration: 0.15
   jumpPower: 0.00001
   jumpDuration: 0.000001
   airControl: 0.1
@@ -997,6 +997,8 @@ MonoBehaviour:
   modelTransform: {fileID: -8679921383154817045}
   bumpForce: 0
   bumpForceUp: 0
+  spawnpoint: {x: 0, y: 0, z: 0}
+  spawnRotation: {x: 0, y: 0, z: 0}
   animator: {fileID: 5866666021909216657}
   canMove: 1
 --- !u!54 &3701548156983837710
@@ -1246,7 +1248,7 @@ MonoBehaviour:
   toolPU: {fileID: 2955794612422327071}
   inArea: 0
   AreaImIn: {fileID: 0}
-  slapForce: 3
+  slapForce: 4
   slapRadius: 0.75
   howMuchUp: 0.125
   slapDamage: 5
