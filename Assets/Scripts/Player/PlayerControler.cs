@@ -37,8 +37,11 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private Transform modelTransform;
     [SerializeField] float bumpForce;
     [SerializeField] float bumpForceUp;
+    public Vector3 spawnpoint;
+    public Vector3 spawnRotation;
     public Animator animator;
     public bool canMove = true;
+    private bool spawned = false;
 
     private static readonly int Color1 = Shader.PropertyToID("_Color");
 
@@ -62,7 +65,7 @@ public class PlayerControler : MonoBehaviour
     {
 
         SetPlayerColor(playerID);
- 
+
     }
     private void SetPlayerColor(int playerId)
     {
@@ -82,6 +85,17 @@ public class PlayerControler : MonoBehaviour
     //FixedUpdate
     void FixedUpdate()
     {
+
+        //Sean:This should really be in start but transform.positon doesnt work in there for whatever reason
+        if (spawned == false)
+        {
+            transform.position = spawnpoint;
+            transform.rotation = Quaternion.LookRotation(spawnRotation, Vector3.up);
+            spawned = true;
+        }
+
+        Debug.Log(moveVector);
+
         if (canMove)
         {
             //If on the ground
