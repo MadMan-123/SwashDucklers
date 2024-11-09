@@ -4843,6 +4843,7 @@ GameObject:
   - component: {fileID: 4981101601905341017}
   - component: {fileID: 8801728608532051539}
   - component: {fileID: 8572656337838187960}
+  - component: {fileID: 1498796734519486571}
   m_Layer: 0
   m_Name: Pump
   m_TagString: Untagged
@@ -4955,12 +4956,37 @@ MonoBehaviour:
   fasterWithTool: 0
   isTool: 1
   isStation: 1
-  toolUsed: 
+  toolUsed: bucket
   OnInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1498796734519486571}
+        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
+        m_MethodName: Startdrain
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   currentInteractable: {fileID: 0}
   currentController: {fileID: 0}
   TaskName: Pump
   toolTime: 2
   regularTime: 4
+--- !u!114 &1498796734519486571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6960886509012401907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec61a8cbb3426de48b26b364a129a544, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  w_bucket: {fileID: 0}

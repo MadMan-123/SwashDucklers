@@ -17,10 +17,11 @@ public class InteractComponent : MonoBehaviour
     private PlayerControler playerControler;
     private PlayerInput input;
     private InputAction interact;
-    [SerializeField] private float slapForce = 10;
+    [SerializeField] private float slapForce = 2.5f;
     [SerializeField] private float slapRadius = 0.75f;
-    [SerializeField] private float howMuchUp = 0.125f;
+    [SerializeField] private float howMuchUp = 0.75f;
     [SerializeField] private float slapDamage = 5;
+    [SerializeField] PhysicMaterial slapMat;
 
     // Start is called before the first frame update
     void Start()
@@ -78,15 +79,18 @@ public class InteractComponent : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             float extraForce = 0f;
-            if (colliders[i].gameObject == gameObject || !colliders[i].TryGetComponent(out Rigidbody rb)) continue;
+            if (colliders[i].gameObject == gameObject || !colliders[i].TryGetComponent(out Rigidbody rb)) continue; //if same object continue
             canSlapSfx = true;
-            if (colliders[i].TryGetComponent(out Health health))
+            if (colliders[i].TryGetComponent(out Health health))         //if has component health then
             {
                 health.TakeDamage(slapDamage);
                 extraForce = health.GetHealth();
             }
-            
-            rb.AddForce(((transform.forward ) * (slapForce + extraForce) )+ ((transform.up * howMuchUp) * slapForce / 5), ForceMode.Impulse);
+            if (colliders[i].TryGetComponent(out PlayerControler pc))
+            {
+                StartCoroutine(ReduceFriction(colliders[i].gameObject,pc, extraForce/5));
+            }
+            rb.AddForce(((transform.forward ) * (slapForce + extraForce/5) )+ ((transform.up * howMuchUp) * slapForce / 5), ForceMode.Impulse);
             
         }
         if(canSlapSfx)
@@ -164,5 +168,15 @@ public class InteractComponent : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position + transform.forward, slapRadius);
 
+    }
+
+    IEnumerator ReduceFriction(GameObject player, PlayerControler pc, float slapForce)
+    {
+        pc.deceleration = 0.001f;
+        PhysicMaterial temp = null;
+        gameObject.GetComponent<CapsuleCollider>().material = slapMat;
+        yield return new WaitForSeconds(1 + slapForce);
+        pc.deceleration = 0.1f;
+        gameObject.GetComponent<CapsuleCollider>().material = temp;
     }
 }

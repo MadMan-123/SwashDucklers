@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public bool paused;
     public bool gameOver;
-
+    public GameObject g_over;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (gameOver)
+        {
+            g_over.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
 }

@@ -26,7 +26,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] float acceleration;
     [SerializeField] float maxSpeed;
     [SerializeField] float vMaxSpeed;
-    [SerializeField] float deceleration;
+    [SerializeField] public float deceleration;
     [SerializeField] float jumpPower;
     [SerializeField] float jumpDuration;
     [SerializeField] float airControl;
@@ -34,7 +34,9 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] int playerID; //Why the fuck is an id a float, its never going to need to be a real number - MW
     [SerializeField] public bool interacting;
     [SerializeField] AudioSource Quack;
-    [SerializeField] private Transform modelTransform; 
+    [SerializeField] private Transform modelTransform;
+    [SerializeField] float bumpForce;
+    [SerializeField] float bumpForceUp;
     public Animator animator;
     public bool canMove = true;
 
@@ -88,6 +90,8 @@ public class PlayerControler : MonoBehaviour
 
                 //add direction * acceleration to velocity
                 rb.velocity += (moveVector * acceleration);
+
+               // Debug.Log(rb.velocity);
             }
             else
             {
@@ -122,10 +126,9 @@ public class PlayerControler : MonoBehaviour
                 rb.velocity += relative0;
             }
 
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
 
-            //Make sure velocity doesnt exceed maxSpeed
-            rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, relative0.x - maxSpeed, relative0.x + maxSpeed),
-                rb.velocity.y, Mathf.Clamp(rb.velocity.z, relative0.z - maxSpeed, relative0.z + maxSpeed));
+            //Debug.Log(rb.velocity);
 
             //Rotate to face direction moving
             if (moveVector != Vector3.zero && canMove)
@@ -403,13 +406,13 @@ public class PlayerControler : MonoBehaviour
                 Quack.pitch = Random.Range(0.0f, 1.0f);
             }
             Quack.Play(0);
-            transform.localScale = new Vector3(1, 0.5f, 1);
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y /2, transform.localScale.z);
             transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
         }
         else if (value.canceled) //Cancelled
         {
             //Stop Taunt behaviour
-            gameObject.transform.localScale = new Vector3(1, 1, 1);
+            gameObject.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x, transform.localScale.x);
         }
       
     }
@@ -447,6 +450,22 @@ public class PlayerControler : MonoBehaviour
                 }
             }
         }
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+                Vector3 forceDirection = Vector3.Normalize(((collision.gameObject.transform.position - transform.position) * (bumpForce / 100) + (transform.up * (bumpForceUp / 100))));
+
+            Debug.Log(rb.velocity.magnitude);
+            if (rb.velocity.magnitude > 1.55)  //before anyone asks yes this is hella inefficient, however if it aint broke then dont fix it / testing - TS
+            {
+                 forceDirection = Vector3.Normalize(((collision.gameObject.transform.position - transform.position) * (bumpForce / 50) + (transform.up * (bumpForceUp / 50))));
+            }
+            rb.AddForce(forceDirection, ForceMode.Impulse);
+        
+            //StartCoroutine(TempDisableMovement(0.2f));
+        }
+        
     }
 
     //On continued collision
@@ -490,6 +509,12 @@ public class PlayerControler : MonoBehaviour
         //playerInput.ActivateInput();
         //Debug.Log("Input enabled");
         canMove = true;
+    }
+    public IEnumerator TempDisableMovement(float time)
+    {
+        DisableMovement();
+        yield return new WaitForSeconds(time);
+        EnableMovement();
     }
 
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.InputSystem.XR.Haptics;
+using UnityEngine.InputSystem.Controls;
 
 public class ShipHealth : MonoBehaviour
 {
@@ -28,18 +29,19 @@ public class ShipHealth : MonoBehaviour
     {
         shipHealth = maxShipHealth;
         shipFilled = 0;
-
+        displayhealth = 100;
 
     }
     
    void Update()
     {
-        //dont know what the belows for really
-        //shipHealth -= fillSpeed * Time.deltaTime;
+        
+        shipHealth -= fillSpeed / fillRate; // reduces the ships health over time while the ship is damaged
+       
       
     }
     // Update is called once per frame
-    /*void FixedUpdate()
+    void FixedUpdate()
     {
         if (shipHealth != 0 && fill)
         {
@@ -47,9 +49,9 @@ public class ShipHealth : MonoBehaviour
             fill = false;
         }
 
-        displayhealth = Mathf.MoveTowards(displayhealth, shipHealth, transitionspeed * Time.deltaTime);
+        displayhealth = Mathf.MoveTowards(displayhealth, 0, shipHealth * Time.deltaTime); //updates the ship health ui with the ships heal
         UpdateScoreDisplay();
-    }*/
+    }
 
     public void DamageShip(int damage)
     {
@@ -93,6 +95,7 @@ public class ShipHealth : MonoBehaviour
         if (shipFilled > 10 && shipFilled < 100)
         {
             shipFilled -= 10;
+            shipHealth += 10;
         }
     }
 }
