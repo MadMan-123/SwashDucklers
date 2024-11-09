@@ -73,6 +73,4 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
     //Get Health : float
     public float GetHealth() => health;
 
-
-
 }

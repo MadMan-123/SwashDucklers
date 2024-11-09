@@ -34,7 +34,9 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] int playerID; //Why the fuck is an id a float, its never going to need to be a real number - MW
     [SerializeField] public bool interacting;
     [SerializeField] AudioSource Quack;
-    [SerializeField] private Transform modelTransform; 
+    [SerializeField] private Transform modelTransform;
+    [SerializeField] float bumpForce;
+    [SerializeField] float bumpForceUp;
     public Animator animator;
     public bool canMove = true;
 
@@ -89,7 +91,7 @@ public class PlayerControler : MonoBehaviour
                 //add direction * acceleration to velocity
                 rb.velocity += (moveVector * acceleration);
 
-                Debug.Log(rb.velocity);
+               // Debug.Log(rb.velocity);
             }
             else
             {
@@ -126,7 +128,7 @@ public class PlayerControler : MonoBehaviour
 
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
 
-            Debug.Log(rb.velocity);
+            //Debug.Log(rb.velocity);
 
             //Rotate to face direction moving
             if (moveVector != Vector3.zero && canMove)
@@ -448,6 +450,22 @@ public class PlayerControler : MonoBehaviour
                 }
             }
         }
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+                Vector3 forceDirection = Vector3.Normalize(((collision.gameObject.transform.position - transform.position) * (bumpForce / 100) + (transform.up * (bumpForceUp / 100))));
+
+            Debug.Log(rb.velocity.magnitude);
+            if (rb.velocity.magnitude > 1.55)  //before anyone asks yes this is hella inefficient, however if it aint broke then dont fix it / testing - TS
+            {
+                 forceDirection = Vector3.Normalize(((collision.gameObject.transform.position - transform.position) * (bumpForce / 50) + (transform.up * (bumpForceUp / 50))));
+            }
+            rb.AddForce(forceDirection, ForceMode.Impulse);
+        
+            //StartCoroutine(TempDisableMovement(0.2f));
+        }
+        
     }
 
     //On continued collision
@@ -491,6 +509,12 @@ public class PlayerControler : MonoBehaviour
         //playerInput.ActivateInput();
         //Debug.Log("Input enabled");
         canMove = true;
+    }
+    public IEnumerator TempDisableMovement(float time)
+    {
+        DisableMovement();
+        yield return new WaitForSeconds(time);
+        EnableMovement();
     }
 
 }

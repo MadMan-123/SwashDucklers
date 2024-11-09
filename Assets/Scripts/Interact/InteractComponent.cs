@@ -176,7 +176,7 @@ public class InteractComponent : MonoBehaviour
         PhysicMaterial temp = null;
         gameObject.GetComponent<CapsuleCollider>().material = slapMat;
         yield return new WaitForSeconds(1 + slapForce);
-        pc.deceleration = 0.05f;
+        pc.deceleration = 0.1f;
         gameObject.GetComponent<CapsuleCollider>().material = temp;
     }
 }

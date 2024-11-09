@@ -983,10 +983,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  acceleration: 3
-  maxSpeed: 5
+  acceleration: 0.35
+  maxSpeed: 7
   vMaxSpeed: 20
-  deceleration: 0.05
+  deceleration: 0.15
   jumpPower: 0.00001
   jumpDuration: 0.000001
   airControl: 0.1
@@ -995,6 +995,8 @@ MonoBehaviour:
   interacting: 0
   Quack: {fileID: -5957354204565098106}
   modelTransform: {fileID: -8679921383154817045}
+  bumpForce: 0.01
+  bumpForceUp: 0.005
   animator: {fileID: 5866666021909216657}
   canMove: 1
 --- !u!54 &3701548156983837710
