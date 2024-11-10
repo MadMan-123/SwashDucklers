@@ -4,12 +4,13 @@ using UnityEngine;
 public class waterinteract : MonoBehaviour
 {
     public bucketuse w_bucket;
-    public ShipHealth sH;
+    public GameObject ship;
 
     public void Start()
     {
+        ship = GameObject.FindWithTag("Boat");
         w_bucket = FindAnyObjectByType<bucketuse>();
-        sH.DamageShip(5);
+        ship.GetComponent<ShipHealth>().DamageShip(5);
     }
 
     public void Startdrain(GameObject source,float time)
