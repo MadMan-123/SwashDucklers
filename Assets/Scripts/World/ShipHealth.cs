@@ -91,10 +91,10 @@ public class ShipHealth : MonoBehaviour
         //percentageDamaged = Mathf.Lerp(maxShipHealth, 0, shipHealth) * 100;  //if ship is on 90% health this value shows 10% || 80% shows 20% et
         //percentageDamaged = Mathf.Lerp(maxShipHealth - shipHealth, 0, maxShipHealth) * 100;
         Debug.Log(percentageDamaged);
-        dmgSpeed = (dmgRate)/4 * leaks;                                     
+        dmgSpeed = (dmgRate)/10 * leaks;                                     
         if(regenerate) //if regenerate
         {
-            shipHealth = Mathf.Clamp(shipHealth + (regenRate / 4), 0 ,maxShipHealth); //gain hp
+            shipHealth = Mathf.Clamp(shipHealth + (regenRate / 10), 0 ,maxShipHealth); //gain hp
             percentageDamaged = maxShipHealth - shipHealth;
         }
         else if (!regenerate) //if not regenerate
@@ -107,7 +107,7 @@ public class ShipHealth : MonoBehaviour
         {
             gm.gameOver = true;
         }
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.1f);
         loop = true;
 
         //shipFilled = Mathf.Clamp((shipFilled + fillSpeed), 0, 100);
