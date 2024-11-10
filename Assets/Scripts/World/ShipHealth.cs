@@ -113,7 +113,6 @@ public class ShipHealth : MonoBehaviour
         //shipFilled = Mathf.Clamp((shipFilled + fillSpeed), 0, 100);
         currentShipHeight = Mathf.Clamp((Mathf.Lerp(0,1,percentageDamaged/100)* minShipHeight),minShipHeight, maxShipHeight);       
         ship.transform.position = new Vector3(ship.transform.position.x,currentShipHeight,ship.transform.position.z);
-
         //might rewrite this to move water for simplicity, will talk to designer
     }
 
