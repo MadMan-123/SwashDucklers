@@ -30,7 +30,7 @@ public class ShipHealth : MonoBehaviour
     float displayhealth;
 
     [Header("Visuals")]
-    float currentShipHeight;
+    [SerializeField] float currentShipHeight;
     [SerializeField] float maxShipHeight = 0f;
     [SerializeField] float minShipHeight = -6.5f;
 
@@ -91,15 +91,19 @@ public class ShipHealth : MonoBehaviour
 
     IEnumerator PassiveShipHealth(bool regenerate)
     {
-        percentageDamaged = Mathf.Lerp(shipHealth, 0, maxShipHealth) * 100;  //if ship is on 90% health this value shows 10% || 80% shows 20% etc
+        //percentageDamaged = Mathf.Lerp(maxShipHealth, 0, shipHealth) * 100;  //if ship is on 90% health this value shows 10% || 80% shows 20% et
+        //percentageDamaged = Mathf.Lerp(maxShipHealth - shipHealth, 0, maxShipHealth) * 100;
+        Debug.Log(percentageDamaged);
         dmgSpeed = (dmgRate)/4 * leaks;                                     
         if(regenerate) //if regenerate
         {
             shipHealth = Mathf.Clamp(shipHealth + (regenRate / 4), 0 ,maxShipHealth); //gain hp
+            percentageDamaged = maxShipHealth - shipHealth;
         }
         else if (!regenerate) //if not regenerate
         {
             shipHealth = Mathf.Clamp(shipHealth - dmgSpeed, 0, maxShipHealth); //take DOT proportional to leaks
+            percentageDamaged = maxShipHealth - shipHealth;
         }
   
         if (shipHealth == 0)
