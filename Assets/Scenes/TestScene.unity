@@ -2131,6 +2131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 410785622}
   - component: {fileID: 410785621}
+  - component: {fileID: 410785623}
   m_Layer: 0
   m_Name: '[TaskManager]'
   m_TagString: Untagged
@@ -2214,6 +2215,27 @@ Transform:
   - {fileID: 213613926}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &410785623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410785620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafa1e34fc4c95b4ca764f8f0c34a5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  e_ship: {fileID: 0}
+  enemy: {fileID: 5368657179478143323, guid: ddb362f21e10f04468a38ba18a7a89d5, type: 3}
+  currentwave: 0
+  enemycount: 0
+  maxenemycount: 5
+  enemySpawn: 0
+  randomise: 0
+  StartTimer: 0
+  sec: 1
 --- !u!1 &472132421
 GameObject:
   m_ObjectHideFlags: 0

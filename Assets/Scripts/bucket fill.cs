@@ -20,7 +20,7 @@ public class bucketuse : MonoBehaviour
         if (!bucketfull)
         {
         // bucketfull = true;// sets the buckets state to full so no more water can be collected
-         s_health.bucket();//annouce to shiphealth script to lower ammount of shipfilled
+         s_health.Bucket();//annouce to shiphealth script to lower ammount of shipfilled
         }
     }
 

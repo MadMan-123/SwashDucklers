@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
+
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
 public class AreaManager : MonoBehaviour
 {
@@ -63,21 +66,25 @@ public class AreaManager : MonoBehaviour
                 }
         }
 
-        private void OnDrawGizmos()
-        {
+#if UNITY_EDITOR
+
+   // private void OnDrawGizmos()
+      //  {
                 //draw the areas of each "Area" and draw text above to tell this information
-                for (int i = 0; i < areas.Count; i++)
-                {
-                        var area = areas[i];
-                        if((!area.Min && !area.Max)) continue;
-                        //draw the area
-                        Gizmos.color = Color.green;
-                        // Calculate the center and size of the cube
-                        Vector3 center = (area.Min.position + area.Max.position ) / 2;
-                        Vector3 size = area.Max.position - area.Min.position;;
-                        Gizmos.DrawWireCube(center, size);
-                        //draw the name
-                        Handles.Label(center + transform.up * size.y, area.name);
-                }
-        }
+               // for (int i = 0; i < areas.Count; i++)
+               // {
+                   //     var area = areas[i];
+                     //   if((!area.Min && !area.Max)) continue;
+                      //  //draw the area
+                    //    Gizmos.color = Color.green;
+                  //      // Calculate the center and size of the cube
+                //        Vector3 center = (area.Min.position + area.Max.position ) / 2;
+              //          Vector3 size = area.Max.position - area.Min.position;;
+            //            Gizmos.DrawWireCube(center, size);
+          //              //draw the name
+        //                Handles.Label(center + transform.up * size.y, area.name);
+      //          }
+    //    }
+
+#endif
 }

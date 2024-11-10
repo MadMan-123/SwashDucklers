@@ -100,7 +100,7 @@ public class InteractComponent : MonoBehaviour
     void Interact()
     {
        if(!AreaImIn ) return;
-       var task = TaskManager.TaskHashMap[AreaImIn.TaskName];
+        var task = TaskManager.TaskHashMap[AreaImIn.TaskName];
        if (task is { isCompleted: true }) return;
        if (AreaImIn.isStation)
        {
