@@ -465,20 +465,20 @@ public class PlayerControler : MonoBehaviour
             }
         }
 
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
-                Vector3 forceDirection = Vector3.Normalize(((collision.gameObject.transform.position - transform.position) * (bumpForce / 100) + (transform.up * (bumpForceUp / 100))));
+            //if (collision.gameObject.CompareTag("Player"))
+            //{
+            //    Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+            //    Vector3 forceDirection = Vector3.Normalize(((collision.gameObject.transform.position - transform.position) * (bumpForce / 100) + (transform.up * (bumpForceUp / 100))));
 
-            Debug.Log(rb.velocity.magnitude);
-            if (rb.velocity.magnitude > 1.55)  //before anyone asks yes this is hella inefficient, however if it aint broke then dont fix it / testing - TS
-            {
-                 forceDirection = Vector3.Normalize(((collision.gameObject.transform.position - transform.position) * (bumpForce / 50) + (transform.up * (bumpForceUp / 50))));
-            }
-            rb.AddForce(forceDirection, ForceMode.Impulse);
+            //Debug.Log(rb.velocity.magnitude);
+            //if (rb.velocity.magnitude > 1.55)  //before anyone asks yes this is hella inefficient, however if it aint broke then dont fix it / testing - TS
+            //{
+            //     forceDirection = Vector3.Normalize(((collision.gameObject.transform.position - transform.position) * (bumpForce / 50) + (transform.up * (bumpForceUp / 50))));
+            //}
+            //rb.AddForce(forceDirection, ForceMode.Impulse);
         
             //StartCoroutine(TempDisableMovement(0.2f));
-        }
+        //}
         
     }
 

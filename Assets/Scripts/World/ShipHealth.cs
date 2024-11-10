@@ -8,21 +8,31 @@ using UnityEngine.InputSystem.Controls;
 
 public class ShipHealth : MonoBehaviour
 {
+    [Header("Health")]
     [SerializeField] float maxShipHealth;
-    [SerializeField] float fillRate;
-    [SerializeField] float shipFilled;
     [SerializeField] float shipHealth;
+    [SerializeField] float regenRate;
     [SerializeField] float percentageDamaged;
-    [SerializeField] float fillSpeed;
-    float displayhealth;
-    [SerializeField] public TextMeshProUGUI healthText;
-    [SerializeField] float transitionspeed;
+    bool regenerate;
+    bool loop;
+
+    [Header("Damage")]
+    [SerializeField] float dmgRate;
+    [SerializeField] float dmgSpeed;
+    [SerializeField] int leaks;
+    [SerializeField] float shipFilled;
     [SerializeField] GameManager gm;
     [SerializeField] GameObject ship;
+
+    [Header("UI")]
+    [SerializeField] public TextMeshProUGUI healthText;
+    [SerializeField] float transitionspeed;
+    float displayhealth;
+
+    [Header("Visuals")]
     float currentShipHeight;
-    [SerializeField]float maxShipHeight = 0f;
+    [SerializeField] float maxShipHeight = 0f;
     [SerializeField] float minShipHeight = -6.5f;
-    bool fill=true;
 
     // Start is called before the first frame update
     void Start()
@@ -30,23 +40,34 @@ public class ShipHealth : MonoBehaviour
         shipHealth = maxShipHealth;
         shipFilled = 0;
         displayhealth = 100;
-
+        leaks = 0;
+        regenerate = true;
+        loop = true;
     }
     
    void Update()
     {
-        
-        shipHealth -= fillSpeed / fillRate; // reduces the ships health over time while the ship is damaged
-       
-      
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            DamageShip(5);
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            RepairShip(5);
+        }
+
+        // shipHealth -= fillSpeed / fillRate; // reduces the ships health over time while the ship is damaged
+
+
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (shipHealth != 0 && fill)
+        if (loop==true)
         {
-            StartCoroutine(FillShip());
-            fill = false;
+            StartCoroutine(PassiveShipHealth(regenerate));
+            loop = false;
         }
 
         displayhealth = Mathf.MoveTowards(displayhealth, 0, shipHealth * Time.deltaTime); //updates the ship health ui with the ships heal
@@ -56,27 +77,43 @@ public class ShipHealth : MonoBehaviour
     public void DamageShip(int damage)
     {
         shipHealth = Mathf.Clamp(shipHealth - damage, 0, maxShipHealth);
-        percentageDamaged = Mathf.Lerp(shipHealth, 0, maxShipHealth) * 100;
+        leaks += 1;
+        regenerate = false;
     }
 
     public void RepairShip(int repair)
     {
         shipHealth = Mathf.Clamp(shipHealth + repair, 0, maxShipHealth);
-        percentageDamaged = Mathf.Clamp(100-(Mathf.Lerp(shipHealth, 0, maxShipHealth) * 100),0, 100);
+        leaks = Mathf.Clamp(leaks-1, 0 ,100);
+        if (leaks < 1) regenerate = true;
+        //percentageDamaged = Mathf.Clamp(100-(Mathf.Lerp(shipHealth, 0, maxShipHealth) * 100),0, 100);
     }
 
-    IEnumerator FillShip()
+    IEnumerator PassiveShipHealth(bool regenerate)
     {
-        fillSpeed = percentageDamaged / fillRate;
-        shipFilled= Mathf.Clamp((shipFilled + fillSpeed),0,100);
-        if (shipFilled == 100)
+        percentageDamaged = Mathf.Lerp(shipHealth, 0, maxShipHealth) * 100;  //if ship is on 90% health this value shows 10% || 80% shows 20% etc
+        dmgSpeed = (dmgRate)/4 * leaks;                                     
+        if(regenerate) //if regenerate
+        {
+            shipHealth = Mathf.Clamp(shipHealth + (regenRate / 4), 0 ,maxShipHealth); //gain hp
+        }
+        else if (!regenerate) //if not regenerate
+        {
+            shipHealth = Mathf.Clamp(shipHealth - dmgSpeed, 0, maxShipHealth); //take DOT proportional to leaks
+        }
+  
+        if (shipHealth == 0)
         {
             gm.gameOver = true;
         }
         yield return new WaitForSeconds(0.25f);
-        fill = true;
-        currentShipHeight = Mathf.Clamp((Mathf.Lerp(0,1,shipFilled/100)* minShipHeight),minShipHeight, maxShipHeight);
+        loop = true;
+
+        //shipFilled = Mathf.Clamp((shipFilled + fillSpeed), 0, 100);
+        currentShipHeight = Mathf.Clamp((Mathf.Lerp(0,1,percentageDamaged/100)* minShipHeight),minShipHeight, maxShipHeight);       
         ship.transform.position = new Vector3(ship.transform.position.x,currentShipHeight,ship.transform.position.z);
+
+        //might rewrite this to move water for simplicity, will talk to designer
     }
 
     public void UpdateScoreDisplay()
