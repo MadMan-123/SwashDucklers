@@ -42,6 +42,8 @@ public class PlayerControler : MonoBehaviour
     public Animator animator;
     public bool canMove = true;
     private bool spawned = false;
+    private Material bodymaterial;
+    private Renderer renderer;
 
     private static readonly int Color1 = Shader.PropertyToID("_Color");
 
@@ -56,7 +58,9 @@ public class PlayerControler : MonoBehaviour
         playerID = playerInput.playerIndex;
         
         // Cache model renderers
-        modelTransform = transform.GetChild(0);
+        modelTransform = transform.GetChild(2).GetChild(0);
+
+        renderer = modelTransform.GetComponent<Renderer>();
 
     }
 
@@ -74,13 +78,16 @@ public class PlayerControler : MonoBehaviour
 
         switch (playerId)
         {
-            case 0: primaryColor = Color.red; break;
-            case 1: primaryColor = Color.blue; break;
-            case 2: primaryColor = Color.green; break;
-            case 3: primaryColor = Color.white; break;
+            case 0: primaryColor = Color.white; break;
+            case 1: primaryColor = Color.red; break;
+            case 2: primaryColor = Color.blue; break;
+            case 3: primaryColor = Color.green; break;
         }
 
+        renderer.material.color = primaryColor;
 
+        //Debug.Log(bodymaterial.color);
+        Debug.Log(primaryColor);
     }
     //FixedUpdate
     void FixedUpdate()
@@ -93,8 +100,6 @@ public class PlayerControler : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(spawnRotation, Vector3.up);
             spawned = true;
         }
-
-        Debug.Log(moveVector);
 
         if (canMove)
         {
