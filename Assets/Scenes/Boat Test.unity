@@ -352,6 +352,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 740729576}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &736530589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 736530590}
+  m_Layer: 0
+  m_Name: Min
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &736530590
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736530589}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.54, y: -1.59, z: 8.92}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2099900665}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &740729575
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,15 +461,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxShipHealth: 100
-  fillRate: 40
-  shipFilled: 0
   shipHealth: 0
+  regenRate: 2
   percentageDamaged: 0
-  fillSpeed: 0
-  healthText: {fileID: 0}
-  transitionspeed: 0
+  dmgRate: 1
+  dmgSpeed: 0
+  leaks: 0
+  shipFilled: 0
   gm: {fileID: 1630204421}
   ship: {fileID: 740729575}
+  healthText: {fileID: 0}
+  transitionspeed: 0
+  currentShipHeight: 0
   maxShipHeight: 0
   minShipHeight: -6.5
 --- !u!1001 &925680145
@@ -557,6 +591,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &985900580
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 985900581}
+  m_Layer: 0
+  m_Name: Max
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &985900581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985900580}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.7, y: 0, z: -10.16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2099900665}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1024975120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,6 +1403,181 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &1864196915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1864196917}
+  - component: {fileID: 1864196916}
+  m_Layer: 0
+  m_Name: '[TaskManager]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1864196916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864196915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb436a7cba574eae841c1c89ec870faa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  taskList:
+  - taskName: Pump
+    task:
+      isStatic: 0
+      isCompleted: 0
+      isDynamic: 1
+      areaName: Deck
+      dynamicCounter: 0
+      target: 5
+    dynamicObjectPrefab: {fileID: 6960886509012401907, guid: 553a47fac97c1ff42a8771131a7b5c08,
+      type: 3}
+    dynamicStaticIAreas: []
+  - taskName: Starboard sail
+    task:
+      isStatic: 1
+      isCompleted: 0
+      isDynamic: 0
+      areaName: 
+      dynamicCounter: 0
+      target: 1
+    dynamicObjectPrefab: {fileID: 0}
+    dynamicStaticIAreas: []
+  - taskName: Port sail
+    task:
+      isStatic: 1
+      isCompleted: 0
+      isDynamic: 0
+      areaName: 
+      dynamicCounter: 0
+      target: 1
+    dynamicObjectPrefab: {fileID: 0}
+    dynamicStaticIAreas: []
+  - taskName: Cannon Fire
+    task:
+      isStatic: 1
+      isCompleted: 0
+      isDynamic: 1
+      areaName: 
+      dynamicCounter: 0
+      target: 1
+    dynamicObjectPrefab: {fileID: 0}
+    dynamicStaticIAreas:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  tasksCompleted: 0
+  taskSecondInterval: 666
+--- !u!4 &1864196917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864196915}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.82, y: 5.15, z: 4.91}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2032730262}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2032730261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2032730262}
+  - component: {fileID: 2032730263}
+  m_Layer: 0
+  m_Name: '[AreaManager]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2032730262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032730261}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.41, y: -0.19, z: -0.69}
+  m_LocalScale: {x: 0.48352462, y: 1, z: 0.3557656}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2099900665}
+  m_Father: {fileID: 1864196917}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2032730263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032730261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967209fddb3344599b7d6234e7c79daa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  areas:
+  - name: Deck
+    Min: {fileID: 736530590}
+    Max: {fileID: 985900581}
+--- !u!1 &2099900664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2099900665}
+  m_Layer: 0
+  m_Name: AreaA
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2099900665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099900664}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 736530590}
+  - {fileID: 985900581}
+  m_Father: {fileID: 2032730262}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1346,3 +1586,4 @@ SceneRoots:
   - {fileID: 1339726545}
   - {fileID: 740729576}
   - {fileID: 1630204422}
+  - {fileID: 1864196917}

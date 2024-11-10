@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class KillZone : MonoBehaviour
 {
@@ -16,7 +17,8 @@ public class KillZone : MonoBehaviour
         {
             shootup = true;
             StartCoroutine(ShootBackToDeck(col.gameObject));
-
+            Vector3 positionEntered = col.gameObject.transform.position; //use this with like -0.5y or something
+            
         }
     }
 

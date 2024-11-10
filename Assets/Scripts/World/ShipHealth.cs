@@ -56,11 +56,8 @@ public class ShipHealth : MonoBehaviour
         {
             RepairShip(5);
         }
-
-        // shipHealth -= fillSpeed / fillRate; // reduces the ships health over time while the ship is damaged
-
-
     }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -70,8 +67,8 @@ public class ShipHealth : MonoBehaviour
             loop = false;
         }
 
-        displayhealth = Mathf.MoveTowards(displayhealth, 0, shipHealth * Time.deltaTime); //updates the ship health ui with the ships heal
-        UpdateScoreDisplay();
+        //displayhealth = Mathf.MoveTowards(displayhealth, 0, shipHealth * Time.deltaTime); //updates the ship health ui with the ships heal
+        //UpdateScoreDisplay();
     }
 
     public void DamageShip(int damage)
