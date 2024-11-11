@@ -1106,7 +1106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 100
-  maxKnockbackForce: 10
+  maxKnockbackForce: 0.5
   rb: {fileID: 0}
   healthText: {fileID: 5690518441012888640}
   onDamageTaken:
@@ -1172,8 +1172,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  move_sp: 0.5
+  move_sp: 1
+  ani: {fileID: 5866666021909216657}
+  playerRange: 1
+  IsPlayer:
+    serializedVersion: 2
+    m_Bits: 8
   timeBetweenAttacks: 0
+  distancetoplayer: 0
 --- !u!136 &7845526241387738160
 CapsuleCollider:
   m_ObjectHideFlags: 0

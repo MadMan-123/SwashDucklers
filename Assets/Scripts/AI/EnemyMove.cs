@@ -8,21 +8,41 @@ public class EnemyMove : MonoBehaviour
 {
     public Transform player;
     public float move_sp;
+    public Animator ani;
+    public float playerRange;
+    public LayerMask IsPlayer;
 
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
 
-
+    public bool distancetoplayer;
+   
     private void Start()
     {
-        player = GameObject.FindWithTag("Player").transform ; 
+        distancetoplayer = Physics.CheckSphere(transform.position, playerRange, IsPlayer);
+        if (distancetoplayer) AttackPlayer();
+
+
+        
+        ani = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
-     
-        transform.LookAt(player);
+        player = GameObject.FindWithTag("Player").transform ; 
+        
+        
+        if (distancetoplayer) AttackPlayer();
+
+
+        Vector3 newtarget = player.position;
+        newtarget.y = transform.position.y;
+       // newtarget.x = transform.position.x;
+        transform.LookAt(newtarget);
+
+
+        //transform.LookAt(player);
     transform.position = Vector3.MoveTowards(transform.position, player.position,move_sp * Time.deltaTime);
 
     }
@@ -37,8 +57,8 @@ public class EnemyMove : MonoBehaviour
         if (!alreadyAttacked)
         {
             ///Attack code here
-        
 
+            ani.Play("slap");
 
 
 
@@ -49,6 +69,13 @@ public class EnemyMove : MonoBehaviour
     private void ResetAttack()
     {
         alreadyAttacked = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+     
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, playerRange);
     }
 
 }

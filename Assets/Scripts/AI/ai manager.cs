@@ -45,46 +45,50 @@ public class AImanager : MonoBehaviour
             StartCoroutine(Waverandomiser());
         }
     }
-   
 
 
-        IEnumerator Waverandomiser()
+
+
+    IEnumerator Waverandomiser()
+    {
+
         {
-     
-         
+            var waitPeriod = new WaitForSeconds(5); //cache the wait for seconds
+
             while (true)
             {
-                // Get a random value
-                currentwave = Random.Range(1, 5);
-              yield return new WaitForSeconds(1);
-            
-            // start a new wave
+                int currentwave = Random.Range(0, 5);
+
+
+// start a new wave
                 if (currentwave == 1)
                 {
-                    WaveShip();
-                
-            }
+                    duck();
+
+                }
 
                 if (currentwave == 2)
                 {
-                    WaveSquid();
-               
-            }
+                    WaveShip();
+
+                }
 
 
-                yield return new WaitForSeconds(2);
-            StopCoroutine(Waverandomiser());
+                
+
+                yield return waitPeriod;
             }
 
         }
-    
+    }
 
-      public void WaveShip()
-        {
+    public void duck()
+    {
+
         enemySpawn = true;
-     
 
-        if (enemycount == maxenemycount )
+
+        if (enemycount >= maxenemycount)
         {
             enemySpawn = false;
         }
@@ -96,6 +100,10 @@ public class AImanager : MonoBehaviour
             Instantiate(enemy, position, transform.rotation);
             enemycount += 1;
         }
+    }
+      public void WaveShip()
+        {
+       
         
     
 
