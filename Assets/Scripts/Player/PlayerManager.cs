@@ -20,6 +20,15 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Vector3 player3SpawnRotation;
     [SerializeField] private Vector3 player4SpawnRotation;
 
+    [SerializeField] private Color player1LitColor;
+    [SerializeField] private Color player1DarkColor;
+    [SerializeField] private Color player2LitColor;
+    [SerializeField] private Color player2DarkColor;
+    [SerializeField] private Color player3LitColor;
+    [SerializeField] private Color player3DarkColor;
+    [SerializeField] private Color player4LitColor;
+    [SerializeField] private Color player4DarkColor;
+
     private Input Input;
 
     // Start is called before the first frame update
@@ -46,18 +55,26 @@ public class PlayerManager : MonoBehaviour
             case 0:
                player.GetComponent<PlayerControler>().spawnpoint = player1Spawn;
                 player.GetComponent<PlayerControler>().spawnRotation = player1SpawnRotation;
+                player.GetComponent<PlayerControler>().litColor = player1LitColor;
+                player.GetComponent<PlayerControler>().darkColor = player1DarkColor;
                 break;
             case 1:
                 player.GetComponent<PlayerControler>().spawnpoint = player2Spawn;
                 player.GetComponent<PlayerControler>().spawnRotation = player2SpawnRotation;
+                player.GetComponent<PlayerControler>().litColor = player2LitColor;
+                player.GetComponent<PlayerControler>().darkColor = player2DarkColor;
                 break;
             case 2:
                 player.GetComponent<PlayerControler>().spawnpoint = player3Spawn;
                 player.GetComponent<PlayerControler>().spawnRotation = player2SpawnRotation;
+                player.GetComponent<PlayerControler>().litColor = player3LitColor;
+                player.GetComponent<PlayerControler>().darkColor = player3DarkColor;
                 break;
             case 3:
                 player.GetComponent<PlayerControler>().spawnpoint = player4Spawn;
                 player.GetComponent<PlayerControler>().spawnRotation = player4SpawnRotation;
+                player.GetComponent<PlayerControler>().litColor = player4LitColor;
+                player.GetComponent<PlayerControler>().darkColor = player4DarkColor;
                 break;
         }
 

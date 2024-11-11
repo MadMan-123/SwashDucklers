@@ -39,11 +39,13 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] float bumpForceUp;
     public Vector3 spawnpoint;
     public Vector3 spawnRotation;
+    public Color litColor;
+    public Color darkColor;
     public Animator animator;
     public bool canMove = true;
     private bool spawned = false;
-    private Material bodymaterial;
-    private Renderer renderer;
+    private Renderer beakRenderer;
+    private Renderer bodyRenderer;
 
     private static readonly int Color1 = Shader.PropertyToID("_Color");
 
@@ -58,10 +60,10 @@ public class PlayerControler : MonoBehaviour
         playerID = playerInput.playerIndex;
         
         // Cache model renderers
-        modelTransform = transform.GetChild(2).GetChild(0).GetChild(0);
+        modelTransform = transform.GetChild(2).GetChild(0);
 
-        renderer = modelTransform.GetComponent<Renderer>();
-
+        beakRenderer = modelTransform.GetChild(0).GetComponent<Renderer>();
+        bodyRenderer = modelTransform.GetChild(1).GetComponent<Renderer>();
     }
 
     //On start
@@ -73,21 +75,24 @@ public class PlayerControler : MonoBehaviour
     }
     private void SetPlayerColor(int playerId)
     {
-        Color primaryColor = Color.white;
-        Color secondaryColor = Color.yellow;
 
-        switch (playerId)
-        {
-            case 0: primaryColor = Color.white; break;
-            case 1: primaryColor = Color.red; break;
-            case 2: primaryColor = Color.blue; break;
-            case 3: primaryColor = Color.green; break;
-        }
+        //Body
+        bodyRenderer.material.SetColor("_BaseColor", litColor); //Light Color
+        bodyRenderer.material.SetColor("_1st_ShadeColor", darkColor); //Shaded Color
 
-        renderer.material.color = primaryColor;
+        //Beak and legs
+        //beakRenderer.material.SetColor("_BaseColor", secondaryColor); //Light Color
+        //beakRenderer.material.SetColor("_1st_ShadeColor", secondaryColor); //Shaded Color
+
+        //for (int i = 0; i < bodyRenderer.material.shader.GetPropertyCount(); i++)
+        //{
+        //    Debug.Log(bodyRenderer.material.shader.GetPropertyName(i));
+        //}
+
+
 
         //Debug.Log(bodymaterial.color);
-        Debug.Log(primaryColor);
+        //Debug.Log(LitColor);
     }
     //FixedUpdate
     void FixedUpdate()
