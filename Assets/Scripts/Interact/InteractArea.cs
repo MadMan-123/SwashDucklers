@@ -112,9 +112,11 @@ public class InteractArea : MonoBehaviour
         StopAllCoroutines();
     }
 
+#if UNITY_Editor
     private void OnDrawGizmos()
     {
         if(TaskName != "")
             Handles.Label(transform.position + transform.up * 1.5f,$"Task: {TaskName}"); 
     }
+#endif
 }
