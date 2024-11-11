@@ -58,7 +58,7 @@ public class PlayerControler : MonoBehaviour
         playerID = playerInput.playerIndex;
         
         // Cache model renderers
-        modelTransform = transform.GetChild(2).GetChild(0);
+        modelTransform = transform.GetChild(2).GetChild(0).GetChild(0);
 
         renderer = modelTransform.GetComponent<Renderer>();
 
