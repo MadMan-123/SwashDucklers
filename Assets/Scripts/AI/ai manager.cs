@@ -93,7 +93,7 @@ public class AImanager : MonoBehaviour
             enemySpawn = false;
         }
 
-        var position = new Vector3(Random.Range(-12, -4), 5, Random.Range(-4, 6));
+        var position = new Vector3(Random.Range(-10, -4), 5, Random.Range(2, 2));
 
         if (enemySpawn)
         {
