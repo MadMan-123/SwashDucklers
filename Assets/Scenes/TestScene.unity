@@ -2331,7 +2331,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410785620}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dafa1e34fc4c95b4ca764f8f0c34a5e3, type: 3}
   m_Name: 
@@ -6791,7 +6791,7 @@ PrefabInstance:
     - target: {fileID: 2539043706372876426, guid: 7b91f136b3519ff4995b588998450993,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.01
+      value: 6.04
       objectReference: {fileID: 0}
     - target: {fileID: 2539043706372876426, guid: 7b91f136b3519ff4995b588998450993,
         type: 3}
@@ -7650,6 +7650,106 @@ PrefabInstance:
         type: 3}
       propertyPath: player4Spawn.z
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player1LitColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player1LitColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player1LitColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player2LitColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player3LitColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player3LitColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player3LitColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player4LitColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player4LitColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player4LitColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player1DarkColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player1DarkColor.g
+      value: 0.56078434
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player1DarkColor.r
+      value: 0.56078434
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player2DarkColor.g
+      value: 0.4627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player2DarkColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player3DarkColor.b
+      value: 0.6666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player3DarkColor.g
+      value: 0.007843138
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player4DarkColor.b
+      value: 0.7607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player4DarkColor.g
+      value: 0.59607846
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: player4DarkColor.r
+      value: 0.59607846
       objectReference: {fileID: 0}
     - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
         type: 3}
