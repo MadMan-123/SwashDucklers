@@ -4844,6 +4844,7 @@ GameObject:
   - component: {fileID: 8801728608532051539}
   - component: {fileID: 8572656337838187960}
   - component: {fileID: 1498796734519486571}
+  - component: {fileID: 424926215238221376}
   m_Layer: 0
   m_Name: Pump
   m_TagString: Untagged
@@ -4861,8 +4862,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7813342309046988123}
   m_Father: {fileID: 0}
@@ -4882,7 +4883,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6960886509012401907}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4952,11 +4953,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needTool: 1
+  needTool: 0
   fasterWithTool: 0
-  isTool: 1
+  isTool: 0
   isStation: 1
-  toolUsed: 
+  expectedType: 0
   OnInteract:
     m_PersistentCalls:
       m_Calls:
@@ -4990,3 +4991,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   w_bucket: {fileID: 0}
+  ship: {fileID: 0}
+--- !u!114 &424926215238221376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6960886509012401907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leakAmmount: 1
+  health: {fileID: 0}

@@ -38,11 +38,12 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
         //sean suggested a quack when the player gets slapped so ill implament a quick on damage
         onDamageTaken?.Invoke(health);
 
+        //We were already doing knockback in the interact component -MW
         //GM: Apply knockback
-        ApplyKnockback();
+        //ApplyKnockback();
     }
 
-    private void ApplyKnockback()
+    public void ApplyKnockback(Vector3 dir)
     {
         // GM: Calculate the knockback force based on the player's current health percentage.
         // As the player's health increases, the knockback force also increases, up to maxKnockbackForce.
@@ -51,12 +52,12 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
         // GM: Set the direction of the knockback.
         // We use '-transform.forward' to push the player backward relative to their current facing direction.
         // Adjust this direction if you want knockback to go in a different direction.
-        Vector3 knockbackDirection = -transform.forward;
+
 
         // GM: Apply the calculated knockback force to the player's Rigidbody.
         //'AddForce' applies the force instantly (due to 'ForceMode.Impulse') to simulate a knockback effect.
         // The direction and magnitude of the force are determined by 'knockbackDirection * knockbackForce'.
-        rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
+        rb.AddForce(dir + (Vector3.up * 0.1f) * knockbackForce, ForceMode.Impulse);
     }
 
 
@@ -67,10 +68,17 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
         if (!healthText) return;
         //healthText.text = string.Format("player health: {00:0.0}%", health);//stuart's code
         //healthText.text = health.ToString("F1") + "%"; //GM: this should display the health as a percentage with one decimal point | update: it doesn't :|
-        healthText.text = $"{gameObject.name} Health: {health}%"; //updating the text 
+        healthText.text = $"HP: {health}%"; //updating the text 
     }
     
     //Get Health : float
     public float GetHealth() => health;
 
+    public float GetMaxHealth() => maxHealth;
+
+    public void SetHealth(float getMaxHealth)
+    {
+        health = getMaxHealth;
+        UpdateHealthUI();
+    }
 }

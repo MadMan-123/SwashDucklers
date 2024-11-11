@@ -15,8 +15,8 @@ public class waterinteract : MonoBehaviour
 
     public void Startdrain(GameObject source,float time)
     {
-        IEnumerator pop = drain(source,time);
-        StartCoroutine(pop);
+        //IEnumerator pop = drain(source,time);
+        //StartCoroutine(pop);
     }
 
     IEnumerator drain(GameObject player, float sec)

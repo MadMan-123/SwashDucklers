@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -6,10 +7,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
-
-    public float PlayerNo;
-
-
     [SerializeField] private Vector3 player1Spawn;
     [SerializeField] private Vector3 player2Spawn;
     [SerializeField] private Vector3 player3Spawn;
@@ -31,6 +28,12 @@ public class PlayerManager : MonoBehaviour
 
     private Input Input;
 
+    [SerializeField] List<GameObject> players = new();
+    [SerializeField] private string areaName;
+    public int PlayerNo; //i swear to god if i see another counting variable set as a float and not an int 
+
+    [SerializeField] private float debugRadius = 0.45f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,11 +48,12 @@ public class PlayerManager : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput player)
     {
-
-        PlayerNo = PlayerNo + 1;
+        PlayerNo++;
+        players.Add(player.gameObject);
         Debug.Log("Player joined");
         Debug.Log($"Players:{PlayerNo}");
 
+        
         switch (player.playerIndex)
         {
             case 0:
@@ -82,10 +86,24 @@ public class PlayerManager : MonoBehaviour
 
     public void OnPlayerLeft(PlayerInput player)
     {
-
         PlayerNo = PlayerNo - 1;
         Debug.Log("Player left");
         Debug.Log($"Players:{PlayerNo}");
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        //draw each position
+        Gizmos.color = Color.cyan;
+        Handles.Label(player1Spawn + Vector3.up,"Player 1 Spawn");
+        Gizmos.DrawSphere(player1Spawn, debugRadius);
+        Handles.Label(player2Spawn + Vector3.up,"Player 2 Spawn");
+        Gizmos.DrawSphere(player2Spawn, debugRadius);
+        Handles.Label(player3Spawn + Vector3.up,"Player 3 Spawn");
+        Gizmos.DrawSphere(player3Spawn, debugRadius);
+        Handles.Label(player4Spawn + Vector3.up,"Player 4 Spawn");
+        Gizmos.DrawSphere(player4Spawn, debugRadius);
 
     }
 }

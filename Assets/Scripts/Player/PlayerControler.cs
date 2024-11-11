@@ -106,6 +106,9 @@ public class PlayerControler : MonoBehaviour
             spawned = true;
         }
 
+        //commented out cuz was flooding the console - MW
+        //Debug.Log(moveVector);
+
         if (canMove)
         {
             //If on the ground

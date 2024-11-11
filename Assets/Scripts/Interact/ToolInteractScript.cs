@@ -12,7 +12,7 @@ public class ToolInteractScript : InteractArea
     {
         if (player.TryGetComponent(out InteractComponent comp))
         {
-            comp.tool = myTool;
+            //comp.tool = myTool;
             comp.inArea = false;
         }
         //gameObject.SetActive(false); - Set false then destroy it? no need for this line if we destroy it MW

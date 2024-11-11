@@ -15,7 +15,7 @@ public class InteractArea : MonoBehaviour
     [SerializeField] public bool isStation;
 
 
-    [SerializeField] public string toolUsed;
+    [SerializeField] public Item.Type expectedType;
     [SerializeField] UnityEvent<GameObject,float> OnInteract;
     [SerializeField] private InteractComponent currentInteractable;
     [SerializeField] private PlayerControler currentController;
@@ -71,10 +71,23 @@ public class InteractArea : MonoBehaviour
         OnInteract?.Invoke(player,regularTime);
     }
 
-    public void InteractWithTool(string tool, GameObject player)
+    public void InteractWithTool(Item.Type tool, GameObject player)
     {
         CheckTask();
-        var time = toolUsed == tool && fasterWithTool ? regularTime : toolTime;
+        var time = expectedType == tool && fasterWithTool ? regularTime : toolTime;
+
+        switch (tool)
+        {
+            case Item.Type.CannonBall:
+                if (player.TryGetComponent(out Inventory inv))
+                {
+                    inv.Return();
+                }
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(tool), tool, null);
+        }
+        
         //invoke the event and pass the source object as the player
         OnInteract?.Invoke(player, time);
     }

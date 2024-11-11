@@ -148,26 +148,9 @@ public class TaskManager : MonoBehaviour
                 
                 //if the task is dynamic then dont set isComplete to true, just add to counter
 
-                if (task.isStatic || !task.isDynamic)
-                {
+
                         task.isCompleted = true;
-                }
-                else if (task.isDynamic || !task.isStatic)
-                {
-                        //complete the task
-                        task.dynamicCounter++;
-                        
-                        if (task.dynamicCounter >= task.target)
-                        {
-                                task.isCompleted = true;
-                                task.dynamicCounter = 0;
-                        }
-                        else
-                        {
-                                return;
-                        }
-                        
-                }
+
                 //add to the counter
                 tasksCompleted++;
                 //log that a task has been completed
@@ -215,7 +198,6 @@ public class TaskManager : MonoBehaviour
                 public bool isDynamic;
                 //public int currentTaskId = -1;
                 public string areaName;
-                public int dynamicCounter = 0;
                 public int target = 1;
                 public void SetName(string name) => taskName = name;       
                 public string GetName() => taskName;

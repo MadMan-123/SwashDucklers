@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class ShipHealth : MonoBehaviour
     bool loop;
 
     [Header("Damage")]
-    [SerializeField] float dmgRate;
+    [SerializeField] public float dmgRate;
     [SerializeField] float dmgSpeed;
     [SerializeField] int leaks;
     [SerializeField] float shipFilled;
@@ -33,10 +34,27 @@ public class ShipHealth : MonoBehaviour
     [SerializeField] float currentShipHeight;
     [SerializeField] float maxShipHeight = 0f;
     [SerializeField] float minShipHeight = -6.5f;
+    public static ShipHealth instance;
+
+
+    private void Awake()
+    {
+        //singleton boilerplate
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        
         shipHealth = maxShipHealth;
         shipFilled = 0;
         displayhealth = 100;

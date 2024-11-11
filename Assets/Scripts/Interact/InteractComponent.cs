@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
 
 public class InteractComponent : MonoBehaviour
 {
-    [SerializeField] public string tool;
     [SerializeField] GameObject tempIndicator;
     [SerializeField] GameObject toolPU;
 
@@ -33,7 +33,7 @@ public class InteractComponent : MonoBehaviour
             interact.performed += ctx => TryInteract();
         }
     }
-
+    
     private void TryInteract()
     {
         if (playerControler.interacting)
@@ -46,21 +46,27 @@ public class InteractComponent : MonoBehaviour
         
         playerControler.interacting = true;
         playerControler.animator.SetBool("IsSlapping", true);
-
         playerControler.animator.CrossFade("Slap", 0.1f);
+
+        if (TryGetComponent(out Inventory inv) && inv.TryPickUp())
+        {
+           return;
+        }
+        
         if (!inArea)
         {
             Slap();
             return;
         }
-        if (!String.IsNullOrEmpty(tool))
+        if (TryGetComponent(out Inventory inventory) && inventory.item != null)
         {
-            Interact(tool);
+            Interact(inventory.item.type);
         }
         else
         {
             Interact();
         }
+
         //Reset the flag
         Invoke(nameof(ResetSlapAnim), 0.5f);
     }
@@ -84,11 +90,18 @@ public class InteractComponent : MonoBehaviour
             if (colliders[i].TryGetComponent(out Health health))         //if has component health then
             {
                 health.TakeDamage(slapDamage);
-                extraForce = health.GetHealth();
+                extraForce = (health.GetHealth() / health.GetMaxHealth()) * slapForce;
             }
             if (colliders[i].TryGetComponent(out PlayerControler pc))
             {
                 StartCoroutine(ReduceFriction(colliders[i].gameObject,pc, extraForce/5));
+            }
+            if (colliders[i].TryGetComponent(out AIBrain brain))
+            {
+                //disable the agent and enable kinematic
+                StartCoroutine(brain.ReenableAgent(brain.knockDownTime));
+                brain.ChangeState(AIBrain.State.Chase);
+                
             }
             rb.AddForce(((transform.forward ) * (slapForce + extraForce/5) )+ ((transform.up * howMuchUp) * slapForce / 5), ForceMode.Impulse);
             
@@ -97,6 +110,8 @@ public class InteractComponent : MonoBehaviour
             SoundManager.PlayAudioClip("Slap",transform.position + transform.forward,1f);
     }
 
+    
+    
     void Interact()
     {
        if(!AreaImIn ) return;
@@ -120,7 +135,7 @@ public class InteractComponent : MonoBehaviour
        StartCoroutine(InteractTimer());
     }
 
-    void Interact(string tool)
+    void Interact(Item.Type tool)
     {
         if (inArea)
         {
@@ -129,7 +144,7 @@ public class InteractComponent : MonoBehaviour
                 AreaImIn.InteractWithTool(tool, gameObject);
                 StartCoroutine(InteractTimer());
             }
-            else if (tool == AreaImIn.toolUsed)
+            else if (tool == AreaImIn.expectedType)
             {
                 AreaImIn.InteractWithTool(tool, gameObject);
                 StartCoroutine(InteractTimer());

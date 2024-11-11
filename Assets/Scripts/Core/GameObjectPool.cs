@@ -39,11 +39,10 @@ namespace Core
             private GameObject CreateObjectInPool()
             {
 
-                GameObject obj;
+                GameObject obj = null;
                 if(prefab)
                     obj = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity, pTransform ? pTransform : null);
-                else
-                    obj = new GameObject();
+
                 obj.SetActive(false);
                 // Give the object the "Pooled" tag
                 obj.tag = "Pooled";

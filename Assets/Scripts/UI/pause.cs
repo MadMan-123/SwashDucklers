@@ -8,9 +8,10 @@ public class pausemenu : MonoBehaviour
     public GameObject pause;
     public GameObject Gameplay;
     public GameObject settings;
-    public GameObject controls;
+    public GameObject controls;    
     public bool paused;
     public bool PauseDaGame;
+
     // Start is called before the first frame update
     void Start()
     {

@@ -7,13 +7,13 @@ public class EnemyShip : MonoBehaviour
 {
 
     [SerializeField] int E_shiphealth;
-    [SerializeField] AImanager AImgr;
+    [SerializeField] AiMan AImgr;
     [SerializeField] Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
-        AImgr = GetComponent<AImanager>();
+        AImgr = GetComponent<AiMan>();
 
         anim = GetComponent<Animator>();
 
