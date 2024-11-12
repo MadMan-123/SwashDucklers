@@ -86,6 +86,7 @@ public class AreaManager : MonoBehaviour
         }
 
 
+#if UNITY_Editor
     private void OnDrawGizmos()
     {
                 //draw the areas of each "Area" and draw text above to tell this information
@@ -103,5 +104,6 @@ public class AreaManager : MonoBehaviour
                    Handles.Label(center + transform.up * size.y, area.name);
             }
     }
+#endif
 
 }

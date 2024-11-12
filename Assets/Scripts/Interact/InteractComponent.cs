@@ -174,6 +174,7 @@ public class InteractComponent : MonoBehaviour
             tempIndicator.SetActive(false);
     }
 
+#if UNITY_Editor
     private void OnDrawGizmos()
     {
         //draw the force velocity
@@ -184,6 +185,7 @@ public class InteractComponent : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position + transform.forward, slapRadius);
 
     }
+#endif
 
     IEnumerator ReduceFriction(GameObject player, PlayerControler pc, float slapForce)
     {

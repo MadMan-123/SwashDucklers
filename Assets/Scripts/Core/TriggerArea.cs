@@ -29,10 +29,12 @@ public class TriggerArea : MonoBehaviour
         onTrigger?.Invoke(other.gameObject);
     }
 
+#if UNITY_Editor
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireCube(transform.position,transform.lossyScale);
         Handles.Label(transform.position,gameObject.name);
     }
+#endif
 }

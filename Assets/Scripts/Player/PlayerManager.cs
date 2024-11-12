@@ -92,6 +92,7 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+#if UNITY_Editor
     private void OnDrawGizmos()
     {
         //draw each position
@@ -106,4 +107,5 @@ public class PlayerManager : MonoBehaviour
         Gizmos.DrawSphere(player4Spawn, debugRadius);
 
     }
+#endif
 }
