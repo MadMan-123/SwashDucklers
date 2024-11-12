@@ -12,6 +12,7 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
     [SerializeField] private float maxKnockbackForce = 10.0f; //GM: Maximum knockback force
     [SerializeField] private Rigidbody rb; //GM: Reference to Rigidbody component
     [SerializeField] private TextMeshProUGUI healthText; //GM: refernece to UI Text to display Health   
+    [SerializeField] private Color healthTextColor = Color.white; // Color for health text, default is white GM: STILL WORKING ON THIS
     [SerializeField] private UnityEvent<float> onDamageTaken;
 
     //application of damage
@@ -69,6 +70,8 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
         //healthText.text = string.Format("player health: {00:0.0}%", health);//stuart's code
         //healthText.text = health.ToString("F1") + "%"; //GM: this should display the health as a percentage with one decimal point | update: it doesn't :|
         healthText.text = $"HP: {health}%"; //updating the text 
+        // Ensure health text uses the assigned color
+        healthText.color = healthTextColor;//gm: STILL WORKING ON THIS
     }
     
     //Get Health : float
