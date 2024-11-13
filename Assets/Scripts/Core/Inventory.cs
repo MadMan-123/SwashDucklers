@@ -14,11 +14,11 @@ public class Inventory : MonoBehaviour
     
     public bool TryPickUp()
     {
-        if (item) return false;
+        if (item) return false;            //if it is an item / item isnt being held?
         
-        Collider[] colliders = new Collider[10];
-        int count = Physics.OverlapSphereNonAlloc(transform.position + transform.forward * 0.5f , 1f, colliders);
-        for (int i = 0; i < count; i++)
+        Collider[] colliders = new Collider[10];                         //array incase multiple items are tried to be picked up?
+        int count = Physics.OverlapSphereNonAlloc(transform.position + transform.forward * 0.5f , 1f, colliders);         //sphere area stuff
+        for (int i = 0; i < count; i++)                        
         {
             if (colliders[i].TryGetComponent(out Item item)  )
             {
@@ -32,7 +32,7 @@ public class Inventory : MonoBehaviour
     //drop
     public void DropItem()
     {
-        if (item)
+        if (item)  //if holding item?
         {
             item.DropItem(gameObject);
         }
@@ -40,7 +40,7 @@ public class Inventory : MonoBehaviour
     //get current item
     public bool AddItem(Item newItem)
     {
-        item = newItem;
+        item = newItem;            //assigned item to the new item
         return item;
     }
 
@@ -54,8 +54,8 @@ public class Inventory : MonoBehaviour
 
     public void Return()
     {
-        item.gameObject.SetActive(false);
+        item.gameObject.SetActive(false);             //dunno what this is for will report back, used in interactArea
     }
 
-    public Item GetItem() => item;
+    public Item GetItem() => item;             //return item?
 }

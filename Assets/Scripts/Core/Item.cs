@@ -21,13 +21,13 @@ public class Item : MonoBehaviour
     //type of item
     public void PickUp(GameObject source)
     {
-        if (source.TryGetComponent(out Inventory inv) )
+        if (source.TryGetComponent(out Inventory inv) )       //try to see if player has an inv
         {
             current = inv;
-            if (current.AddItem(this))
+            if (current.AddItem(this))                              //add this to inv
             {
                 //disable the rigidbody and collider
-                rb.isKinematic = true;
+                rb.isKinematic = true;                           //bunch of positioning stuff
                 col.enabled = false;
                 
                 //set the transforms
@@ -46,7 +46,7 @@ public class Item : MonoBehaviour
         {
             current = null;
             //set the transforms
-            transform.SetParent(null);
+            transform.SetParent(null);                                  //remove from parent (should make it drop?)
         }
     }
    

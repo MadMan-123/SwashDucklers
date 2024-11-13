@@ -21,8 +21,8 @@ public class InteractArea : MonoBehaviour
     [SerializeField] private PlayerControler currentController;
     
     [SerializeField] public string TaskName;
-    [SerializeField] private int toolTime = 2;
-    [SerializeField] private int regularTime = 4;
+    [SerializeField] private float toolTime = 2f;
+    [SerializeField] private float regularTime = 4f;
 
 
     private void Start()
@@ -44,7 +44,7 @@ public class InteractArea : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            currentInteractable.inArea = false;
+            currentInteractable.inArea = false;               
             currentInteractable.AreaImIn = null;
             currentInteractable = null;
             currentController = null;
@@ -53,7 +53,7 @@ public class InteractArea : MonoBehaviour
 
     public void CheckTask()
     {
-        if (TaskName == "") return;
+        if (TaskName == "") return;           //if no task exit void
         TaskManager.instance.CompleteTask(TaskName);
         var task = TaskManager.TaskHashMap[TaskName];
         
@@ -82,6 +82,12 @@ public class InteractArea : MonoBehaviour
                 if (player.TryGetComponent(out Inventory inv))
                 {
                     inv.Return();
+                }
+                break;
+            case Item.Type.Plank:
+                if(player.TryGetComponent(out Inventory inve))
+                {
+                    inve.Return();
                 }
                 break;
             default:

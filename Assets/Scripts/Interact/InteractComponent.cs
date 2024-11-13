@@ -114,7 +114,7 @@ public class InteractComponent : MonoBehaviour
     
     void Interact()
     {
-       if(!AreaImIn ) return;
+       if(!AreaImIn ) return;                                       //if not in an area exit
         var task = TaskManager.TaskHashMap[AreaImIn.TaskName];
        if (task is { isCompleted: true }) return;
        if (AreaImIn.isStation)
