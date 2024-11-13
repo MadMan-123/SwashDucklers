@@ -108,7 +108,6 @@ public class ShipHealth : MonoBehaviour
     {
         //percentageDamaged = Mathf.Lerp(maxShipHealth, 0, shipHealth) * 100;  //if ship is on 90% health this value shows 10% || 80% shows 20% et
         //percentageDamaged = Mathf.Lerp(maxShipHealth - shipHealth, 0, maxShipHealth) * 100;
-        Debug.Log(percentageDamaged);
         dmgSpeed = (dmgRate)/10 * leaks;                                     
         if(regenerate) //if regenerate
         {

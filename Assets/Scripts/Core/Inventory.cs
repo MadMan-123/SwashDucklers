@@ -38,8 +38,6 @@ public class Inventory : MonoBehaviour
         }
     }
     //get current item
-    
-    //Mb just realised apologies for having taste :/
     public bool AddItem(Item newItem)
     {
         item = newItem;
