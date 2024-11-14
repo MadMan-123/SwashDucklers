@@ -19,13 +19,13 @@ public class PlankStack : MonoBehaviour
     {
         if (source.TryGetComponent(out Inventory inv))       //try to see if gameobject has an inv
         {
+            GameObject p = Instantiate(plank);
             current = inv;
-            if (current.AddItem(plankItem))                              //add this to inv
+            if (current.AddItem(p.GetComponent<Item>()))                              //add this to inv
             {
                 //disable the rigidbody and collider
-                rb.isKinematic = true;                           //bunch of positioning stuff
-                col.enabled = false;
-                GameObject p = Instantiate(plank);
+                p.GetComponent<Rigidbody>().isKinematic = true;                           //bunch of positioning stuff
+                p.GetComponent<BoxCollider>().enabled = false;
                
                 //set the transforms
                 p.transform.SetParent(current.itemHolder, true);

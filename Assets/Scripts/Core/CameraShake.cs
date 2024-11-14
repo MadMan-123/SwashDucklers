@@ -13,6 +13,7 @@ public class CameraShake : MonoBehaviour
     {
         Instance = this;
         cmCam = GetComponent<CinemachineVirtualCamera>();
+        ShakeCamera(0, 0.1f);
     }
 
     // Update is called once per frame

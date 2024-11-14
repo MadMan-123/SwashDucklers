@@ -75,23 +75,24 @@ public class InteractArea : MonoBehaviour
     {
         CheckTask();
         var time = expectedType == tool && fasterWithTool ? regularTime : toolTime;
-
-        switch (tool)
+        if (player.TryGetComponent(out Inventory inv))
         {
-            case Item.Type.CannonBall:
-                if (player.TryGetComponent(out Inventory inv))
-                {
+            switch (tool)
+            {
+                case Item.Type.CannonBall:
+
                     inv.Return();
-                }
-                break;
-            case Item.Type.Plank:
-                if(player.TryGetComponent(out Inventory inve))
-                {
-                    inve.Return();
-                }
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(tool), tool, null);
+
+                    break;
+                case Item.Type.Plank:
+
+                    inv.Return();
+
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(tool), tool, null);
+            }
+
         }
         
         //invoke the event and pass the source object as the player
