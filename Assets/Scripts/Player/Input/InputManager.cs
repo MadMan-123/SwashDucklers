@@ -12,8 +12,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using UnityEngine.SceneManagement;
 
 public partial class @InputManager: IInputActionCollection2, IDisposable
 {
@@ -117,6 +119,17 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+{
+                    ""name"": ""Keyboard - ReturnToMenu"",
+                    ""id"": ""8c56341e-2263-4d48-853a-74f83e9509d7"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Utility"", ///GM: also I wrote down 'utility' for stuff that isn't related to gameplay, so like things like menu functions will be classified as 'Utility'
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -240,7 +253,20 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
                     ""action"": ""Taunt"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
+
+                },
+                {
+                    ""name"": ""Gamepad - Return to Menu"",
+                    ""id"": ""ca623a55-267c-4080-be29-f7c3e713d73f"",
+                    ""path"": ""<Gamepad>/buttonEast"",///GM: don't fucking ask me why the left trigger wasn't working, idk my self :| either way, this works.
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Utility"", ///GM: also I wrote down 'utility' for stuff that isn't related to gameplay, so like things like menu functions will be classified as 'Utility'
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+
+                },
             ]
         }
     ],
@@ -267,6 +293,7 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
                 }
             ]
         }
+        
     ]
 }");
         // Player
@@ -427,4 +454,6 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnTaunt(InputAction.CallbackContext context);
     }
+
+    
 }
