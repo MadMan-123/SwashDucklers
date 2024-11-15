@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -40,7 +41,7 @@ public class AIBrain : MonoBehaviour
         void Start()
         {
             boatLayer = LayerMask.NameToLayer("Boat");
-            state = State.Wander;
+            state = State.Idle;
             if (TryGetComponent(out agent))
             {
                 agent.enabled = false;
@@ -70,7 +71,9 @@ public class AIBrain : MonoBehaviour
                 //check for a target
                 //sphere cast then filter with fov check
                 var count = Physics.OverlapSphereNonAlloc(transform.position, viewRadius, colliders,LayerMask.NameToLayer("player"));
-                
+                colliders = colliders.Where(collider => collider.CompareTag("Player")).ToArray();
+ 
+                count = colliders.Length;
                 if(count == 0)
                 {
                     //if there are no colliders in the view radius, return to wander
@@ -81,7 +84,7 @@ public class AIBrain : MonoBehaviour
                 for (int i = 0; i < count; i++)
                 {
                     //check if the collider is in the fov
-                    if (CanSee(colliders[i].transform) && colliders[i].CompareTag("Player"))
+                    if (CanSee(colliders[i].transform))
                     {
                         //todo: some sort of dynamic priority system on what the target should be
                         target = colliders[i].transform;
