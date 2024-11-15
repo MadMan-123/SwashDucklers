@@ -116,22 +116,27 @@ public class InteractComponent : MonoBehaviour
     void Interact()
     {
        if(!AreaImIn ) return;                                       //if not in an area exit
-        var task = TaskManager.TaskHashMap[AreaImIn.TaskName];
-       if (task is { isCompleted: true }) return;
-       if (AreaImIn.isStation)
+       
+       
+       //if the hash map contains the task name
+       if (TaskManager.TaskHashMap.TryGetValue(AreaImIn.TaskName, out var task))
        {
-           if (inArea && !AreaImIn.needTool)
+           if (task is { isCompleted: true }) return;
+           if (AreaImIn.isStation)
            {
-               AreaImIn.Interact(gameObject);
-               StartCoroutine(InteractTimer());
+               if (inArea && !AreaImIn.needTool)
+               {
+                   AreaImIn.Interact(gameObject);
+                   StartCoroutine(InteractTimer());
+               }
+               else
+               {
+                   WrongTool();
+               }
            }
-           else
-           {
-               WrongTool();
-           }
+           return;
        }
 
-       if (!AreaImIn.isTool) return;
        AreaImIn.Interact(gameObject);
        StartCoroutine(InteractTimer());
     }

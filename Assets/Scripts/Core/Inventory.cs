@@ -53,9 +53,12 @@ public class Inventory : MonoBehaviour
         item = null;
     }
 
+    
+    //used for Object pools (cannonBalls)
     public void Return()
     {
-        item.gameObject.SetActive(false);             //dunno what this is for will report back, used in interactArea
+        item.gameObject.SetActive(false); 
+        item = null;
     }
 
     public Item GetItem() => item;             //return item?

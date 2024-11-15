@@ -3,10 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.InputSystem.XR.Haptics;
-using UnityEngine.InputSystem.Controls;
-
 public class ShipHealth : MonoBehaviour
 {
     [Header("Health")]

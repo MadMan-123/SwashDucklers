@@ -52,7 +52,9 @@ public class Item : MonoBehaviour
    
     public enum Type 
     {
-        CannonBall, Plank
+        NoItem = -1,
+        CannonBall, 
+        Plank
         //other item types here
     }
 }

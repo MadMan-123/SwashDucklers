@@ -42,18 +42,24 @@ public class InteractArea : MonoBehaviour
 
     private void OnTriggerExit(Collider col)
     {
+
         if (col.gameObject.CompareTag("Player"))
         {
+            ResetAll();
+        }
+    }
+
+    public void ResetAll()
+    {
+
             currentInteractable.inArea = false;               
             currentInteractable.AreaImIn = null;
             currentInteractable = null;
             currentController = null;
-        }
+        
     }
-
     public bool CheckTask()
     {
-        if (TaskName == "") return false;           //if no task exit void
         TaskManager.instance.CompleteTask(TaskName);
         var task = TaskManager.TaskHashMap[TaskName];
         
@@ -62,6 +68,7 @@ public class InteractArea : MonoBehaviour
         if (task.isDynamic && task.isCompleted)
         {
             task.isCompleted = false;
+            ResetAll();
             TaskManager.instance.ReturnTask(gameObject);
         }
 
@@ -69,13 +76,15 @@ public class InteractArea : MonoBehaviour
     }
     public void Interact(GameObject player)
     {
-        if(!CheckTask()) return; 
+        if(TaskName !=  "")
+            if(!CheckTask()) return; 
         OnInteract?.Invoke(player,regularTime);
     }
 
     public void InteractWithTool(Item.Type tool, GameObject player)
     {
-        if(!CheckTask()) return;
+        if(TaskName != "")
+            if(!CheckTask() || tool != expectedType ) return;
         var time = expectedType == tool && fasterWithTool ? regularTime : toolTime;
         if (player.TryGetComponent(out Inventory inv))
         {
@@ -88,7 +97,7 @@ public class InteractArea : MonoBehaviour
                     break;
                 case Item.Type.Plank:
 
-                    inv.Return();
+                    inv.RemoveItem();
 
                     break;
                 default:
