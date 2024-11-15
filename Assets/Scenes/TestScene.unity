@@ -6538,7 +6538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbce6cbedf8b4a84fb91da89faa3e9e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightModifier: 0.1
+  heightModifier: 1
   durationModifer: 0.99
 --- !u!1 &1501957939
 GameObject:
@@ -7955,8 +7955,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7117c78e00adabe46a811660fc0a62db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 0, z: 0}
-  pickupRotation: {x: 0, y: 0, z: 0, w: 0}
   type: 1
   rb: {fileID: 1919063546903762896, guid: 9bb785f08d8cb89438169116a6911c62, type: 3}
   col: {fileID: 1345083520647016998, guid: 9bb785f08d8cb89438169116a6911c62, type: 3}
