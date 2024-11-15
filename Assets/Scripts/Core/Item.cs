@@ -6,8 +6,8 @@ public class Item : MonoBehaviour
     
     private Inventory current;
 
-    [SerializeField] private Vector3 offset;
-    [SerializeField] private Quaternion pickupRotation;
+    [SerializeField] public Vector3 offset;
+    [SerializeField] public Quaternion pickupRotation;
     [SerializeField] public Type type;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Collider col;

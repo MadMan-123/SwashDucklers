@@ -40,6 +40,7 @@ public class Inventory : MonoBehaviour
     //get current item
     public bool AddItem(Item newItem)
     {
+
         item = newItem;            //assigned item to the new item
         return item;
     }

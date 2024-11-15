@@ -6,8 +6,6 @@ public class PlankStack : MonoBehaviour
 {
     private Inventory current;
 
-    [SerializeField] private Vector3 offset;
-    [SerializeField] private Quaternion pickupRotation;
     [SerializeField] public Item.Type type; //The type lives in Item - MW
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Collider col;
@@ -21,18 +19,21 @@ public class PlankStack : MonoBehaviour
         {
             GameObject p = Instantiate(plank);
             current = inv;
-            if (current.AddItem(p.GetComponent<Item>()))                              //add this to inv
+            if (p.TryGetComponent(out Item item))
             {
+                if (!current.AddItem(item)) return; //add this to inv
                 //disable the rigidbody and collider
                 p.GetComponent<Rigidbody>().isKinematic = true;                           //bunch of positioning stuff
                 p.GetComponent<BoxCollider>().enabled = false;
-               
+                           
                 //set the transforms
                 p.transform.SetParent(current.itemHolder, true);
-
-                p.transform.localPosition = offset;
-                p.transform.localRotation = pickupRotation;
+            
+                //Exactly what we want but just with the items data - MW
+                p.transform.localPosition = item.offset;
+                p.transform.localRotation = item.pickupRotation;
             }
+            
 
         }
     }
