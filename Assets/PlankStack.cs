@@ -8,7 +8,7 @@ public class PlankStack : MonoBehaviour
 
     [SerializeField] private Vector3 offset;
     [SerializeField] private Quaternion pickupRotation;
-    [SerializeField] public Type type;
+    [SerializeField] public Item.Type type; //The type lives in Item - MW
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Collider col;
     [SerializeField] Item plankItem;
@@ -41,9 +41,5 @@ public class PlankStack : MonoBehaviour
     //in item.cs want to find out how to get the player thats interacting with this object while skipping almost all the steps
 
 
-    public enum Type
-    {
-        CannonBall, Plank
-        //other item types here
-    }
+
 }

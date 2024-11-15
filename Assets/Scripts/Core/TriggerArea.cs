@@ -12,6 +12,8 @@ public class TriggerArea : MonoBehaviour
     public UnityEvent<GameObject> onTrigger;
     public BoxCollider box;
     public string ignoreTag;
+    [SerializeField] private bool shouldDebug = false;
+
     private void Awake()
     {
         if (box != null) return;
@@ -29,9 +31,10 @@ public class TriggerArea : MonoBehaviour
         onTrigger?.Invoke(other.gameObject);
     }
 
-#if UNITY_Editor
+#if UNITY_EDITOR 
     private void OnDrawGizmos()
     {
+        if(!shouldDebug) return;
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireCube(transform.position,transform.lossyScale);
         Handles.Label(transform.position,gameObject.name);

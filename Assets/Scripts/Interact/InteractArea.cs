@@ -51,9 +51,9 @@ public class InteractArea : MonoBehaviour
         }
     }
 
-    public void CheckTask()
+    public bool CheckTask()
     {
-        if (TaskName == "") return;           //if no task exit void
+        if (TaskName == "") return false;           //if no task exit void
         TaskManager.instance.CompleteTask(TaskName);
         var task = TaskManager.TaskHashMap[TaskName];
         
@@ -64,16 +64,18 @@ public class InteractArea : MonoBehaviour
             task.isCompleted = false;
             TaskManager.instance.ReturnTask(gameObject);
         }
+
+        return true;
     }
     public void Interact(GameObject player)
     {
-        CheckTask(); 
+        if(!CheckTask()) return; 
         OnInteract?.Invoke(player,regularTime);
     }
 
     public void InteractWithTool(Item.Type tool, GameObject player)
     {
-        CheckTask();
+        if(!CheckTask()) return;
         var time = expectedType == tool && fasterWithTool ? regularTime : toolTime;
         if (player.TryGetComponent(out Inventory inv))
         {

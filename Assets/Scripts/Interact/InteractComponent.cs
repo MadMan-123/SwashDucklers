@@ -22,6 +22,7 @@ public class InteractComponent : MonoBehaviour
     [SerializeField] private float howMuchUp = 0.75f;
     [SerializeField] private float slapDamage = 5;
     [SerializeField] PhysicMaterial slapMat;
+    [SerializeField] private bool shouldDebug = false;
 
     // Start is called before the first frame update
     void Start()
@@ -174,9 +175,10 @@ public class InteractComponent : MonoBehaviour
             tempIndicator.SetActive(false);
     }
 
-#if UNITY_Editor
+#if UNITY_EDITOR 
     private void OnDrawGizmos()
     {
+        if(!shouldDebug) return;
         //draw the force velocity
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, ((transform.forward + ((transform.up * 0.1f))) * slapForce ));

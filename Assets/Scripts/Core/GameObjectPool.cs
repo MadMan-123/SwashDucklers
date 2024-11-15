@@ -43,6 +43,11 @@ namespace Core
                 if(prefab)
                     obj = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity, pTransform ? pTransform : null);
 
+                if (!obj)
+                {
+                    Debug.LogError("Object created is null");
+                    return null;
+                }
                 obj.SetActive(false);
                 // Give the object the "Pooled" tag
                 obj.tag = "Pooled";

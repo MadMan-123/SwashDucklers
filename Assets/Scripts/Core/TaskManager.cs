@@ -14,13 +14,12 @@ public class TaskManager : MonoBehaviour
         //counter of tasks completed
         public int tasksCompleted = 0;
         
-        //how many seconds between tasks spawning
-        [SerializeField] private float taskSecondInterval = 5f; //5 seconds
+
         //hash map to all the tasks
         public static Dictionary<string,Task> TaskHashMap = new();
        
         //dynamic pools
-        List<GameObjectPool> dynamicPools = new();
+        readonly List<GameObjectPool> dynamicPools = new();
         
         //track all ids
         private readonly List<int> dynamicIds = new List<int>();
@@ -29,6 +28,11 @@ public class TaskManager : MonoBehaviour
         
         //used to spawn dynamic tasks
         private IEnumerator SpawnDynamicTasks;
+        [SerializeField] private bool shouldDebug = false;
+        [SerializeField] private float playerCheckRadius = 4.5f;
+        
+        LayerMask playerMask;
+
         private void Awake()
         {
                 //singleton boilerplate
@@ -40,7 +44,8 @@ public class TaskManager : MonoBehaviour
                 {
                         Destroy(gameObject);
                 }
-                        
+                
+                playerMask = LayerMask.GetMask("player");
         }
 
         private void Start()
@@ -102,22 +107,57 @@ public class TaskManager : MonoBehaviour
                 {
                         //ref to pool
                         var pool = dynamicPools[i];
+                        
                         //current object
                         GameObject obj = null;
                         var task = TaskHashMap[taskList[dynamicIds[i]].taskName];
                         
+                        
+                        
                         //if the task is static and dynamic choose a random one to be active
                         if (task.isStatic && task.isDynamic)
                         {
+                                int counter = 0;
+Redo:
                                 //get a random index 
-                                var index = UnityEngine.Random.Range(0, pool.Count);
+                                //Lol forgot count returns the amount of elements from 1 not 0, that error has popped up for a while sos i didnt see this earlier :/ - MW
+                                var index = UnityEngine.Random.Range(0, pool.Count - 1);
+                                
+                                Collider[] colliders = Physics.OverlapSphere(pool[index].transform.position, playerCheckRadius);
+                                //remove any none player
+                                for (int j = 0; j < colliders.Length; j++)
+                                {
+                                        if (!colliders[j].CompareTag("Player"))
+                                        {
+                                                colliders[j] = null;
+                                        }
+                                }
+                                
+                                //fix the size of the array
+                                colliders = colliders.Where(collider => collider != null).ToArray();
+
+                                
+                                //todo: remove this magic constant
+                                if (colliders.Length >= 2 && counter < 10)
+                                {
+                                        //if theres more than 2 players near, redo
+                                        counter++;
+
+                                        
+                                        goto Redo;
+                                }
+                                
                                 //enable the interact area
                                 obj = pool[index];
+                                if(obj.activeSelf) continue;
                                 //enable the object
                                 if (obj.TryGetComponent(out InteractArea iArea))
                                 {
+
                                         iArea.gameObject.SetActive(true);
                                 }
+                                timeToTake = task.taskSecondInterval;
+                                break;
                         }
                         //if its just dynamic then set it to a new position in its area
                         else if (task.isDynamic)
@@ -125,10 +165,12 @@ public class TaskManager : MonoBehaviour
                                 obj = pool.GetObject();
                                 //set the position
                                 obj.transform.position = AreaManager.GetArea(task.areaName).GeneratePositionInArea();
+                                
+                                timeToTake = task.taskSecondInterval;
                         }
                 }
                 //wait for X seconds
-                yield return new WaitForSeconds(taskSecondInterval - timeToTake);
+                yield return new WaitForSeconds(timeToTake);
                 //recursively call this coroutine
                 SpawnDynamicTasks = _SpawnDynamicTasks();
                 StartCoroutine(SpawnDynamicTasks);
@@ -176,8 +218,26 @@ public class TaskManager : MonoBehaviour
                 //if not return faliure
                 return false;
         }
-        
-        
+
+
+        private void OnDrawGizmos()
+        {
+                if(!shouldDebug) return;
+                //draw each dynamic static tasks
+                for (var i = 0; i < taskList.Count; i++)
+                {
+                        var task = taskList[i];
+                        for (var k = 0; k < task.dynamicStaticIAreas.Count; k++)
+                        {
+                                var area = task.dynamicStaticIAreas[k];
+                                //draw
+                                Gizmos.color = Color.red;
+                                //add slight variation 
+                                Gizmos.DrawWireSphere(area.transform.position, 0.5f);
+                        }
+                }
+        }
+
         //Used to define a task in the editor
         [Serializable]
         public class TaskDescriptor
@@ -193,6 +253,7 @@ public class TaskManager : MonoBehaviour
         public class Task 
         {
                 private string taskName;
+                public float taskSecondInterval = 5f; //5 seconds
                 public bool isStatic;
                 public bool isCompleted;
                 public bool isDynamic;
@@ -202,6 +263,8 @@ public class TaskManager : MonoBehaviour
                 public void SetName(string name) => taskName = name;       
                 public string GetName() => taskName;
         }
+        
+
 
         
 }

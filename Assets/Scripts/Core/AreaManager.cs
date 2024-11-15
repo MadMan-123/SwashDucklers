@@ -13,6 +13,8 @@ public class AreaManager : MonoBehaviour
         private static readonly Dictionary<string, Area> areaMap = new();
         //singleton
         public static AreaManager instance;
+        [SerializeField] private Color areaColour;
+        [SerializeField] private bool shouldDebug = false;
 
         private void Awake()
         {
@@ -86,16 +88,17 @@ public class AreaManager : MonoBehaviour
         }
 
 
-#if UNITY_Editor
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
+            if(!shouldDebug) return;
                 //draw the areas of each "Area" and draw text above to tell this information
             for (int i = 0; i < areas.Count; i++)
             {
                    var area = areas[i];
                    if((!area.Min && !area.Max)) continue;
                    //draw the area
-                   Gizmos.color = Color.green;
+                   Gizmos.color = areaColour;
                    // Calculate the center and size of the cube
                    Vector3 center = (area.Min.position + area.Max.position ) / 2;
                    Vector3 size = area.Max.position - area.Min.position;;

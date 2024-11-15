@@ -33,6 +33,7 @@ public class PlayerManager : MonoBehaviour
     public int PlayerNo; //i swear to god if i see another counting variable set as a float and not an int 
 
     [SerializeField] private float debugRadius = 0.45f;
+    [SerializeField] private bool shouldDebug = false;
 
     // Start is called before the first frame update
     void Start()
@@ -92,9 +93,10 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-#if UNITY_Editor
+#if UNITY_EDITOR 
     private void OnDrawGizmos()
     {
+        if(!shouldDebug) return;
         //draw each position
         Gizmos.color = Color.cyan;
         Handles.Label(player1Spawn + Vector3.up,"Player 1 Spawn");

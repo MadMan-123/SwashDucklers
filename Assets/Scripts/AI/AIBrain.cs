@@ -89,26 +89,23 @@ public class AIBrain : MonoBehaviour
                         var distance = (target.position - transform.position).magnitude;
                         //Judge what state to be in
 
-                        //if we are not chase
-                         if (distance < viewRadius)
-                            ChangeState(State.Chase);
-                            
                         //if the health is low, flee
-                        if(health.GetHealth() < health.GetMaxHealth() / 2)
+                        if(health.GetHealth() >= health.GetMaxHealth() / 2)
                             ChangeState(State.Flee);
-                        //if we cant see the target any more, wander
                         
                         //if we are in attack range, attack
                         if(distance < attackDistance)
                             ChangeState(State.Attack);
-                    }
-                    else if (target == null)
-                    {
+                        
+                        //if we are not chase
+                        if (distance < viewRadius) 
+                            ChangeState(State.Chase);
+                            
+
                         //if we cant see the target any more, wander
-                        ChangeState(State.Wander);
-                         
+                        
+
                     }
-                    break;
                 }
 
                 Vector3 destination;
@@ -150,10 +147,7 @@ public class AIBrain : MonoBehaviour
                     
                     agent.SetDestination(destination);
                 }
-                else if(agent.enabled)
-                {
-                    agent.SetDestination(Wander());
-                }
+
                
             }
         }
@@ -169,20 +163,15 @@ public class AIBrain : MonoBehaviour
         private Vector3 Flee()
         {
             //find a point that is opposite to the target
-            var destination = transform.position + delta;
-            //clamp the destination to the navmesh
-            if (!NavMesh.SamplePosition(destination, out var hit, 5f, NavMesh.AllAreas))
-            {
-                //if the destination is not on the navmesh, return the current position
-                return transform.position;
-            }
-            return hit.position;
+            return transform.position - delta;
+    
         }
 
         private Vector3 Attack()
         {
             if (!canAttack) return transform.position;
             ResetFlag(); 
+            
             var destination = delta * 0.85f;
             //do attack
             Collider[] colliders = new Collider[10];
@@ -197,15 +186,13 @@ public class AIBrain : MonoBehaviour
                 }
             } 
             //clamp the destination
-            NavMesh.SamplePosition(destination, out var hit, 5f, NavMesh.AllAreas);
             Invoke(nameof(ResetFlag),cooldownTime);
             
-            return hit.position;
+            return destination;
         }
 
         private Vector3 Chase()
         {
-            print($"Chasing {target}");
             return target.position;
         }
 

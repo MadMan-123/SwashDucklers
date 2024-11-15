@@ -114,7 +114,6 @@ public class PlayerControler : MonoBehaviour
             //If on the ground
             if (isGrounded)
             {
-
                 //add direction * acceleration to velocity
                 rb.velocity += (moveVector * acceleration);
 
@@ -122,8 +121,6 @@ public class PlayerControler : MonoBehaviour
             }
             else
             {
-
-
                 //add direction * acceleration to velocity changed by the air control modifier
                 rb.velocity += (moveVector * (acceleration * airControl));
             }

@@ -5,6 +5,9 @@ using UnityEngine;
 public class LaunchManager : MonoBehaviour
 {
     public static LaunchManager instance;
+    [SerializeField] private float heightModifier = 0.75f;
+    [SerializeField] private float durationModifer = 0.99f;
+
     private void Awake()
     {
         if (instance == null)
@@ -66,7 +69,7 @@ public class LaunchManager : MonoBehaviour
         for (int i = 0; i <= pointCount; i++)
         {
             float time = timeStep * i;
-            Vector3 point = startPos + velocity * time;
+            var point = startPos + velocity * time;
             point.y += Physics.gravity.y * time * time * 0.5f;
             points.Add(point);
         }
@@ -108,10 +111,10 @@ public class LaunchManager : MonoBehaviour
 
     public Vector3 LaunchObjectWithVar(GameObject obj, Vector3 target, float duration = 1f)
     {
-        var height = target.y - obj.transform.position.y ;
+        var height = (target.y - obj.transform.position.y) * heightModifier;
  
         Vector3 velocity = CalculateVelocity(target, obj.transform.position, duration, height);
-        List<Vector3> trajectoryPoints = GetTrajectoryPoints(obj.transform.position, velocity, duration * 0.99f);
+        List<Vector3> trajectoryPoints = GetTrajectoryPoints(obj.transform.position, velocity, duration * durationModifer);
         
         // Start the coroutine
         StartCoroutine(MoveAlongTrajectory(obj, trajectoryPoints, duration));
