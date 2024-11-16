@@ -8275,11 +8275,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7117c78e00adabe46a811660fc0a62db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
   rb: {fileID: 1919063546903762896, guid: 9bb785f08d8cb89438169116a6911c62, type: 3}
   col: {fileID: 1345083520647016998, guid: 9bb785f08d8cb89438169116a6911c62, type: 3}
-  plankItem: {fileID: 87514500011314132, guid: 9bb785f08d8cb89438169116a6911c62, type: 3}
-  plank: {fileID: 8520338788584989061, guid: 9bb785f08d8cb89438169116a6911c62, type: 3}
+  itemGenerated: {fileID: 8520338788584989061, guid: 9bb785f08d8cb89438169116a6911c62,
+    type: 3}
+  item: []
 --- !u!1 &1752933311
 GameObject:
   m_ObjectHideFlags: 0
