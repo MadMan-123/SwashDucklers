@@ -70,10 +70,7 @@ public class AIBrain : MonoBehaviour
             {
                 //check for a target
                 //sphere cast then filter with fov check
-                var count = Physics.OverlapSphereNonAlloc(transform.position, viewRadius, colliders,LayerMask.NameToLayer("player"));
-                colliders = colliders.Where(collider => collider.CompareTag("Player")).ToArray();
- 
-                count = colliders.Length;
+                var count = Physics.OverlapSphereNonAlloc(transform.position, viewRadius, colliders);
                 if(count == 0)
                 {
                     //if there are no colliders in the view radius, return to wander
@@ -84,7 +81,7 @@ public class AIBrain : MonoBehaviour
                 for (int i = 0; i < count; i++)
                 {
                     //check if the collider is in the fov
-                    if (CanSee(colliders[i].transform))
+                    if (CanSee(colliders[i].transform) && colliders[i].CompareTag("Player"))
                     {
                         //todo: some sort of dynamic priority system on what the target should be
                         target = colliders[i].transform;
@@ -93,64 +90,52 @@ public class AIBrain : MonoBehaviour
                         //Judge what state to be in
 
                         //if the health is low, flee
-                        if(health.GetHealth() >= health.GetMaxHealth() / 2)
+                        if (health.GetHealth() >= health.GetMaxHealth() / 2)
+                        {
                             ChangeState(State.Flee);
+                            break;
+                        }
                         
                         //if we are in attack range, attack
-                        if(distance < attackDistance)
+                        if (distance < attackDistance)
+                        {
                             ChangeState(State.Attack);
+                            break;
+                        }
                         
                         //if we are not chase
-                        if (distance < viewRadius) 
+                        if (distance < viewRadius)
+                        {
                             ChangeState(State.Chase);
+                            break;
+                        }
                             
 
                         //if we cant see the target any more, wander
-                        
+                        ChangeState(State.Wander);
 
                     }
                 }
 
                 Vector3 destination;
-                
-                if (target)
-                {
+                if(target)
                     delta = transform.position - target.position;
 
-                    switch (state)
-                    {
-                        case State.Idle:
-                            destination = Idle();
-                            break;
-                        case State.Chase:
-                            destination = Chase();
-                            break;
-                        case State.Attack:
-                            destination = Attack();
-                            break;
-                        case State.Flee:
-                            destination = Flee();
-                            break;
-                        case State.Wander:
-                            destination = Wander();
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                    
-                    //clamp the destination to the navmesh
-                    if (NavMesh.SamplePosition(destination, out var hit, 2f, NavMesh.AllAreas))
-                    {
-                        destination = hit.position;
-                    }
-                    else
-                    {
-                        destination = transform.position;
-                    }
-                    
-                    agent.SetDestination(destination);
-                }
+                destination = state switch
+                {
+                    State.Idle => Idle(),
+                    State.Chase => Chase(),
+                    State.Attack => Attack(),
+                    State.Flee => Flee(),
+                    State.Wander => Wander(),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
 
+                //clamp the destination to the navmesh
+                //destination = NavMesh.SamplePosition(destination, out var hit, 0.1f, NavMesh.AllAreas) ? hit.position : transform.position;
+                    
+                //Debug.DrawRay(transform.position, destination, Color.green, 0.1f);
+                agent.SetDestination(destination);
                
             }
         }
@@ -165,6 +150,11 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 Flee()
         {
+            if (!target)
+            {
+                ChangeState(State.Wander);
+                return transform.position;
+            }
             //find a point that is opposite to the target
             return transform.position - delta;
     
@@ -172,6 +162,16 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 Attack()
         {
+            if (!target)
+            {
+                ChangeState(State.Wander);
+                return transform.position;
+            }
+            if(delta.magnitude > attackDistance)
+            {
+                ChangeState(State.Chase);
+                return transform.position;
+            }
             if (!canAttack) return transform.position;
             ResetFlag(); 
             
@@ -183,7 +183,7 @@ public class AIBrain : MonoBehaviour
             {
                 if (colliders[i].gameObject != gameObject && colliders[i].TryGetComponent(out Health health))
                 {
-                    health.TakeDamage(damage);
+                    health.TakeDamage(gameObject,damage);
                     //apply knockback
                     health.ApplyKnockback(transform.forward);
                 }
@@ -196,6 +196,17 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 Chase()
         {
+            if (!target || !CanSee(target))
+            {
+                ChangeState(State.Wander);
+                return transform.position;
+            }
+
+            if (delta.magnitude < attackDistance)
+            {
+                ChangeState(State.Attack);
+                return transform.position + delta * 0.8f;
+            }
             return target.position;
         }
 
@@ -203,31 +214,60 @@ public class AIBrain : MonoBehaviour
         {
             canAttack = !canAttack;
         }
-        private Vector3 Wander()
+        
+        
+        private float wanderAngle = 0f; // Add this as a class field
+ 
+        /*private Vector3 Wander()
         {
             //Circle pos
-            var circlePos = transform.position + (agent.velocity * circleDistance);
+            var circlePos = transform.position + (transform.forward * circleDistance);
 	
             //Generate a small random angle
             float randomAngle = Random.Range(-randDifference, randDifference) * Mathf.Deg2Rad;
 
             //Calculate the random offset
             float offsetX = Mathf.Cos(randomAngle) * circleRadius;
-            float offsetY = Mathf.Sin(randomAngle) * circleRadius;
+            float offsetZ = Mathf.Sin(randomAngle) * circleRadius;
 
             //Apply the random offset
             var velocityPos = (transform.position + agent.velocity);
             velocityPos.x += offsetX;
-            velocityPos.y += offsetY;
+            velocityPos.z += offsetZ;
 
             //Constrain the point to the circle
             var constrainedPos = ConstraintPointToCircle(velocityPos, circlePos, circleRadius);
-            
             //calculate the desired velocity by taking the constrained position and current position, getting the unit vector then multiplying by max current speed
             return constrainedPos;
+        }*/
+
+        private Vector3 Wander()
+        {
+            wanderAngle += Random.Range(-randDifference, randDifference) * Mathf.Deg2Rad;
+            var circlePos = transform.position + (transform.forward * circleDistance);
+            
+            var offsetX = Mathf.Cos(wanderAngle) * circleRadius;
+            var offsetZ = Mathf.Sin(wanderAngle) * circleRadius;
+
+            var targetPos = new Vector3(
+                circlePos.x + offsetX,
+                transform.position.y,
+                circlePos.z + offsetZ);
+
+            return targetPos;
         }
         private Vector3 Idle()
         {
+            if (target)
+            {
+                ChangeState(State.Chase);
+                return target.position;
+            }
+            else
+            {
+                ChangeState(State.Wander);
+                return transform.position;
+            }
             return transform.position;
         }
 
@@ -250,28 +290,40 @@ public class AIBrain : MonoBehaviour
             //make the sum return the circle pos + radius then multiply by cos(theta) to return the constrained position on the circle
             sum.x = circlePosition.x + radius * Mathf.Cos(theta);
             //do the same for the y axis but with sin(theta)
-            sum.y = circlePosition.y + radius * Mathf.Sin(theta);
+            sum.z = circlePosition.z + radius * Mathf.Sin(theta);
 
             return sum;
 
         } 
         bool CanSee(Transform target)
         {
-            //check if target is within field of view
-            var angle = Vector3.Angle(transform.forward, target.position - transform.position);
-            if (angle < fov)
-            {
-                //check if target is within line of sight
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, target.position - transform.position, out hit))
-                {
-                    return (hit.transform == target);
-                }
-            }
+            if (!target) return false;  // Early exit if no target
 
-            return false;
+            // Get direction to target
+            Vector3 directionToTarget = target.position - transform.position;
+    
+            // Check if target is within field of view
+            float angle = Vector3.Angle(transform.forward, directionToTarget);
+            if (angle > fov) return false;  // Outside FOV angle
+    
+            // Check if there are obstacles between AI and target
+            if (Physics.Raycast(transform.position, directionToTarget.normalized, out RaycastHit hit, viewRadius))
+            {
+                // Return true only if we hit the target first
+                // This prevents seeing through walls
+                return hit.transform == target;
+            }
+    
+            // If ray didn't hit anything but target is within FOV and view radius
+            return directionToTarget.magnitude <= viewRadius;
         }
 
+        public void ToggleAttack(GameObject source)
+        {
+            if(source.CompareTag("Player"))
+                target = source.transform;
+            ChangeState(State.Attack);
+        }
         public void DisableThenEnable(float sec)
         {
             StartCoroutine(ReenableAgent(sec));

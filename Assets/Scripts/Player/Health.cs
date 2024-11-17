@@ -13,7 +13,7 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
     [SerializeField] private Rigidbody rb; //GM: Reference to Rigidbody component
     [SerializeField] private TextMeshProUGUI healthText; //GM: refernece to UI Text to display Health   
     [SerializeField] private Color healthTextColor = Color.white; // Color for health text, default is white GM: STILL WORKING ON THIS
-    [SerializeField] private UnityEvent<float> onDamageTaken;
+    [SerializeField] private UnityEvent<GameObject> onDamageTaken;
 
     //application of damage
     public void Update()
@@ -29,7 +29,7 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
         if (rb == null) rb = GetComponent<Rigidbody>();
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(GameObject source,float damage)
     {
         //GM: Accumulate damage and cap health at 100%
         health += damage;
@@ -37,7 +37,7 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
         UpdateHealthUI();
         
         //sean suggested a quack when the player gets slapped so ill implament a quick on damage
-        onDamageTaken?.Invoke(health);
+        onDamageTaken?.Invoke(source);
 
         //We were already doing knockback in the interact component -MW
         //GM: Apply knockback

@@ -90,7 +90,7 @@ public class InteractComponent : MonoBehaviour
             canSlapSfx = true;
             if (colliders[i].TryGetComponent(out Health health))         //if has component health then
             {
-                health.TakeDamage(slapDamage);
+                health.TakeDamage(gameObject,slapDamage);
                 extraForce = (health.GetHealth() / health.GetMaxHealth()) * slapForce;
             }
             if (colliders[i].TryGetComponent(out PlayerControler pc))

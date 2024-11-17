@@ -185,7 +185,7 @@ MonoBehaviour:
   viewRadius: 5
   agent: {fileID: 6754345153328303814}
   rb: {fileID: 577158751166973113}
-  state: 0
+  state: 4
   circleDistance: 3
   randDifference: 45
   circleRadius: 2.5
@@ -232,6 +232,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: AIBrain, Assembly-CSharp
         m_MethodName: DisableThenEnable
         m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 5
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 583345377786873912}
+        m_TargetAssemblyTypeName: AIBrain, Assembly-CSharp
+        m_MethodName: ToggleAttack
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

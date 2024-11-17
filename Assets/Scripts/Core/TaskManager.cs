@@ -141,7 +141,7 @@ Redo:
 
                                 
                                 //todo: remove this magic constant
-                                if (colliders.Length >= 2 && counter < 10)
+                                if (colliders.Length >= 2 && counter < colliders.Length)
                                 {
                                         //if theres more than 2 players near, redo
                                         counter++;
