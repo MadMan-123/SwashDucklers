@@ -24,7 +24,12 @@ public class Waves : MonoBehaviour
         for (var i = 0; i < vertices.Length; i++)
         {
             vertices[i] += normals[i] * Mathf.Sin(Time.time) * waveHeight;
+
+
+            Debug.Log(vertices[i]);
         }
+
+        
 
         mesh.vertices = vertices;
 
