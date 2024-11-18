@@ -27,19 +27,13 @@ public class Waves : MonoBehaviour
     private int SizeZ = 100;
 
     [SerializeField] float waveHeight;
+    [SerializeField] private int verticesRowCount;
+    [SerializeField] private int verticesCount;
+    [SerializeField] private int trianglesCount;
 
     // Start is called before the first frame update
     void Start()
     {
-
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
         if (mesh == null)
         {
             mesh = new Mesh();
@@ -48,9 +42,9 @@ public class Waves : MonoBehaviour
         }
 
 
-        int verticesRowCount = SizeX + 1;
-        int verticesCount = verticesRowCount * (SizeZ + 1);
-        int trianglesCount = 6 * SizeX * SizeZ;
+        verticesRowCount = SizeX + 1;
+        verticesCount = verticesRowCount * (SizeZ + 1);
+        trianglesCount = 6 * SizeX * SizeZ;
 
 
         vertices = new Vector3[verticesCount];
@@ -58,6 +52,13 @@ public class Waves : MonoBehaviour
         normals = new Vector3[verticesCount];
         triangles = new int[trianglesCount];
 
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!mesh) return;
         // Set the vertices of the mesh
         int vertexIndex = 0;
         for (int z = 0; z <= SizeZ; ++z)
@@ -79,8 +80,10 @@ public class Waves : MonoBehaviour
                 float heightPercentage = height / waveHeight;
 
                 vertices[vertexIndex] = new Vector3(startX, height, startZ);
-                uvs[vertexIndex] = new Vector2();       // No texturing so just set to zero - could be expanded in the future
-                normals[vertexIndex] = Vector3.up;      // These should be set based on heights of terrain but we can use Recalulated normals on mesh to calculate for us
+                uvs[vertexIndex] =
+                    new Vector2(); // No texturing so just set to zero - could be expanded in the future
+                normals[vertexIndex] =
+                    Vector3.up; // These should be set based on heights of terrain but we can use Recalulated normals on mesh to calculate for us
                 ++vertexIndex;
             }
         }
@@ -111,6 +114,5 @@ public class Waves : MonoBehaviour
         mesh.normals = normals;
         mesh.RecalculateNormals();
         mesh.UploadMeshData(false);
-
     }
 }

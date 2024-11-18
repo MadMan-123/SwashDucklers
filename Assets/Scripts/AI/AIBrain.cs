@@ -78,6 +78,7 @@ public class AIBrain : MonoBehaviour
                     
                 }
                 
+                
                 for (int i = 0; i < count; i++)
                 {
                     //check if the collider is in the fov
@@ -243,6 +244,11 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 Wander()
         {
+            if (target)
+            {
+                ChangeState(State.Chase);
+                return target.position;
+            }
             wanderAngle += Random.Range(-randDifference, randDifference) * Mathf.Deg2Rad;
             var circlePos = transform.position + (transform.forward * circleDistance);
             
