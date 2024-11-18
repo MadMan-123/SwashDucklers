@@ -9,19 +9,14 @@ public class PlankStack : MonoBehaviour
     [SerializeField] private Collider col;
     [SerializeField] GameObject itemGenerated;
     [SerializeField] GameObject[] item;
-
     public void PickUp(GameObject source, float time)
     {
         
         print($"{source.name} is picking up a plank");
         if (source.TryGetComponent(out Inventory inv))       //try to see if gameobject has an inv
         {
-<<<<<<< Updated upstream:Assets/Scripts/Interact/PlankStack.cs
-            GameObject p = Instantiate(itemGenerated);
-=======
             if (inv.item != null) return; 
-            GameObject p = Instantiate(plank);
->>>>>>> Stashed changes:Assets/PlankStack.cs
+            GameObject p = Instantiate(itemGenerated);
             if (p.TryGetComponent(out Item item))
             {
                 if (!inv.AddItem(item)) return; //add this to inv
