@@ -9,7 +9,7 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
 {
     [SerializeField] private float health = 0.0f; //GM: player's health starts of at the base value of 0.0%
     [SerializeField] private float maxHealth = 100.0f; //GM: Maximum health cap
-    [SerializeField] private float maxKnockbackForce = 10.0f; //GM: Maximum knockback force
+    [SerializeField] private float maxKnockbackForce = 100.0f; //GM: Maximum knockback force
     [SerializeField] private Rigidbody rb; //GM: Reference to Rigidbody component
     [SerializeField] private TextMeshProUGUI healthText; //GM: refernece to UI Text to display Health   
     [SerializeField] private Color healthTextColor = Color.white; // Color for health text, default is white GM: STILL WORKING ON THIS
@@ -58,7 +58,7 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
         // GM: Apply the calculated knockback force to the player's Rigidbody.
         //'AddForce' applies the force instantly (due to 'ForceMode.Impulse') to simulate a knockback effect.
         // The direction and magnitude of the force are determined by 'knockbackDirection * knockbackForce'.
-        rb.AddForce(dir + (Vector3.up * 0.1f) * knockbackForce, ForceMode.Impulse);
+        rb.AddForce((dir + (Vector3.up * 0.1f)) * knockbackForce, ForceMode.Impulse);
     }
 
 

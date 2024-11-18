@@ -13,7 +13,7 @@ public class AIBrain : MonoBehaviour
         public NavMeshAgent agent;
         public Rigidbody rb;
         private Health health;
-        private Transform target;
+        [SerializeField]private Transform target;
         [SerializeField] private State state;
         private bool shouldUpdate = true;
         Vector3 delta;
@@ -78,12 +78,13 @@ public class AIBrain : MonoBehaviour
                     
                 }
                 
-                
+                 
                 for (int i = 0; i < count; i++)
                 {
                     //check if the collider is in the fov
                     if (CanSee(colliders[i].transform) && colliders[i].CompareTag("Player"))
                     {
+                        print("See Player");
                         //todo: some sort of dynamic priority system on what the target should be
                         target = colliders[i].transform;
                         
@@ -197,11 +198,6 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 Chase()
         {
-            if (!target || !CanSee(target))
-            {
-                ChangeState(State.Wander);
-                return transform.position;
-            }
 
             if (delta.magnitude < attackDistance)
             {
