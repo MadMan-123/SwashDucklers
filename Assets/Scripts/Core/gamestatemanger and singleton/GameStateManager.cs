@@ -12,6 +12,6 @@ public class GameStateManager : Singleton<GameStateManager>  //GM: this will inh
     public static event Action<GameStateManager> OnBEFOREStateChanged;
     public static event Action<GameStateManager> OnAFTERStateChanged;
 
-    public GameStateManager { get; private set; }
+   // public GameStateManager { get; private set; } GM: WILL COME BACK TO THIS BIT LATER
 
 }
