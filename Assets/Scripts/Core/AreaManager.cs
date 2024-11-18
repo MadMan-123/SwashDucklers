@@ -10,7 +10,7 @@ public class AreaManager : MonoBehaviour
         //buffer of all areas to be added to the map
         [SerializeField] private List<Area> areas = new();
         //areas hash map
-        private static Dictionary<string, Area> areaMap = new();
+        private static readonly Dictionary<string, Area> areaMap = new();
         //singleton
         public static AreaManager instance;
         [SerializeField] private Color areaColour;
@@ -35,7 +35,7 @@ public class AreaManager : MonoBehaviour
         private void Start()
         {
 
-            areaMap = new();
+            //areaMap = new();
 
         }
         //get area with string name
