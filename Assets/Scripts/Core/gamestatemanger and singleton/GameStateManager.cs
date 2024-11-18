@@ -7,17 +7,11 @@ using UnityEngine;
 /// <summary>
 /// GM: this game manager will be enum based, this will help us read the states easy as well as manage them.
 /// </summary>
-public class GameStateManager : Singleton<GameStateManager>  
+public class GameStateManager : Singleton<GameStateManager>  //GM: this will inherit from the singleton class
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static event Action<GameStateManager> OnBEFOREStateChanged;
+    public static event Action<GameStateManager> OnAFTERStateChanged;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameStateManager { get; private set; }
+
 }
