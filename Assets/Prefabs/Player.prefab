@@ -543,7 +543,6 @@ GameObject:
   - component: {fileID: -9071919049437517695}
   - component: {fileID: 6302708391419920254}
   - component: {fileID: -3264851227348481002}
-  - component: {fileID: -8967194118003070659}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -740,6 +739,22 @@ MonoBehaviour:
         m_CallState: 1
     m_ActionId: 2fda6019-63c5-4f2b-8c70-b6d3d01b2311
     m_ActionName: Player/Taunt[/Keyboard/q,/DualShock4GamepadHID/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8895806602749667645}
+        m_TargetAssemblyTypeName: PlayerControler, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+    m_ActionId: 644f648b-fa8b-4e66-bfa6-d36861dbfc7f
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -862,6 +877,7 @@ MonoBehaviour:
   howMuchUp: 0.125
   slapDamage: 5
   slapMat: {fileID: 13400000, guid: 1b10faf58ed0ad04995fc6eab73d09e0, type: 2}
+  shouldDebug: 0
 --- !u!114 &-9071919049437517695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -944,18 +960,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemHolder: {fileID: 8320669293226105621}
   item: {fileID: 0}
---- !u!114 &-8967194118003070659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5368657179478143323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d5d238be54998444b50f42e41f1b23f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8910317409946814105
 GameObject:
   m_ObjectHideFlags: 0

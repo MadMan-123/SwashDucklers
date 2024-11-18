@@ -12,10 +12,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
-using UnityEngine.SceneManagement;
 
 public partial class @InputManager: IInputActionCollection2, IDisposable
 {
@@ -60,6 +58,15 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
                     ""name"": ""Taunt"",
                     ""type"": ""Button"",
                     ""id"": ""2fda6019-63c5-4f2b-8c70-b6d3d01b2311"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""644f648b-fa8b-4e66-bfa6-d36861dbfc7f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -119,17 +126,6 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-{
-                    ""name"": ""Keyboard - ReturnToMenu"",
-                    ""id"": ""8c56341e-2263-4d48-853a-74f83e9509d7"",
-                    ""path"": ""<Keyboard>/k"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Utility"", ///GM: also I wrote down 'utility' for stuff that isn't related to gameplay, so like things like menu functions will be classified as 'Utility'
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -253,20 +249,29 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
                     ""action"": ""Taunt"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-
                 },
                 {
-                    ""name"": ""Gamepad - Return to Menu"",
-                    ""id"": ""ca623a55-267c-4080-be29-f7c3e713d73f"",
-                    ""path"": ""<Gamepad>/buttonEast"",///GM: don't fucking ask me why the left trigger wasn't working, idk my self :| either way, this works.
+                    ""name"": """",
+                    ""id"": ""20d92471-b4a5-4c20-99b3-0be6c43239a9"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76d53b8f-bd4b-421e-bd17-9bd6b6755db5"",
+                    ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Utility"", ///GM: also I wrote down 'utility' for stuff that isn't related to gameplay, so like things like menu functions will be classified as 'Utility'
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-
-                },
+                }
             ]
         }
     ],
@@ -293,7 +298,6 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
                 }
             ]
         }
-        
     ]
 }");
         // Player
@@ -302,6 +306,7 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Taunt = m_Player.FindAction("Taunt", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -367,6 +372,7 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Taunt;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @InputManager m_Wrapper;
@@ -375,6 +381,7 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Taunt => m_Wrapper.m_Player_Taunt;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -396,6 +403,9 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
             @Taunt.started += instance.OnTaunt;
             @Taunt.performed += instance.OnTaunt;
             @Taunt.canceled += instance.OnTaunt;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -412,6 +422,9 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
             @Taunt.started -= instance.OnTaunt;
             @Taunt.performed -= instance.OnTaunt;
             @Taunt.canceled -= instance.OnTaunt;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -453,7 +466,6 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnTaunt(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
-
-    
 }

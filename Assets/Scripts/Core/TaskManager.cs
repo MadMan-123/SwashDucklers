@@ -50,6 +50,9 @@ public class TaskManager : MonoBehaviour
 
         private void Start()
         {
+
+            TaskHashMap = new();
+
                 //for each task in the task list
                 for (var i = 0; i < taskList.Count; i++)
                 {

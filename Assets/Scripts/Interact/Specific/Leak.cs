@@ -5,17 +5,23 @@ using UnityEngine;
 
 public class Leak : MonoBehaviour
 {
-    [SerializeField] private float leakAmmount = 1f;
+    [SerializeField] private int Damage = 1;
+    [SerializeField] private int Repair = 1;
     [SerializeField] private ShipHealth health;
     private void Start()
     {
-        health = FindObjectOfType<ShipHealth>(); 
+        health = FindObjectOfType<ShipHealth>();
         //effect the ship health
-        health.dmgRate += leakAmmount;
+
+
+        health.DamageShip(Damage);
+        //health.dmgRate += leakAmmount;
+
     }
 
     private void OnDisable()
     {
-        health.dmgRate -= leakAmmount; 
+        //health.dmgRate -= leakAmmount;
+        health.RepairShip(Repair);
     }
 }

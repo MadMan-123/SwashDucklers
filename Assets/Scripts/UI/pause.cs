@@ -22,7 +22,7 @@ public class pausemenu : MonoBehaviour
 
     public void Update()
     {
-        PauseDaGame = Input.GetKeyDown(KeyCode.Escape)|| Input.GetKeyDown(KeyCode.Joystick1Button9);
+        //PauseDaGame = Input.GetKeyDown(KeyCode.Escape)|| Input.GetKeyDown(KeyCode.Joystick1Button9);
 
         if (PauseDaGame && !paused)
         {

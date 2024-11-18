@@ -26,7 +26,7 @@ public class Waves : MonoBehaviour
             vertices[i] += normals[i] * Mathf.Sin(Time.time) * waveHeight;
 
 
-            Debug.Log(vertices[i]);
+            //Debug.Log(vertices[i]);
         }
 
         

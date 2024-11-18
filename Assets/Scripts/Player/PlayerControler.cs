@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 using Quaternion = UnityEngine.Quaternion;
+using UnityEngine.SceneManagement;
 
 public class PlayerControler : MonoBehaviour
 {
@@ -439,6 +440,26 @@ public class PlayerControler : MonoBehaviour
             gameObject.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x, transform.localScale.x);
         }
       
+    }
+
+    //Pause
+    public void OnPause(InputAction.CallbackContext value)
+    {
+
+        if (value.performed && canMove) //Performed
+        {
+            SceneManager.LoadScene("menu test"); //GM: returns to the "menu test" screen
+            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+
+        }
+        else if (value.canceled) //Cancelled
+        {
+
+            //Setup Move vector to Zero
+            //moveVector = Vector3.zero;
+
+        }
+
     }
 
     //Controler disconected
