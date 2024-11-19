@@ -25,9 +25,8 @@ public class Crabcontroller : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        float f = (Random.value) * 23 - 4;
 
-        target = UnityEngine.Random.Range(0, planks.Length  +1);
+        target = Random.Range(0, planks.Length  +1);
      
         agent = GetComponent<NavMeshAgent>();
     }
