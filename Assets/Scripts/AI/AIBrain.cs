@@ -134,7 +134,7 @@ public class AIBrain : MonoBehaviour
                 };
 
                 //clamp the destination to the navmesh
-                //destination = NavMesh.SamplePosition(destination, out var hit, 0.1f, NavMesh.AllAreas) ? hit.position : transform.position;
+                destination = NavMesh.SamplePosition(destination, out var hit, 1f, NavMesh.AllAreas) ? hit.position : transform.position;
                     
                 //Debug.DrawRay(transform.position, destination, Color.green, 0.1f);
                 agent.SetDestination(destination);

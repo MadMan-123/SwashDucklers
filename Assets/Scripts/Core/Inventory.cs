@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
     
     public bool TryPickUp()
     {
+        //If we have an item already return
         if (item) return false;            //if it is an item / item isnt being held?
         
         Collider[] colliders = new Collider[10];                         //array incase multiple items are tried to be picked up?

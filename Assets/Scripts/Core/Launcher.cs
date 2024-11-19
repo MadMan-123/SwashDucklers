@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Launcher : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class Launcher : MonoBehaviour
     {
         var area = AreaManager.GetArea(areaName);
         pos = area.GeneratePositionInArea();
+
+        //clamp the position
+        NavMesh.SamplePosition(pos, out var hit, 2f, NavMesh.AllAreas);
+
         var vel = LaunchManager.instance.LaunchObjectWithVar(obj,pos,launchDuration);
         if(shouldDebug)
             LaunchManager.DrawTrajectory(obj.transform.position,vel,launchDuration);
