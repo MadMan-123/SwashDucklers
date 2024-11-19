@@ -57,6 +57,7 @@ public class ShipHealth : MonoBehaviour
         leaks = 0;
         regenerate = true;
         loop = true;
+        gm = gameObject.AddComponent<GameManager>();
     }
     
    void Update()
@@ -69,6 +70,12 @@ public class ShipHealth : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             RepairShip(5);
+        }
+
+        if (shipHealth <= 0)
+        {
+            gm.gameOver = true;
+
         }
     }
 
@@ -116,10 +123,6 @@ public class ShipHealth : MonoBehaviour
             percentageDamaged = maxShipHealth - shipHealth;
         }
   
-        if (shipHealth == 0)
-        {
-            gm.gameOver = true;
-        }
         yield return new WaitForSeconds(0.1f);
         loop = true;
 
@@ -148,5 +151,9 @@ public class ShipHealth : MonoBehaviour
             shipHealth += 10;
         }
     }
+
+
+
+
 }
 
