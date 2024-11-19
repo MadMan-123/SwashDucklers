@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1420330857787813457}
   - component: {fileID: 3341100363089675929}
   - component: {fileID: 3444432902684074935}
-  - component: {fileID: 32149574247624199}
   - component: {fileID: 6274666247558360507}
   m_Layer: 0
   m_Name: crabspawn 4
@@ -109,43 +108,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &32149574247624199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 922769513718614060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
 --- !u!114 &6274666247558360507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,8 +135,6 @@ GameObject:
   - component: {fileID: 8148224257267987580}
   - component: {fileID: 176673741937680977}
   - component: {fileID: 6801806731357834891}
-  - component: {fileID: 6504298421432913600}
-  - component: {fileID: 162599199543601225}
   m_Layer: 0
   m_Name: crabspawn 3
   m_TagString: HoleLocate
@@ -270,58 +230,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &6504298421432913600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1182122898718783500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
---- !u!114 &162599199543601225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1182122898718783500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
 --- !u!1 &3496027620250494744
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,8 +242,6 @@ GameObject:
   - component: {fileID: 251945238025155915}
   - component: {fileID: 332095757435882022}
   - component: {fileID: 1032260683455578739}
-  - component: {fileID: 181163575925855555}
-  - component: {fileID: 7572713571103150805}
   m_Layer: 0
   m_Name: crabspawn 5
   m_TagString: HoleLocate
@@ -431,58 +337,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &181163575925855555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3496027620250494744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
---- !u!114 &7572713571103150805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3496027620250494744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
 --- !u!1 &5499173437999615069
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,8 +349,6 @@ GameObject:
   - component: {fileID: 1593620930225902256}
   - component: {fileID: 6142200388799276968}
   - component: {fileID: 156841670600200140}
-  - component: {fileID: 2327435667182771502}
-  - component: {fileID: 2302224979587870134}
   m_Layer: 0
   m_Name: crabspawn 2
   m_TagString: HoleLocate
@@ -592,58 +444,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &2327435667182771502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5499173437999615069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
---- !u!114 &2302224979587870134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5499173437999615069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
 --- !u!1 &8505767580553992990
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,8 +456,6 @@ GameObject:
   - component: {fileID: 2823112175960143553}
   - component: {fileID: 1118470865467641011}
   - component: {fileID: 5267276860469845689}
-  - component: {fileID: 1877110264330745137}
-  - component: {fileID: 988090319982441648}
   m_Layer: 0
   m_Name: crabspawn 1
   m_TagString: HoleLocate
@@ -753,58 +551,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &1877110264330745137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8505767580553992990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
---- !u!114 &988090319982441648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8505767580553992990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
 --- !u!1 &8889428629943791388
 GameObject:
   m_ObjectHideFlags: 0
