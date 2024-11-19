@@ -17,10 +17,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameOver)
+        if (gameOver == true)
         {
-            g_over.SetActive(true);
-            Time.timeScale = 0f;
+            UnityEngine.SceneManagement.SceneManager.LoadScene("menu test");
+
+            //g_over.SetActive(true);
+            //Time.timeScale = 0f;
         }
     }
 }
