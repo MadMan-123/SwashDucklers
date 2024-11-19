@@ -12,14 +12,14 @@ public class CanonBallStack : MonoBehaviour
     public void PickUp(GameObject source, float time)
     {
         
-        print($"{source.name} is picking up a plank");
+        print($"{source.name} is picking up a cannonball");
         if (source.TryGetComponent(out Inventory inv))       //try to see if gameobject has an inv
         {
             if (inv.item != null) return; 
             GameObject p = Instantiate(itemGenerated);
             if (p.TryGetComponent(out Item item))
             {
-                if (!inv.AddItem(item)) return; //add this to inv
+                //if (!inv.AddItem(item)) return; //add this to inv
                 //disable the rigidbody and collider
                 p.GetComponent<Rigidbody>().isKinematic = true;                           //bunch of positioning stuff
                 p.GetComponent<SphereCollider>().enabled = false;
