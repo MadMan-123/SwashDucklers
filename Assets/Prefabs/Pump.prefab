@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8bd868a57f07dd144b68114b36b95125, type: 2}
+  - {fileID: 2100000, guid: a6f779f7ca9a9dc4ba8c21cfe219585e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5066,19 +5066,7 @@ MonoBehaviour:
   expectedType: 1
   OnInteract:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   currentInteractable: {fileID: 0}
   currentController: {fileID: 0}
   TaskName: Pump
@@ -5096,5 +5084,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leakAmmount: 1
+  Damage: 1
+  Repair: 1
   health: {fileID: 0}

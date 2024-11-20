@@ -68,8 +68,8 @@ public class InteractArea : MonoBehaviour
         if (task.isDynamic && task.isCompleted)
         {
             task.isCompleted = false;
-            ResetAll();
             TaskManager.instance.ReturnTask(gameObject);
+            ResetAll();
         }
 
         return true;
@@ -130,7 +130,7 @@ public class InteractArea : MonoBehaviour
         StopAllCoroutines();
     }
 
-#if UNITY_Editor
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if(TaskName != "")

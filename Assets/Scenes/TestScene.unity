@@ -38,6 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2365,7 +2366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &430437473
 Transform:
   m_ObjectHideFlags: 0
@@ -7281,7 +7282,7 @@ MonoBehaviour:
   regenRate: 2
   percentageDamaged: 0
   dmgRate: 1
-  dmgSpeed: 0
+  dmgSpeed: 0.25
   leaks: 0
   shipFilled: 0
   gm: {fileID: 0}
@@ -7772,6 +7773,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: '[Crab Spawn locations]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8889428629943791388, guid: 930ed8907063a25418234c0fa7a551ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2327435667182771502, guid: 930ed8907063a25418234c0fa7a551ce, type: 3}
@@ -9614,6 +9620,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: '[Crab Spawner]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796055802796756806, guid: 671f9308812498440adf5e0fdb068e17,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8776434361217018893, guid: 671f9308812498440adf5e0fdb068e17,
         type: 3}

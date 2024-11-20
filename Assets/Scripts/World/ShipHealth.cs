@@ -13,7 +13,7 @@ public class ShipHealth : MonoBehaviour
     bool regenerate;
     bool loop;
 
-    [Header("Damage")]
+    [Header("Damage")] 
     [SerializeField] public float dmgRate;
     [SerializeField] float dmgSpeed;
     [SerializeField] int leaks;
@@ -97,6 +97,7 @@ public class ShipHealth : MonoBehaviour
         shipHealth = Mathf.Clamp(shipHealth - damage, 0, maxShipHealth);
         leaks += 1;
         regenerate = false;
+        //figure out the dmg speed using the level time
     }
 
     public void RepairShip(int repair)
