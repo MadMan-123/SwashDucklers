@@ -8,7 +8,7 @@ public class Item : MonoBehaviour
 
     [SerializeField] public Vector3 offset;
     [SerializeField] public Quaternion pickupRotation;
-    [SerializeField] public Type type;
+    [SerializeField] public ItemManager.Type type;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Collider col;
 
@@ -48,13 +48,5 @@ public class Item : MonoBehaviour
             //set the transforms
             transform.SetParent(null);                                  //remove from parent (should make it drop?)
         }
-    }
-   
-    public enum Type 
-    {
-        NoItem = -1,
-        CannonBall, 
-        Plank
-        //other item types here
     }
 }

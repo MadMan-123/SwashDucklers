@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class ItemStation : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rb;
-    [SerializeField] private Collider col;
-    public Type type;
-    [SerializeField] GameObject itemGenerated;
-    [SerializeField] ItemManager iM;
+    private Rigidbody rb;
+    private Collider col;
+    public ItemManager.Type type;
+    GameObject itemGenerated;
+    ItemManager iM;
 
     private void Start()
     {
-        iM = (GameObject.Find("ItemManager")).GetComponent<ItemManager>();
+        iM = (GameObject.Find("[ItemManager]")).GetComponent<ItemManager>();
             itemGenerated = iM.itemList[Convert.ToInt32(type)];
     }
 
@@ -30,7 +30,7 @@ public class ItemStation : MonoBehaviour
                 if (!inv.AddItem(item)) return; //add this to inv
                 //disable the rigidbody and collider
                 p.GetComponent<Rigidbody>().isKinematic = true;                           //bunch of positioning stuff
-                p.GetComponent<BoxCollider>().enabled = false;
+                p.GetComponent<Collider>().enabled = false;
 
                 //set the transforms
                 p.transform.SetParent(inv.itemHolder, true);
@@ -40,12 +40,5 @@ public class ItemStation : MonoBehaviour
                 p.transform.localRotation = item.pickupRotation;
             }
         }
-    }
-    public enum Type
-    {
-        NoItem = -1,
-        CannonBall,
-        Plank
-        //other item types here
     }
 }

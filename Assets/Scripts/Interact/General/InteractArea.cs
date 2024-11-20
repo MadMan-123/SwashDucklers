@@ -15,7 +15,7 @@ public class InteractArea : MonoBehaviour
     [SerializeField] public bool isStation;
 
 
-    [SerializeField] public Item.Type expectedType;
+    [SerializeField] public ItemManager.Type expectedType;
     [SerializeField] UnityEvent<GameObject,float> OnInteract;
     [SerializeField] private InteractComponent currentInteractable;
     [SerializeField] private PlayerControler currentController;
@@ -81,7 +81,7 @@ public class InteractArea : MonoBehaviour
         OnInteract?.Invoke(player,regularTime);
     }
 
-    public void InteractWithTool(Item.Type tool, GameObject player)
+    public void InteractWithTool(ItemManager.Type tool, GameObject player)
     {
         if(TaskName != "")
             if(!CheckTask() || tool != expectedType ) return;
@@ -90,12 +90,12 @@ public class InteractArea : MonoBehaviour
         {
             switch (tool)
             {
-                case Item.Type.CannonBall:
+                case ItemManager.Type.CannonBall:
 
                     inv.Return();
 
                     break;
-                case Item.Type.Plank:
+                case ItemManager.Type.Plank:
 
                     inv.RemoveItem();
 

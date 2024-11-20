@@ -141,7 +141,7 @@ public class InteractComponent : MonoBehaviour
        StartCoroutine(InteractTimer());
     }
 
-    void Interact(Item.Type tool)
+    void Interact(ItemManager.Type tool)
     {
         if (inArea)
         {
