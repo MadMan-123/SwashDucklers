@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameOver == true)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("menu test");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScreen");
 
             //g_over.SetActive(true);
             //Time.timeScale = 0f;

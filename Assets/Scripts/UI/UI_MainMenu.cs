@@ -19,6 +19,11 @@ public class ui_MainMenu : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("TestScene");
     }
 
+    public void RETURNTOMENU()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("menutest");
+    }
+
     public void CreditsButton()
     {
         // Show Credits Menu(unused)

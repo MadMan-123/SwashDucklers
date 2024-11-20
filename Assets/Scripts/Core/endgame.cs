@@ -4,18 +4,19 @@ using UnityEngine.SceneManagement;
 public class endGAME : MonoBehaviour
 {
     [SerializeField] GameManager gm;
+
     // Update is called once per frame
     void Update()
     {
-        // Check if the gm.gameOver is true, if it is then the game will end and then players will be returned to the menu screen
+        // Check if gm.gameOver is true
         if (gm.gameOver == true)
         {
-            ReturnToMenuScene();
+            ReturnToGameOverScreen();
         }
     }
 
-    void ReturnToMenuScene()//GM: this will load the players back to the main menu
+    void ReturnToGameOverScreen() // Loads the GameOverScreen scene
     {
-        SceneManager.LoadScene("menu test");
+        SceneManager.LoadScene("GameOverScreen");
     }
 }
