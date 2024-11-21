@@ -781,6 +781,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 05e60952f81607d45bc0ba13ade40696,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1171549304580213878, guid: 05e60952f81607d45bc0ba13ade40696,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4886,7 +4891,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1986898623}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e457a689504d00b4094f4e18ad3cc5cd,
         type: 3}
@@ -4911,7 +4916,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e457a689504d00b4094f4e18ad3cc5cd,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e457a689504d00b4094f4e18ad3cc5cd,
         type: 3}
@@ -4921,7 +4926,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e457a689504d00b4094f4e18ad3cc5cd,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e457a689504d00b4094f4e18ad3cc5cd,
         type: 3}
@@ -6083,6 +6088,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2101078283334332912, guid: a8df09bec39cf6a4f9026137dc29d3bc,
     type: 3}
   m_PrefabInstance: {fileID: 1406215450}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1406907716 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e457a689504d00b4094f4e18ad3cc5cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1114210738}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1414793736
 PrefabInstance:
@@ -8539,6 +8550,7 @@ Transform:
   - {fileID: 1749537679}
   - {fileID: 410785622}
   - {fileID: 759061097}
+  - {fileID: 1406907716}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1986898624
@@ -8566,8 +8578,8 @@ MonoBehaviour:
   healthText: {fileID: 0}
   transitionspeed: 0
   currentShipHeight: 0
-  maxShipHeight: 0
-  minShipHeight: -0.8
+  maxShipHeight: 1
+  minShipHeight: -1.2
 --- !u!1 &1991733899
 GameObject:
   m_ObjectHideFlags: 0
@@ -11303,5 +11315,4 @@ SceneRoots:
   - {fileID: 2094662991}
   - {fileID: 1986898623}
   - {fileID: 1213591005}
-  - {fileID: 1114210738}
   - {fileID: 384984927}

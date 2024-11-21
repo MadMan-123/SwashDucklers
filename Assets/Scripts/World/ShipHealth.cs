@@ -116,19 +116,18 @@ public class ShipHealth : MonoBehaviour
         if(regenerate) //if regenerate
         {
             shipHealth = Mathf.Clamp(shipHealth + (regenRate / 10), 0 ,maxShipHealth); //gain hp
-            percentageDamaged = maxShipHealth - shipHealth;
+
         }
         else if (!regenerate) //if not regenerate
         {
             shipHealth = Mathf.Clamp(shipHealth - dmgSpeed, 0, maxShipHealth); //take DOT proportional to leaks
-            percentageDamaged = maxShipHealth - shipHealth;
         }
-  
+        percentageDamaged = Mathf.Clamp(shipHealth / maxShipHealth, 0f, 1f);
         yield return new WaitForSeconds(0.1f);
         loop = true;
 
         //shipFilled = Mathf.Clamp((shipFilled + fillSpeed), 0, 100);
-        currentShipHeight = Mathf.Clamp((Mathf.Lerp(0,1,percentageDamaged/100)* minShipHeight),minShipHeight, maxShipHeight);       
+        currentShipHeight = Mathf.Lerp(minShipHeight, maxShipHeight, percentageDamaged);       
         ship.transform.position = new Vector3(ship.transform.position.x,currentShipHeight,ship.transform.position.z);
         //might rewrite this to move water for simplicity, will talk to designer
     }
