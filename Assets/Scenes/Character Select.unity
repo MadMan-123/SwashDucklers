@@ -398,10 +398,10 @@ MonoBehaviour:
   player2Image: {fileID: 8400000, guid: 809bc91f63f32ad4a925f69300fc65f9, type: 2}
   player3Image: {fileID: 8400000, guid: 347455c52bce4774f8db18efffea0ecb, type: 2}
   player4Image: {fileID: 8400000, guid: 9b689509a8ee6af44b76fbd837b8528f, type: 2}
-  defaultPlayer1LitColor: {r: 0, g: 0, b: 0, a: 0}
-  defaultPlayer2LitColor: {r: 0, g: 0, b: 0, a: 0}
-  defaultPlayer3LitColor: {r: 0, g: 0, b: 0, a: 0}
-  defaultPlayer4LitColor: {r: 0, g: 0, b: 0, a: 0}
+  defaultPlayer1LitColor: {r: 0.9717977, g: 0.9811321, b: 0.013883919, a: 0}
+  defaultPlayer2LitColor: {r: 0.022472408, g: 0.19452156, b: 0.9528302, a: 0}
+  defaultPlayer3LitColor: {r: 0.07424973, g: 0.9433962, b: 0, a: 0}
+  defaultPlayer4LitColor: {r: 0.7075472, g: 0.036712356, b: 0.54227436, a: 0}
 --- !u!114 &100458738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1356,6 +1356,7 @@ GameObject:
   m_Component:
   - component: {fileID: 419434370}
   - component: {fileID: 419434371}
+  - component: {fileID: 419434372}
   m_Layer: 0
   m_Name: duck_body1
   m_TagString: Untagged
@@ -1445,6 +1446,20 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.050626103, y: 0.00007213652, z: -0.00028282776}
     m_Extent: {x: 0.056993287, y: 0.06429778, z: 0.04100404}
   m_DirtyAABB: 0
+--- !u!114 &419434372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419434369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7000747b1d7d9543b94a3431cb7461f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 1
+  litColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &425528498
 GameObject:
   m_ObjectHideFlags: 0
@@ -3736,6 +3751,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1332721062}
   - component: {fileID: 1332721063}
+  - component: {fileID: 1332721064}
   m_Layer: 0
   m_Name: duck_body1
   m_TagString: Untagged
@@ -3825,6 +3841,20 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.050626103, y: 0.00007213652, z: -0.00028282776}
     m_Extent: {x: 0.056993287, y: 0.06429778, z: 0.04100404}
   m_DirtyAABB: 0
+--- !u!114 &1332721064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332721061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7000747b1d7d9543b94a3431cb7461f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 2
+  litColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &1338863194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4978,6 +5008,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1564433370}
   - component: {fileID: 1564433371}
+  - component: {fileID: 1564433372}
   m_Layer: 0
   m_Name: duck_body1
   m_TagString: Untagged
@@ -5067,6 +5098,20 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.050626103, y: 0.00007213652, z: -0.00028282776}
     m_Extent: {x: 0.056993287, y: 0.06429778, z: 0.04100404}
   m_DirtyAABB: 0
+--- !u!114 &1564433372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564433369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7000747b1d7d9543b94a3431cb7461f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 3
+  litColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1579539184
 GameObject:
   m_ObjectHideFlags: 0
@@ -7332,6 +7377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1058245105766836252}
   - component: {fileID: 3764672589331368620}
+  - component: {fileID: 3764672589331368621}
   m_Layer: 0
   m_Name: duck_body1
   m_TagString: Untagged
@@ -7455,6 +7501,20 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.050626103, y: 0.00007213652, z: -0.00028282776}
     m_Extent: {x: 0.056993287, y: 0.06429778, z: 0.04100404}
   m_DirtyAABB: 0
+--- !u!114 &3764672589331368621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2945637072126632556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7000747b1d7d9543b94a3431cb7461f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 0
+  litColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &4028052196407554172
 Transform:
   m_ObjectHideFlags: 0
