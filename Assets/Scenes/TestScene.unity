@@ -1303,6 +1303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 233507831}
   - component: {fileID: 233507832}
+  - component: {fileID: 233507833}
   m_Layer: 6
   m_Name: Stairs (1)
   m_TagString: Untagged
@@ -1346,6 +1347,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &233507833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233507830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &249080339 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2627870247053648953, guid: e457a689504d00b4094f4e18ad3cc5cd,
@@ -3224,6 +3244,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4545423930167495100, guid: e457a689504d00b4094f4e18ad3cc5cd, type: 3}
+--- !u!208 &682041215
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682041212}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 33.171, y: 422.62503, z: 33.171}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 412.02402, z: 167.199}
+  m_TimeToStationary: 0.5
 --- !u!114 &718219996 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8572656337838187960, guid: 553a47fac97c1ff42a8771131a7b5c08,
@@ -3252,6 +3288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 724638336}
   - component: {fileID: 724638337}
+  - component: {fileID: 724638338}
   m_Layer: 6
   m_Name: Stairs (2)
   m_TagString: Untagged
@@ -3295,6 +3332,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &724638338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724638335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &744033379
 GameObject:
   m_ObjectHideFlags: 0
@@ -5200,6 +5256,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1418563868}
+    - targetCorrespondingSourceObject: {fileID: -4737374798749969038, guid: e457a689504d00b4094f4e18ad3cc5cd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1418563870}
+    - targetCorrespondingSourceObject: {fileID: 7242944475213164239, guid: e457a689504d00b4094f4e18ad3cc5cd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1114210740}
     - targetCorrespondingSourceObject: {fileID: -4958538023392519991, guid: e457a689504d00b4094f4e18ad3cc5cd,
         type: 3}
       insertIndex: -1
@@ -5220,10 +5284,18 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 682041214}
+    - targetCorrespondingSourceObject: {fileID: -4620282718447106903, guid: e457a689504d00b4094f4e18ad3cc5cd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 682041215}
     - targetCorrespondingSourceObject: {fileID: 6562889748348933850, guid: e457a689504d00b4094f4e18ad3cc5cd,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1754458862}
+    - targetCorrespondingSourceObject: {fileID: 6562889748348933850, guid: e457a689504d00b4094f4e18ad3cc5cd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1754458863}
     - targetCorrespondingSourceObject: {fileID: 8653909006750398859, guid: e457a689504d00b4094f4e18ad3cc5cd,
         type: 3}
       insertIndex: -1
@@ -5233,6 +5305,28 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 249080343}
   m_SourcePrefab: {fileID: 100100000, guid: e457a689504d00b4094f4e18ad3cc5cd, type: 3}
+--- !u!1 &1114210739 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7242944475213164239, guid: e457a689504d00b4094f4e18ad3cc5cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1114210738}
+  m_PrefabAsset: {fileID: 0}
+--- !u!208 &1114210740
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114210739}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.105, y: 1.25, z: 2.98}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 1.55}
+  m_TimeToStationary: 0.5
 --- !u!1 &1143316911
 GameObject:
   m_ObjectHideFlags: 0
@@ -5470,6 +5564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1222302079}
   - component: {fileID: 1222302080}
+  - component: {fileID: 1222302081}
   m_Layer: 6
   m_Name: Stairs (1)
   m_TagString: Untagged
@@ -5513,6 +5608,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1222302081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222302078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1227565220
 GameObject:
   m_ObjectHideFlags: 0
@@ -5628,6 +5742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1238394735}
   - component: {fileID: 1238394736}
+  - component: {fileID: 1238394737}
   m_Layer: 6
   m_Name: Stairs
   m_TagString: Untagged
@@ -5671,6 +5786,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1238394737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238394734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &1257159806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6521,7 +6655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_CollectObjects: 2
+  m_CollectObjects: 3
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
@@ -6535,10 +6669,29 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 5d85a475f9c13d8448528db19e371b26, type: 2}
   m_BuildHeightMesh: 0
+--- !u!114 &1418563870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418563866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1499519731
 GameObject:
   m_ObjectHideFlags: 0
@@ -7886,6 +8039,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7843526606762953986, guid: e457a689504d00b4094f4e18ad3cc5cd, type: 3}
+--- !u!208 &1754458863
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754458858}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 33.171, y: 354.212, z: 33.171}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 418.704, z: -480.165}
+  m_TimeToStationary: 0.5
 --- !u!1 &1762109869
 GameObject:
   m_ObjectHideFlags: 0
@@ -9313,16 +9482,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 2327435667182771502, guid: 930ed8907063a25418234c0fa7a551ce, type: 3}
-    - {fileID: 1877110264330745137, guid: 930ed8907063a25418234c0fa7a551ce, type: 3}
-    - {fileID: 181163575925855555, guid: 930ed8907063a25418234c0fa7a551ce, type: 3}
-    - {fileID: 32149574247624199, guid: 930ed8907063a25418234c0fa7a551ce, type: 3}
-    - {fileID: 6504298421432913600, guid: 930ed8907063a25418234c0fa7a551ce, type: 3}
-    - {fileID: 2302224979587870134, guid: 930ed8907063a25418234c0fa7a551ce, type: 3}
-    - {fileID: 988090319982441648, guid: 930ed8907063a25418234c0fa7a551ce, type: 3}
-    - {fileID: 7572713571103150805, guid: 930ed8907063a25418234c0fa7a551ce, type: 3}
-    - {fileID: 6274666247558360507, guid: 930ed8907063a25418234c0fa7a551ce, type: 3}
-    - {fileID: 162599199543601225, guid: 930ed8907063a25418234c0fa7a551ce, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -9339,8 +9507,6 @@ GameObject:
   - component: {fileID: 5738758377388816067}
   - component: {fileID: 2322801310886762038}
   - component: {fileID: 2250207108420588092}
-  - component: {fileID: 1433379968571490775}
-  - component: {fileID: 6987887723399060015}
   m_Layer: 0
   m_Name: holecollision
   m_TagString: HoleLocate
@@ -9413,80 +9579,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &663554309339850741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2258365832118090942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
---- !u!114 &711374250464929438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2287116119124016597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
 --- !u!23 &784905097235722642
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9541,8 +9633,6 @@ GameObject:
   - component: {fileID: 5089880217862991282}
   - component: {fileID: 2970957649215737159}
   - component: {fileID: 1602329499108346189}
-  - component: {fileID: 1937297970199337638}
-  - component: {fileID: 7637893439212732766}
   m_Layer: 0
   m_Name: holecollision
   m_TagString: HoleLocate
@@ -9550,21 +9640,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1033746958160965738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7721199613803983065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
 --- !u!4 &1260894453587000500
 Transform:
   m_ObjectHideFlags: 0
@@ -9580,43 +9655,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 430437473}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1433379968571490775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398106351567100572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
 --- !u!136 &1602329499108346189
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9640,21 +9678,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &1651072521228695544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8328955575811897163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
 --- !u!23 &1652138287953966709
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9754,43 +9777,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 430437473}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1937297970199337638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900881415790887405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
 --- !u!33 &1949496919328932849
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9834,8 +9820,6 @@ GameObject:
   - component: {fileID: 6157865494389084385}
   - component: {fileID: 4246110634603409428}
   - component: {fileID: 426539237530874910}
-  - component: {fileID: 663554309339850741}
-  - component: {fileID: 8802565298281479181}
   m_Layer: 0
   m_Name: holecollision
   m_TagString: HoleLocate
@@ -9855,8 +9839,6 @@ GameObject:
   - component: {fileID: 6169656847738442122}
   - component: {fileID: 4181331792042176895}
   - component: {fileID: 360704759654053237}
-  - component: {fileID: 711374250464929438}
-  - component: {fileID: 8845873120575012198}
   m_Layer: 0
   m_Name: holecollision
   m_TagString: HoleLocate
@@ -9929,43 +9911,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7721199613803983065}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2681276769670766996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3699698188901235423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
 --- !u!136 &2837624541988405855
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10054,43 +9999,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &3152361896050217396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4457799006468852479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
 --- !u!1 &3247804274894371780
 GameObject:
   m_ObjectHideFlags: 0
@@ -10103,8 +10011,6 @@ GameObject:
   - component: {fileID: 7435712429879170971}
   - component: {fileID: 623995000356517742}
   - component: {fileID: 4012294026410521444}
-  - component: {fileID: 4283130114678743183}
-  - component: {fileID: 5218873197376224119}
   m_Layer: 0
   m_Name: holecollision
   m_TagString: HoleLocate
@@ -10139,8 +10045,6 @@ GameObject:
   - component: {fileID: 7312893808840659303}
   - component: {fileID: 784905097235722642}
   - component: {fileID: 3882915468828259736}
-  - component: {fileID: 4124407779983763059}
-  - component: {fileID: 5341623917521206667}
   m_Layer: 0
   m_Name: holecollision
   m_TagString: HoleLocate
@@ -10190,8 +10094,6 @@ GameObject:
   - component: {fileID: 8752048985111811712}
   - component: {fileID: 1652138287953966709}
   - component: {fileID: 3020783994880995967}
-  - component: {fileID: 2681276769670766996}
-  - component: {fileID: 6208311750474168940}
   m_Layer: 0
   m_Name: holecollision
   m_TagString: HoleLocate
@@ -10199,21 +10101,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &3770600941382594333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5849174082027040686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
 --- !u!136 &3882915468828259736
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10260,43 +10147,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &4124407779983763059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3413429332942306616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
 --- !u!33 &4157971718271638292
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -10693,43 +10543,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4283130114678743183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3247804274894371780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
 --- !u!1 &4457799006468852479
 GameObject:
   m_ObjectHideFlags: 0
@@ -10742,8 +10555,6 @@ GameObject:
   - component: {fileID: 8646692873374213792}
   - component: {fileID: 1758423046246762069}
   - component: {fileID: 2837624541988405855}
-  - component: {fileID: 3152361896050217396}
-  - component: {fileID: 6386919909738285644}
   m_Layer: 0
   m_Name: holecollision
   m_TagString: HoleLocate
@@ -10759,73 +10570,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900881415790887405}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &5138123616835220709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5849174082027040686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
---- !u!114 &5218873197376224119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3247804274894371780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
---- !u!114 &5341623917521206667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3413429332942306616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
 --- !u!136 &5444988534402885390
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10926,8 +10670,6 @@ GameObject:
   - component: {fileID: 1949496919328932849}
   - component: {fileID: 8400924368551076612}
   - component: {fileID: 5444988534402885390}
-  - component: {fileID: 5138123616835220709}
-  - component: {fileID: 3770600941382594333}
   m_Layer: 0
   m_Name: holecollision
   m_TagString: HoleLocate
@@ -10951,21 +10693,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2287116119124016597}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &6208311750474168940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3699698188901235423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
 --- !u!23 &6209338080567671777
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11008,36 +10735,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6386919909738285644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4457799006468852479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
---- !u!114 &6987887723399060015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398106351567100572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
 --- !u!33 &7312893808840659303
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11046,43 +10743,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3413429332942306616}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &7346598137737276416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8328955575811897163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
 --- !u!33 &7435712429879170971
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11212,21 +10872,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &7637893439212732766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900881415790887405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
 --- !u!1 &7721199613803983065
 GameObject:
   m_ObjectHideFlags: 0
@@ -11239,8 +10884,6 @@ GameObject:
   - component: {fileID: 2379387052901670022}
   - component: {fileID: 5664774897405475955}
   - component: {fileID: 8186201398328129657}
-  - component: {fileID: 9026637251862195090}
-  - component: {fileID: 1033746958160965738}
   m_Layer: 0
   m_Name: holecollision
   m_TagString: HoleLocate
@@ -11298,8 +10941,6 @@ GameObject:
   - component: {fileID: 4157971718271638292}
   - component: {fileID: 6209338080567671777}
   - component: {fileID: 7577983778879635435}
-  - component: {fileID: 7346598137737276416}
-  - component: {fileID: 1651072521228695544}
   m_Layer: 0
   m_Name: holecollision
   m_TagString: HoleLocate
@@ -11380,73 +11021,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3699698188901235423}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &8802565298281479181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2258365832118090942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
---- !u!114 &8845873120575012198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2287116119124016597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
---- !u!114 &9026637251862195090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7721199613803983065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441409f72b6c2ba4b9fa1f3727349cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  needTool: 1
-  fasterWithTool: 0
-  isTool: 0
-  isStation: 1
-  expectedType: 1
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: waterinteract, Assembly-CSharp
-        m_MethodName: Startdrain
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  currentInteractable: {fileID: 0}
-  currentController: {fileID: 0}
-  TaskName: Pump
-  toolTime: 2
-  regularTime: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
