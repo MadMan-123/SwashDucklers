@@ -104,7 +104,7 @@ public class PlayerUI : MonoBehaviour
     public void StartGame(InputAction.CallbackContext value)
     {
 
-        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("TestScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("TestScene");
 
     }
 }

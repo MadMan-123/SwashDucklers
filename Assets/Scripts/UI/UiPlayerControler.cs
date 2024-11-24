@@ -40,6 +40,9 @@ public class UiPlayerControler : MonoBehaviour
         startText = this.transform.GetChild(5).gameObject;
 
         PlayerStats.playerNo = 0;
+
+        
+
     }
 
     // Update is called once per frame
@@ -63,25 +66,32 @@ public class UiPlayerControler : MonoBehaviour
         switch (player.playerIndex)
         {
             case 0:
-                player.transform.position = new Vector3(500,750,0); //Position
+                //player.transform.position = new Vector3(500,750,0); //Position
+
+                player.GetComponent<RectTransform>().localPosition = new Vector3(-500, 250, 0);
+                //player.GetComponent<RectTransform>().left = 4;
+                //player.GetComponent<RectTransform>().left = 4;
+                //player.GetComponent<RectTransform>().left = 4;
+
+
                 joinText1.SetActive(false); //Disable join text
                 player.transform.GetChild(2).GetComponent<RawImage>().texture = player1Image;
                 PlayerStats.player1Color = defaultPlayer1LitColor;
                 break;
             case 1:
-                player.transform.position = new Vector3(1400, 750, 0);
+                player.GetComponent<RectTransform>().localPosition = new Vector3(500, 250, 0);
                 joinText2.SetActive(false);
                 player.transform.GetChild(2).GetComponent<RawImage>().texture = player2Image;
                 PlayerStats.player2Color = defaultPlayer2LitColor;
                 break;
             case 2:
-                player.transform.position = new Vector3(500, 300, 0);
+                player.GetComponent<RectTransform>().localPosition = new Vector3(-500, -250, 0);
                 joinText3.SetActive(false);
                 player.transform.GetChild(2).GetComponent<RawImage>().texture = player3Image;
                 PlayerStats.player3Color = defaultPlayer3LitColor;
                 break;
             case 3:
-                player.transform.position = new Vector3(1400, 300, 0);
+                player.GetComponent<RectTransform>().localPosition = new Vector3(500, -250, 0);
                 joinText4.SetActive(false);
                 player.transform.GetChild(2).GetComponent<RawImage>().texture = player4Image;
                 PlayerStats.player4Color = defaultPlayer4LitColor;
