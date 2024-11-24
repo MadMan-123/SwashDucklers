@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 using Quaternion = UnityEngine.Quaternion;
 using UnityEngine.SceneManagement;
+//using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerControler : MonoBehaviour
 {
@@ -65,6 +66,23 @@ public class PlayerControler : MonoBehaviour
 
         beakRenderer = modelTransform.GetChild(0).GetComponent<Renderer>();
         bodyRenderer = modelTransform.GetChild(1).GetComponent<Renderer>();
+
+        //Get Color
+        switch(playerID)
+        {
+            case 0:
+                litColor = PlayerStats.player1Color;
+                break;
+            case 1:
+                litColor = PlayerStats.player2Color;
+                break;
+            case 2:
+                litColor = PlayerStats.player3Color;
+                break;
+            case 3:
+                litColor = PlayerStats.player4Color;
+                break;
+        }
     }
 
     //On start
