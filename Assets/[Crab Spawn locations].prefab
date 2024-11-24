@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1420330857787813457}
   - component: {fileID: 3341100363089675929}
   - component: {fileID: 3444432902684074935}
-  - component: {fileID: 6274666247558360507}
   m_Layer: 0
   m_Name: crabspawn 4
   m_TagString: HoleLocate
@@ -108,21 +107,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &6274666247558360507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 922769513718614060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Repair: 1
-  health: {fileID: 0}
 --- !u!1 &1182122898718783500
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class Crabcontroller : MonoBehaviour
 {
     public bool hasplank;
     public NavMeshAgent agent;
-    public GameObject[] planks;
+    public GameObject planks;
     public Transform player;
 
     public LayerMask whatIsGround, whatIsPlayer;
@@ -26,7 +26,7 @@ public class Crabcontroller : MonoBehaviour
     void Awake()
     {
 
-        target = Random.Range(0, planks.Length  +1);
+        
      
         agent = GetComponent<NavMeshAgent>();
     }
@@ -34,9 +34,9 @@ public class Crabcontroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        planks = GameObject.FindGameObjectsWithTag("HoleLocate");
-           player = GameObject.FindWithTag("Player").transform;
-       // planks = GameObject.FindWithTag("HoleLocate").transform;
+        
+           
+   
 
         InSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
@@ -56,8 +56,10 @@ public class Crabcontroller : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "HoleLocate" &&  planktake )
+
+        if (other.gameObject.tag ==("HoleLocate"))
         {
+            print("OnTriggerEnter");
             hasplank = true;
         }
     }
@@ -65,13 +67,14 @@ public class Crabcontroller : MonoBehaviour
 
     private void GoPlank()
     {
-       
-        
-        agent.SetDestination(planks[target].gameObject.transform.position);
+        planks = GameObject.FindWithTag("HoleLocate");
+        agent.SetDestination(planks.gameObject.transform.position);
+        return;
     }
 
     private void RunAway()
-    {
+    {   
+        player = GameObject.FindWithTag("Player").transform;
         Vector3 runTo = transform.position + ((transform.position - player.position + new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1))));
         float distance = Vector3.Distance(transform.position, player.position);
         agent.speed = Random.Range(7.5f, 11f);
