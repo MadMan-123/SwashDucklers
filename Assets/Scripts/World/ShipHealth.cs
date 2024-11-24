@@ -50,7 +50,11 @@ public class ShipHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        //SD:Set the max ship height to the current height of the ship in game space
+        //Should prevent it teleporting at game start
+        maxShipHeight = transform.position.y;
+
         shipHealth = maxShipHealth;
         shipFilled = 0;
         displayhealth = 100;
@@ -58,6 +62,7 @@ public class ShipHealth : MonoBehaviour
         regenerate = true;
         loop = true;
         gm = gameObject.AddComponent<GameManager>();
+
     }
     
    void Update()
