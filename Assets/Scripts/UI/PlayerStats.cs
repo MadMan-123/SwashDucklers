@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum Hat
+{
+    None,
+    Shark
+}
+
 public static class PlayerStats
 {
 
@@ -20,5 +26,11 @@ public static class PlayerStats
     public static InputDevice player2input { get; set; }
     public static InputDevice player3input { get; set; }
     public static InputDevice player4input { get; set; }
+
+    //Player Hats
+    public static Hat player1Hat { get; set; } = Hat.None;
+    public static Hat player2Hat { get; set; } = Hat.None;
+    public static Hat player3Hat { get; set; } = Hat.None;
+    public static Hat player4Hat { get; set; } = Hat.None;
 
 }

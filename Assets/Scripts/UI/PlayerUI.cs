@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -12,6 +14,11 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] Slider R;
     [SerializeField] Slider G;
     [SerializeField] Slider B;
+
+    [SerializeField] Button lastHat;
+    [SerializeField] Button forwardHat;
+
+    [SerializeField] TextMeshProUGUI costumeText;
 
     float red;
     float green;
@@ -82,20 +89,30 @@ public class PlayerUI : MonoBehaviour
 
         });
 
+        //Change Hat
+        lastHat.interactable = true;
+        forwardHat.interactable = true;
+        lastHat.onClick.AddListener(previousHat);
+        forwardHat.onClick.AddListener(nextHat);
+
         //Set visuals
         switch (playerInput.playerIndex)
         {  
             case 0:
                 PlayerStats.player1Color = new Color(red, green, blue);
+                costumeText.text = PlayerStats.player1Hat.ToString();
                 break;
             case 1:
                 PlayerStats.player2Color = new Color(red, green, blue);
+                costumeText.text = PlayerStats.player2Hat.ToString();
                 break;
             case 2:
                 PlayerStats.player3Color = new Color(red, green, blue);
+                costumeText.text = PlayerStats.player3Hat.ToString();
                 break;
             case 3:
                 PlayerStats.player4Color = new Color(red, green, blue);
+                costumeText.text = PlayerStats.player4Hat.ToString();
                 break;
         }
     }
@@ -107,4 +124,77 @@ public class PlayerUI : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("TestScene");
 
     }
+
+    //Next Hat
+    private void nextHat()
+    {
+
+        forwardHat.interactable = false;
+
+        switch (playerInput.playerIndex)
+        {
+            case 0:
+                if ((int)PlayerStats.player1Hat < Enum.GetNames(typeof(Hat)).Length-1)
+                {
+                    PlayerStats.player1Hat = PlayerStats.player1Hat + 1;
+                }
+                break;
+            case 1:
+                if ((int)PlayerStats.player2Hat < Enum.GetNames(typeof(Hat)).Length - 1)
+                {
+                    PlayerStats.player2Hat = PlayerStats.player2Hat + 1;
+                }
+                break;
+            case 2:
+                if ((int)PlayerStats.player3Hat < Enum.GetNames(typeof(Hat)).Length - 1)
+                {
+                    PlayerStats.player3Hat = PlayerStats.player3Hat + 1;
+                }
+                break;
+            case 3:
+                if ((int)PlayerStats.player4Hat < Enum.GetNames(typeof(Hat)).Length - 1)
+                {
+                    PlayerStats.player4Hat = PlayerStats.player4Hat + 1;
+                }
+                break;
+        }
+
+    }
+
+    private void previousHat()
+    {
+
+        lastHat.interactable = false;
+
+        switch (playerInput.playerIndex)
+        {
+            case 0:
+                if (PlayerStats.player1Hat > 0)
+                {
+                    PlayerStats.player1Hat = PlayerStats.player1Hat - 1;
+                }
+                break;
+            case 1:
+                if (PlayerStats.player2Hat > 0)
+                {
+                    PlayerStats.player2Hat = PlayerStats.player2Hat - 1;
+                }
+                break;
+            case 2:
+                if (PlayerStats.player3Hat > 0)
+                {
+                    PlayerStats.player3Hat = PlayerStats.player3Hat - 1;
+                }
+                break;
+            case 3:
+                if (PlayerStats.player4Hat > 0)
+                {
+                    PlayerStats.player4Hat = PlayerStats.player4Hat - 1;
+                }
+                break;
+        }
+
+
+    }
+
 }

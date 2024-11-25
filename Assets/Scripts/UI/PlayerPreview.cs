@@ -11,6 +11,7 @@ public class PlayerPreview : MonoBehaviour
     [SerializeField] int playerID;
     private Transform modelTransform;
     private Renderer bodyRenderer;
+    private GameObject hat;
     public Color litColor;
 
     // Start is called before the first frame update
@@ -29,6 +30,22 @@ public class PlayerPreview : MonoBehaviour
         {
             case 0:
                 litColor = PlayerStats.player1Color;
+
+                switch (PlayerStats.player1Hat)
+                {
+                    case Hat.None:
+                        hat = null;
+                        break;
+
+                    case Hat.Shark:
+                        //hat = Resources.Load("Assets/Prefabs/Hats/Shark") as GameObject;
+                        //hat = Resources.Load("Assets/Prefabs/Hats/Shark") as GameObject;
+                        //Instantiate(hat, transform.position, transform.rotation);
+                        break;
+                }
+               
+
+
                 break;
             case 1:
                 litColor = PlayerStats.player2Color;
