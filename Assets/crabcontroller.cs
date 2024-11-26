@@ -9,34 +9,30 @@ public class Crabcontroller : MonoBehaviour
 {
     public bool hasplank;
     public NavMeshAgent agent;
-    public GameObject planks;
     public Transform player;
-
+    public waveandcrabmanager wacman;
+    public int planktarget;
     public LayerMask whatIsGround, whatIsPlayer;
 
-
+    public Transform exit;
 
     //States
     public float sightRange;
     public bool InSightRange;
-    public int target;
 
     public bool planktake;
     // Start is called before the first frame update
     void Awake()
     {
-
-        
-     
+        exit = GameObject.FindGameObjectWithTag("exit").transform;
         agent = GetComponent<NavMeshAgent>();
+        wacman = GameObject.FindObjectOfType<waveandcrabmanager>();
+        planktarget = wacman.target;
     }
 
     // Update is called once per frame
     void Update()
     { 
-        
-           
-   
 
         InSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
@@ -67,8 +63,8 @@ public class Crabcontroller : MonoBehaviour
 
     private void GoPlank()
     {
-        planks = GameObject.FindWithTag("HoleLocate");
-        agent.SetDestination(planks.gameObject.transform.position);
+       
+        agent.SetDestination(wacman.planks[planktarget].gameObject.transform.position);
         return;
     }
 
@@ -83,7 +79,7 @@ public class Crabcontroller : MonoBehaviour
 
     private void OverBoard()
     {
-
+        agent.SetDestination(exit.gameObject.transform.position);
     }
 
     private void OnDrawGizmosSelected()
