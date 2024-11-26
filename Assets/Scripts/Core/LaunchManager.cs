@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class LaunchManager : MonoBehaviour
 {
@@ -96,11 +97,14 @@ public class LaunchManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        
+
         //ensure last position is met
-        
-        if(clamp)
-            obj.transform.position = points[lastPointIndex];
+
+        if(NavMesh.SamplePosition(points[^1], out var hit, 2f,NavMesh.AllAreas))
+        {
+            obj.transform.position = hit.position;
+        }
+
         
         //reset velocity
         if (obj.TryGetComponent(out Rigidbody rb))

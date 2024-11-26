@@ -18,13 +18,16 @@ public class RoundRobinSpawner : MonoBehaviour
             {
                 obj.SetActive(false);
             }
-            routine = _spawnObject();
-            StartCoroutine(routine);
+            
         }
+
+        routine = _spawnObject();
+        StartCoroutine(routine);
     }
     IEnumerator _spawnObject()
     {
         var index = Random.Range(0, gameObjects.Count);
+
         current = gameObjects[index];
         current.SetActive(true);
         yield return new WaitForSeconds(intervalOn);
