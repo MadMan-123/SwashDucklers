@@ -323,12 +323,12 @@ PrefabInstance:
     - target: {fileID: 1760052122261667148, guid: 553a47fac97c1ff42a8771131a7b5c08,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3173257336513621954, guid: 553a47fac97c1ff42a8771131a7b5c08,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4981101601905341017, guid: 553a47fac97c1ff42a8771131a7b5c08,
         type: 3}
@@ -2559,7 +2559,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4cd1648970a91ef4eb9617d32e89da44, type: 2}
+      objectReference: {fileID: 2100000, guid: a6f779f7ca9a9dc4ba8c21cfe219585e, type: 2}
     - target: {fileID: 4981101601905341017, guid: 553a47fac97c1ff42a8771131a7b5c08,
         type: 3}
       propertyPath: m_Enabled
@@ -4103,12 +4103,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1093960492}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.04, y: 0.08, z: 0.00000017881393}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.7200003, y: -2.68, z: -4}
   m_LocalScale: {x: 47.072, y: 0.6964757, z: 25.306377}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1499519732}
+  m_Father: {fileID: 1986898623}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1093960494
 MonoBehaviour:
@@ -6117,7 +6117,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1093960493}
   - {fileID: 587693588}
   m_Father: {fileID: 1143316912}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7988,6 +7987,7 @@ Transform:
   - {fileID: 1752459478}
   - {fileID: 1749537679}
   - {fileID: 410785622}
+  - {fileID: 1093960493}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1986898624

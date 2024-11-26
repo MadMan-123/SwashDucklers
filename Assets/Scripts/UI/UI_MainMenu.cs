@@ -16,12 +16,12 @@ public class ui_MainMenu : MonoBehaviour
 
     public void PlayNowButton()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("TestScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Character Select");
     }
 
     public void RETURNTOMENU()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("menutest");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Character Select");
     }
 
     public void CreditsButton()

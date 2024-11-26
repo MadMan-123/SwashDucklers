@@ -466,7 +466,7 @@ public class PlayerControler : MonoBehaviour
 
         if (value.performed && canMove) //Performed
         {
-            SceneManager.LoadScene("menu test"); //GM: returns to the "menu test" screen
+            SceneManager.LoadScene("Character Select"); //GM: returns to the "menu test" screen
             SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
 
         }

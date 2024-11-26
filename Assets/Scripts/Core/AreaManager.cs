@@ -10,7 +10,7 @@ public class AreaManager : MonoBehaviour
         //buffer of all areas to be added to the map
         [SerializeField] private List<Area> areas = new();
         //areas hash map
-        private static readonly Dictionary<string, Area> areaMap = new();
+        private static Dictionary<string, Area> areaMap;
         //singleton
         public static AreaManager instance;
         [SerializeField] private Color areaColour;
@@ -24,12 +24,20 @@ public class AreaManager : MonoBehaviour
                 else
                         Destroy(gameObject);
                 
+
+                if(areaMap == null)
+                    areaMap = new();
+
                 //add to hash map
                  for (var i = 0; i < areas.Count; i++)
                  {
-                         areaMap.Add(areas[i].name, areas[i]);
-                         Debug.Log("Added area: " + areas[i].name);
-                 } 
+                        if (areaMap.ContainsKey(areas[i].name))
+                        {
+                            areaMap.Remove(areas[i].name); //Hackky im sos
+                        }
+                        areaMap.Add(areas[i].name, areas[i]);
+                        Debug.Log("Added area: " + areas[i].name);
+                 }    
         }
 
         private void Start()
