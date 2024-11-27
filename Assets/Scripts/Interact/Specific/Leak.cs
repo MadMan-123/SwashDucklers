@@ -8,7 +8,7 @@ public class Leak : MonoBehaviour
     [SerializeField] private int Damage = 1;
     [SerializeField] private int Repair = 1;
     [SerializeField] private ShipHealth health;
-    private void Start()
+    private void OnEnable()
     {
         health = FindObjectOfType<ShipHealth>();
         //effect the ship health

@@ -17,7 +17,7 @@ public class tentacleAI : MonoBehaviour
         {
             weightedSums[i] = Random.Range(0, 10);
         }
-            PickTentacles(randomNumber);
+            TentacleAttack();
     }
     private void FixedUpdate()
     {
@@ -26,31 +26,47 @@ public class tentacleAI : MonoBehaviour
             weightedSums[i] += Time.deltaTime;
         }
     }
-    public void PickTentacles(int number)
+    private void TentacleAttack()
     {
+        int amount=0;
+        int tempRndHold = Random.Range(0, 10);
+        if (tempRndHold <= 4) amount = 1;
+        else if (tempRndHold <= 9) amount = 2;
+        else amount = 3;
+
+    }
+
+    public int PickTentacles(int number)
+    {
+        int attackSelected = 0;
+        int numberOfTentacles = Random.Range(1, 3);
         float totalSum = 0;
         for (int i = 0; i < weightedSums.Length; i++)
         {
             totalSum += weightedSums[i];                            //add them all together, random number using the sum as a cap. Depending on the number is what formation is used, might take top 3 and rand between them
         }
+        float ranNumber = Random.Range(0, totalSum);
+        float count = 0;
+        for(int i = 0;i < weightedSums.Length;i++)
+        {
+            float temp = count;
+            count += weightedSums[i];
+            if(ranNumber > temp && ranNumber < count)
+            {
+                attackSelected = i;
+            }
+        }
+        return attackSelected;
     }
 
 
 
-    IEnumerator TentacleTimer(GameObject[] tentacles, int time, int waitTime)
+    IEnumerator TentacleTimer(GameObject tentacle, int time, int waitTime)
     {
-        foreach(GameObject tentacle in tentacles)
-        {
-            //tentacle.setActive(true);       //or instantiate
-            //tentacle.anim.play              //lowkey forgot how to do animations plus they dont exist yet
-        }
+        tentacle.SetActive(true);
+        //tentacle.anim.play
         yield return new WaitForSeconds(time);
-
-        foreach(GameObject tentacle in tentacles)
-        {
-            //delete / set inactive
-        }
-        yield return new WaitForSeconds(waitTime);
+        tentacle.SetActive(false);
     }
 }
 //weighted sums
