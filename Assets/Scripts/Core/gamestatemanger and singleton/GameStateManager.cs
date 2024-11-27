@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class GameStateManager : Singleton<GameStateManager>
 {
-  /*  // GM: Define possible game states as an enum for clear representation.
+    // GM: Define possible game states as an enum for clear representation.
     public enum GameState
     {
         None,
@@ -88,7 +88,10 @@ public class GameStateManager : Singleton<GameStateManager>
                 break;
         }
     }
-
+    /// <summary>
+    /// GM: Feel free to edit this at any time btw, this should be treated more as a template rather than a finished system :D
+    /// gm: Also I may have went in a bit heavy with the debug logs
+    /// </summary>
     // GM: Example method for handling the "Starting" state. Replace with actual logic.
     private void HandleStarting()
     {
@@ -130,7 +133,7 @@ public class GameStateManager : Singleton<GameStateManager>
         Debug.Log("Ship health is at 25%.");
         // GM: Add logic for the ship at 25% health scenario here.
     }
-
+    
     // GM: Called when this component is enabled.
     private void OnEnable()
     {
@@ -145,5 +148,5 @@ public class GameStateManager : Singleton<GameStateManager>
         // GM: Unsubscribe from events to prevent memory leaks or errors.
         OnBEFOREStateChanged -= state => Debug.Log($"BEFORE: Changing state to {state}");
         OnAFTERStateChanged -= state => Debug.Log($"AFTER: Changed state to {state}");
-    }*/
+    }
 }

@@ -9,17 +9,17 @@ using UnityEngine;
 public abstract class StaticInstance<T> : MonoBehaviour where T : MonoBehaviour
 {
     // GM: Static property to store the single instance of the class.
-    public static T instance { get; private set; }
+    public static T Instance { get; private set; }
 
     // GM: This method is called when the script is loaded.
     // GM: It assigns the current object (`this`) as the static instance.
-    protected virtual void Awake() => instance = this as T;
+    protected virtual void Awake() => Instance = this as T;
 
     // GM: This method is triggered when the application is quitting.
     // GM: It clears the static instance reference and destroys the game object to prevent errors.
     protected virtual void onApplicationQuit()
     {
-        instance = null; // GM: Remove the reference to the instance when quitting.
+        Instance = null; // GM: Remove the reference to the instance when quitting.
         Destroy(gameObject); // GM: Destroy the object to clean up memory.
     }
 }
@@ -35,7 +35,7 @@ public abstract class Singleton<T> : StaticInstance<T> where T : MonoBehaviour
     protected override void Awake()
     {
         // GM: If an instance already exists, destroy this game object.
-        if (instance != null) Destroy(gameObject);
+        if (Instance != null) Destroy(gameObject);
 
         // GM: Call the base class's `Awake` to assign the instance.
         base.Awake();
@@ -53,7 +53,7 @@ public abstract class SingletonPersistent<T> : Singleton<T> where T : MonoBehavi
     protected override void Awake()
     {
         // GM: Destroy duplicates to enforce a single instance.
-        if (instance != null) Destroy(gameObject);
+        if (Instance != null) Destroy(gameObject);
 
         // GM: Prevent this object from being destroyed when loading a new scene.
         DontDestroyOnLoad(gameObject);
