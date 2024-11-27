@@ -8841,6 +8841,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1961030954}
   - component: {fileID: 1961030953}
+  - component: {fileID: 1961030955}
   m_Layer: 0
   m_Name: '[TENTACLE]'
   m_TagString: Untagged
@@ -8855,7 +8856,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1961030952}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a5d28a0c6677ce4caec066eb3ea649e, type: 3}
   m_Name: 
@@ -8891,6 +8892,30 @@ Transform:
   - {fileID: 1082328166}
   m_Father: {fileID: 1986898623}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1961030955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961030952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f76b7a169ddb2d347b8132e835f8e124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tentacleObjects:
+  - {fileID: 1052386099}
+  - {fileID: 921437003}
+  - {fileID: 1468988862}
+  - {fileID: 842860670}
+  - {fileID: 1937866891}
+  - {fileID: 1082328165}
+  krakenAlive: 0
+  weightedSums: []
+  tentacleDeployedTime: 3
+  waitBetweenTents: 3
+  tentsCalled: 
 --- !u!4 &1961987635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5161091590877973449, guid: 124d3f8452a334c4c910899bd0ffd6bb,
