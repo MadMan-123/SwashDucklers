@@ -8,6 +8,7 @@ public class AImanager : MonoBehaviour
 {
     [SerializeField] EnemyShip e_ship;
     [SerializeField] GameObject enemy;
+    [SerializeField] GameObject g_ship;
 
     [SerializeField] int currentwave;
     [SerializeField] int enemycount;
@@ -61,11 +62,11 @@ public class AImanager : MonoBehaviour
 
 
 // start a new wave
-                if (currentwave == 1)
-                {
-                    duck();
+               // if (currentwave == 1)
+              //  {
+                 //   duck();
 
-                }
+               // }
 
                 if (currentwave == 2)
                 {
@@ -82,28 +83,31 @@ public class AImanager : MonoBehaviour
         }
     }
 
-    public void duck()
-    {
+   // public void duck()
+    //{
 
-        enemySpawn = true;
+      //  enemySpawn = true;
 
 
-        if (enemycount >= maxenemycount)
-        {
-            enemySpawn = false;
-        }
+        //if (enemycount >= maxenemycount)
+        //{
+         //   enemySpawn = false;
+        //}
 
-        var position = new Vector3(Random.Range(-10, -4), 5, Random.Range(2, 2));
+//        var position = new Vector3(Random.Range(-10, -4), 5, Random.Range(2, 2));
 
-        if (enemySpawn)
-        {
-            Instantiate(enemy, position, transform.rotation);
-            enemycount += 1;
-        }
-    }
+  //      if (enemySpawn)
+    //    {
+      //      Instantiate(enemy, position, transform.rotation);
+        //    enemycount += 1;
+       //}
+    //}
       public void WaveShip()
         {
-       
+        //var sposition = new Vector3(0, 0, 10);
+
+        //Instantiate(g_ship, sposition, 0);
+        g_ship.SetActive(true);
         
     
 
