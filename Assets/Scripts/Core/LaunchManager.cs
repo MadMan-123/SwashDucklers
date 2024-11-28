@@ -35,7 +35,10 @@ public class LaunchManager : MonoBehaviour
             var height = target.y - obj.transform.position.y;
             vel = (CalculateVelocity(target,obj.transform.position, launchDuration, height));
             rb.AddForce(vel * extraForce, ForceMode.VelocityChange);
-            
+            if (obj.tag == "Player")
+            {
+                obj.GetComponent<Health>().SetHealth(0);
+            }
             return vel;
         }
 
