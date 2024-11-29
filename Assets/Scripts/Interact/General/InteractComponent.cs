@@ -96,6 +96,7 @@ public class InteractComponent : MonoBehaviour
             if (colliders[i].TryGetComponent(out PlayerControler pc))
             {
                 StartCoroutine(ReduceFriction(colliders[i].gameObject,pc, extraForce/5));
+                pc.Ragdoll();
             }
             if (colliders[i].TryGetComponent(out AIBrain brain))
             {

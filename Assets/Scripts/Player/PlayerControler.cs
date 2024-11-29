@@ -39,7 +39,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private Transform modelTransform;
     [SerializeField] float bumpForce;
     [SerializeField] float bumpForceUp;
-    [SerializeField] float ragdollTime=0.2f;
+    [SerializeField] float ragdollTime=5f;
     public Vector3 spawnpoint;
     public Vector3 spawnRotation;
     public Color litColor;
@@ -582,22 +582,24 @@ public class PlayerControler : MonoBehaviour
     }
     public void Ragdoll()
     {
-        rb.constraints &= ~RigidbodyConstraints.FreezeRotationZ;              //unlocks rotation on the z and x axis so it rolls about   : all below TS
-        rb.constraints &= ~RigidbodyConstraints.FreezeRotationX;
+        rb.freezeRotation = false;
+        //rb.constraints &= ~RigidbodyConstraints.FreezeRotationZ;              //unlocks rotation on the z and x axis so it rolls about   : all below TS
+        //rb.constraints &= ~RigidbodyConstraints.FreezeRotationX;
         StartCoroutine(UndoRagdoll(ragdollTime));
         DisableMovement();      //could not possibly extrapolate what this does
     }
     private void UnRagdoll()
     {
-        rb.constraints = RigidbodyConstraints.FreezeRotationZ;                 //locks rotation on the z and x axis
-        rb.constraints = RigidbodyConstraints.FreezeRotationX;
+        rb.freezeRotation = true;
+        //rb.constraints = RigidbodyConstraints.FreezeRotationZ;                 //locks rotation on the z and x axis
+        //rb.constraints = RigidbodyConstraints.FreezeRotationX;
         transform.rotation = Quaternion.LookRotation(spawnRotation, Vector3.up);    //resets the rotation to normal, fix spawnRotation to maybe a temp value
         EnableMovement();    //i wonder what this does
     }
 
     private IEnumerator UndoRagdoll(float RagdollTime)         //just a timer really
     {
-        yield return new WaitForSeconds(RagdollTime);
+        yield return new WaitForSecondsRealtime(RagdollTime);
         UnRagdoll();
     }
 }
