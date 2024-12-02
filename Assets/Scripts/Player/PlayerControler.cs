@@ -117,8 +117,8 @@ public class PlayerControler : MonoBehaviour
     {
 
         //Body
-        bodyRenderer.material.SetColor("_BaseColor", litColor); //Light Color
-        bodyRenderer.material.SetColor("_1st_ShadeColor", darkColor); //Shaded Color
+        bodyRenderer.material.SetColor("_Color", litColor); //Light Color
+        //bodyRenderer.material.SetColor("_1st_ShadeColor", darkColor); //Shaded Color
 
         //Beak and legs
         //beakRenderer.material.SetColor("_BaseColor", secondaryColor); //Light Color

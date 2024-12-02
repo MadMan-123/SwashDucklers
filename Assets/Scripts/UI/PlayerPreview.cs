@@ -93,6 +93,6 @@ public class PlayerPreview : MonoBehaviour
         }
 
         //Set Color
-        bodyRenderer.material.SetColor("_BaseColor", litColor); //Light Color
+        bodyRenderer.material.SetColor("_Color", litColor); //Light Color
     }
 }
