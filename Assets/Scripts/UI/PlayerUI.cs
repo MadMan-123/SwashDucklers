@@ -100,19 +100,19 @@ public class PlayerUI : MonoBehaviour
         {  
             case 0:
                 PlayerStats.player1Color = new Color(red, green, blue);
-                costumeText.text = PlayerStats.player1Hat.ToString();
+                costumeText.text = PlayerStats.Hatlist[PlayerStats.player1Hat].name;
                 break;
             case 1:
                 PlayerStats.player2Color = new Color(red, green, blue);
-                costumeText.text = PlayerStats.player2Hat.ToString();
+                costumeText.text = PlayerStats.Hatlist[PlayerStats.player2Hat].name;
                 break;
             case 2:
                 PlayerStats.player3Color = new Color(red, green, blue);
-                costumeText.text = PlayerStats.player3Hat.ToString();
+                costumeText.text = PlayerStats.Hatlist[PlayerStats.player3Hat].name;
                 break;
             case 3:
                 PlayerStats.player4Color = new Color(red, green, blue);
-                costumeText.text = PlayerStats.player4Hat.ToString();
+                costumeText.text = PlayerStats.Hatlist[PlayerStats.player4Hat].name;
                 break;
         }
     }
@@ -134,25 +134,25 @@ public class PlayerUI : MonoBehaviour
         switch (playerInput.playerIndex)
         {
             case 0:
-                if ((int)PlayerStats.player1Hat < Enum.GetNames(typeof(Hat)).Length-1)
+                if (PlayerStats.player1Hat < PlayerStats.Hatlist.Count - 1)
                 {
                     PlayerStats.player1Hat = PlayerStats.player1Hat + 1;
                 }
                 break;
             case 1:
-                if ((int)PlayerStats.player2Hat < Enum.GetNames(typeof(Hat)).Length - 1)
+                if (PlayerStats.player2Hat < PlayerStats.Hatlist.Count - 1)
                 {
                     PlayerStats.player2Hat = PlayerStats.player2Hat + 1;
                 }
                 break;
             case 2:
-                if ((int)PlayerStats.player3Hat < Enum.GetNames(typeof(Hat)).Length - 1)
+                if (PlayerStats.player3Hat < PlayerStats.Hatlist.Count - 1)
                 {
                     PlayerStats.player3Hat = PlayerStats.player3Hat + 1;
                 }
                 break;
             case 3:
-                if ((int)PlayerStats.player4Hat < Enum.GetNames(typeof(Hat)).Length - 1)
+                if (PlayerStats.player4Hat < PlayerStats.Hatlist.Count - 1)
                 {
                     PlayerStats.player4Hat = PlayerStats.player4Hat + 1;
                 }
@@ -193,7 +193,6 @@ public class PlayerUI : MonoBehaviour
                 }
                 break;
         }
-
 
     }
 

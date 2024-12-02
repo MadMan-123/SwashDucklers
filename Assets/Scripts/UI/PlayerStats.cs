@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum Hat
+
+[Serializable]
+public struct Hat
 {
-    None,
-    Shark
+    public string name;
+    public GameObject model;
 }
 
 public static class PlayerStats
@@ -28,9 +31,12 @@ public static class PlayerStats
     public static InputDevice player4input { get; set; }
 
     //Player Hats
-    public static Hat player1Hat { get; set; } = Hat.None;
-    public static Hat player2Hat { get; set; } = Hat.None;
-    public static Hat player3Hat { get; set; } = Hat.None;
-    public static Hat player4Hat { get; set; } = Hat.None;
+    public static int player1Hat { get; set; } = 0;
+    public static int player2Hat { get; set; } = 0;
+    public static int player3Hat { get; set; } = 0;
+    public static int player4Hat { get; set; } = 0;
+
+    //List of Hats
+    public static List<Hat> Hatlist { get; set; }
 
 }

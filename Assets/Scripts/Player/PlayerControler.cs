@@ -49,6 +49,8 @@ public class PlayerControler : MonoBehaviour
     private bool spawned = false;
     private Renderer beakRenderer;
     private Renderer bodyRenderer;
+    private GameObject hat;
+    private Vector3 hatposition;
 
     private static readonly int Color1 = Shader.PropertyToID("_Color");
 
@@ -68,20 +70,38 @@ public class PlayerControler : MonoBehaviour
         beakRenderer = modelTransform.GetChild(0).GetComponent<Renderer>();
         bodyRenderer = modelTransform.GetChild(1).GetComponent<Renderer>();
 
-        //Get Color
-        switch(playerID)
+        hatposition = new Vector3(transform.position.x, transform.position.y + 0.12f, transform.position.z);
+
+        //Get Color and hat
+        switch (playerID)
         {
             case 0:
                 litColor = PlayerStats.player1Color;
+                if (PlayerStats.Hatlist[PlayerStats.player1Hat].model != null)
+                {
+                   hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player1Hat].model, hatposition, transform.rotation, this.transform);
+                }
                 break;
             case 1:
                 litColor = PlayerStats.player2Color;
+                if (PlayerStats.Hatlist[PlayerStats.player2Hat].model != null)
+                {
+                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player2Hat].model, hatposition, transform.rotation, this.transform);
+                }
                 break;
             case 2:
                 litColor = PlayerStats.player3Color;
+                if (PlayerStats.Hatlist[PlayerStats.player3Hat].model != null)
+                {
+                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player3Hat].model, hatposition, transform.rotation, this.transform);
+                }
                 break;
             case 3:
                 litColor = PlayerStats.player4Color;
+                if (PlayerStats.Hatlist[PlayerStats.player4Hat].model != null)
+                {
+                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player4Hat].model, hatposition, transform.rotation, this.transform);
+                }
                 break;
         }
     }

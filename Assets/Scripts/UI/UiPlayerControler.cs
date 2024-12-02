@@ -22,6 +22,8 @@ public class UiPlayerControler : MonoBehaviour
     [SerializeField] private Color defaultPlayer3LitColor;
     [SerializeField] private Color defaultPlayer4LitColor;
 
+    [SerializeField] List<Hat> hatList;
+
     private GameObject joinText1;
     private GameObject joinText2;
     private GameObject joinText3;
@@ -41,8 +43,8 @@ public class UiPlayerControler : MonoBehaviour
 
         PlayerStats.playerNo = 0;
 
-        
-
+        //Load Hats into memory;
+        PlayerStats.Hatlist = hatList;
     }
 
     // Update is called once per frame
