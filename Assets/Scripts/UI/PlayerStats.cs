@@ -10,6 +10,8 @@ public struct Hat
 {
     public string name;
     public GameObject model;
+    public Vector3 position;
+    public Vector3 previewPosition;
 }
 
 public static class PlayerStats

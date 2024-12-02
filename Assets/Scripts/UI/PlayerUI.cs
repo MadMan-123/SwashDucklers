@@ -97,8 +97,8 @@ public class PlayerUI : MonoBehaviour
         //Change Hat
         //lastHat.interactable = true;
         //forwardHat.interactable = true;
-        lastHat.onClick.AddListener(previousHat);
-        forwardHat.onClick.AddListener(nextHat);
+        //lastHat.onClick.AddListener(previousHat);
+        //forwardHat.onClick.AddListener(nextHat);
 
         //Set visuals
         switch (playerInput.playerIndex)
@@ -131,7 +131,7 @@ public class PlayerUI : MonoBehaviour
     }
 
     //Next Hat
-    private void nextHat()
+    public void nextHat()
     {
 
        // forwardHat.interactable = false;
@@ -166,7 +166,7 @@ public class PlayerUI : MonoBehaviour
 
     }
 
-    private void previousHat()
+    public void previousHat()
     {
 
         //lastHat.interactable = false;
