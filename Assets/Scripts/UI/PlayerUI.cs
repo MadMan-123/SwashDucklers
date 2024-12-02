@@ -19,6 +19,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] Button forwardHat;
 
     [SerializeField] TextMeshProUGUI costumeText;
+    [SerializeField] TextMeshProUGUI PlayerText;
 
     float red;
     float green;
@@ -38,24 +39,28 @@ public class PlayerUI : MonoBehaviour
                 red = PlayerStats.player1Color.r; //Default Colors
                 green = PlayerStats.player1Color.g; ;
                 blue = PlayerStats.player1Color.b; ;
+                PlayerText.text = "Player 1";
                 break;
             case 1:
                 PlayerStats.player2input = playerInput.devices[0];
                 red = PlayerStats.player2Color.r; //Default Colors
                 green = PlayerStats.player2Color.g; ;
                 blue = PlayerStats.player2Color.b; ;
+                PlayerText.text = "Player 2";
                 break;
             case 2:
                 PlayerStats.player3input = playerInput.devices[0];
                 red = PlayerStats.player3Color.r; //Default Colors
                 green = PlayerStats.player3Color.g; ;
                 blue = PlayerStats.player3Color.b; ;
+                PlayerText.text = "Player 3";
                 break;
             case 3:
                 PlayerStats.player4input = playerInput.devices[0];
                 red = PlayerStats.player4Color.r; //Default Colors
                 green = PlayerStats.player4Color.g; ;
                 blue = PlayerStats.player4Color.b; ;
+                PlayerText.text = "Player 4";
                 break;
         }
 
@@ -90,8 +95,8 @@ public class PlayerUI : MonoBehaviour
         });
 
         //Change Hat
-        lastHat.interactable = true;
-        forwardHat.interactable = true;
+        //lastHat.interactable = true;
+        //forwardHat.interactable = true;
         lastHat.onClick.AddListener(previousHat);
         forwardHat.onClick.AddListener(nextHat);
 
@@ -129,7 +134,7 @@ public class PlayerUI : MonoBehaviour
     private void nextHat()
     {
 
-        forwardHat.interactable = false;
+       // forwardHat.interactable = false;
 
         switch (playerInput.playerIndex)
         {
@@ -164,7 +169,7 @@ public class PlayerUI : MonoBehaviour
     private void previousHat()
     {
 
-        lastHat.interactable = false;
+        //lastHat.interactable = false;
 
         switch (playerInput.playerIndex)
         {
