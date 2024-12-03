@@ -526,7 +526,19 @@ MonoBehaviour:
     m_ActionId: fc6762ff-8e87-4767-8c5f-39853c2c5fb5
     m_ActionName: Menu/Submit[/Keyboard/enter,/DualSenseGamepadHID/buttonSouth]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5183092130224718188}
+        m_TargetAssemblyTypeName: PlayerUI, Assembly-CSharp
+        m_MethodName: Back
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
     m_ActionId: d22dd16f-c760-4539-a1f3-f8a26b36c5d1
     m_ActionName: Menu/Cancel[/Keyboard/escape,/DualSenseGamepadHID/buttonEast]
   - m_PersistentCalls:

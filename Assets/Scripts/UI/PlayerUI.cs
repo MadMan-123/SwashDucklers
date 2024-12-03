@@ -130,6 +130,13 @@ public class PlayerUI : MonoBehaviour
 
     }
 
+    public void Back(InputAction.CallbackContext value)
+    {
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("menu test");
+
+    }
+
     //Next Hat
     public void nextHat()
     {
