@@ -13,6 +13,7 @@ public class PlayerPreview : MonoBehaviour
     private Renderer bodyRenderer;
     private GameObject hat;
     private int currentHat;
+    [SerializeField] Transform hatTransform;
 
     public Color litColor;
 
@@ -48,7 +49,7 @@ public class PlayerPreview : MonoBehaviour
                     Destroy(hat);
                     if (PlayerStats.Hatlist[PlayerStats.player1Hat].model != null)
                     {
-                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player1Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player1Hat].previewPosition, transform.rotation);
+                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player1Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player1Hat].previewPosition, transform.rotation, hatTransform);
                     }
                     currentHat = PlayerStats.player1Hat;
                     Debug.Log(hat);
@@ -61,7 +62,7 @@ public class PlayerPreview : MonoBehaviour
                     Destroy(hat);
                     if (PlayerStats.Hatlist[PlayerStats.player2Hat].model != null)
                     {
-                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player2Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player2Hat].previewPosition, transform.rotation);
+                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player2Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player2Hat].previewPosition, transform.rotation, hatTransform);
                     }
                     currentHat = PlayerStats.player2Hat;
                 }
@@ -73,7 +74,7 @@ public class PlayerPreview : MonoBehaviour
                     Destroy(hat);
                     if (PlayerStats.Hatlist[PlayerStats.player3Hat].model != null)
                     {
-                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player3Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player3Hat].previewPosition, transform.rotation);
+                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player3Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player3Hat].previewPosition, transform.rotation, hatTransform);
                     }
                     currentHat = PlayerStats.player3Hat;
                 }
@@ -85,7 +86,7 @@ public class PlayerPreview : MonoBehaviour
                     Destroy(hat);
                     if (PlayerStats.Hatlist[PlayerStats.player4Hat].model != null)
                     {
-                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player4Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player4Hat].previewPosition, transform.rotation);
+                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player4Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player4Hat].previewPosition, transform.rotation, hatTransform);
                     }
                     currentHat = PlayerStats.player4Hat;
                 }

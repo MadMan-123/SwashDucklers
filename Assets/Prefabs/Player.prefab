@@ -605,6 +605,7 @@ MonoBehaviour:
   bumpForce: 0
   bumpForceUp: 0
   ragdollTime: 0.5
+  hatTransform: {fileID: 868855801236186011}
   spawnpoint: {x: 0, y: 0, z: 0}
   spawnRotation: {x: 0, y: 0, z: 0}
   litColor: {r: 0, g: 0, b: 0, a: 0}
@@ -1066,6 +1067,37 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8937378924157932168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 868855801236186011}
+  m_Layer: 0
+  m_Name: '[HAT HOLDER]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &868855801236186011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8937378924157932168}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0154, y: 0, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 4475989662781005723}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4394188734186855644
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1171,6 +1203,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8320669293226105621}
+    - targetCorrespondingSourceObject: {fileID: -9014337569888222393, guid: 62f9fc09e5f60f64c981b3764eba8045,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 868855801236186011}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 62f9fc09e5f60f64c981b3764eba8045,
         type: 3}
@@ -1202,6 +1238,12 @@ Animation:
 --- !u!4 &4283470949246204727 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 62f9fc09e5f60f64c981b3764eba8045,
+    type: 3}
+  m_PrefabInstance: {fileID: 4394188734186855644}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4475989662781005723 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -9014337569888222393, guid: 62f9fc09e5f60f64c981b3764eba8045,
     type: 3}
   m_PrefabInstance: {fileID: 4394188734186855644}
   m_PrefabAsset: {fileID: 0}
