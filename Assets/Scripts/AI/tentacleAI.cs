@@ -33,11 +33,11 @@ public class tentacleAI : MonoBehaviour
     {
         int amount=0;
         int rndAmount = Random.Range(0, 9);
+        amount = 0;
 
-
-        if (rndAmount <= 4) amount = 1;                 //4 in 10 chance for 1 tent
-        else if (rndAmount <= 8 && rndAmount >4) amount = 2;            //5 in 10 chance for 2 tent
-        else if (rndAmount == 9)amount = 3;    //1 in 10 chance for 3 tent
+        //if (rndAmount <= 4) amount = 1;                 //4 in 10 chance for 1 tent
+        //else if (rndAmount <= 8 && rndAmount >4) amount = 2;            //5 in 10 chance for 2 tent
+        //else if (rndAmount == 9)amount = 3;    //1 in 10 chance for 3 tent
 
         int[] tentsToCall = new int[amount];
 
