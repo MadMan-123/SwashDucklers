@@ -2,13 +2,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// GM: as you can see, I have made a bunch of bullshit here that doesn't really work, need to fix it, please expect comments of me detailing my increase of hairloss due to stress
+/// dealing with this shit. Anyway for my own sake of mind what I need to do is the following:
+/// 1. Reference inventory.cs so i can have the inventory parameters set up correctly
+/// 2. make sure the canonBall transfers to the canon's inventory
+/// 3. check with folk on how code looks
+/// 4. drink coffee
+/// 5. invest in tupee before friday
+/// </summary>
+
+
+/// <summary>
 /// GM: Manages the functionality of loading cannonballs into the cannon.
 /// GM: Handles inventory checks, transfers, and ensuring proper operation.
 /// </summary>
 public class CannonManager : MonoBehaviour
 {
     // GM: Reference to the player's inventory. This should be a script managing the player's items.
-    public PlayerInventory playerInventory;
+    public PlayerInventory playerInventory; 
 
     // GM: The cannon's inventory for storing loaded cannonballs.
     private List<GameObject> cannonInventory = new List<GameObject>();
