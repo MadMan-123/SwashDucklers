@@ -17,7 +17,7 @@ public class InteractComponent : MonoBehaviour
     private PlayerControler playerControler;
     private PlayerInput input;
     private InputAction interact;
-    [SerializeField] private float slapForce = 2.5f;
+    [SerializeField] private float slapForce = 5f;
     [SerializeField] private float slapRadius = 0.75f;
     [SerializeField] private float howMuchUp = 0.75f;
     [SerializeField] private float slapDamage = 5;
@@ -95,8 +95,9 @@ public class InteractComponent : MonoBehaviour
             }
             if (colliders[i].TryGetComponent(out PlayerControler pc))
             {
-                StartCoroutine(ReduceFriction(colliders[i].gameObject,pc, (extraForce/5)/3));
-                pc.Ragdoll();
+                StartCoroutine(ReduceFriction(colliders[i].gameObject,pc, (extraForce/5)));
+                pc.Ragdoll(0.25f + 0.25f*extraForce,true);
+                extraForce -= 21;
             }
             if (colliders[i].TryGetComponent(out AIBrain brain))
             {

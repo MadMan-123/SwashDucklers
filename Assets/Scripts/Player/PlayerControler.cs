@@ -623,4 +623,11 @@ public class PlayerControler : MonoBehaviour
         yield return new WaitForSecondsRealtime(RagdollTime);
         UnRagdoll();
     }
+    public void Ragdoll(float customTime, bool addToBase)
+    {
+        if (addToBase) { customTime += ragdollTime; }
+        rb.freezeRotation = false;
+        StartCoroutine(UndoRagdoll(customTime));
+        DisableMovement();
+    }
 }

@@ -8,6 +8,7 @@ public class LaunchManager : MonoBehaviour
     public static LaunchManager instance;
     [SerializeField] private float heightModifier = 0.75f;
     [SerializeField] private float durationModifer = 0.99f;
+    [SerializeField] static float ragdollTime = 4.5f;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class LaunchManager : MonoBehaviour
             if (obj.tag == "Player")
             {
                 obj.GetComponent<Health>().SetHealth(0);
+                obj.GetComponent<PlayerControler>().Ragdoll(ragdollTime,false);
             }
             return vel;
         }

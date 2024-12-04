@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Cinemachine;
 public class ShipHealth : MonoBehaviour
 {
     [Header("Health")]
     [SerializeField] float maxShipHealth;
     [SerializeField] float shipHealth;
     [SerializeField] float regenRate;
-    [SerializeField] float percentageDamaged;
+    [SerializeField] public float percentageDamaged;
     bool regenerate;
     bool loop;
 
@@ -31,6 +32,7 @@ public class ShipHealth : MonoBehaviour
     [SerializeField] float maxShipHeight = 0f;
     [SerializeField] float minShipHeight = -6.5f;
     public static ShipHealth instance;
+    private CinemachineVirtualCamera vCam;
 
 
     private void Awake()
@@ -54,7 +56,7 @@ public class ShipHealth : MonoBehaviour
         //SD:Set the max ship height to the current height of the ship in game space
         //Should prevent it teleporting at game start
         maxShipHeight = transform.position.y;
-
+        vCam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
         shipHealth = maxShipHealth;
         shipFilled = 0;
         displayhealth = 100;
@@ -128,6 +130,7 @@ public class ShipHealth : MonoBehaviour
             shipHealth = Mathf.Clamp(shipHealth - dmgSpeed, 0, maxShipHealth); //take DOT proportional to leaks
         }
         percentageDamaged = Mathf.Clamp(shipHealth / maxShipHealth, 0f, 1f);
+        vCam.m_Lens.FieldOfView = 70-(percentageDamaged*10) ;
         yield return new WaitForSeconds(0.1f);
         loop = true;
 
