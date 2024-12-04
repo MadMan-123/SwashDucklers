@@ -21,7 +21,7 @@ public class PlayerManager : MonoBehaviour
 
     private Input Input;
 
-    [SerializeField] List<GameObject> players = new();
+    [SerializeField] public List<GameObject> players = new();
     [SerializeField] private string areaName;
 
     [SerializeField] private float debugRadius = 0.45f;
