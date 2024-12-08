@@ -45,17 +45,17 @@ public class Kraken : MonoBehaviour
         StormShade2Color = new Color32(0, 19, 34, 255);
         StormHighlightColor = new Color32(74, 146, 233, 255);
 
-        waterRenderer = water.transform.GetChild(1).GetComponent<Renderer>();
-        waterRenderer.material.SetColor("_BaseColor", WaterbaseColor); //Light Color
-        waterRenderer.material.SetColor("_1st_ShadeColor", WaterShadeColor); //Shaded Color
-        waterRenderer.material.SetColor("_2nd_ShadeColor", WaterShade2Color); //Shaded Color
-        waterRenderer.material.SetColor("_HighColor", WaterHighlightColor); //Shaded Color
+        //waterRenderer = water.transform.GetChild(1).GetComponent<Renderer>();
+        //waterRenderer.material.SetColor("_BaseColor", WaterbaseColor); //Light Color
+        //waterRenderer.material.SetColor("_1st_ShadeColor", WaterShadeColor); //Shaded Color
+        //waterRenderer.material.SetColor("_2nd_ShadeColor", WaterShade2Color); //Shaded Color
+        //waterRenderer.material.SetColor("_HighColor", WaterHighlightColor); //Shaded Color
 
 
-        for (int i = 0; i < waterRenderer.material.shader.GetPropertyCount(); i++)
-        {
-            Debug.Log(waterRenderer.material.shader.GetPropertyName(i));
-        }
+        //for (int i = 0; i < waterRenderer.material.shader.GetPropertyCount(); i++)
+        //{
+            //Debug.Log(waterRenderer.material.shader.GetPropertyName(i));
+        //}
 
     }
 
@@ -68,12 +68,12 @@ public class Kraken : MonoBehaviour
 
     private void OnEnable()
     {
-        KrakenWater();
+        //KrakenWater();
     }
 
     private void OnDisable()
     {
-
+        //NormalWater();
     }
 
     public void EyeFollow()
@@ -96,57 +96,57 @@ public class Kraken : MonoBehaviour
         EyeFollow();
     }
 
-    public void KrakenWater()
-    {
-        CameraShake.Instance.ShakeCamera(5f, waterChangeDuration+0.5f);
-        StartCoroutine(WaterColour(true));
-    }
+    //public void KrakenWater()
+    //{
+    //    CameraShake.Instance.ShakeCamera(5f, waterChangeDuration+0.5f);
+    //    StartCoroutine(WaterColour(true));
+    //}
 
-    public void NormalWater()
-    {
-        CameraShake.Instance.ShakeCamera(5f, waterChangeDuration+0.5f);
-        StartCoroutine(WaterColour(false));
-    }
-    public IEnumerator WaterColour(bool spawn)
-    {
-        float progress = 0;
-        float increment = smoothness / waterChangeDuration;
-        var emission = rain.emission;
-        if (spawn)
-        {
-            rain.gameObject.SetActive(true);
-            while (progress < 1)
-            {
-                light.intensity = Mathf.Lerp(2, 0.5f, progress);
-                emission.rateOverTime=200*progress; 
-                waterRenderer.material.SetColor("_BaseColor", Color.Lerp(WaterbaseColor, StormbaseColor, progress));
-                waterRenderer.material.SetColor("_1st_ShadeColor", Color.Lerp(WaterShadeColor, StormShadeColor, progress)); 
-                waterRenderer.material.SetColor("_2nd_ShadeColor", Color.Lerp(WaterShade2Color, StormShade2Color, progress)); 
-                waterRenderer.material.SetColor("_HighColor", Color.Lerp(WaterHighlightColor, StormHighlightColor, progress));
-                progress += increment;
-                yield return new WaitForSeconds(smoothness);
-            }
-            kraken.gameObject.SetActive(true);
-            tentacles.gameObject.SetActive(true);
-        }
-        else
-        {
-            while (progress < 1)
-            {
-                light.intensity = Mathf.Lerp(0.5f, 2, progress);
-                emission.rateOverTime = 200 * (1-progress);
-                waterRenderer.material.SetColor("_BaseColor", Color.Lerp(StormbaseColor, WaterbaseColor, progress));
-                waterRenderer.material.SetColor("_1st_ShadeColor", Color.Lerp(StormShadeColor, WaterShadeColor, progress));
-                waterRenderer.material.SetColor("_2nd_ShadeColor", Color.Lerp(StormShade2Color, WaterShade2Color, progress));
-                waterRenderer.material.SetColor("_HighColor", Color.Lerp(StormHighlightColor, WaterHighlightColor, progress));
-                progress += increment;
-                yield return new WaitForSeconds(smoothness);
-            }
-            light.intensity = 2;
-            rain.gameObject.SetActive(false);
-            kraken.gameObject.SetActive(false);
-            tentacles.gameObject.SetActive(false);
-        }
-    }
+    //public void NormalWater()
+    //{
+    //    CameraShake.Instance.ShakeCamera(5f, waterChangeDuration+0.5f);
+    //    StartCoroutine(WaterColour(false));
+    //}
+    //public IEnumerator WaterColour(bool spawn)
+    //{
+    //    float progress = 0;
+    //    float increment = smoothness / waterChangeDuration;
+    //    var emission = rain.emission;
+    //    if (spawn)
+    //    {
+    //        rain.gameObject.SetActive(true);
+    //        while (progress < 1)
+    //        {
+    //            light.intensity = Mathf.Lerp(2, 0.5f, progress);
+    //            emission.rateOverTime=200*progress; 
+    //            waterRenderer.material.SetColor("_BaseColor", Color.Lerp(WaterbaseColor, StormbaseColor, progress));
+    //            waterRenderer.material.SetColor("_1st_ShadeColor", Color.Lerp(WaterShadeColor, StormShadeColor, progress)); 
+    //            waterRenderer.material.SetColor("_2nd_ShadeColor", Color.Lerp(WaterShade2Color, StormShade2Color, progress)); 
+    //            waterRenderer.material.SetColor("_HighColor", Color.Lerp(WaterHighlightColor, StormHighlightColor, progress));
+    //            progress += increment;
+    //            yield return new WaitForSeconds(smoothness);
+    //        }
+    //        kraken.gameObject.SetActive(true);
+    //        tentacles.gameObject.SetActive(true);
+    //    }
+    //    else
+    //    {
+    //        while (progress < 1)
+    //        {
+    //            light.intensity = Mathf.Lerp(0.5f, 2, progress);
+    //            emission.rateOverTime = 200 * (1-progress);
+    //            waterRenderer.material.SetColor("_BaseColor", Color.Lerp(StormbaseColor, WaterbaseColor, progress));
+    //            waterRenderer.material.SetColor("_1st_ShadeColor", Color.Lerp(StormShadeColor, WaterShadeColor, progress));
+    //            waterRenderer.material.SetColor("_2nd_ShadeColor", Color.Lerp(StormShade2Color, WaterShade2Color, progress));
+    //            waterRenderer.material.SetColor("_HighColor", Color.Lerp(StormHighlightColor, WaterHighlightColor, progress));
+    //            progress += increment;
+    //            yield return new WaitForSeconds(smoothness);
+    //        }
+    //        light.intensity = 2;
+    //        rain.gameObject.SetActive(false);
+    //        kraken.gameObject.SetActive(false);
+    //        tentacles.gameObject.SetActive(false);
+    //    }
+    //}
 
 }

@@ -2410,6 +2410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInventory: {fileID: 0}
+  interactRange: 2
 --- !u!1 &233507830
 GameObject:
   m_ObjectHideFlags: 0
@@ -12037,9 +12038,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3cf86ad66d42c542a4f37f2f14e4761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Kraken: {fileID: 1186386053}
-  SpawnTime: 5
-  UpTime: 60
+  kraken: {fileID: 1685696418}
+  tentacles: {fileID: 1961030952}
+  SpawnTime: 30
+  UpTime: 30
+  water: {fileID: 265622618}
+  smoothness: 0.1
+  light: {fileID: 410087040}
+  waterChangeDuration: 1.5
+  rain: {fileID: 1961987637}
 --- !u!1001 &1732648861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14036,6 +14043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInventory: {fileID: 0}
+  interactRange: 2
 --- !u!4 &1922169623 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03f564ea25b1e3d4ea401c92f259ad91,
