@@ -17,7 +17,23 @@ public class Item : MonoBehaviour
         if (!rb) rb = GetComponent<Rigidbody>();
         if (!col) col = GetComponent<Collider>(); 
     }
+    public void PickUp(Inventory inv)
+    {
+            current = inv;
+            if (current.AddItem(this))                              //add this to inv
+            {
+                //disable the rigidbody and collider
+                rb.isKinematic = true;                           //bunch of positioning stuff
+                col.enabled = false;
+                
+                //set the transforms
+                transform.SetParent(current.itemHolder,true);
 
+                transform.localPosition = offset;
+                transform.localRotation = pickupRotation;
+            }
+            
+    }
     //type of item
     public void PickUp(GameObject source)
     {

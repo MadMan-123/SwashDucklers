@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,187 +9,388 @@ using Random = UnityEngine.Random;
 
 public class AIBrain : MonoBehaviour
 {
-        [SerializeField] private float fov = 90;
-        [SerializeField] private float viewRadius = 10;
-        public NavMeshAgent agent;
-        public Rigidbody rb;
-        private Health health;
-        [SerializeField]private Transform target;
-        [SerializeField] private State state;
-        private bool shouldUpdate = true;
-        Vector3 delta;
-        [SerializeField] private float circleDistance = 5f;
-        [SerializeField] private float randDifference = 90f;
-        [SerializeField] private float circleRadius = 5f;
-        [SerializeField] private Collider[] colliders = new Collider[10];
-        [SerializeField] public float knockDownTime = 5f;
-        [SerializeField] private bool shouldDebug = false;
-        [SerializeField] private float attackDistance = 1.5f;
-        [SerializeField] private float attackRadius = 0.75f;
-        [SerializeField] private float damage = 5;
-        [SerializeField] private bool canAttack = true;
-        [SerializeField] private float cooldownTime = 3f;
-        private LayerMask boatLayer;
-        public enum State
+    [SerializeField] private float fov = 90;
+    [SerializeField] private float viewRadius = 10;
+    public NavMeshAgent agent;
+    public Rigidbody rb;
+    private Health health;
+    [SerializeField] private Transform target;
+    [SerializeField] private State state;
+    private bool shouldUpdate = true;
+    Vector3 delta;
+    [SerializeField] private float circleDistance = 5f;
+    [SerializeField] private float randDifference = 90f;
+    [SerializeField] private float circleRadius = 5f;
+    [SerializeField] private Collider[] colliders = new Collider[10];
+    [SerializeField] public float knockDownTime = 5f;
+    [SerializeField] private bool shouldDebug = false;
+    [SerializeField] private float attackDistance = 2f;
+    [SerializeField] private float attackRadius = 0.75f;
+    [SerializeField] private float damage = 5;
+    [SerializeField] private bool canAttack = true;
+    [SerializeField] private float cooldownTime = 3f;
+    Inventory inv;
+    private LayerMask boatLayer;
+
+    public enum State
+    {
+        Idle,
+        Chase,
+        Attack,
+        Flee,
+        Wander
+    }
+
+    void Start()
+    {
+        startFlag = false;
+        boatLayer = LayerMask.NameToLayer("Boat");
+        state = State.Wander;
+        if (TryGetComponent(out agent))
         {
-            Idle,
-            Chase,
-            Attack,
-            Flee,
-            Wander
+            agent.enabled = true;
         }
 
-        void Start()
+        if (TryGetComponent(out rb))
         {
-            boatLayer = LayerMask.NameToLayer("Boat");
-            state = State.Idle;
-            if (TryGetComponent(out agent))
-            {
-                agent.enabled = false;
-            }
-            
-            if(TryGetComponent(out rb))
-            {
-                rb.isKinematic = false;
-            }
-
-            if (TryGetComponent(out health))
-            {
-                health.SetHealth(health.GetMaxHealth());
-            }
+            rb.isKinematic = false;
         }
-        
-        private void Update()
+
+        if (TryGetComponent(out health))
         {
-            if (!agent.enabled)
-            {
-                //if the agent is not enabled wait to be on the floor
-                StartCoroutine(WaitUntilFloorHit());
-            }
+            health.SetHealth(health.GetMaxHealth());
+        }
+
+        if (TryGetComponent(out inv))
+        {
+
+        }
+
+    }
+
+    private void Update()
+    {
+        if (!agent.enabled && !startFlag)
+        {
+            startFlag = true;
+            //if the agent is not enabled wait to be on the floor
+            StartCoroutine(WaitUntilFloorHit());
+        }
+
+        if (agent.enabled)
+        {
+            var layerMask = LayerMask.GetMask("player");
+            var count = Physics.OverlapSphereNonAlloc(transform.position, viewRadius, colliders, ~layerMask);
             
-            if (shouldUpdate && agent.enabled)
+            
+            if(count > 0)
             {
-                //check for a target
-                //sphere cast then filter with fov check
-                var count = Physics.OverlapSphereNonAlloc(transform.position, viewRadius, colliders);
-                if(count == 0)
+                target = FindBestTarget(colliders);
+            
+                if (target)
                 {
-                    //if there are no colliders in the view radius, return to wander
-                    ChangeState(State.Wander);
-                    
-                }
-                
-                 
-                for (int i = 0; i < count; i++)
-                {
-                    //check if the collider is in the fov
-                    if (CanSee(colliders[i].transform) && colliders[i].CompareTag("Player"))
+                    Debug.LogError(target.name);
+                    var distance = (target.position - transform.position).magnitude;
+                    //Judge what state to be in
+            
+                    //if the health is low, flee
+                    if (health.GetHealth() >= health.GetMaxHealth() / 2)
                     {
-                        print("See Player");
-                        //todo: some sort of dynamic priority system on what the target should be
-                        target = colliders[i].transform;
-                        
-                        var distance = (target.position - transform.position).magnitude;
-                        //Judge what state to be in
-
-                        //if the health is low, flee
-                        if (health.GetHealth() >= health.GetMaxHealth() / 2)
-                        {
-                            ChangeState(State.Flee);
-                            break;
-                        }
-                        
-                        //if we are in attack range, attack
-                        if (distance < attackDistance)
-                        {
-                            ChangeState(State.Attack);
-                            break;
-                        }
-                        
-                        //if we are not chase
-                        if (distance < viewRadius)
-                        {
-                            ChangeState(State.Chase);
-                            break;
-                        }
-                            
-
-                        //if we cant see the target any more, wander
-                        ChangeState(State.Wander);
-
+                        ChangeState(State.Flee);
+            
                     }
+            
+                    //if we are in attack range, attack
+                    if (distance < attackDistance)
+                    {
+                        ChangeState(State.Attack);
+            
+                    }
+                        
+                    //if we are not chase
+                    if (distance < viewRadius)
+                    {
+                        ChangeState(State.Chase);
+            
+                            
+                    }    
                 }
-
-                Vector3 destination;
-                if(target)
-                    delta = transform.position - target.position;
-
-                destination = state switch
-                {
-                    State.Idle => Idle(),
-                    State.Chase => Chase(),
-                    State.Attack => Attack(),
-                    State.Flee => Flee(),
-                    State.Wander => Wander(),
-                    _ => throw new ArgumentOutOfRangeException()
-                };
-
-                //clamp the destination to the navmesh
-                destination = NavMesh.SamplePosition(destination, out var hit, 1f, NavMesh.AllAreas) ? hit.position : transform.position;
-                    
-                //Debug.DrawRay(transform.position, destination, Color.green, 0.1f);
-                agent.SetDestination(destination);
-               
             }
         }
+
+        Vector3 destination;
+        if (target)
+            delta = target.position -
+                    transform.position; //How i didnt realise this was the wrong way round, we will never know
+
+
+        if (target)
+        {
+            destination = state switch
+            {
+                State.Idle => Idle(),
+                State.Chase => Chase(),
+                State.Attack => Attack(),
+                State.Flee => Flee(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            
+        }
+        else if(state == State.Wander)
+        {
+            destination = Wander();
+        }
+        else
+        {
+            destination = Idle();
+        }
+            
+        
+
+
+
+        //flocking behaviour
+        /*Vector3 flockOffset = Vector3.zero; //will be the offset from the destination as so AI can flock   
+
+        //determine the AI near us
+        var aiCount = Physics.OverlapSphereNonAlloc(transform.position, 5f, colliders);
+        var aiList = new List<AIBrain>();
+
+        float avgDistance = 0f;
+        //loop through the colliders
+        for (int i = 0; i < aiCount; i++)
+        {
+            //if the collider is an AI
+            if (colliders[i].TryGetComponent(out AIBrain ai))
+            {
+                avgDistance += (transform.position - colliders[i].transform.position).magnitude;
+                //add the AI to the list
+                aiList.Add(ai);
+            }
+        }
+
+        avgDistance /= aiList.Count;
+
+        float sepWeight = 0;
+        float cohWeight = 0;
+        float sepThreshold = 4f;
+
+        if (avgDistance < sepThreshold)
+        {
+            sepWeight = 1f;
+            cohWeight = 0.5f;
+        }
+        else
+        {
+            sepWeight = 0.5f;
+            cohWeight = 1f;
+        }*/
+
+        /*var sep = Seperation(aiList) ;
+        var coh = Cohesion(aiList);
+
+        var deltaSep = (sep - transform.position);
+        var deltaCoh = (coh - transform.position);
+
+        //var ali = Alignment();
+
+        flockOffset += deltaSep * sepWeight;
+        flockOffset += deltaCoh * cohWeight;*/
+            
+        //Debug.DrawRay(transform.position, deltaSep, Color.red, 0.1f);
+        //Debug.DrawRay(transform.position, deltaCoh, Color.blue, 0.1f);
+            
+           
+        //destination += flockOffset * flockStrength;
+            
+
+        var newDelta = (destination - transform.position);
+
+        AvoidObstacles();
+        //clamp the destination to the navmesh
+        if (NavMesh.SamplePosition(destination, out var hit, 5f, NavMesh.AllAreas))
+        {
+            destination = hit.position;
+                
+            agent.SetDestination(destination);
+        }
+        else
+        {
+                
+        }
+
+            
+        
+        if(shouldDebug)
+            Debug.DrawRay(transform.position, newDelta, Color.red, 0.1f);
+
+    }
+    
+    
+     private Transform FindBestTarget(Collider[] potentialTargets)
+     {
+         Transform bestTarget = null;
+         var shortestDistance = float.MaxValue;
+         for (int i = 0; i < potentialTargets.Length; i++)
+         {
+             if (CanSee(potentialTargets[i].transform) && 
+                 potentialTargets[i].CompareTag("Player") && 
+                 potentialTargets[i].TryGetComponent(out Inventory inv) && 
+                 inv.item)
+             {
+                 float distance = Vector3.Distance(transform.position, potentialTargets[i].transform.position);
+                 if (distance < shortestDistance)
+                 {
+                     shortestDistance = distance;
+                     bestTarget = potentialTargets[i].transform;
+                     
+                 }
+                 
+             }
+             
+         }
+         
+     
+         return bestTarget;
+    }
+     
+    
+    [SerializeField] private float cohesionRadius = 4f;
+    private Vector3 Cohesion(List<AIBrain> aiList)
+    {
+        //get the average position of the AI
+        var result = Vector3.zero;
+        var count = 0;
+        for(int i = 0; i < aiList.Count; i++)
+        {
+            var distance = Vector3.Distance(transform.position, aiList[i].transform.position);
+            
+            if (distance < cohesionRadius)
+            {
+                Debug.DrawLine(transform.position,agent.transform.position,Color.blue,0.1f);
+                result += aiList[i].transform.position;
+                count++;
+            }
+        }
+
+        if (count > 0)
+        {
+            result /= count;
+        }
+
+        return result;
+    }
+
+    [SerializeField] float separationRadius = 4f;
+    private Vector3 Seperation(List<AIBrain> brains)
+    {
+        var result = Vector3.zero;
+        var count = 0;
+        for (int i = 0; i < brains.Count; i++)
+        {
+            var newBrain = brains[i];
+
+            var distance = Vector3.Distance(transform.position, newBrain.transform.position);
+            if(distance < separationRadius)
+            {
+                
+                Debug.DrawLine(transform.position,newBrain.transform.position,Color.red,0.1f);
+                var delta = transform.position - agent.transform.position;
+                delta *= 1 / distance;
+
+                //delta set magnitude tto 1 / distance
+                result += delta;
+                count++;
+            }
+            
+        }
+        if (count > 0)
+        {
+            result *= separationRadius;
+        }
+
+        return result;
+    }
 
         private IEnumerator WaitUntilFloorHit()
         {
-            yield return new WaitForSeconds(5);
+            //wait untill there is a navmesh under the agent
+            while (!NavMesh.SamplePosition(
+                       transform.position, 
+                       out var data,
+                       1f,
+                       NavMesh.AllAreas
+                       ))
+            {
+                yield return null;
+            }
             agent.enabled = true;
             rb.isKinematic = true;
         }
 
+        private Vector3 AvoidObstacles()
+        {
+            //judge if there is something infront of the AI or they are looking off the edge of the navmesh
+            if (Physics.Raycast(transform.position, transform.forward, 1f, boatLayer) ||
+                !NavMesh.SamplePosition(transform.position + transform.forward, out var hit, 0.5f, NavMesh.AllAreas))
+            {
+                //turn all the way around by 180 degrees
+                transform.Rotate(0, 180, 0);
+                //draw the new direction and the ray to the obstacle or edge
+                Debug.DrawRay(transform.position, transform.forward, Color.red, 0.1f);
+            }
+            return agent.destination;
+
+        }
 
         private Vector3 Flee()
         {
-            if (!target)
-            {
-                ChangeState(State.Wander);
-                return transform.position;
-            }
+             
             //find a point that is opposite to the target
             return transform.position - delta;
     
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         private Vector3 Attack()
         {
-            if (!target)
+            if (delta.magnitude > attackDistance)
             {
-                ChangeState(State.Wander);
-                return transform.position;
-            }
-            if(delta.magnitude > attackDistance)
-            {
+                if (!CanSee(target))
+                {
+                    ChangeState(State.Wander);
+                    return Wander();
+                }
                 ChangeState(State.Chase);
-                return transform.position;
-            }
+                return target.position;
+            };
+            
             if (!canAttack) return transform.position;
             ResetFlag(); 
             
             var destination = delta * 0.85f;
             //do attack
-            Collider[] colliders = new Collider[10];
-            var count = Physics.OverlapSphereNonAlloc(transform.position + transform.forward * 0.5f,attackRadius, colliders);
+            Collider[] attackCol = new Collider[10];
+            
+            var count = Physics.OverlapSphereNonAlloc(transform.position + transform.forward * 0.5f,attackRadius, attackCol);
             for (int i = 0; i < count; i++)
             {
-                if (colliders[i].gameObject != gameObject && colliders[i].TryGetComponent(out Health health))
+                if(attackCol[i] == GetComponent<Collider>()) continue; 
+                //if the target has an inventory
+                if (attackCol[i].TryGetComponent(out Inventory colInv) && colInv.item)
+                {
+                    colInv.TakeItem(inv);
+                    ChangeState(State.Flee);
+                }
+                
+                if(attackCol[i].TryGetComponent(out Health health))
                 {
                     health.TakeDamage(gameObject,damage);
                     //apply knockback
                     health.ApplyKnockback(transform.forward);
                 }
+                
+                
             } 
             //clamp the destination
             Invoke(nameof(ResetFlag),cooldownTime);
@@ -198,12 +400,13 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 Chase()
         {
-
-            if (delta.magnitude < attackDistance)
+            var cache = target.transform.position - transform.position;
+            if(cache.magnitude < attackDistance)
             {
                 ChangeState(State.Attack);
-                return transform.position + delta * 0.8f;
+                return transform.position;
             }
+
             return target.position;
         }
 
@@ -213,37 +416,17 @@ public class AIBrain : MonoBehaviour
         }
         
         
-        private float wanderAngle = 0f; // Add this as a class field
- 
-        /*private Vector3 Wander()
-        {
-            //Circle pos
-            var circlePos = transform.position + (transform.forward * circleDistance);
-	
-            //Generate a small random angle
-            float randomAngle = Random.Range(-randDifference, randDifference) * Mathf.Deg2Rad;
+        private float wanderAngle = 0f;
+        private bool startFlag = false;
+        [SerializeField] private float flockStrength = 0.5f;
 
-            //Calculate the random offset
-            float offsetX = Mathf.Cos(randomAngle) * circleRadius;
-            float offsetZ = Mathf.Sin(randomAngle) * circleRadius;
-
-            //Apply the random offset
-            var velocityPos = (transform.position + agent.velocity);
-            velocityPos.x += offsetX;
-            velocityPos.z += offsetZ;
-
-            //Constrain the point to the circle
-            var constrainedPos = ConstraintPointToCircle(velocityPos, circlePos, circleRadius);
-            //calculate the desired velocity by taking the constrained position and current position, getting the unit vector then multiplying by max current speed
-            return constrainedPos;
-        }*/
 
         private Vector3 Wander()
         {
             if (target)
             {
                 ChangeState(State.Chase);
-                return target.position;
+                return Chase();
             }
             wanderAngle += Random.Range(-randDifference, randDifference) * Mathf.Deg2Rad;
             var circlePos = transform.position + (transform.forward * circleDistance);
@@ -255,21 +438,14 @@ public class AIBrain : MonoBehaviour
                 circlePos.x + offsetX,
                 transform.position.y,
                 circlePos.z + offsetZ);
-
+            
+            
+            
             return targetPos;
         }
         private Vector3 Idle()
         {
-            if (target)
-            {
-                ChangeState(State.Chase);
-                return target.position;
-            }
-            else
-            {
-                ChangeState(State.Wander);
-                return transform.position;
-            }
+
             return transform.position;
         }
 
@@ -297,27 +473,20 @@ public class AIBrain : MonoBehaviour
             return sum;
 
         } 
-        bool CanSee(Transform target)
+        public bool CanSee(Transform transformToSee)
         {
-            if (!target) return false;  // Early exit if no target
-
-            // Get direction to target
-            Vector3 directionToTarget = target.position - transform.position;
-    
-            // Check if target is within field of view
+            Vector3 directionToTarget = transformToSee.position - transform.position;
             float angle = Vector3.Angle(transform.forward, directionToTarget);
-            if (angle > fov) return false;  // Outside FOV angle
-    
-            // Check if there are obstacles between AI and target
-            if (Physics.Raycast(transform.position, directionToTarget.normalized, out RaycastHit hit, viewRadius))
+
+            // Check if the target is within the field of view
+            if (angle <= fov / 2f)
             {
-                // Return true only if we hit the target first
-                // This prevents seeing through walls
-                return hit.transform == target;
+
+
+                return true;
             }
-    
-            // If ray didn't hit anything but target is within FOV and view radius
-            return directionToTarget.magnitude <= viewRadius;
+
+            return false;
         }
 
         public void ToggleAttack(GameObject source)
@@ -339,11 +508,11 @@ public class AIBrain : MonoBehaviour
             //REMOVE THIS IF YOU DONT WANT THE AI TO GO LIMP - MW
             //unfreeze agent x and z rotation
             rb.constraints = RigidbodyConstraints.None; 
-            
+            shouldUpdate = false;
             //while the agent is not on the ground
             yield return new WaitForSeconds(sec);
             //reenable the agent
-            
+            shouldUpdate = true;
             //ALSO REMOVE THIS -MW
             //freeze agent x and z rotation
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;

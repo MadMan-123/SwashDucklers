@@ -54,7 +54,8 @@ public class Kraken : MonoBehaviour
 
         for (int i = 0; i < waterRenderer.material.shader.GetPropertyCount(); i++)
         {
-            Debug.Log(waterRenderer.material.shader.GetPropertyName(i));
+            //commented out cuz it was flooding my console, feel free to uncomment if you need it just maybe next time have a bool called shouldDebug or something -MW
+            //Debug.Log(waterRenderer.material.shader.GetPropertyName(i));
         }
 
     }
@@ -118,7 +119,9 @@ public class Kraken : MonoBehaviour
             while (progress < 1)
             {
                 light.intensity = Mathf.Lerp(2, 0.5f, progress);
-                emission.rateOverTime=200*progress; 
+                emission.rateOverTime=200*progress;
+                //todo: remove
+                if (waterRenderer.material == null) yield return new WaitForSeconds(smoothness);
                 waterRenderer.material.SetColor("_BaseColor", Color.Lerp(WaterbaseColor, StormbaseColor, progress));
                 waterRenderer.material.SetColor("_1st_ShadeColor", Color.Lerp(WaterShadeColor, StormShadeColor, progress)); 
                 waterRenderer.material.SetColor("_2nd_ShadeColor", Color.Lerp(WaterShade2Color, StormShade2Color, progress)); 

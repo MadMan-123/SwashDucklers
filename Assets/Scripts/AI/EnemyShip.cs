@@ -7,13 +7,11 @@ public class EnemyShip : MonoBehaviour
 {
 
     [SerializeField] int E_shiphealth;
-    [SerializeField] AiMan AImgr;
     [SerializeField] Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
-        AImgr = GetComponent<AiMan>();
 
         anim = GetComponent<Animator>();
 
@@ -36,7 +34,6 @@ public class EnemyShip : MonoBehaviour
 
         if (E_shiphealth <= 0)
         {
-            AImgr.WaveEnd();
 
             anim.Play("sink");
         }

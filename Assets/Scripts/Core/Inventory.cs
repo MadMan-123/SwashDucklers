@@ -50,6 +50,11 @@ public class Inventory : MonoBehaviour
     {
         //remove the current item
         //destroy the item
+        if (item.gameObject.CompareTag("Pooled"))
+        {
+            item.gameObject.SetActive(false);
+        }
+        
         Destroy(item.gameObject);
         item = null;
     }
@@ -63,4 +68,17 @@ public class Inventory : MonoBehaviour
     }
 
     public Item GetItem() => item;             //return item?
+
+    public void TakeItem(Inventory other)
+    {
+        if(!item) return;
+
+        if (!other.AddItem(item)) return;
+        item.PickUp(other);
+        RemoveItem();
+
+
+
+    }
+    
 }
