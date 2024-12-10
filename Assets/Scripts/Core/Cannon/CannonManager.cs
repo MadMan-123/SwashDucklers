@@ -17,94 +17,54 @@ using UnityEngine;
 /// GM: Manages the functionality of loading cannonballs into the cannon.
 /// GM: Handles inventory checks, transfers, and ensuring proper operation.
 /// </summary>
+
+using UnityEngine;
+
 public class CannonManager : MonoBehaviour
 {
-    // GM: Reference to the cannon's inventory (can hold one item, for simplicity).
-    private Item cannonBall;
-
-    // GM: Reference to the player inventory.
-    [SerializeField] private Inventory playerInventory;
-
-    // GM: Reference to the interact range for the cannon.
-    [SerializeField] private float interactRange = 2f;
+    [SerializeField] private Transform cannonBallSlot; // Where the cannonball will visually go in the cannon.
 
     /// <summary>
-    /// GM: Handles the interaction logic for transferring a CannonBall from the player to the cannon.
+    /// GM: Handles loading a cannonball into the cannon and deletes it from the world.
     /// </summary>
-    /// 
-    public void InteractWithCannon()
+    /// <param name="playerInventory">The player's inventory script reference.</param>
+    public void LoadCannon(Inventory playerInventory)
     {
+        // GM: Check if the player's inventory is holding a CannonBall.
+        Item heldItem = playerInventory.GetItem();
 
-        // GM: Check if the player is within range of the cannon.
-        if (!IsPlayerInRange())
+        if (heldItem != null && heldItem.name == "CannonBall")
         {
-            Debug.Log("Player is too far from the cannon.");
-            return;
-        }
+            // GM: Destroy the cannonball object.
+            Destroy(heldItem.gameObject);
 
-        // GM: Check if the player is holding a CannonBall.
-        Item playerItem = playerInventory.GetItem();
-        if (playerItem == null || playerItem.type != ItemManager.Type.CannonBall)
+            // GM: Clear the player's inventory.
+            playerInventory.RemoveItem();
+
+            Debug.Log("CannonBall loaded into the cannon and deleted!");
+        }
+        else
         {
-            Debug.Log("Player is not holding a CannonBall.");
-            return;
+            Debug.LogWarning("No CannonBall found in the player's inventory!");
         }
-
-        // GM: Check if the cannon is already loaded.
-        if (cannonBall != null)
-        {
-            Debug.Log("Cannon is already loaded!");
-            return;
-        }
-
-        // GM: Transfer the CannonBall from the player to the cannon.
-        LoadCannon(playerItem);
-    }
-     
-    /// <summary>
-    /// GM: Transfers the CannonBall from the player to the cannon.
-    /// </summary>
-    /// <param name="item">The item to transfer.</param>
-    private void LoadCannon(Item item)
-    {
-        // GM: Remove the CannonBall from the player's inventory.
-        playerInventory.RemoveItem();
-
-        // GM: Add the CannonBall to the cannon's inventory.
-        cannonBall = item;
-
-        Debug.Log("CannonBall loaded into the cannon!");
-    }
-
-
-    /// <summary>
-    /// GM: Fires the cannon and clears the inventory.
-    /// </summary>
-    public void FireCannon()
-    {
-        if (cannonBall == null)
-        {
-            Debug.Log("Cannon is empty! Load a CannonBall first.");
-            return;
-        }
-
-        // GM: Perform firing logic (to be expanded as needed).
-        Debug.Log("Firing cannon!");
-
-        // GM: Reset the cannon's inventory.
-        cannonBall = null;
     }
 
     /// <summary>
-    /// GM: Checks if the player is within range to interact with the cannon.
+    /// GM: Call this when the player interacts with the cannon.
     /// </summary>
-    /// <returns>True if the player is within range; otherwise, false.</returns>
-    private bool IsPlayerInRange()
+    /// <param name="player">The player interacting with the cannon.</param>
+    public void Interact(GameObject player)
     {
-        return Vector3.Distance(playerInventory.transform.position, transform.position) <= interactRange;
-    }
+        Inventory playerInventory = player.GetComponent<Inventory>();
 
-    /// <summary>
-    /// GM: I've made different changes to this code, but FML nothing works.
-    /// </summary>
+        if (playerInventory != null)
+        {
+            LoadCannon(playerInventory);
+        }
+        else
+        {
+            Debug.LogWarning("Player does not have an Inventory component!");
+        }
+    }
 }
+
