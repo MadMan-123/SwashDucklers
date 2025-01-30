@@ -126,7 +126,7 @@ public class PlayerUI : MonoBehaviour
     public void StartGame(InputAction.CallbackContext value)
     {
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene("TestScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Boat Scene");
 
     }
 
