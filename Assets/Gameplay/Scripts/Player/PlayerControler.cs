@@ -73,37 +73,41 @@ public class PlayerControler : MonoBehaviour
 
         hatposition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
-        //Get Color and hat
-        switch (playerID)
+        if (PlayerStats.Hatlist != null)
         {
-            case 0:
-                litColor = PlayerStats.player1Color;
-                if (PlayerStats.Hatlist[PlayerStats.player1Hat].model != null)
-                {
-                   hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player1Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player1Hat].position, transform.rotation, hatTransform);
-                }
-                break;
-            case 1:
-                litColor = PlayerStats.player2Color;
-                if (PlayerStats.Hatlist[PlayerStats.player2Hat].model != null)
-                {
-                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player2Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player2Hat].position, transform.rotation, hatTransform);
-                }
-                break;
-            case 2:
-                litColor = PlayerStats.player3Color;
-                if (PlayerStats.Hatlist[PlayerStats.player3Hat].model != null)
-                {
-                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player3Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player3Hat].position, transform.rotation, hatTransform);
-                }
-                break;
-            case 3:
-                litColor = PlayerStats.player4Color;
-                if (PlayerStats.Hatlist[PlayerStats.player4Hat].model != null)
-                {
-                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player4Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player4Hat].position, transform.rotation, hatTransform);
-                }
-                break;
+
+            //Get Color and hat
+            switch (playerID)
+            {
+                case 0:
+                    litColor = PlayerStats.player1Color;
+                    if (PlayerStats.Hatlist[PlayerStats.player1Hat].model != null)
+                    {
+                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player1Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player1Hat].position, transform.rotation, hatTransform);
+                    }
+                    break;
+                case 1:
+                    litColor = PlayerStats.player2Color;
+                    if (PlayerStats.Hatlist[PlayerStats.player2Hat].model != null)
+                    {
+                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player2Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player2Hat].position, transform.rotation, hatTransform);
+                    }
+                    break;
+                case 2:
+                    litColor = PlayerStats.player3Color;
+                    if (PlayerStats.Hatlist[PlayerStats.player3Hat].model != null)
+                    {
+                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player3Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player3Hat].position, transform.rotation, hatTransform);
+                    }
+                    break;
+                case 3:
+                    litColor = PlayerStats.player4Color;
+                    if (PlayerStats.Hatlist[PlayerStats.player4Hat].model != null)
+                    {
+                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player4Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player4Hat].position, transform.rotation, hatTransform);
+                    }
+                    break;
+            }
         }
     }
 
