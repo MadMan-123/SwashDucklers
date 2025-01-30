@@ -34,6 +34,7 @@ public class KrakenManager : MonoBehaviour
     void Start()
     {
         kraken.SetActive(false);
+        tentacles.SetActive(false);
         StartCoroutine(KrakenSpawnTimer());
 
         //Default Colors

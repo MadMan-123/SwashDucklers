@@ -6,44 +6,44 @@ using UnityEngine.Experimental.GlobalIllumination;
 public class Kraken : MonoBehaviour
 {
 
-    [SerializeField] GameObject water;
-    Renderer waterRenderer;
-    [SerializeField] Light light;
+    //[SerializeField] GameObject water;
+    //Renderer waterRenderer;
+    //[SerializeField] Light light;
     [SerializeField] GameObject eye;
     [SerializeField] GameObject eyeTarget;
-    [SerializeField] int damping = 2;
+    //[SerializeField] int damping = 2;
     [SerializeField] PlayerManager pm;
-    [SerializeField] float waterChangeDuration;
-    [SerializeField] float smoothness;
-    [SerializeField] ParticleSystem rain;
+    //[SerializeField] float waterChangeDuration;
+    //[SerializeField] float smoothness;
+    //[SerializeField] ParticleSystem rain;
     [SerializeField] GameObject kraken;
-    [SerializeField] GameObject tentacles;
+    //[SerializeField] GameObject tentacles;
 
-    Color WaterbaseColor;
-    Color WaterShadeColor;
-    Color WaterShade2Color;
-    Color WaterHighlightColor;
-    Color StormbaseColor;
-    Color StormShadeColor;
-    Color StormShade2Color;
-    Color StormHighlightColor;
+    //Color WaterbaseColor;
+    //Color WaterShadeColor;
+    //Color WaterShade2Color;
+    //Color WaterHighlightColor;
+    //Color StormbaseColor;
+    //Color StormShadeColor;
+    //Color StormShade2Color;
+    //Color StormHighlightColor;
 
     // Start is called before the first frame update
     void Start()
     {
-        tentacles.gameObject.SetActive(false);
-        rain.gameObject.SetActive(false);
+        //tentacles.gameObject.SetActive(false);
+        //rain.gameObject.SetActive(false);
         kraken.gameObject.SetActive(false);
 
         //Default Colors
-        WaterbaseColor = new Color32(0, 153, 243, 255);
-        WaterShadeColor = new Color32(34, 62, 135, 255);
-        WaterShade2Color = new Color32(0, 19, 34, 255);
-        WaterHighlightColor = new Color32(74, 146, 233, 255);
-        StormbaseColor = new Color32(51, 97, 123, 255);
-        WaterShadeColor = new Color32(21, 60, 82, 255);
-        StormShade2Color = new Color32(0, 19, 34, 255);
-        StormHighlightColor = new Color32(74, 146, 233, 255);
+        //WaterbaseColor = new Color32(0, 153, 243, 255);
+        //WaterShadeColor = new Color32(34, 62, 135, 255);
+        //WaterShade2Color = new Color32(0, 19, 34, 255);
+        //WaterHighlightColor = new Color32(74, 146, 233, 255);
+        //StormbaseColor = new Color32(51, 97, 123, 255);
+        //WaterShadeColor = new Color32(21, 60, 82, 255);
+        //StormShade2Color = new Color32(0, 19, 34, 255);
+        //StormHighlightColor = new Color32(74, 146, 233, 255);
 
         //waterRenderer = water.transform.GetChild(1).GetComponent<Renderer>();
         //waterRenderer.material.SetColor("_BaseColor", WaterbaseColor); //Light Color
@@ -95,6 +95,13 @@ public class Kraken : MonoBehaviour
         //transform.rotation = Quaternion.Slerp(transform.rotation,rotation,Time.deltaTime * damping);
         EyeFollow();
     }
+
+
+
+
+
+
+
 
     //public void KrakenWater()
     //{
