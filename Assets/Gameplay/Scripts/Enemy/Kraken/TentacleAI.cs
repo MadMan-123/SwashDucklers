@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class tentacleAI : MonoBehaviour
 {
+    //This should control when the tentacles are spawned, disabling previous tentacle smoothly and other
+
     public float tentacleDeployedTime;
     public float waitBetweenTents;
     public GameObject[] tentacleObjects;

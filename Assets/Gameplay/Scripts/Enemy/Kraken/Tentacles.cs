@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Tentacles : MonoBehaviour
 {
+    //This should control the tentacle cosmetics, sounds and others
+
     // Start is called before the first frame update
     void Start()
     {
