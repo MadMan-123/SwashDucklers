@@ -12,9 +12,9 @@ public class Kraken : MonoBehaviour
     [SerializeField] GameObject eye;
     [SerializeField] GameObject eyeTarget;
     [SerializeField] PlayerManager pm;
-    [SerializeField] Vector3 playerLoc;
     [SerializeField] bool activate;
 
+    [SerializeField]private float range = 30;
     void Start()
     {
         activate = true;
@@ -28,7 +28,6 @@ public class Kraken : MonoBehaviour
             eyeTarget = pm.players[0];
             StartCoroutine(EyeFollow());
             activate = false;
-            Debug.Log("First call");
         }
 
     }
@@ -43,23 +42,22 @@ public class Kraken : MonoBehaviour
         //NormalWater();
     }
 
-    public IEnumerator EyeFollow()
-    {
-        eye.transform.LookAt(eyeTarget.transform.position);
-        eye.transform.rotation *= Quaternion.FromToRotation(Vector3.left, Vector3.forward);
-        if (eye.transform.rotation.x > 30)
-        {
-                        Debug.Log("clamp");
 
-            //eye.transform.eulerAngles = new Vector3(30f,eye.transform.eulerAngles.y,eye.transform.eulerAngles.z);
-            eye.transform.Rotate(30f, eye.transform.eulerAngles.y, eye.transform.eulerAngles.z);
-        }
-        else if (eye.transform.rotation.x < -30)
+    private IEnumerator EyeFollow()
+    {
+        //get the angle from the eye to the target
+        //the direction we need is -transform.forward, the models weird
+        var targetPosition = eyeTarget.transform.position;
+        var eyePosition = eye.transform.position;
+        var direction = targetPosition - eyePosition;
+    
+        var targetRotation = Quaternion.Euler(0f, Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 90f, 0f);
+        var angle = Vector3.Angle(-transform.forward, direction);
+        if (Mathf.Abs(angle) <= range)
         {
-            Debug.Log("clamp");
-            eye.transform.Rotate(-30f, eye.transform.eulerAngles.y, eye.transform.eulerAngles.z);
+            eye.transform.rotation = Quaternion.Lerp(eye.transform.rotation, targetRotation, Time.deltaTime * 5f);
         }
-            yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.05f);
         StartCoroutine(EyeFollow());
     }
 }
