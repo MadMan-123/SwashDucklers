@@ -7530,7 +7530,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1029962160934103079, guid: a8df09bec39cf6a4f9026137dc29d3bc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1569057882}
   m_SourcePrefab: {fileID: 100100000, guid: a8df09bec39cf6a4f9026137dc29d3bc, type: 3}
 --- !u!4 &1096384672 stripped
 Transform:
@@ -10541,6 +10545,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1276544246}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1569057876 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1029962160934103079, guid: a8df09bec39cf6a4f9026137dc29d3bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1096384671}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1569057882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569057876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad0974d26af437f4a9185111bec9b046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabName: 
 --- !u!1001 &1570524584
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11817,7 +11840,6 @@ MonoBehaviour:
   eye: {fileID: 5167278850059904167}
   eyeTarget: {fileID: 0}
   pm: {fileID: 4217753928274164094}
-  playerLoc: {x: 0, y: 0, z: 0}
   activate: 0
   range: 30
 --- !u!1 &1692819186
@@ -14940,6 +14962,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2094662991}
+  - component: {fileID: 2094662992}
+  - component: {fileID: 2094662993}
   m_Layer: 0
   m_Name: --------WORLD-------
   m_TagString: Untagged
@@ -14965,6 +14989,98 @@ Transform:
   - {fileID: 1645392300}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2094662992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094662990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf084d92b9a23249825aa4629f77ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelParent: {fileID: 0}
+  levels:
+  - count: 0
+    levelName: .levelData
+    x: []
+    y: []
+    z: []
+    prefabNames: []
+  - count: 0
+    levelName: 
+    x: []
+    y: []
+    z: []
+    prefabNames: []
+  - count: 0
+    levelName: 002.levelData
+    x: []
+    y: []
+    z: []
+    prefabNames: []
+  - count: 0
+    levelName: 003.levelData
+    x: []
+    y: []
+    z: []
+    prefabNames: []
+  - count: 1
+    levelName: 004.levelData
+    x:
+    - -19.07
+    y:
+    - 0
+    z:
+    - 0.54
+    prefabNames:
+    - Barrel
+  - count: 2
+    levelName: Level001.levelData
+    x:
+    - 0
+    - -14.85
+    y:
+    - 0
+    - 4.87
+    z:
+    - 0
+    - -1.3
+    prefabNames:
+    - Barrel
+    - Barrel
+  - count: 2
+    levelName: Level002.levelData
+    x:
+    - 0
+    - -14.85
+    y:
+    - 0
+    - 4.87
+    z:
+    - 0
+    - -1.3
+    prefabNames:
+    - Barrel
+    - Barrel
+--- !u!114 &2094662993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094662990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22473a478b78ec844800935ff612a48e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 919132149155446097, guid: afaa08dfc4ffcb2499fbac941adb3ddf, type: 3}
+  - {fileID: 919132149155446097, guid: 74af238a074bb2c49bb41620deee18a3, type: 3}
+  - {fileID: 919132149155446097, guid: 19326fbacdf8cd24f91c30217b55fff0, type: 3}
 --- !u!1 &2112332474
 GameObject:
   m_ObjectHideFlags: 0
