@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
+
 //using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class Waves : MonoBehaviour
@@ -15,21 +17,21 @@ public class Waves : MonoBehaviour
     private int[] triangles;
 
     [SerializeField]
-    private float width = 100.0f;
+    [Tooltip("Size of each grid cell in the mesh")]
+    private float cellSize = 1.0f;
 
     [SerializeField]
-    private float depth = 100.0f;
+    [Tooltip("Number of vertices in X direction")]
+    private int gridX = 100;
 
     [SerializeField]
-    private int SizeX = 100;
-
-    [SerializeField]
-    private int SizeZ = 100;
-
+    [Tooltip("Number of vertices in Z direction")]
+    private int gridZ = 100;
     [SerializeField] float waveHeight;
     [SerializeField] private int verticesRowCount;
     [SerializeField] private int verticesCount;
     [SerializeField] private int trianglesCount;
+    [SerializeField] private Material material;
 
     // Start is called before the first frame update
     void Start()
@@ -37,14 +39,18 @@ public class Waves : MonoBehaviour
         if (mesh == null)
         {
             mesh = new Mesh();
-            MeshFilter meshFilter = gameObject.GetComponent<MeshFilter>();
+            mesh.indexFormat = IndexFormat.UInt32;
+            MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
             meshFilter.mesh = mesh;
+            MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
+            meshRenderer.material = material;
+
         }
 
 
-        verticesRowCount = SizeX + 1;
-        verticesCount = verticesRowCount * (SizeZ + 1);
-        trianglesCount = 6 * SizeX * SizeZ;
+        verticesRowCount = gridX + 1;
+        verticesCount = verticesRowCount * (gridZ + 1);
+        trianglesCount = 6 * gridX * gridZ;
 
 
         vertices = new Vector3[verticesCount];
@@ -52,67 +58,76 @@ public class Waves : MonoBehaviour
         normals = new Vector3[verticesCount];
         triangles = new int[trianglesCount];
 
-
+        
+        GenerateMesh();
+        UpdateMesh();
     }
 
-    // Update is called once per frame
-    void Update()
+   void GenerateMesh()
     {
-        if (!mesh) return;
-        // Set the vertices of the mesh
-        int vertexIndex = 0;
-        for (int z = 0; z <= SizeZ; ++z)
+        // Calculate total size of the mesh
+        float totalWidth = (gridX - 1) * cellSize;
+        float totalDepth = (gridZ - 1) * cellSize;
+
+        // Generate vertices and UVs
+        for (int z = 0; z < gridZ; z++)
         {
-            float percentageZ = (float)z / (float)SizeZ;
-            float startZ = percentageZ * depth;
-
-            for (int x = 0; x <= SizeX; ++x)
+            for (int x = 0; x < gridX; x++)
             {
-                float percentageX = (float)x / (float)SizeX;
-                float startX = percentageX * width;
-
-
-                //Generate waves by adding several diffrent sine waves in diffrent directions and magnitudes
-                float height = Mathf.Sin(Time.time + x) * waveHeight * 0.5f;
-                height = height + Mathf.Sin(Time.time + x * 2f) * waveHeight * 0.5f;
-                height = height + Mathf.Sin(Time.time + z + x) * waveHeight;
-                height = height + Mathf.Sin(Time.time + z * 0.2f) * waveHeight;
-                float heightPercentage = height / waveHeight;
-
-                vertices[vertexIndex] = new Vector3(startX, height, startZ);
-                uvs[vertexIndex] =
-                    new Vector2(); // No texturing so just set to zero - could be expanded in the future
-                normals[vertexIndex] =
-                    Vector3.up; // These should be set based on heights of terrain but we can use Recalulated normals on mesh to calculate for us
-                ++vertexIndex;
+                int index = z * gridX + x;
+                
+                // Calculate vertex position
+                // Center the mesh by subtracting half the total size
+                float xPos = x * cellSize - (totalWidth * 0.5f);
+                float zPos = z * cellSize - (totalDepth * 0.5f);
+                vertices[index] = new Vector3(xPos, 0, zPos);
+                
+                // Calculate UVs (for texture mapping)
+                uvs[index] = new Vector2((float)x / (gridX - 1) * 10, (float)z / (gridZ - 1) * 10);
+                
+                // Set default normal (facing up)
+                normals[index] = Vector3.up;
             }
         }
 
-        // Setup the indexes so they are in the correct order and will render correctly
-        vertexIndex = 0;
-        int trianglesIndex = 0;
-        for (int z = 0; z < SizeZ; ++z)
+        // Generate triangles
+        int triangleIndex = 0;
+        for (int z = 0; z < gridZ - 1; z++)
         {
-            for (int x = 0; x < SizeX; ++x)
+            for (int x = 0; x < gridX - 1; x++)
             {
-                vertexIndex = x + (verticesRowCount * z);
-
-                triangles[trianglesIndex++] = vertexIndex;
-                triangles[trianglesIndex++] = vertexIndex + verticesRowCount;
-                triangles[trianglesIndex++] = (vertexIndex + 1) + verticesRowCount;
-                triangles[trianglesIndex++] = (vertexIndex + 1) + verticesRowCount;
-                triangles[trianglesIndex++] = vertexIndex + 1;
-                triangles[trianglesIndex++] = vertexIndex;
+                int vertexIndex = z * gridX + x;
+                
+                // First triangle
+                triangles[triangleIndex] = vertexIndex;
+                triangles[triangleIndex + 1] = vertexIndex + gridX;
+                triangles[triangleIndex + 2] = vertexIndex + 1;
+                
+                // Second triangle
+                triangles[triangleIndex + 3] = vertexIndex + 1;
+                triangles[triangleIndex + 4] = vertexIndex + gridX;
+                triangles[triangleIndex + 5] = vertexIndex + gridX + 1;
+                
+                triangleIndex += 6;
             }
         }
+    }
 
-        // Assign all of the data that has been created to the mesh and update it
+    void UpdateMesh()
+    {
+        mesh.Clear();
         mesh.vertices = vertices;
-        mesh.uv = uvs;
         mesh.triangles = triangles;
-        //mesh.colors = colours;
+        mesh.uv = uvs;
         mesh.normals = normals;
+        
+        // Calculate bounds based on total size
+        float totalWidth = (gridX - 1) * cellSize;
+        float totalDepth = (gridZ - 1) * cellSize;
+        Bounds bounds = new Bounds(Vector3.zero, new Vector3(totalWidth, waveHeight * 2, totalDepth));
+        mesh.bounds = bounds;
+        
         mesh.RecalculateNormals();
-        mesh.UploadMeshData(false);
+        mesh.RecalculateBounds();
     }
 }
