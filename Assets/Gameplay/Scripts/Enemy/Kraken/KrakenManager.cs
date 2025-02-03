@@ -9,6 +9,9 @@ public class KrakenManager : MonoBehaviour
 
     [SerializeField] GameObject kraken;
     [SerializeField] GameObject tentacles;
+    [SerializeField] GameObject krakenHealth;
+    [SerializeField] KrakenHud krakenHud;
+    [SerializeField] GameObject gameTimer;
     [SerializeField] float SpawnTime;
     [SerializeField] float UpTime;
     [SerializeField] float waterChangeDuration;
@@ -23,6 +26,8 @@ public class KrakenManager : MonoBehaviour
     {
         kraken.SetActive(false);
         tentacles.SetActive(false);
+        krakenHealth.SetActive(false);
+        gameTimer.SetActive(true);
         StartCoroutine(KrakenSpawnTimer());
     }
 
@@ -33,6 +38,26 @@ public class KrakenManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         kraken.SetActive(true);
         tentacles.SetActive(true);
+        krakenHealth.SetActive(true);
+        gameTimer.SetActive(false);
         CameraShake.Instance.ShakeCamera(1.5f, waterChangeDuration + 0.5f);
     }
+
+    //Function called by cannons when fired -SD
+    public void krakenHit()
+    {
+        krakenHud.KrakenHit();
+
+        if (krakenHud.currentHealth == 0)
+        {
+            //Kraken is dead
+            kraken.SetActive(false);
+            tentacles.SetActive(false);
+            krakenHealth.SetActive(false);
+            gameTimer.SetActive(true);
+            weather.KrakenDeSpawn();
+            StartCoroutine(KrakenSpawnTimer());
+        }
+    }
+
 }

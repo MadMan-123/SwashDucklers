@@ -68,6 +68,13 @@ public class Weather : MonoBehaviour
 
     }
 
+    public void KrakenDeSpawn()
+    {
+        weatherState = WeatherState.NORMAL;
+        //StartCoroutine(ChangeWaterColor());
+
+    }
+
     public void WorldEvent()
     {
         //switch (weatherState)

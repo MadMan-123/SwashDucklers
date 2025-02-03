@@ -24,6 +24,8 @@ public class CannonManager : MonoBehaviour
 {
     [SerializeField] private Transform cannonBallSlot; // Where the cannonball will visually go in the cannon.
 
+    [SerializeField] KrakenManager kraken; //Reference to the kraken
+
     /// <summary>
     /// GM: Handles loading a cannonball into the cannon and deletes it from the world.
     /// </summary>
@@ -53,18 +55,22 @@ public class CannonManager : MonoBehaviour
     /// GM: Call this when the player interacts with the cannon.
     /// </summary>
     /// <param name="player">The player interacting with the cannon.</param>
-    public void Interact(GameObject player)
+    public void Interact()
     {
-        Inventory playerInventory = player.GetComponent<Inventory>();
+        //Task manager already does this - SD
+        //Inventory playerInventory = player.GetComponent<Inventory>();
 
-        if (playerInventory != null)
-        {
-            LoadCannon(playerInventory);
-        }
-        else
-        {
-            Debug.LogWarning("Player does not have an Inventory component!");
-        }
+        //if (playerInventory != null)
+        //{
+        //    LoadCannon(playerInventory);
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("Player does not have an Inventory component!");
+        //}
+
+        //Tell the kraken its been hit -SD
+        kraken.krakenHit();
     }
 }
 
