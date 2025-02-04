@@ -1,6 +1,9 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using Core;
+
+
 /// <summary>
 /// GM: This base class (`StaticInstance`) creates a static instance of the class, 
 /// GM: allowing easy access to a single instance from anywhere in the project.
