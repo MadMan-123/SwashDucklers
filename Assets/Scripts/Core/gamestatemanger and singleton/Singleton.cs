@@ -1,5 +1,6 @@
 using UnityEngine;
-
+using TMPro;
+using UnityEngine.Events;
 /// <summary>
 /// GM: This base class (`StaticInstance`) creates a static instance of the class, 
 /// GM: allowing easy access to a single instance from anywhere in the project.
@@ -8,6 +9,16 @@ using UnityEngine;
 /// </summary>
 public abstract class StaticInstance<T> : MonoBehaviour where T : MonoBehaviour
 {
+    [SerializeField] public int krakenHEALTH;
+    [SerializeField] public int cannonAmmo;
+
+    [Header("Components")]
+    public TextMeshProUGUI krakenHEALTHandcannonAMMOTEXT;
+
+    [Header("Events")]
+    public UnityEvent onKrakenDestroyed;
+    public UnityEvent onAmmoChanged;
+
     // GM: Static property to store the single instance of the class.
     public static T Instance { get; private set; }
 
@@ -60,6 +71,20 @@ public abstract class SingletonPersistent<T> : Singleton<T> where T : MonoBehavi
 
         // GM: Call the base class's `Awake` to assign the instance.
         base.Awake();
+    }
+
+
+
+
+    void UpdatekrakenHEALTHandcannonAMMOTEXT()
+    {
+        krakenHEALTHandcannonAMMOTEXT.text = $"Kraken Health: {krakenHEALTH}\nAmmo: {cannonAmmo}";
+    }
+
+
+    public void addAmmo(int amount)
+    {
+
     }
 }
 

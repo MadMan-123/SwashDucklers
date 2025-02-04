@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using TMPro;
+using UnityEngine.Events;
 
 /// <summary>
 /// GM: Manages the game states using an enum for readability and maintainability.
@@ -7,6 +9,19 @@ using UnityEngine;
 /// </summary>
 public class GameStateManager : Singleton<GameStateManager>
 {
+    //[SerializeField] public int krakenHEALTH;
+   // [SerializeField] public int cannonAmmo;
+
+    //[Header("Components")]
+    //public TextMeshProUGUI krakenHEALTHandcannonAMMOTEXT;
+
+
+    //[Header("Events")]
+    //public UnityEvent onKrakenKilled;//GM: when the kraken's life hits 0 this event will be called
+    //public UnityEvent cAMMOchanged;//GM: for when ammo is changed in the canons (added and subtracted)
+
+
+
     // GM: Define possible game states as an enum for clear representation.
     public enum GameState
     {
