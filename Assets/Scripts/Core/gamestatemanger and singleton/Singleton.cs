@@ -88,7 +88,17 @@ public abstract class SingletonPersistent<T> : Singleton<T> where T : MonoBehavi
     public void addAmmo(int amount)//GM: inreases the amount of ammo for the cannon
     {
         cannonAmmo += amount;
+        UpdatekrakenHEALTHandcannonAMMOTEXT();
 
+        onAmmoChanged.Invoke();
+    }
+
+    public void takeAmmo(int amount)//GM: inreases the amount of ammo for the cannon
+    {
+        cannonAmmo += amount;
+        UpdatekrakenHEALTHandcannonAMMOTEXT();
+
+        onAmmoChanged.Invoke();
     }
 }
 
