@@ -76,14 +76,15 @@ public abstract class SingletonPersistent<T> : Singleton<T> where T : MonoBehavi
 
 
 
-    void UpdatekrakenHEALTHandcannonAMMOTEXT()
+    void UpdatekrakenHEALTHandcannonAMMOTEXT()//this updates the visual representation of the Kraken's health
     {
         krakenHEALTHandcannonAMMOTEXT.text = $"Kraken Health: {krakenHEALTH}\nAmmo: {cannonAmmo}";
     }
 
 
-    public void addAmmo(int amount)
+    public void addAmmo(int amount)//GM: inreases the amount of ammo for the cannon
     {
+        cannonAmmo += amount;
 
     }
 }
