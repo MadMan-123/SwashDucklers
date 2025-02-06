@@ -10,7 +10,7 @@ public class waterinteract : MonoBehaviour
     {
         ship = GameObject.FindWithTag("Boat");
         w_bucket = FindAnyObjectByType<bucketuse>();
-        ship.GetComponent<ShipHealth>().DamageShip(5);
+        ship.GetComponent<ShipHealth>().DamageShip(0);
     }
 
     public void Startdrain(GameObject source,float time)

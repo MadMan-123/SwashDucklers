@@ -12134,10 +12134,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   water: {fileID: 4050332191863423493}
   waterRenderer: {fileID: 0}
-  smoothness: 0.1
+  smoothness: 0.01
   sunlight: {fileID: 410087040}
-  waterChangeDuration: 2
+  waterChangeDuration: 5
   rain: {fileID: 1961987637}
+  waterMaterial: {fileID: 2100000, guid: 2c883997b90aaae4fbc0689a759963de, type: 2}
+  krakenMaterial: {fileID: 2100000, guid: 885a61839d33a2541a58284bd0156e56, type: 2}
 --- !u!1 &1677275322
 GameObject:
   m_ObjectHideFlags: 0
@@ -12224,6 +12226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1685696419}
   - component: {fileID: 1685696420}
+  - component: {fileID: 1685696421}
   m_Layer: 0
   m_Name: KrakenBody
   m_TagString: Untagged
@@ -12268,6 +12271,27 @@ MonoBehaviour:
   pm: {fileID: 4217753928274164094}
   playerLoc: {x: 0, y: 0, z: 0}
   activate: 0
+--- !u!95 &1685696421
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685696418}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 03f564ea25b1e3d4ea401c92f259ad91, type: 3}
+  m_Controller: {fileID: 9100000, guid: d94260ddd1c2e6d4eb68ceaba55e8142, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1692819186
 GameObject:
   m_ObjectHideFlags: 0
@@ -12284,7 +12308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1692819187
 Transform:
   m_ObjectHideFlags: 0

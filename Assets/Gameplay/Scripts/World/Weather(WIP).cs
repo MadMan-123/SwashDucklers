@@ -8,11 +8,13 @@ public class Weather : MonoBehaviour
     //Should keep this modular for other world events
 
     [SerializeField] GameObject water;
-    [SerializeField] Renderer waterRenderer;
+    [SerializeField] MeshRenderer waterRenderer;
     [SerializeField] float smoothness;
     [SerializeField] Light sunlight;
     [SerializeField] float waterChangeDuration;
     [SerializeField] ParticleSystem rain;
+    [SerializeField] Material waterMaterial;
+    [SerializeField] Material krakenMaterial;
     WeatherState weatherState;
 
 
@@ -35,12 +37,12 @@ public class Weather : MonoBehaviour
         WaterShade2Color = new Color32(0, 19, 34, 255);
         WaterHighlightColor = new Color32(74, 146, 233, 255);*/
 
-        KrakenbaseColor = new Color32(51, 97, 123, 255);
-        KrakenShadeColor = new Color32(21, 60, 82, 255);
-        KrakenShade2Color = new Color32(0, 19, 34, 255);
-        KrakenHighlightColor = new Color32(74, 146, 233, 255);
+        //KrakenbaseColor = new Color32(51, 97, 123, 255);
+        //KrakenShadeColor = new Color32(21, 60, 82, 255);
+        //KrakenShade2Color = new Color32(0, 19, 34, 255);
+        //KrakenHighlightColor = new Color32(74, 146, 233, 255);
 
-        //waterRenderer = water.transform.GetChild(1).GetComponent<Renderer>();
+        waterRenderer = water.transform.GetChild(1).GetComponent<MeshRenderer>();
         /*waterRenderer.material.SetColor("_BaseColor", WaterbaseColor); //Light Color
         waterRenderer.material.SetColor("_1st_ShadeColor", WaterShadeColor); //Shaded Color
         waterRenderer.material.SetColor("_2nd_ShadeColor", WaterShade2Color); //Shaded Color
@@ -63,15 +65,17 @@ public class Weather : MonoBehaviour
 
     public void KrakenSpawn()
     {
+        waterRenderer = water.transform.GetChild(1).GetComponent<MeshRenderer>();
         weatherState = WeatherState.KRAKEN;
-        //StartCoroutine(ChangeWaterColor());
+        StartCoroutine(ChangeWaterColor());
 
     }
 
     public void KrakenDeSpawn()
     {
+        waterRenderer = water.transform.GetChild(1).GetComponent<MeshRenderer>();
         weatherState = WeatherState.NORMAL;
-        //StartCoroutine(ChangeWaterColor());
+        StartCoroutine(ChangeWaterColor());
 
     }
 
@@ -91,11 +95,11 @@ public class Weather : MonoBehaviour
         float progress = 0;
         float increment = smoothness / waterChangeDuration;
         var emission = rain.emission;
-
-        Color currentBaseColor = waterRenderer.material.GetColor("_BaseColor");
-        Color currentShadeColor = waterRenderer.material.GetColor("_1st_ShadeColor");
-        Color currentShade2Color = waterRenderer.material.GetColor("_2nd_ShadeColor");
-        Color currentHighlightColor = waterRenderer.material.GetColor("_HighColor");
+        Material currentMat = waterRenderer.material;
+        //Color currentBaseColor = waterRenderer.material.GetColor("_BaseColor");
+        //Color currentShadeColor = waterRenderer.material.GetColor("_1st_ShadeColor");
+        //Color currentShade2Color = waterRenderer.material.GetColor("_2nd_ShadeColor");
+        //Color currentHighlightColor = waterRenderer.material.GetColor("_HighColor");
 
         switch (weatherState)
         {
@@ -105,10 +109,11 @@ public class Weather : MonoBehaviour
                 {
                     sunlight.intensity = Mathf.Lerp(1.5f, 2, progress);
                     emission.rateOverTime = 200 * (1 - progress);
-                    waterRenderer.material.SetColor("_BaseColor", Color.Lerp(currentBaseColor, WaterbaseColor, progress));
-                    waterRenderer.material.SetColor("_1st_ShadeColor", Color.Lerp(currentShadeColor, WaterShadeColor, progress));
-                    waterRenderer.material.SetColor("_2nd_ShadeColor", Color.Lerp(currentShade2Color, WaterShade2Color, progress));
-                    waterRenderer.material.SetColor("_HighColor", Color.Lerp(currentHighlightColor, WaterHighlightColor, progress));
+                    //waterRenderer.material.SetColor("_BaseColor", Color.Lerp(currentBaseColor, WaterbaseColor, progress));
+                    //waterRenderer.material.SetColor("_1st_ShadeColor", Color.Lerp(currentShadeColor, WaterShadeColor, progress));
+                    //waterRenderer.material.SetColor("_2nd_ShadeColor", Color.Lerp(currentShade2Color, WaterShade2Color, progress));
+                    //waterRenderer.material.SetColor("_HighColor", Color.Lerp(currentHighlightColor, WaterHighlightColor, progress));
+                    waterRenderer.material.Lerp(currentMat, waterMaterial, progress);
                     progress += increment;
                     yield return new WaitForSeconds(smoothness);
                 }
@@ -124,10 +129,11 @@ public class Weather : MonoBehaviour
                 {
                     sunlight.intensity = Mathf.Lerp(2, 0.5f, progress);
                     emission.rateOverTime = 200 * progress;
-                    waterRenderer.material.SetColor("_BaseColor", Color.Lerp(currentBaseColor, KrakenbaseColor, progress));
-                    waterRenderer.material.SetColor("_1st_ShadeColor", Color.Lerp(currentShadeColor, KrakenShadeColor, progress));
-                    waterRenderer.material.SetColor("_2nd_ShadeColor", Color.Lerp(currentShade2Color, KrakenShade2Color, progress));
-                    waterRenderer.material.SetColor("_HighColor", Color.Lerp(currentHighlightColor, KrakenHighlightColor, progress));
+                    //waterRenderer.material.SetColor("_BaseColor", Color.Lerp(currentBaseColor, KrakenbaseColor, progress));
+                    //waterRenderer.material.SetColor("_1st_ShadeColor", Color.Lerp(currentShadeColor, KrakenShadeColor, progress));
+                    //waterRenderer.material.SetColor("_2nd_ShadeColor", Color.Lerp(currentShade2Color, KrakenShade2Color, progress));
+                    //waterRenderer.material.SetColor("_HighColor", Color.Lerp(currentHighlightColor, KrakenHighlightColor, progress));
+                    waterRenderer.material.Lerp(currentMat, krakenMaterial, progress);
                     progress += increment;
                     yield return new WaitForSeconds(smoothness);
                 }
