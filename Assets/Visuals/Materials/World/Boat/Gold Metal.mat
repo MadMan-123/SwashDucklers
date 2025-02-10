@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Gold Metal
-  m_Shader: {fileID: -6465566751694194690, guid: 5012f261a3a2cf34599845f563c8bcec,
+  m_Shader: {fileID: -6465566751694194690, guid: d5e177436e736814cbdfb053c1d99302,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -24,6 +24,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Roughness:
+        m_Texture: {fileID: 2800000, guid: 90312fc3b8b52524dbc9a332e22ae503, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseColourTexture:
         m_Texture: {fileID: 2800000, guid: 2f9ad0486bc5252498a8041c4088f490, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -54,6 +58,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Emmisive_Texture:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Height:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Input:
+        m_Texture: {fileID: 2800000, guid: 2f9ad0486bc5252498a8041c4088f490, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -131,6 +143,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _HighlightSize: 0.05
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -142,6 +155,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
+    - _Steps: 10
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
