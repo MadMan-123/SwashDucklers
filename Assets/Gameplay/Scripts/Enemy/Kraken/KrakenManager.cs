@@ -15,6 +15,8 @@ public class KrakenManager : MonoBehaviour
     [SerializeField] float SpawnTime;
     [SerializeField] float UpTime;
     [SerializeField] float waterChangeDuration;
+    [SerializeField] AudioSource spawn;
+    [SerializeField] AudioSource hurt;
 
     [SerializeField] Weather weather;
 
@@ -52,11 +54,13 @@ public class KrakenManager : MonoBehaviour
         krakenHealth.SetActive(true);
         gameTimer.SetActive(false);
         CameraShake.Instance.ShakeCamera(1.5f, waterChangeDuration + 0.5f);
+        spawn.Play(0);
     }
 
     //Function called by cannons when fired -SD
     public void krakenHit()
     {
+        hurt.Play();
         krakenHud.KrakenHit();
 
         if (krakenHud.currentHealth == 0)
@@ -71,6 +75,7 @@ public class KrakenManager : MonoBehaviour
             }
             weather.KrakenDeSpawn();
             StartCoroutine(KrakenSpawnTimer());
+            
         }
     }
 
