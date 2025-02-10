@@ -29,7 +29,11 @@ public class KrakenManager : MonoBehaviour
             kraken.SetActive(false);
             tentacles.SetActive(false);
             krakenHealth.SetActive(false);
-            gameTimer.SetActive(true);
+
+            if (StageParameters.levelLength != Length.Endless)
+            {
+                gameTimer.SetActive(true);
+            }
             StartCoroutine(KrakenSpawnTimer());
         }
         else
@@ -61,7 +65,10 @@ public class KrakenManager : MonoBehaviour
             kraken.SetActive(false);
             tentacles.SetActive(false);
             krakenHealth.SetActive(false);
-            gameTimer.SetActive(true);
+            if (StageParameters.levelLength != Length.Endless)
+            {
+                gameTimer.SetActive(true);
+            }
             weather.KrakenDeSpawn();
             StartCoroutine(KrakenSpawnTimer());
         }

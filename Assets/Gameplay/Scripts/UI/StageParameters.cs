@@ -17,7 +17,8 @@ public enum Length
 {
     Short,
     Medium,
-    Long
+    Long,
+    Endless
 }
 
 //Contains all modifiable parameters for each stage -SD
@@ -36,5 +37,6 @@ public static class StageParameters
     //Kraken enabled -SD
     public static bool krakenEnabled = true;
 
+    //Kraken Health
     public static int krakenHealth = 5;
 }

@@ -13,14 +13,33 @@ public class GameTimer : MonoBehaviour
     [SerializeField] float PercentageTimePassed;
     [SerializeField] float boatposition;
 
+    [SerializeField] GameObject Hud;
+
     // Start is called before the first frame update
     void Start()
     {
         StartPosition = transform.position.x;
-        EndPosition = Screen.width - 200;
+        EndPosition = StartPosition + 250;
 
         currentTime = 0;
-        endTime = 60;
+
+        //Caculate end time -SD
+        //Values can be changed later -SD
+        switch (StageParameters.levelLength)
+        {
+            case Length.Short:
+                endTime = 30;
+                break;
+            case Length.Medium:
+                endTime = 60;
+                break;
+            case Length.Long:
+                endTime = 90;
+                break;
+            case Length.Endless:
+                Hud.SetActive(false);
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -34,6 +53,7 @@ public class GameTimer : MonoBehaviour
         {
             currentTime = endTime;
             //GAME WON
+            UnityEngine.SceneManagement.SceneManager.LoadScene("WinScreen");
         }
 
         PercentageTimePassed = (currentTime / endTime);
