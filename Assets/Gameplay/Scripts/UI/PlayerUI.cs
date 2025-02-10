@@ -11,6 +11,9 @@ public class PlayerUI : MonoBehaviour
 
     private PlayerInput playerInput;
 
+    [SerializeField] GameObject ColorSliders;
+    [SerializeField] GameObject ColorButtons;
+
     [SerializeField] Slider R;
     [SerializeField] Slider G;
     [SerializeField] Slider B;
@@ -224,4 +227,32 @@ public class PlayerUI : MonoBehaviour
 
     }
 
+    public void setRed(float r) 
+    {
+        red = r;
+    }
+
+    public void setGreen(float g)
+    {
+        green = g;
+    }
+
+    public void setBlue(float b)
+    {
+        blue = b;
+    }
+
+    public void customColor()
+    {
+        if (ColorSliders.activeInHierarchy == false)
+        {
+            ColorSliders.SetActive(true);
+            ColorButtons.SetActive(false);
+        }
+        else
+        {
+            ColorSliders.SetActive(false);
+            ColorButtons.SetActive(true);
+        }
+    }
 }

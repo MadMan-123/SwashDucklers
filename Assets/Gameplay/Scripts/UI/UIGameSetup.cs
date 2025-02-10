@@ -20,7 +20,7 @@ public class UIGameSetup : MonoBehaviour
     void Update()
     {
         //Start Game
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton9))
+        if (Input.GetKeyDown(KeyCode.JoystickButton9))
         {
             startGame();
         }
