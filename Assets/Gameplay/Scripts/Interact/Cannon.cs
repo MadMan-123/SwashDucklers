@@ -6,12 +6,17 @@ using UnityEngine;
 
 public class Cannon : Interactable
 {
+    
     public GameObject cannonballPrefab;
     GameObjectPool cannonballPool;
+    public AudioSource cannonfire;
     public Transform cannonballSpawnPoint;
     
     [SerializeField] private float launchDuration = 1f;
     [SerializeField] private float strength = 10f;
+
+
+    
     void Start()
     {
         cannonballPool = new GameObjectPool(cannonballPrefab, 10,transform);
@@ -36,8 +41,9 @@ public class Cannon : Interactable
         var cannonball = cannonballPool.GetObject();
         cannonball.transform.position = cannonballSpawnPoint.position;
         cannonball.transform.rotation = cannonballSpawnPoint.rotation;
+        cannonfire.Play();
 
-        if(cannonball.TryGetComponent(out Rigidbody rb))
+        if (cannonball.TryGetComponent(out Rigidbody rb))
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;

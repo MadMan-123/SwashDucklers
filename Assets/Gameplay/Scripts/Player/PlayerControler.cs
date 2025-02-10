@@ -536,6 +536,7 @@ public class PlayerControler : MonoBehaviour
             //If colliding with the object from above
             if (-45 <= Vector3.Angle(Vector3.up, contact.normal) && 45 >= Vector3.Angle(Vector3.up, contact.normal))
             {
+
                 //The player is now grounded
                 isGrounded = true;
                 
@@ -593,6 +594,7 @@ public class PlayerControler : MonoBehaviour
                 isGrounded = false;
                 platform = null;
                 relative0 = new Vector3(0.0f, 0.0f, 0.0f);
+                
             }
         }
     }
@@ -602,6 +604,7 @@ public class PlayerControler : MonoBehaviour
         //playerInput.DeactivateInput(); // for the pump we want to read if the player is mashing the button
         //Debug.Log("Input disabled"); 
         canMove = false; //new implementation
+        
     }
     public void EnableMovement()
     {
