@@ -8,7 +8,7 @@ public class Item : MonoBehaviour
 
     [SerializeField] public Vector3 offset;
     [SerializeField] public Quaternion pickupRotation;
-    [SerializeField] public ItemManager.Type type;
+    [SerializeField] public Type type;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Collider col;
 
@@ -24,9 +24,9 @@ public class Item : MonoBehaviour
         if (source.TryGetComponent(out Inventory inv) )       //try to see if player has an inv
         {
             current = inv;
-            if (current.AddItem(this))                              //add this to inv
+            if (current.AddItem(gameObject))                              //add this to inv
             {
-                //disable the rigidbody and collider
+                /*//disable the rigidbody and collider
                 rb.isKinematic = true;                           //bunch of positioning stuff
                 col.enabled = false;
                 
@@ -34,7 +34,7 @@ public class Item : MonoBehaviour
                 transform.SetParent(current.itemHolder,true);
 
                 transform.localPosition = offset;
-                transform.localRotation = pickupRotation;
+                transform.localRotation = pickupRotation;*/
             }
             
         }
@@ -48,5 +48,16 @@ public class Item : MonoBehaviour
             //set the transforms
             transform.SetParent(null);                                  //remove from parent (should make it drop?)
         }
+    }
+    
+    
+    
+    //i think this would best be in Item instead of here, as so when refreing to types of item we can specify Item.Type.CannonBall, Item.Type.Plank, etc instead of ItemManager.Type.CannonBall, ItemManager.Type.Plank, etc - MW
+    public enum Type
+    {
+        NoItem = -1,
+        CannonBall,
+        Plank
+        //other item types here
     }
 }

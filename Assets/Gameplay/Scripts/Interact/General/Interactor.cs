@@ -7,20 +7,21 @@ using UnityEngine.AI;
 using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
 
-public class InteractComponent : MonoBehaviour
+public class Interactor : MonoBehaviour
 {
     [SerializeField] GameObject tempIndicator;
     [SerializeField] GameObject toolPU;
-
-    [SerializeField] public bool inArea;    
-    [SerializeField] public InteractArea AreaImIn;
+   
     private PlayerControler playerControler;
     private PlayerInput input;
     private InputAction interact;
+
     [SerializeField] private float slapForce = 5f;
+    [SerializeField] private float slapDistance = 0.2f;
     [SerializeField] private float slapRadius = 0.75f;
     [SerializeField] private float howMuchUp = 0.75f;
     [SerializeField] private float slapDamage = 5;
+
     [SerializeField] PhysicMaterial slapMat;
     [SerializeField] private bool shouldDebug = false;
 
@@ -54,19 +55,47 @@ public class InteractComponent : MonoBehaviour
            return;
         }
         
-        if (!inArea)
+        
+        
+        var count = Physics.OverlapSphereNonAlloc((transform.position + offset) + (transform.forward * howFar), slapRadius, colliders);
+
+        GameObject tracked = null;
+        List<Rigidbody> rigidBodies = new(10);
+        //go through and check if we can interact
+        for (int i = 0; i < count; i++)
         {
-            Slap();
+            //check if the collider has a rigidbody
+            if (colliders[i].TryGetComponent(out Rigidbody rb))
+            {
+                rigidBodies.Add(rb);
+            }
+
+            if (tracked) continue;
+            if (!colliders[i].TryGetComponent(out Interactable current))
+                continue;
+           
+            
+            tracked = colliders[i].gameObject;
+        }
+
+        if (tracked == null)
+        {
             return;
         }
-        if (TryGetComponent(out Inventory inventory) && inventory.item != null)
+
+        foreach (var body in rigidBodies)
         {
-            Interact(inventory.item.type);
+            if(body.gameObject == gameObject || !body) continue;
+            Slap(body.gameObject); 
         }
-        else
+        
+        if (TryGetComponent(out Inventory inventory) && tracked.TryGetComponent(out Interactable interact))
         {
-            Interact();
+            print("Interacting with " + tracked.name);
+            interact.Interact(inventory.item, gameObject);
         }
+        
+
 
         //Reset the flag
         Invoke(nameof(ResetSlapAnim), 0.5f);
@@ -76,30 +105,31 @@ public class InteractComponent : MonoBehaviour
     {
         playerControler.animator.SetBool("IsSlapping", false);
     }
+    Collider[] colliders = new Collider[10];
+    [SerializeField] private float howFar = 0.45f;
+    [SerializeField] private Vector3 offset = new(0,-0.1f,0);
 
-    private void Slap()
+    private void Slap(GameObject toSlap)
     {
-        Collider[] colliders = new Collider[10];
-        int count = Physics.OverlapSphereNonAlloc(transform.position + transform.forward, slapRadius, colliders);
         bool canSlapSfx = false;
-        //for each collider in colliders, if can get rigidbody, add force
-        for (int i = 0; i < count; i++)
         {
+            
             float extraForce = 0f;
-            if (colliders[i].gameObject == gameObject || !colliders[i].TryGetComponent(out Rigidbody rb)) continue; //if same object continue
+            if (!toSlap.TryGetComponent(out Rigidbody rb)) return; //if same object continue
             canSlapSfx = true;
-            if (colliders[i].TryGetComponent(out Health health))         //if has component health then
+
+            if (toSlap.TryGetComponent(out Health health))         //if has component health then
             {
                 health.TakeDamage(gameObject,slapDamage);
                 extraForce = (health.GetHealth() / health.GetMaxHealth()) * slapForce;
             }
-            if (colliders[i].TryGetComponent(out PlayerControler pc))
+            if (toSlap.TryGetComponent(out PlayerControler pc))
             {
-                StartCoroutine(ReduceFriction(colliders[i].gameObject,pc, (extraForce/5)));
+                StartCoroutine(ReduceFriction(toSlap.gameObject,pc, (extraForce/5)));
                 pc.Ragdoll(0.25f + 0.25f*extraForce,true);
                 extraForce -= 21;
             }
-            if (colliders[i].TryGetComponent(out AIBrain brain))
+            if (toSlap.TryGetComponent(out AIBrain brain))
             {
                 //disable the agent and enable kinematic
                 StartCoroutine(brain.ReenableAgent(brain.knockDownTime));
@@ -115,72 +145,9 @@ public class InteractComponent : MonoBehaviour
 
     
     
-    void Interact()
-    {
-       if(!AreaImIn ) return;                                       //if not in an area exit
-       
-       
-       //if the hash map contains the task name
-       if (TaskManager.TaskHashMap.TryGetValue(AreaImIn.TaskName, out var task))
-       {
-           if (task is { isCompleted: true }) return;
-           if (AreaImIn.isStation)
-           {
-               if (inArea && !AreaImIn.needTool)
-               {
-                   AreaImIn.Interact(gameObject);
-                   StartCoroutine(InteractTimer());
-               }
-               else
-               {
-                   WrongTool();
-               }
-           }
-           return;
-       }
 
-       AreaImIn.Interact(gameObject);
-       StartCoroutine(InteractTimer());
-    }
 
-    void Interact(ItemManager.Type tool)
-    {
-        if (inArea)
-        {
-            if (!AreaImIn.needTool)
-            {
-                AreaImIn.InteractWithTool(tool, gameObject);
-                StartCoroutine(InteractTimer());
-            }
-            else if (tool == AreaImIn.expectedType)
-            {
-                AreaImIn.InteractWithTool(tool, gameObject);
-                StartCoroutine(InteractTimer());
-            }
-            else
-            {
-                WrongTool();
-            }
-        }
-    }
-
-    IEnumerator WrongTool()  //Testing
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            toolPU.SetActive(true);
-            yield return new WaitForSeconds(0.3f);
-            toolPU.SetActive(false);
-            yield return new WaitForSeconds(0.2f);
-        }
-    }
-
-    IEnumerator InteractTimer()
-    {
-            tempIndicator.SetActive(true);
-            yield return new WaitForSeconds(2);
-            tempIndicator.SetActive(false);
-    }
+   
 
 #if UNITY_EDITOR 
     private void OnDrawGizmos()
@@ -191,7 +158,7 @@ public class InteractComponent : MonoBehaviour
         Gizmos.DrawRay(transform.position, ((transform.forward + ((transform.up * 0.1f))) * slapForce ));
         //draw the sphere cast
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position + transform.forward, slapRadius);
+        Gizmos.DrawWireSphere((transform.position + offset)+ (transform.forward * howFar), slapRadius);
 
     }
 #endif

@@ -15,10 +15,13 @@ public class Inventory : MonoBehaviour
     public bool TryPickUp()
     {
         //If we have an item already return
-        if (item) return false;            //if it is an item / item isnt being held?
+        if (item) return false;            
+       
+        //buffer for colliders
+        Collider[] colliders = new Collider[10];                         
         
-        Collider[] colliders = new Collider[10];                         //array incase multiple items are tried to be picked up?
-        int count = Physics.OverlapSphereNonAlloc(transform.position + transform.forward * 0.5f , 1f, colliders);         //sphere area stuff
+        //check for items in front of the player
+        int count = Physics.OverlapSphereNonAlloc(transform.position + transform.forward * 0.5f , 1f, colliders);         
         for (int i = 0; i < count; i++)                        
         {
             if (colliders[i].TryGetComponent(out Item item)  )
@@ -39,16 +42,39 @@ public class Inventory : MonoBehaviour
         }
     }
     //get current item
-    public bool AddItem(Item newItem)
+    public bool AddItem(GameObject itemObj)
     {
+        if (!itemObj.TryGetComponent(out Item item)) return false;
+            
+        //if (!inv.AddItem(item)) return; //add this to inv
+        //disable the rigidbody and collider
+        itemObj.GetComponent<Rigidbody>().isKinematic = true;
+        itemObj.GetComponent<Collider>().enabled = false;
+            //set the transforms
+            itemObj.transform.SetParent(itemHolder, true);
+        //Exactly what we want but just with the items data - MW
+        itemObj.transform.localPosition = item.offset;
+        itemObj.transform.localRotation = item.pickupRotation;
 
-        item = newItem;            //assigned item to the new item
-        return item;
+        this.item = item;
+        return true;
+
     }
 
     public void RemoveItem()
     {
         //remove the current item
+        
+        //check if the item is pooled, if so return it
+        if (item.CompareTag("Pooled"))
+        {
+            item.gameObject.SetActive(false);
+            item = null;
+            return;
+        }
+            
+        
+        
         //destroy the item
         Destroy(item.gameObject);
         item = null;

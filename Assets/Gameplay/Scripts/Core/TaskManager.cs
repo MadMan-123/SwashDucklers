@@ -74,19 +74,19 @@ public class TaskManager : MonoBehaviour
                         var taskDesc = taskList[dynamicIds[i]];
                         if (taskDesc.task.isDynamic && taskDesc.task.isStatic)
                         {
-                                dynamicPools.Add(new GameObjectPool(taskDesc.dynamicStaticIAreas.Count,transform));
+                                dynamicPools.Add(new GameObjectPool(taskDesc.Interactables.Count,transform));
                                 
                                 //turn the dynamicStaticIAreas into a list of game objects
-                                List<GameObject> gameObjects = taskDesc.dynamicStaticIAreas.Select(item => item.gameObject).ToList();
+                                List<GameObject> gameObjects = taskDesc.Interactables.Select(item => item.gameObject).ToList();
                                 //set buffer
                                 dynamicPools[^1].SetBuffer(gameObjects);
                                 //set the object pools to the dynamic static areas 
-                                for(int j = 0; j < taskDesc.dynamicStaticIAreas.Count; j++)
+                                for(int j = 0; j < taskDesc.Interactables.Count; j++)
                                 {
                                         var poolObj = dynamicPools[^1][j];
 
-                                        if(poolObj.TryGetComponent(out InteractArea iArea))
-                                                iArea.gameObject.SetActive(false);
+                                        /*if(poolObj.TryGetComponent(out Interactable iArea))
+                                                iArea.gameObject.SetActive(false);*/
                                 }
 
                         }
@@ -154,7 +154,7 @@ Redo:
                                 obj = pool[index];
                                 if(obj.activeSelf) continue;
                                 //enable the object
-                                if (obj.TryGetComponent(out InteractArea iArea))
+                                if (obj.TryGetComponent(out Interactable iArea))
                                 {
 
                                         iArea.gameObject.SetActive(true);
@@ -230,9 +230,9 @@ Redo:
                 for (var i = 0; i < taskList.Count; i++)
                 {
                         var task = taskList[i];
-                        for (var k = 0; k < task.dynamicStaticIAreas.Count; k++)
+                        for (var k = 0; k < task.Interactables.Count; k++)
                         {
-                                var area = task.dynamicStaticIAreas[k];
+                                var area = task.Interactables[k];
                                 //draw
                                 Gizmos.color = Color.red;
                                 //add slight variation 
@@ -248,7 +248,7 @@ Redo:
                 public string taskName;
                 public Task task;
                 public GameObject dynamicObjectPrefab;
-                public List<InteractArea> dynamicStaticIAreas = new();
+                public List<Interactable> Interactables = new();
         }
         
         //the actual meat and bones (well kinda more the bones) of the Task
