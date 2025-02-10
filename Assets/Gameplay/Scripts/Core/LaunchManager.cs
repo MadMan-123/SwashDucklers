@@ -9,7 +9,7 @@ public class LaunchManager : MonoBehaviour
     [SerializeField] private float heightModifier = 0.75f;
     [SerializeField] private float durationModifer = 0.99f;
     [SerializeField] static float ragdollTime = 4.5f;
-
+   public static AudioSource splash;
     private void Awake()
     {
         if (instance == null)
@@ -29,7 +29,7 @@ public class LaunchManager : MonoBehaviour
     }
 
     public static Vector3 LaunchObject(GameObject obj, Vector3 target,float extraForce, float launchDuration)
-    {
+    {   
         Vector3 vel;
         if (obj.TryGetComponent(out Rigidbody rb))
         {
@@ -40,6 +40,7 @@ public class LaunchManager : MonoBehaviour
             {
                 obj.GetComponent<Health>().SetHealth(0);
                 obj.GetComponent<PlayerControler>().Ragdoll(ragdollTime,false);
+                splash.Play();
             }
             return vel;
         }
