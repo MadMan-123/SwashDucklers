@@ -55,14 +55,14 @@ public class Leak : Interactable
     void DisableLogic()
     {
          if(cam == null) return;
-                //health.dmgRate -= leakAmmount;
-                health.RepairShip(Damage);
-                var pos = transform.position +  new Vector3(0, 0.5f, 0);
-        
-                 
-                Vector3 lookDir = cam.transform.position - pos;
-                Quaternion direction = Quaternion.LookRotation(lookDir);
-                Instantiate(repairAnim,pos,direction);
+         //health.dmgRate -= leakAmmount;
+         health.RepairShip(Damage);
+         var pos = transform.position +  new Vector3(0, 0.5f, 0);
+ 
+          
+         Vector3 lookDir = cam.transform.position - pos;
+         Quaternion direction = Quaternion.LookRotation(lookDir);
+         Instantiate(repairAnim,pos,direction);
     }
 
     private void OnDisable()

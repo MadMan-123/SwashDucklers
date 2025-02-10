@@ -11,11 +11,8 @@ public class Interactable : MonoBehaviour
 
     public void Interact(Item item,GameObject source)
     {
-        print("1");
         if(itemRequired != Item.Type.NoItem && !item) return;
-        print("2");
         Assert.IsNotNull(OnInteract);
-        print("3");
         OnInteract?.Invoke(source);
     }
 }

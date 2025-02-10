@@ -187,7 +187,7 @@ public class AIBrain : MonoBehaviour
                 {
                     health.TakeDamage(gameObject,damage);
                     //apply knockback
-                    health.ApplyKnockback(transform.forward);
+                    //health.ApplyKnockback(transform.forward);
                 }
             } 
             //clamp the destination

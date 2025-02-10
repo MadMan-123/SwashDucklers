@@ -60,7 +60,7 @@ public class LaunchManager : MonoBehaviour
             Vector3 point = startPos + velocity * time;
             point.y += Physics.gravity.y * time * time * 0.5f;
             points.Add(point);
-            Debug.DrawRay(previousPoint, point - previousPoint, Color.red, 5);
+            Debug.DrawRay(previousPoint, point - previousPoint, Color.red, duration);
             previousPoint = point;
             
         }

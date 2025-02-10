@@ -78,16 +78,17 @@ public class Interactor : MonoBehaviour
             tracked = colliders[i].gameObject;
         }
 
-        if (tracked == null)
-        {
-            return;
-        }
-
         foreach (var body in rigidBodies)
         {
             if(body.gameObject == gameObject || !body) continue;
             Slap(body.gameObject); 
         }
+        if (tracked == null)
+        {
+            return;
+        }
+
+
         
         if (TryGetComponent(out Inventory inventory) && tracked.TryGetComponent(out Interactable interact))
         {
