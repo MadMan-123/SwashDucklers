@@ -59,14 +59,20 @@ public class UIGameSetup : MonoBehaviour
 
     public void krakenHealthUp()
     {
-        StageParameters.krakenHealth = StageParameters.krakenHealth + 1;
-        krakenHealthText.text = StageParameters.krakenHealth.ToString();
+        if (StageParameters.krakenHealth < 10)
+        {
+            StageParameters.krakenHealth = StageParameters.krakenHealth + 1;
+            krakenHealthText.text = StageParameters.krakenHealth.ToString();
+        }
     }
 
     public void krakenHealthDown()
     {
-        StageParameters.krakenHealth = StageParameters.krakenHealth - 1;
-        krakenHealthText.text = StageParameters.krakenHealth.ToString();
+        if (StageParameters.krakenHealth > 1)
+        {
+            StageParameters.krakenHealth = StageParameters.krakenHealth - 1;
+            krakenHealthText.text = StageParameters.krakenHealth.ToString();
+        }
     }
 
     public void levelLengthUp()
