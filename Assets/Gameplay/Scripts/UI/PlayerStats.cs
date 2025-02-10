@@ -20,6 +20,9 @@ public static class PlayerStats
     //Number of players
     public static int playerNo { get; set; }
 
+    //Number of ready players
+    public static int readyPlayers { get; set; }
+
     //Player Colors
     public static Color player1Color { get; set; } = Color.yellow;
     public static Color player2Color { get; set; } = Color.blue;

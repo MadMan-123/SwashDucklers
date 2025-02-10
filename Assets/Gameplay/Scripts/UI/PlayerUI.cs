@@ -21,9 +21,13 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI costumeText;
     [SerializeField] TextMeshProUGUI PlayerText;
 
+    [SerializeField] GameObject ReadyIcon;
+
     float red;
     float green;
     float blue;
+
+    public bool isReady = false;
 
     // Start is called before the first frame update
     void Start()
@@ -125,16 +129,28 @@ public class PlayerUI : MonoBehaviour
     //Start Game
     public void StartGame(InputAction.CallbackContext value)
     {
-
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Boat Scene");
-
     }
 
     public void Back(InputAction.CallbackContext value)
     {
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene("menu test");
+    }
 
+    public void readyUp()
+    {
+      
+        if (isReady == false)
+        {
+            isReady = true;
+            ReadyIcon.SetActive(true);
+            PlayerStats.readyPlayers = PlayerStats.readyPlayers + 1;
+        }
+        else
+        {
+            isReady = false;
+            ReadyIcon.SetActive(false);
+            PlayerStats.readyPlayers = PlayerStats.readyPlayers - 1;
+        }
     }
 
     //Next Hat

@@ -35,9 +35,9 @@ public class PlayerPreview : MonoBehaviour
     void Update()
     {
 
-        Debug.Log(PlayerStats.player1Hat);
+        //Debug.Log(PlayerStats.player1Hat);
 
-        Debug.Log(PlayerStats.Hatlist[PlayerStats.player1Hat].name);
+        //Debug.Log(PlayerStats.Hatlist[PlayerStats.player1Hat].name);
 
         //Get Color and hats
         switch (playerID)

@@ -9,8 +9,7 @@ using UnityEngine.UI;
 public class UiPlayerControler : MonoBehaviour
 {
 
-
-    [SerializeField] PlayerInput playerUI;
+    [SerializeField] private GameObject playerPrefab;
 
     [SerializeField] Texture player1Image;
     [SerializeField] Texture player2Image;
@@ -30,6 +29,8 @@ public class UiPlayerControler : MonoBehaviour
     private GameObject joinText4;
     private GameObject startText;
 
+    private PlayerInputManager playerManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,15 +42,71 @@ public class UiPlayerControler : MonoBehaviour
         joinText4 = this.transform.GetChild(4).gameObject;
         startText = this.transform.GetChild(5).gameObject;
 
+        //TODO:all this needs to be added to the game manager
         PlayerStats.playerNo = 0;
-
+        PlayerStats.readyPlayers = 0;
         //Load Hats into memory;
         PlayerStats.Hatlist = hatList;
+
+        startText.SetActive(false);
+
+        //playerManager.EnableJoining();
+
+        Debug.Log(PlayerStats.playerNo);
+
+        //Spawn joined players
+        for (int i = 0; i < PlayerStats.playerNo; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    PlayerInput.Instantiate(playerPrefab, i, null, -1, PlayerStats.player1input);
+                    break;
+                case 1:
+                    PlayerInput.Instantiate(playerPrefab, i, null, -1, PlayerStats.player2input);
+                    break;
+                case 2:
+                    PlayerInput.Instantiate(playerPrefab, i, null, -1, PlayerStats.player3input);
+                    break;
+                case 3:
+                    PlayerInput.Instantiate(playerPrefab, i, null, -1, PlayerStats.player4input);
+                    break;
+            }
+
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (PlayerStats.playerNo > 0)
+        {
+           
+            if (PlayerStats.readyPlayers == PlayerStats.playerNo)
+            {
+                startText.SetActive(true);
+
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton9))
+                {
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("Game Setup");
+                }
+
+            }
+            else 
+            {
+                startText.SetActive(false);
+            }
+        }
+        else
+        {
+            startText.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton2))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Title Screen");
+        }
 
     }
 
@@ -57,12 +114,14 @@ public class UiPlayerControler : MonoBehaviour
     {
 
         PlayerStats.playerNo = PlayerStats.playerNo + 1;
-        startText.SetActive(true);
 
+        Debug.Log("ADD PLAYER");
         Debug.Log(PlayerStats.playerNo);
 
         //Set parent to the panel so it displays correctly
         player.transform.SetParent(this.transform);
+
+        //player.setupScreen = setupScreen;
 
         //Set information based on player ID
         switch (player.playerIndex)
@@ -127,11 +186,6 @@ public class UiPlayerControler : MonoBehaviour
         }
 
         //PlayerStats.playerNo = PlayerStats.playerNo - 1;
-
-        if (PlayerStats.playerNo == 0)
-        {
-            startText.SetActive(false);
-        }
 
     }
 
