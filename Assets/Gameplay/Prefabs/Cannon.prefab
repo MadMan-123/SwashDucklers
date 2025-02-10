@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 161687909159249456}
   - component: {fileID: 849538731795174332}
-  - component: {fileID: 5380463120270219760}
+  - component: {fileID: 5661676496664633201}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -87,7 +87,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0652537, y: 1.339415, z: 1.3779378}
   m_Center: {x: -0.050434217, y: -0.016615603, z: -0.00270306}
---- !u!114 &5380463120270219760
+--- !u!114 &5661676496664633201
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,25 +96,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 9142333337070584888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f25bab6f39a713b4eaec113d3eeb0e21, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7312f7168159549932a626d28ff7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnInteract:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5380463120270219760}
-        m_TargetAssemblyTypeName: Cannon, Assembly-CSharp
-        m_MethodName: Fire
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  itemRequired: 0
+      m_Calls: []
+  itemRequired: -1
   cannonballPrefab: {fileID: 6431738259369445543, guid: fff432052bad16b4b9db2c1c5abadacf,
     type: 3}
   cannonballSpawnPoint: {fileID: 6783439727225733875}
