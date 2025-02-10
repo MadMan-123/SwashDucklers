@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour//GM this script will be for the player's health/damage accumulation
 {
     [SerializeField] private float health = 0.0f; //GM: player's health starts of at the base value of 0.0%
-    [SerializeField] private float maxHealth = 100.0f; //GM: Maximum health cap
+    [SerializeField] private float maxHealth = StageParameters.krakenHealth; //GM: Maximum health cap
     [SerializeField] private TextMeshProUGUI healthText; //GM: refernece to UI Text to display Health   
     [SerializeField] private UnityEvent<GameObject> onDamageTaken;
     public void TakeDamage(GameObject source,float damage)

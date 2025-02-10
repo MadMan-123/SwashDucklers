@@ -35,4 +35,6 @@ public static class StageParameters
 
     //Kraken enabled -SD
     public static bool krakenEnabled = true;
+
+    public static int krakenHealth = 5;
 }

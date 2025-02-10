@@ -6,7 +6,7 @@ public class KrakenHud : MonoBehaviour
 {
 
 
-    [SerializeField] int startHealth;
+    int startHealth = StageParameters.krakenHealth;
     [SerializeField] public int currentHealth;
 
     [SerializeField] public GameObject Bomb;

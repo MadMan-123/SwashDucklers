@@ -10,10 +10,12 @@ public class UIGameSetup : MonoBehaviour
 
     [SerializeField] Toggle krakenToggle;
 
+    [SerializeField] TextMeshProUGUI krakenHealthText;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        krakenHealthText.text = StageParameters.krakenHealth.ToString();
     }
 
     // Update is called once per frame
@@ -52,4 +54,15 @@ public class UIGameSetup : MonoBehaviour
         }
     }
 
+    public void krakenHealthUp()
+    {
+        StageParameters.krakenHealth = StageParameters.krakenHealth + 1;
+        krakenHealthText.text = StageParameters.krakenHealth.ToString();
+    }
+
+    public void krakenHealthDown()
+    {
+        StageParameters.krakenHealth = StageParameters.krakenHealth - 1;
+        krakenHealthText.text = StageParameters.krakenHealth.ToString();
+    }
 }
