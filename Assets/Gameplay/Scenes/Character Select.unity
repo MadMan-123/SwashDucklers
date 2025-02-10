@@ -356,6 +356,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b603ec1bebc23c64fa679e84f80efa49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 1484968306378476274, guid: e5af582f07431a34788ad1b51217b8f5,
+    type: 3}
   player1Image: {fileID: 8400000, guid: 42256343cb450df4e9f0735815470fe8, type: 2}
   player2Image: {fileID: 8400000, guid: 809bc91f63f32ad4a925f69300fc65f9, type: 2}
   player3Image: {fileID: 8400000, guid: 347455c52bce4774f8db18efffea0ecb, type: 2}
@@ -397,7 +399,6 @@ MonoBehaviour:
     model: {fileID: 3353610329733803660, guid: c46ea743f661a684b89c4ad36c7e41ba, type: 3}
     position: {x: -0.2, y: 0.55, z: 0}
     previewPosition: {x: 0.2, y: 1, z: 0}
-  setupScreen: {fileID: 0}
 --- !u!114 &100458738
 MonoBehaviour:
   m_ObjectHideFlags: 0

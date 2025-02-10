@@ -8,15 +8,7 @@ using UnityEngine.UI;
 public class UIGameSetup : MonoBehaviour
 {
 
-    //References to input, uses general input so all players can control this menu -SD
-    private Input Input;
-
-    //References to the Menu Objects-SD
-    [SerializeField] Button lastHat;
-    [SerializeField] Button forwardHat;
-
-    //Reference to character select screen
-    [SerializeField] GameObject characterScreen;
+    [SerializeField] Toggle krakenToggle;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +22,7 @@ public class UIGameSetup : MonoBehaviour
         //Start Game
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton9))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Boat Scene");
+            startGame();
         }
 
         //Return to previous menu
@@ -38,5 +30,26 @@ public class UIGameSetup : MonoBehaviour
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("Character Select");
         }
+
     }
+
+    public void startGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Boat Scene");
+    }
+
+    public void kraken()
+    {
+        if (krakenToggle.isOn == true)
+        {
+            StageParameters.krakenEnabled = true;
+            Debug.Log("Kraken On");
+        }
+        else
+        {
+            StageParameters.krakenEnabled = false;
+            Debug.Log("Kraken Off");
+        }
+    }
+
 }

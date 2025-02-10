@@ -24,11 +24,18 @@ public class KrakenManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        kraken.SetActive(false);
-        tentacles.SetActive(false);
-        krakenHealth.SetActive(false);
-        gameTimer.SetActive(true);
-        StartCoroutine(KrakenSpawnTimer());
+        if (StageParameters.krakenEnabled == true)
+        {
+            kraken.SetActive(false);
+            tentacles.SetActive(false);
+            krakenHealth.SetActive(false);
+            gameTimer.SetActive(true);
+            StartCoroutine(KrakenSpawnTimer());
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     IEnumerator KrakenSpawnTimer()
