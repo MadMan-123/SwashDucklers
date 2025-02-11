@@ -9,7 +9,6 @@ public class Cannon : Interactable
     
     public GameObject cannonballPrefab;
     GameObjectPool cannonballPool;
-    public AudioSource cannonfire;
     public Transform cannonballSpawnPoint;
     
     [SerializeField] private float launchDuration = 1f;
@@ -41,7 +40,7 @@ public class Cannon : Interactable
         var cannonball = cannonballPool.GetObject();
         cannonball.transform.position = cannonballSpawnPoint.position;
         cannonball.transform.rotation = cannonballSpawnPoint.rotation;
-        cannonfire.Play();
+        SoundManager.PlayAudioClip("CannnonFire", this.transform.position, 1f);
 
         if (cannonball.TryGetComponent(out Rigidbody rb))
         {
