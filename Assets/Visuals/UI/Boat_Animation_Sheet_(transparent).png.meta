@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,13 +37,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -52,9 +52,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -134,18 +134,260 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Boat_Animation_Sheet_(transparent)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 600
+        width: 600.125
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 714547cd2582646499d8759b0a84b8ba
+      internalID: -1851243732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Animation_Sheet_(transparent)_1
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 600
+        width: 600.125
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b926ae3529ec18c4db3a14ccf697d631
+      internalID: -686492373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Animation_Sheet_(transparent)_2
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 600
+        width: 600.125
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c97ee9e6267279e47af8808fdd76e36a
+      internalID: -1168862464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Animation_Sheet_(transparent)_3
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 600
+        width: 600.125
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbad1eef4e2027c47b8e23449a06efed
+      internalID: -567189883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Animation_Sheet_(transparent)_4
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 600
+        width: 600.125
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8473f593d187f1a43b1fa51fc83ede85
+      internalID: 1054034326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Animation_Sheet_(transparent)_5
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 600
+        width: 600.125
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 973f63952743cd64fab082fab54e8435
+      internalID: -631243857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Animation_Sheet_(transparent)_6
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 600
+        width: 600.125
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fe9f28155d40a94fa29988e5a584eef
+      internalID: 1021838099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Animation_Sheet_(transparent)_7
+      rect:
+        serializedVersion: 2
+        x: 4200
+        y: 600
+        width: 600.125
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3eace4373700c54498295c29551151c
+      internalID: -2035146503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Animation_Sheet_(transparent)_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 600.125
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9ce85cddead80f45aad5083b54aabae
+      internalID: 1636487992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Animation_Sheet_(transparent)_9
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 600.125
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fe5a7ab10e979e48b191feed6077eea
+      internalID: 781810847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boat_Animation_Sheet_(transparent)_10
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 0
+        width: 600.125
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b38cd0779bee9f47abf48dac9fcd850
+      internalID: -692207203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Boat_Animation_Sheet_(transparent)_0: -1851243732
+      Boat_Animation_Sheet_(transparent)_1: -686492373
+      Boat_Animation_Sheet_(transparent)_10: -692207203
+      Boat_Animation_Sheet_(transparent)_2: -1168862464
+      Boat_Animation_Sheet_(transparent)_3: -567189883
+      Boat_Animation_Sheet_(transparent)_4: 1054034326
+      Boat_Animation_Sheet_(transparent)_5: -631243857
+      Boat_Animation_Sheet_(transparent)_6: 1021838099
+      Boat_Animation_Sheet_(transparent)_7: -2035146503
+      Boat_Animation_Sheet_(transparent)_8: 1636487992
+      Boat_Animation_Sheet_(transparent)_9: 781810847
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
