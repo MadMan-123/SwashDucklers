@@ -821,6 +821,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -4.748993
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 714388683be55f44d865ea4c6b9d6cdf, type: 2}
     - target: {fileID: 7360929442756845415, guid: 03f564ea25b1e3d4ea401c92f259ad91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -971,6 +976,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03f564ea25b1e3d4ea401c92f259ad91, type: 3}
+--- !u!1 &68571029 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 68571028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &68571030 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 68571028}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &75170551
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1850,6 +1867,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03f564ea25b1e3d4ea401c92f259ad91, type: 3}
+--- !u!1 &96744756 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 96744755}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &96744757 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 96744755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &131119769 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 424926215238221376, guid: 553a47fac97c1ff42a8771131a7b5c08,
@@ -1971,6 +2000,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 206331831}
+  - component: {fileID: 206331832}
   m_Layer: 0
   m_Name: Double Tentacle 2
   m_TagString: Untagged
@@ -1997,6 +2027,22 @@ Transform:
   - {fileID: 2043053149}
   m_Father: {fileID: 1961030954}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &206331832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206331830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tentacles: []
+  hitBox: []
+  anim: []
+  spawnTime: 0
 --- !u!1 &213613925
 GameObject:
   m_ObjectHideFlags: 0
@@ -2223,6 +2269,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 270517993}
+  - component: {fileID: 270517994}
   m_Layer: 0
   m_Name: L Shaped Tentacle 1
   m_TagString: Untagged
@@ -2247,6 +2294,25 @@ Transform:
   - {fileID: 1096261450}
   m_Father: {fileID: 1961030954}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &270517994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270517992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tentacles:
+  - {fileID: 1096261452}
+  hitBox:
+  - {fileID: 1468988862}
+  anim:
+  - {fileID: 1096261451}
+  spawnTime: 0
 --- !u!1 &292267444 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e457a689504d00b4094f4e18ad3cc5cd,
@@ -3157,6 +3223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 482245466}
+  - component: {fileID: 482245467}
   m_Layer: 0
   m_Name: Single Tentacle 1
   m_TagString: Untagged
@@ -3181,6 +3248,25 @@ Transform:
   - {fileID: 1922169623}
   m_Father: {fileID: 1961030954}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &482245467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482245465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tentacles:
+  - {fileID: 68571029}
+  hitBox:
+  - {fileID: 1052386099}
+  anim:
+  - {fileID: 68571030}
+  spawnTime: 0
 --- !u!1 &511253202
 GameObject:
   m_ObjectHideFlags: 0
@@ -4386,6 +4472,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 694203336}
+  - component: {fileID: 694203337}
   m_Layer: 0
   m_Name: Single Tentacle 2
   m_TagString: Untagged
@@ -4410,6 +4497,25 @@ Transform:
   - {fileID: 1732648862}
   m_Father: {fileID: 1961030954}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &694203337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694203335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tentacles:
+  - {fileID: 1732648864}
+  hitBox:
+  - {fileID: 921437003}
+  anim:
+  - {fileID: 1732648863}
+  spawnTime: 0
 --- !u!4 &710657237 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03f564ea25b1e3d4ea401c92f259ad91,
@@ -5819,6 +5925,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1037955815}
+  - component: {fileID: 1037955816}
   m_Layer: 0
   m_Name: Double Tentacle 1
   m_TagString: Untagged
@@ -5845,6 +5952,22 @@ Transform:
   - {fileID: 1842991546}
   m_Father: {fileID: 1961030954}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1037955816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037955814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tentacles: []
+  hitBox: []
+  anim: []
+  spawnTime: 0
 --- !u!1 &1038018306
 GameObject:
   m_ObjectHideFlags: 0
@@ -6691,6 +6814,18 @@ PrefabInstance:
 --- !u!4 &1096261450 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1096261449}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1096261451 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1096261449}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1096261452 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
     type: 3}
   m_PrefabInstance: {fileID: 1096261449}
   m_PrefabAsset: {fileID: 0}
@@ -11340,6 +11475,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1732648861}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1732648863 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1732648861}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1732648864 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1732648861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1749537679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7455892935728452265, guid: 0ea83d9e89bbe1648bbbf5254c80280b,
@@ -12956,6 +13103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2023198574}
+  - component: {fileID: 2023198575}
   m_Layer: 0
   m_Name: L Shaped Tentacle 2
   m_TagString: Untagged
@@ -12980,6 +13128,24 @@ Transform:
   - {fileID: 967575382}
   m_Father: {fileID: 1961030954}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2023198575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023198573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tentacles:
+  - {fileID: 96744756}
+  hitBox: []
+  anim:
+  - {fileID: 96744757}
+  spawnTime: 0
 --- !u!1001 &2043053148
 PrefabInstance:
   m_ObjectHideFlags: 0
