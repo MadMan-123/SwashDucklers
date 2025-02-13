@@ -46,9 +46,12 @@ public class KrakenManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         weather.KrakenSpawn();
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2.5f);
+        //SoundManager.PlayAudioClip("Lightning OR Something", this.transform.position, 1f);
+        yield return new WaitForSeconds(1.25f);
+        tentacles.SetActive(true); 
+        yield return new WaitForSeconds(1.25f);
         kraken.SetActive(true);
-        tentacles.SetActive(true);
         krakenHealth.SetActive(true);
         gameTimer.SetActive(false);
         CameraShake.Instance.ShakeCamera(1.5f, waterChangeDuration + 0.5f);

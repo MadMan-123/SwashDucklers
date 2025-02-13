@@ -18,6 +18,7 @@ public class tentacleAI : MonoBehaviour
     {
         for (int i = 0; i < tentacleObjects.Length; i++)
         {
+            tentacleObjects[i].GetComponent<Tentacle>().Initialise();
             tentacleObjects[i].SetActive(false);
         }
         weightedSums = new float[tentacleObjects.Length];
