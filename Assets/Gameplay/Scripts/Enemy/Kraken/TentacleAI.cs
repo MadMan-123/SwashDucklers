@@ -18,7 +18,7 @@ public class tentacleAI : MonoBehaviour
     {
         for (int i = 0; i < tentacleObjects.Length; i++)
         {
-            tentacleObjects[i].SetActive(false);
+            tentacleObjects[i].GetComponent<Tentacle>().Initialise();
         }
         weightedSums = new float[tentacleObjects.Length];
         randomNumber = Random.Range(0, tentacleObjects.Length);        //start with a random number

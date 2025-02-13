@@ -16,7 +16,6 @@ public class KrakenManager : MonoBehaviour
     [SerializeField] Weather weather;
 
     float timeBeforeNext;
-    bool isActive = false;
 
     // Start is called before the first frame update
     void Start()
