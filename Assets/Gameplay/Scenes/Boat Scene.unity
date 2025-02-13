@@ -825,7 +825,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 714388683be55f44d865ea4c6b9d6cdf, type: 2}
+      objectReference: {fileID: 9100000, guid: 9bd7848bfea886647ad4012710730fe2, type: 2}
     - target: {fileID: 7360929442756845415, guid: 03f564ea25b1e3d4ea401c92f259ad91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1812,6 +1812,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 62.628
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d5cdd6a10e0b6d945849f3b7ab4ac487, type: 2}
     - target: {fileID: 9153182248540395080, guid: 03f564ea25b1e3d4ea401c92f259ad91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2039,9 +2044,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tentacles: []
-  hitBox: []
-  anim: []
+  tentacles:
+  - {fileID: 1779946194}
+  - {fileID: 2043053151}
+  hitBox:
+  - {fileID: 1082328165}
+  - {fileID: 1349454439}
+  anim:
+  - {fileID: 1779946193}
+  - {fileID: 2043053150}
   spawnTime: 0
 --- !u!1 &213613925
 GameObject:
@@ -5269,11 +5280,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -5.21698
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: bdafe4711a532a047be3896ca2d7d629, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03f564ea25b1e3d4ea401c92f259ad91, type: 3}
+--- !u!1 &875717204 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 875717203}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &875717205 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 875717203}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &891190280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5964,9 +5992,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tentacles: []
-  hitBox: []
-  anim: []
+  tentacles:
+  - {fileID: 1626924603}
+  - {fileID: 875717204}
+  hitBox:
+  - {fileID: 1937866891}
+  - {fileID: 1796102769}
+  anim:
+  - {fileID: 1626924604}
+  - {fileID: 875717205}
   spawnTime: 0
 --- !u!1 &1038018306
 GameObject:
@@ -6806,6 +6840,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -92.80701
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: abcdf0992dd5a91418cc9aedfb29fe81, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10177,6 +10216,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kraken_TentacleFBX
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2626787434916875362, guid: 03f564ea25b1e3d4ea401c92f259ad91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10372,6 +10416,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 7.485
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d4357fa4de706a84fb7fd2fb9453bd30, type: 2}
     - target: {fileID: 7360929442756845415, guid: 03f564ea25b1e3d4ea401c92f259ad91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10522,6 +10571,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03f564ea25b1e3d4ea401c92f259ad91, type: 3}
+--- !u!1 &1626924603 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1626924602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1626924604 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1626924602}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1631960519 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03f564ea25b1e3d4ea401c92f259ad91,
@@ -11464,6 +11525,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 62.376
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d2ea62639382d8a44be877dd1fbedb8f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12020,11 +12086,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 9.592
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 10854e85107a94a46998d5ecd8ac4559, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03f564ea25b1e3d4ea401c92f259ad91, type: 3}
+--- !u!95 &1779946193 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779946192}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1779946194 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779946192}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1796102769
 GameObject:
   m_ObjectHideFlags: 0
@@ -13142,7 +13225,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tentacles:
   - {fileID: 96744756}
-  hitBox: []
+  hitBox:
+  - {fileID: 842860670}
   anim:
   - {fileID: 96744757}
   spawnTime: 0
@@ -13759,6 +13843,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -26.502
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d7a6d60964056bf4cadbece511bb668a, type: 2}
     - target: {fileID: 7360929442756845415, guid: 03f564ea25b1e3d4ea401c92f259ad91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13867,6 +13956,18 @@ PrefabInstance:
 --- !u!4 &2043053149 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 2043053148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2043053150 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 2043053148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2043053151 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
     type: 3}
   m_PrefabInstance: {fileID: 2043053148}
   m_PrefabAsset: {fileID: 0}
