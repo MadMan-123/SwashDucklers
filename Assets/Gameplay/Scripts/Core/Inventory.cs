@@ -88,5 +88,15 @@ public class Inventory : MonoBehaviour
         item = null;
     }
 
-    public Item GetItem() => item;             //return item?
+    //returns the current item
+    public Item GetItem() => item;
+
+    public void TakeItem(Inventory inv)
+    {
+        if(item == null) return;
+        //take the current item, move it to the passed inventory and remove it from the current inventory
+        inv.AddItem(item.gameObject);
+        inv.GetItem().current = inv;
+        item = null;
+    }
 }

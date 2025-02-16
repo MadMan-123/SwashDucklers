@@ -28,7 +28,6 @@ public class Kraken : MonoBehaviour
             eyeTarget = pm.players[0];
             StartCoroutine(EyeFollow());
             activate = false;
-            Debug.Log("First call");
         }
 
     }

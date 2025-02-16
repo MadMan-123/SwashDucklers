@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using Core;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -8,56 +9,74 @@ using Random = UnityEngine.Random;
 
 public class AIBrain : MonoBehaviour
 {
-        [SerializeField] private float fov = 90;
-        [SerializeField] private float viewRadius = 10;
         public NavMeshAgent agent;
         public Rigidbody rb;
-        private Health health;
-        [SerializeField]private Transform target;
+        public Inventory inventory;
+        [SerializeField] private float viewRadius = 10;
+        [SerializeField] private Target target;
         [SerializeField] private State state;
-        private bool shouldUpdate = true;
-        Vector3 delta;
+        [Header("Wander behaviour")]
         [SerializeField] private float circleDistance = 5f;
         [SerializeField] private float randDifference = 90f;
         [SerializeField] private float circleRadius = 5f;
-        [SerializeField] private Collider[] colliders = new Collider[10];
-        [SerializeField] public float knockDownTime = 5f;
-        [SerializeField] private bool shouldDebug = false;
+        [Header("Attack behaviour")]
         [SerializeField] private float attackDistance = 1.5f;
         [SerializeField] private float attackRadius = 0.75f;
         [SerializeField] private float damage = 5;
         [SerializeField] private bool canAttack = true;
         [SerializeField] private float cooldownTime = 3f;
+        [SerializeField] public float knockDownTime = 5f;
+        [SerializeField] private bool shouldDebug = false;
+        
+        [SerializeField] private float fleeDistance = 5f;
+        private Health health;
         private LayerMask boatLayer;
+        private Vector3 delta;
+        private Collider[] colliders = new Collider[10];
+        
+        float[] distances = new float[10];
+        private float wanderAngle = 0f; 
+        [SerializeField] private bool onFloor;
+        [SerializeField] private bool hasCargo = false;
+        [SerializeField] private bool isFleeing;
+        [SerializeField] private float fleeTime = 5f;
+
+        
         public enum State
         {
             Idle,
             Chase,
             Attack,
             Flee,
-            Wander
+            Wander,
+            JumpOff,
+            Steal
         }
 
         void Start()
         {
             boatLayer = LayerMask.NameToLayer("Boat");
-            state = State.Idle;
-            if (TryGetComponent(out agent))
-            {
-                agent.enabled = false;
-            }
+            state = State.Wander;
             
-            if(TryGetComponent(out rb))
-            {
-                rb.isKinematic = false;
-            }
-
-            if (TryGetComponent(out health))
-            {
-                health.SetHealth(health.GetMaxHealth());
-            }
+            if (!TryGetComponent(out agent))
+                agent = gameObject.AddComponent<NavMeshAgent>(); 
+            
+            agent.enabled = false;
+            
+            if(!TryGetComponent(out rb))
+                rb = gameObject.AddComponent<Rigidbody>();
+                
+            rb.isKinematic = false;
+            
+            if (!TryGetComponent(out health))
+                health = gameObject.AddComponent<Health>();
+            
+            health.SetHealth(health.GetMaxHealth());
+            
+            if(!TryGetComponent(out inventory))
+                inventory = gameObject.AddComponent<Inventory>();
         }
-        
+       
         private void Update()
         {
             if (!agent.enabled)
@@ -65,86 +84,194 @@ public class AIBrain : MonoBehaviour
                 //if the agent is not enabled wait to be on the floor
                 StartCoroutine(WaitUntilFloorHit());
             }
-            
-            if (shouldUpdate && agent.enabled)
+
+            if (agent.enabled)
             {
                 //check for a target
-                //sphere cast then filter with fov check
-                var count = Physics.OverlapSphereNonAlloc(transform.position, viewRadius, colliders);
-                if(count == 0)
+                CheckForPlayer(); 
+                //decision tree
+                //is player near 
+                if (target != null && target.type == Target.Type.Player)
                 {
-                    //if there are no colliders in the view radius, return to wander
-                    ChangeState(State.Wander);
-                    
-                }
-                
-                 
-                for (int i = 0; i < count; i++)
-                {
-                    //check if the collider is in the fov
-                    if (CanSee(colliders[i].transform) && colliders[i].CompareTag("Player"))
+                    //check if we have cargo
+                    if (hasCargo)
                     {
-                        print("See Player");
-                        //todo: some sort of dynamic priority system on what the target should be
-                        target = colliders[i].transform;
-                        
-                        var distance = (target.position - transform.position).magnitude;
-                        //Judge what state to be in
-
-                        //if the health is low, flee
-                        if (health.GetHealth() >= health.GetMaxHealth() / 2)
+                        //if yes then flee
+                        ChangeState(State.Flee);
+                    }
+                    else if (!isFleeing)
+                    {
+                        //chase the player
+                        ChangeState(State.Chase);
+                        //if the player has an item and in range
+                        if (target.trackedTransform.TryGetComponent(out Inventory inv) && inv.item != null ) 
                         {
-                            ChangeState(State.Flee);
-                            break;
-                        }
-                        
-                        //if we are in attack range, attack
-                        if (distance < attackDistance)
+                            //check if the player has an item
+                            //if yes steal
+                            inv.TakeItem(inventory);
+                            hasCargo = true;
+                        } 
+                        if (delta.magnitude < attackDistance)
                         {
                             ChangeState(State.Attack);
-                            break;
                         }
                         
-                        //if we are not chase
-                        if (distance < viewRadius)
-                        {
-                            ChangeState(State.Chase);
-                            break;
-                        }
-                            
+                    }
+                    else
+                    {
+                        ChangeState(State.Flee);
+                    }
 
-                        //if we cant see the target any more, wander
-                        ChangeState(State.Wander);
+                }
+                
+                //if no then check if we have cargo in hand
+                else
+                {
+                    if (hasCargo)
+                    {
+                        //if yes then flee
+                        ChangeState(State.Flee);
+                    }
+                    else if(target != null )
+                    {
+                        
+                        //if no then chase
+                        ChangeState(State.Chase);
+                        
+                        
 
                     }
+                                                
                 }
 
-                Vector3 destination;
-                if(target)
-                    delta = transform.position - target.position;
+                HandleMovement();
+            }
+        }
 
-                destination = state switch
+        
+        private Target GetClosestCargo()
+        {
+            Collider[] colliders = new Collider[5];
+            float[] cache = new float[5];
+            //sphere cast to get all the cargo
+            Physics.OverlapSphereNonAlloc(transform.position, viewRadius, colliders);
+            var cargo = colliders.Where(x => x && x.TryGetComponent(out Cargo cargo)).ToArray();
+            var count = cargo.Length;
+            if(count == 0) return null;
+            //get the distances
+            for (int i = 0; i < count; i++)
+            {
+                cache[i] = (cargo[i].transform.position - transform.position).magnitude;
+            }
+            
+            //sort the cargo by distance
+            Helper.QuickSortWithDistances(cargo, cache, 0, count - 1);
+            //return the closest cargo
+            return new Target(cargo[0].transform, Target.Type.Cargo);
+        }
+
+        private Target CheckForPlayer()
+        {
+            //get the player layer mask
+            var playerLayer = LayerMask.NameToLayer("player");
+            
+            //sphere cast then filter with fov check
+            Physics.OverlapSphereNonAlloc(transform.position, viewRadius, colliders, 1 << playerLayer);
+            //get all the players by checking the tag and if the value is null
+            var players = colliders.Where(x => x).ToArray();
+            //get the count
+            var count = players.Length;
+            Array.Clear(distances, 0, distances.Length);
+            //get the distances
+            for (int i = 0; i < count; i++)
+            {
+                //get the distance
+                distances[i] = (players[i].transform.position - transform.position).magnitude;
+            }
+            //sort the players by distance
+            Helper.QuickSortWithDistances(players, distances, 0, count - 1);
+            //set the target to the first player, else null
+            target = players.Length > 0 ? new Target(players[0].transform, Target.Type.Player) : null;
+             
+            //get the delta for later calculations
+            if (target != null)
+                delta = transform.position - target.trackedTransform.position;
+            
+            
+            return target;
+        }
+
+        private void HandleMovement()
+        {
+                var destination = state switch
                 {
-                    State.Idle => Idle(),
-                    State.Chase => Chase(),
-                    State.Attack => Attack(),
-                    State.Flee => Flee(),
+                    State.Idle => transform.position,
                     State.Wander => Wander(),
-                    _ => throw new ArgumentOutOfRangeException()
+                    State.Flee => Flee(),
+                    State.Attack => Attack(),
+                    State.Chase => Chase(),
+                    State.Steal => Steal(),
+                    State.JumpOff => JumpOff(),
+                    _ => transform.position
                 };
 
-                //clamp the destination to the navmesh
-                destination = NavMesh.SamplePosition(destination, out var hit, 1f, NavMesh.AllAreas) ? hit.position : transform.position;
-                    
-                //Debug.DrawRay(transform.position, destination, Color.green, 0.1f);
-                agent.SetDestination(destination);
-               
+
+                //clamp the destination to the navmesh, if the point is not on the navmesh then we should find the closest point
+                if (!NavMesh.SamplePosition(destination, out var hit, 0.5f, NavMesh.AllAreas))
+                {
+                    NavMesh.FindClosestEdge(destination, out hit, NavMesh.AllAreas);
+                    destination = hit.position;
+                }
+
+                //draw the destination as a big line
+                //if the agent is enabled and is placed on a nav mesh area
+                if (agent.enabled && NavMesh.SamplePosition(transform.position, out var hit2, 0.5f, NavMesh.AllAreas))
+                    agent.SetDestination(destination);
+                
+                //obstacle avoidance
+                //we need to turn around if there is something infront of us or we are looking off the edge of the navmesh
+                if (Physics.Raycast(transform.position, transform.forward, out var hit3, 1f, NavMesh.AllAreas))
+                {
+                    //turn around
+                    transform.Rotate(Vector3.up, 180);
+                }
+                
+        }
+
+        private Vector3 JumpOff()
+        {
+            throw new NotImplementedException();
+        }
+
+        private Vector3 Steal() => throw new NotImplementedException();
+
+        private readonly RaycastHit[] hits = new RaycastHit[2];
+
+        private void FixedUpdate()
+        {
+            //check if we are on the boat, if we are then we should flag the agent to be enabled
+            //sphere cast to check if we are on the boat just below the agent
+            if (!onFloor)
+            {
+                var count = (Physics.SphereCastNonAlloc(
+                    transform.position,
+                    0.5f,
+                    Vector3.down,
+                    hits,
+                    0.1f,
+                    1 << boatLayer
+                ));
+                
+                onFloor = count > 0;
             }
         }
 
         private IEnumerator WaitUntilFloorHit()
         {
-            yield return new WaitForSeconds(5);
+            //wait until the agent is on the floor
+            while(onFloor) yield return null;
+            
+            //check underneath 
             agent.enabled = true;
             rb.isKinematic = true;
         }
@@ -152,46 +279,56 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 Flee()
         {
-            if (!target)
+            if (target == null)
             {
                 ChangeState(State.Wander);
                 return transform.position;
             }
-            //find a point that is opposite to the target
-            return transform.position - delta;
-    
+            //get a position far away 
+            Vector3 directionToFlee = (transform.position - target.trackedTransform.position).normalized;
+            Vector3 fleePosition = transform.position + directionToFlee * fleeDistance; 
+            
+            //clamp the destination to the navmesh, if the point is not on the navmesh then we should find the closest point
+            if (!NavMesh.SamplePosition(fleePosition, out var hit, 2, NavMesh.AllAreas))
+            {
+                NavMesh.FindClosestEdge(fleePosition, out hit, NavMesh.AllAreas);
+                fleePosition = hit.position;
+            }
+            
+            return fleePosition;
         }
 
         private Vector3 Attack()
         {
-            if (!target)
+            if (target == null)
             {
                 ChangeState(State.Wander);
                 return transform.position;
             }
-            if(delta.magnitude > attackDistance)
+
+            if (isFleeing)
             {
-                ChangeState(State.Chase);
-                return transform.position;
+                ChangeState(State.Flee);
+                return Flee();
             }
             if (!canAttack) return transform.position;
-            ResetFlag(); 
+            canAttack = false;
             
-            var destination = delta * 0.85f;
+            var destination = delta * 0.95f;
             //do attack
-            Collider[] colliders = new Collider[10];
-            var count = Physics.OverlapSphereNonAlloc(transform.position + transform.forward * 0.5f,attackRadius, colliders);
-            for (int i = 0; i < count; i++)
+            if (target.trackedTransform.TryGetComponent(out Health health))
             {
-                if (colliders[i].gameObject != gameObject && colliders[i].TryGetComponent(out Health health))
-                {
-                    health.TakeDamage(gameObject,damage);
-                    //apply knockback
-                    //health.ApplyKnockback(transform.forward);
-                }
-            } 
-            //clamp the destination
-            Invoke(nameof(ResetFlag),cooldownTime);
+                health.TakeDamage(gameObject,damage);
+              
+                //flee
+                ChangeState(State.Flee);
+                isFleeing = true;
+                StartCoroutine(ResetFleeFlag(fleeTime));
+            }
+        
+            
+            StartCoroutine(ResetAttackFlag(cooldownTime));
+            
             
             return destination;
         }
@@ -199,52 +336,28 @@ public class AIBrain : MonoBehaviour
         private Vector3 Chase()
         {
 
-            if (delta.magnitude < attackDistance)
-            {
-                ChangeState(State.Attack);
-                return transform.position + delta * 0.8f;
-            }
-            return target.position;
+
+            return target.trackedTransform.position;
         }
 
-        private void ResetFlag()
+
+        IEnumerator ResetFleeFlag( float time)
         {
+            yield return new WaitForSeconds(time);
+            isFleeing = !isFleeing;
+            
+        }
+        
+        IEnumerator ResetAttackFlag( float time)
+        {
+            yield return new WaitForSeconds(time);
             canAttack = !canAttack;
         }
         
         
-        private float wanderAngle = 0f; // Add this as a class field
- 
-        /*private Vector3 Wander()
-        {
-            //Circle pos
-            var circlePos = transform.position + (transform.forward * circleDistance);
-	
-            //Generate a small random angle
-            float randomAngle = Random.Range(-randDifference, randDifference) * Mathf.Deg2Rad;
-
-            //Calculate the random offset
-            float offsetX = Mathf.Cos(randomAngle) * circleRadius;
-            float offsetZ = Mathf.Sin(randomAngle) * circleRadius;
-
-            //Apply the random offset
-            var velocityPos = (transform.position + agent.velocity);
-            velocityPos.x += offsetX;
-            velocityPos.z += offsetZ;
-
-            //Constrain the point to the circle
-            var constrainedPos = ConstraintPointToCircle(velocityPos, circlePos, circleRadius);
-            //calculate the desired velocity by taking the constrained position and current position, getting the unit vector then multiplying by max current speed
-            return constrainedPos;
-        }*/
-
         private Vector3 Wander()
         {
-            if (target)
-            {
-                ChangeState(State.Chase);
-                return target.position;
-            }
+
             wanderAngle += Random.Range(-randDifference, randDifference) * Mathf.Deg2Rad;
             var circlePos = transform.position + (transform.forward * circleDistance);
             
@@ -258,72 +371,20 @@ public class AIBrain : MonoBehaviour
 
             return targetPos;
         }
-        private Vector3 Idle()
-        {
-            if (target)
-            {
-                ChangeState(State.Chase);
-                return target.position;
-            }
-            else
-            {
-                ChangeState(State.Wander);
-                return transform.position;
-            }
-            return transform.position;
-        }
+            
 
         public void ChangeState(State newState)
         {
             state = newState;
             
         }
-        public  Vector3 ConstraintPointToCircle(Vector3 position, Vector3 circlePosition, float radius)
-        {
-            //sum initialisation 
-            Vector3 sum = Vector3.zero;
-		
-            //first figure out the delta between each x and y axis
-            Vector3 delta = circlePosition - position;
+  
 
-            //pass the delta then work out the angle (theta) to a constrained position on the surface of the circle 
-            float theta = Mathf.Atan2(delta.z, delta.x);
-
-            //make the sum return the circle pos + radius then multiply by cos(theta) to return the constrained position on the circle
-            sum.x = circlePosition.x + radius * Mathf.Cos(theta);
-            //do the same for the y axis but with sin(theta)
-            sum.z = circlePosition.z + radius * Mathf.Sin(theta);
-
-            return sum;
-
-        } 
-        bool CanSee(Transform target)
-        {
-            if (!target) return false;  // Early exit if no target
-
-            // Get direction to target
-            Vector3 directionToTarget = target.position - transform.position;
-    
-            // Check if target is within field of view
-            float angle = Vector3.Angle(transform.forward, directionToTarget);
-            if (angle > fov) return false;  // Outside FOV angle
-    
-            // Check if there are obstacles between AI and target
-            if (Physics.Raycast(transform.position, directionToTarget.normalized, out RaycastHit hit, viewRadius))
-            {
-                // Return true only if we hit the target first
-                // This prevents seeing through walls
-                return hit.transform == target;
-            }
-    
-            // If ray didn't hit anything but target is within FOV and view radius
-            return directionToTarget.magnitude <= viewRadius;
-        }
 
         public void ToggleAttack(GameObject source)
         {
             if(source.CompareTag("Player"))
-                target = source.transform;
+                target = new Target(source.transform, Target.Type.Player);
             ChangeState(State.Attack);
         }
         public void DisableThenEnable(float sec)
@@ -356,7 +417,7 @@ public class AIBrain : MonoBehaviour
         {
             if(!shouldDebug) return;
                 
-            //draw the meta data for the AI
+            //draw the metadata for the AI
             //Sight
             Gizmos.DrawWireSphere(transform.position,viewRadius);
             Gizmos.color = Color.cyan;
@@ -365,8 +426,26 @@ public class AIBrain : MonoBehaviour
             //draw the fov
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position, transform.forward * viewRadius);
-            Gizmos.DrawRay(transform.position, Quaternion.Euler(0,fov,0) * transform.forward * viewRadius);
-            Gizmos.DrawRay(transform.position, Quaternion.Euler(0,-fov,0) * transform.forward * viewRadius);
         }
+
+        [Serializable]
+        public class Target
+        {
+            public Transform trackedTransform;
+            public Type type;
+            public enum Type
+            {
+                NoTarget = -1,
+                Cargo,
+                Player
+            }
+
+            public Target(Transform transform, Type newType)
+            {
+                trackedTransform = transform;
+                type = newType;
+            }
+        }
+
         
 }
