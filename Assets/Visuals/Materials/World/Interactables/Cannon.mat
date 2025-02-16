@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Cannon
-  m_Shader: {fileID: -6465566751694194690, guid: 5012f261a3a2cf34599845f563c8bcec,
+  m_Shader: {fileID: -6465566751694194690, guid: d5e177436e736814cbdfb053c1d99302,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -25,6 +25,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Roughness:
+        m_Texture: {fileID: 2800000, guid: 906d1b57170ab5f4bade982d714b5b98, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _1st_ShadeMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -119,6 +123,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _HighColor_Tex:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Input:
+        m_Texture: {fileID: 2800000, guid: b3c224481806ac34898766661c5b04a2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _IridescenceMaskMap:
@@ -227,6 +235,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _metalicTexture:
         m_Texture: {fileID: 2800000, guid: 636d57ffa097b784da7e045850b03b85, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _metallic:
+        m_Texture: {fileID: 2800000, guid: 636d57ffa097b784da7e045850b03b85, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _normal:
+        m_Texture: {fileID: 2800000, guid: 5d626dd484c4f9246956457eb490fc4c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _normalTexture:
@@ -359,6 +375,7 @@ Material:
     - _HeightTessCenter: 0.5
     - _HighColor_Power: 0
     - _HighlightOverridden: 0
+    - _HighlightSize: 0.05
     - _HighlightVisible: 1
     - _InvTilingScale: 1
     - _Inverse_Clipping: 0
@@ -468,6 +485,7 @@ Material:
     - _StencilWriteMaskGBuffer: 3
     - _StencilWriteMaskMV: 128
     - _StepOffset: 0
+    - _Steps: 10
     - _SubsurfaceMask: 1
     - _SupportDecals: 1
     - _SurfaceType: 0
@@ -512,7 +530,10 @@ Material:
     - _ZWrite: 1
     - _ZWriteMode: 1
     - _isUnityToonshader: 1
+    - _metallic_strength: 0
+    - _normal_strength: 0.7
     - _simpleUI: 0
+    - _smoothness_strength: 0.656
     - _utsTechnique: 0
     - _utsVersionX: 0
     - _utsVersionY: 10
@@ -526,7 +547,7 @@ Material:
     - _BaseColor: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColorMaskColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    - _Color: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
     - _ColorShift: {r: 0, g: 0, b: 0, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
