@@ -24,6 +24,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _normal:
+        m_Texture: {fileID: 2800000, guid: f2271b3bab647b549893a2b1400dac66, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _water_texure:
         m_Texture: {fileID: 2800000, guid: 41780d68de52e8e48a7392af04e3409f, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -45,12 +49,17 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _alpha: 1
-    - _cutout_scale: 28.4
-    - _cutout_speed: -0.18
-    - _metallic: 0
+    - _cutout_scale: 21.7
+    - _cutout_speed: -0.28
+    - _distortian: -5.72
+    - _distortian_size: 3
+    - _distortion_speed: 1.39
+    - _metallic: 0.135
+    - _normal_power: 0.226
     - _smoothness: 0
     - _texture_speed: -1
     m_Colors:
+    - _splash_colour: {r: 1, g: 1, b: 1, a: 0}
     - _tiling_and_offset: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6022626103655563016
