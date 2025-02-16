@@ -13,9 +13,10 @@ public class Cannon : Interactable
     
     [SerializeField] private float launchDuration = 1f;
     [SerializeField] private float strength = 10f;
+    [SerializeField] private bool canFire = true;
+    [SerializeField] private float coolDownTime = 5f;
 
 
-    
     void Start()
     {
         cannonballPool = new GameObjectPool(cannonballPrefab, 10,transform);
@@ -27,8 +28,15 @@ public class Cannon : Interactable
 
     public void Fire(GameObject Source)
     {
+        if (!canFire) return;
+        canFire = false;
+        
         //get rid of the cannonball
-        if(!Source.TryGetComponent(out Inventory inv)) return;
+        if (!Source.TryGetComponent(out Inventory inv))
+        {
+            canFire = true;
+            return;
+        }
         
         //remove the cannonball from the inventory
         inv.RemoveItem();
@@ -48,7 +56,16 @@ public class Cannon : Interactable
             rb.angularVelocity = Vector3.zero;
             rb.AddForce(cannonballSpawnPoint.forward * strength,ForceMode.VelocityChange);
         }
+        
+        StartCoroutine(CoolDown());
+        
 
+    }
+    
+    IEnumerator CoolDown()
+    {
+        yield return new WaitForSeconds(coolDownTime);
+        canFire = true;
     }
 
     private void OnDrawGizmos()

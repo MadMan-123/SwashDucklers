@@ -4,7 +4,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     
-    private Inventory current;
+    public Inventory current;
 
     [SerializeField] public Vector3 offset;
     [SerializeField] public Quaternion pickupRotation;
@@ -44,9 +44,10 @@ public class Item : MonoBehaviour
     {
         if (source.TryGetComponent(out Inventory inv) && inv == current)
         {
+            //set the inventory to null
             current = null;
-            //set the transforms
-            transform.SetParent(null);                                  //remove from parent (should make it drop?)
+            //set the transforms to allow the item to be dropped
+            transform.SetParent(null);
         }
     }
     

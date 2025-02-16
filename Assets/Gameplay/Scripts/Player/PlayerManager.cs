@@ -36,7 +36,7 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
 
-        Debug.Log(PlayerStats.playerNo);
+        Debug.Log($"Players on spawn: {PlayerStats.playerNo}");
 
         //Spawn joined players
         for (int i = 0; i < PlayerStats.playerNo; i++)

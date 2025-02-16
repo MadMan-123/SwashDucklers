@@ -9,7 +9,6 @@ public class CloneDeletion : MonoBehaviour
     private void Start()
     {
         StartCoroutine(Timer());
-        Debug.Log("StartCoroutine");
     }
     IEnumerator Timer()
     {
