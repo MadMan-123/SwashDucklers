@@ -117,10 +117,11 @@ MonoBehaviour:
   itemRequired: 0
   cannonballPrefab: {fileID: 6431738259369445543, guid: fff432052bad16b4b9db2c1c5abadacf,
     type: 3}
-  cannonfire: {fileID: 0}
   cannonballSpawnPoint: {fileID: 6783439727225733875}
   launchDuration: 1
   strength: 10
+  canFire: 1
+  coolDownTime: 5
 --- !u!1001 &6202884479680360617
 PrefabInstance:
   m_ObjectHideFlags: 0
