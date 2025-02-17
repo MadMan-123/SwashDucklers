@@ -10,11 +10,8 @@ public class GameStateManager : Singleton<GameStateManager>
     // GM: Define possible game states as an enum for clear representation.
     public enum GameState
     {
-        None,
-        Starting,
-        SpawningPlayers,
-        SpawningEnemies,
-        KrakenAttack,
+        none,
+        Kraken,
         ShipAt50PercentHealth,
         ShipAt25PercentHealth
     }
