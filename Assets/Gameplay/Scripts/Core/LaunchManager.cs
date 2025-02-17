@@ -100,6 +100,19 @@ public class LaunchManager : MonoBehaviour
             // Lerp between points
             obj.transform.position = Vector3.Lerp(points[indexA], points[indexB], t);
             
+            //ensure we dont clip through anything
+            //if there is a floor below us we should stop
+            if (clamp)
+            {
+                if (NavMesh.SamplePosition(obj.transform.position + Vector3.down, out var hit2, 0.75f,NavMesh.AllAreas))
+                {
+                    obj.transform.position = hit2.position;
+                    //tell the object to stop moving
+                    elapsedTime = duration;
+                    
+                }
+            }
+            
             elapsedTime += Time.deltaTime;
             yield return null;
         }
