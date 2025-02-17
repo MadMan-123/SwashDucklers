@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 //using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using Cinemachine;
 
 public class KrakenManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class KrakenManager : MonoBehaviour
     [SerializeField] float waterChangeDuration;
 
     [SerializeField] Weather weather;
+
+    [SerializeField] private CinemachineTargetGroup cameraTarget;
 
     float timeBeforeNext;
     bool isActive = false;
@@ -35,6 +38,9 @@ public class KrakenManager : MonoBehaviour
                 gameTimer.SetActive(true);
             }
             StartCoroutine(KrakenSpawnTimer());
+
+            cameraTarget.AddMember(kraken.transform, 1, 2.5f);
+
         }
         else
         {
@@ -73,7 +79,9 @@ public class KrakenManager : MonoBehaviour
             }
             weather.KrakenDeSpawn();
             StartCoroutine(KrakenSpawnTimer());
-            
+
+            cameraTarget.RemoveMember(kraken.transform);
+
         }
     }
 
