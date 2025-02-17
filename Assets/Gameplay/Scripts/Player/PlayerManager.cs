@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float debugRadius = 0.45f;
     [SerializeField] private bool shouldDebug = false;
 
-    [SerializeField] private GameObject target; 
+    [SerializeField] private CinemachineTargetGroup cameraTarget; 
 
     // Start is called before the first frame update
     void Start()
@@ -75,7 +76,7 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Player joined");
         Debug.Log($"Players:{PlayerStats.playerNo}");
 
-        //target.GetComponent<CinemachineTargetGroup>();
+        cameraTarget.AddMember(player.transform, 1, 2.5f);
 
         switch (player.playerIndex)
         {
@@ -104,6 +105,8 @@ public class PlayerManager : MonoBehaviour
         //PlayerStats.playerNo = PlayerStats.playerNo - 1;
         Debug.Log("Player left");
         Debug.Log($"Players:{PlayerStats.playerNo}");
+
+        cameraTarget.RemoveMember(player.transform);
 
     }
 
