@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5175405515047640255}
   - component: {fileID: 7959174835237255277}
   - component: {fileID: 420238749890768395}
-  - component: {fileID: -2716811018045228644}
+  - component: {fileID: 2375451562938336788}
   m_Layer: 0
   m_Name: CannonBall
   m_TagString: Untagged
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c3c16085294775864ac60e97ddd12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  current: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   pickupRotation: {x: 0, y: 0, z: 0, w: 0}
   type: 0
@@ -153,7 +154,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &-2716811018045228644
+--- !u!114 &2375451562938336788
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,10 +163,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7763439964233896069}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96559bb017ec63548a93785f25c88832, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fac5ed59ecea4f46b4f6e345859d50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInventory: {fileID: 0}
+  damage: 1
 --- !u!1001 &2812088777091426838
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -71,7 +71,13 @@ public class Spawner : MonoBehaviour
         {
             yield return null;
         }
-        
+       
+        // clamp the agent to the navmesh
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(aiInstance.transform.position, out hit, 1.0f, NavMesh.AllAreas))
+        {
+            aiInstance.transform.position = hit.position;
+        }
         //  enable NavMeshAgent
         if (agent) agent.enabled = true;
         

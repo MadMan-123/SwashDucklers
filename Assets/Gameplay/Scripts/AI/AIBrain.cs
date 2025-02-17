@@ -411,8 +411,18 @@ public class AIBrain : MonoBehaviour
             //freeze agent x and z rotation
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             
+            
+            //clamp the agent to the navmesh before enabling the agent
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(transform.position, out hit, 1.0f, NavMesh.AllAreas))
+            {
+                transform.position = hit.position;
+            }
+            
             rb.isKinematic = true;
             agent.enabled = true;
+            
+            
         }
 
         private void OnDrawGizmos()

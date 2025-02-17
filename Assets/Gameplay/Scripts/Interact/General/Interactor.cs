@@ -17,7 +17,6 @@ public class Interactor : MonoBehaviour
     private InputAction interact;
 
     [SerializeField] private float slapForce = 5f;
-    [SerializeField] private float slapDistance = 0.2f;
     [SerializeField] private float slapRadius = 0.75f;
     [SerializeField] private float howMuchUp = 0.75f;
     [SerializeField] private float slapDamage = 5;
