@@ -22,7 +22,7 @@ public class KrakenManager : MonoBehaviour
     [SerializeField] private CinemachineTargetGroup cameraTarget;
 
     float timeBeforeNext;
-    bool isActive = false;
+    //bool isActive = false;
 
     // Start is called before the first frame update
     void Start()

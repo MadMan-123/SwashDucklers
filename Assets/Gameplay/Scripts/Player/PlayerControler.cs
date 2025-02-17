@@ -16,8 +16,8 @@ public class PlayerControler : MonoBehaviour
     private Vector3 moveVector = Vector3.zero;
     public Rigidbody rb = null;
     private bool isGrounded = false;
-    private bool isJumping = true;
-    private bool isGliding = false;
+    //private bool isJumping = true;
+    //private bool isGliding = false;
     private float jumpTimer;
     private float glideTimer;
     private float glideHeight;

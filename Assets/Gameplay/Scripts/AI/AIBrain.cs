@@ -21,7 +21,7 @@ public class AIBrain : MonoBehaviour
         [SerializeField] private float circleRadius = 5f;
         [Header("Attack behaviour")]
         [SerializeField] private float attackDistance = 1.5f;
-        [SerializeField] private float attackRadius = 0.75f;
+        //[SerializeField] private float attackRadius = 0.75f;
         [SerializeField] private float damage = 5;
         [SerializeField] private bool canAttack = true;
         [SerializeField] private float cooldownTime = 3f;
