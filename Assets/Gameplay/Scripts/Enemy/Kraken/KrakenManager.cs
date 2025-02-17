@@ -39,8 +39,6 @@ public class KrakenManager : MonoBehaviour
             }
             StartCoroutine(KrakenSpawnTimer());
 
-            cameraTarget.AddMember(kraken.transform, 1, 2.5f);
-
         }
         else
         {
@@ -59,6 +57,7 @@ public class KrakenManager : MonoBehaviour
         gameTimer.SetActive(false);
         CameraShake.Instance.ShakeCamera(1.5f, waterChangeDuration + 0.5f);
         SoundManager.PlayAudioClip("KrakenSpawn", this.transform.position, 1f);
+        cameraTarget.AddMember(kraken.transform, 1, 2.5f);
     }
 
     //Function called by cannons when fired -SD
@@ -78,9 +77,8 @@ public class KrakenManager : MonoBehaviour
                 gameTimer.SetActive(true);
             }
             weather.KrakenDeSpawn();
-            StartCoroutine(KrakenSpawnTimer());
-
             cameraTarget.RemoveMember(kraken.transform);
+            StartCoroutine(KrakenSpawnTimer());
 
         }
     }
