@@ -104,15 +104,17 @@ public class AIBrain : MonoBehaviour
                         //chase the player
                         ChangeState(State.Chase);
                         //if the player has an item and in range
-                        if (target.trackedTransform.TryGetComponent(out Inventory inv) && inv.item != null ) 
-                        {
-                            //check if the player has an item
-                            //if yes steal
-                            inv.TakeItem(inventory);
-                            hasCargo = true;
-                        } 
+
                         if (delta.magnitude < attackDistance)
                         {
+                            //check if the player has an item and steal only if near   
+                            if (target.trackedTransform.TryGetComponent(out Inventory inv) && inv.item != null ) 
+                            {
+                                //check if the player has an item
+                                //if yes steal
+                                inv.TakeItem(inventory);
+                                hasCargo = true;
+                            } 
                             ChangeState(State.Attack);
                         }
                         
@@ -230,11 +232,11 @@ public class AIBrain : MonoBehaviour
                 
                 //obstacle avoidance
                 //we need to turn around if there is something infront of us or we are looking off the edge of the navmesh
-                if (Physics.Raycast(transform.position, transform.forward, out var hit3, 1f, NavMesh.AllAreas))
+                /*if (Physics.Raycast(transform.position, transform.forward, out var hit3, 1f, NavMesh.AllAreas))
                 {
                     //turn around
                     transform.Rotate(Vector3.up, 180);
-                }
+                }*/
                 
         }
 

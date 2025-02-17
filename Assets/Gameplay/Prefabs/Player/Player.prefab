@@ -542,7 +542,6 @@ GameObject:
   - component: {fileID: -9071919049437517695}
   - component: {fileID: 6302708391419920254}
   - component: {fileID: -3264851227348481002}
-  - component: {fileID: -4338204257424769768}
   - component: {fileID: 5643682110345338537}
   m_Layer: 3
   m_Name: Player
@@ -873,10 +872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 100
-  maxKnockbackForce: 100
-  rb: {fileID: 0}
   healthText: {fileID: 5690518441012888640}
-  healthTextColor: {r: 1, g: 1, b: 1, a: 1}
   onDamageTaken:
     m_PersistentCalls:
       m_Calls:
@@ -941,20 +937,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemHolder: {fileID: 8320669293226105621}
   item: {fileID: 0}
---- !u!114 &-4338204257424769768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5368657179478143323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96559bb017ec63548a93785f25c88832, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cannonBallSlot: {fileID: 0}
-  kraken: {fileID: 0}
 --- !u!114 &5643682110345338537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,6 +959,7 @@ MonoBehaviour:
   slapMat: {fileID: 0}
   shouldDebug: 0
   howFar: 0.45
+  offset: {x: 0, y: -0.1, z: 0}
 --- !u!1 &8910317409946814105
 GameObject:
   m_ObjectHideFlags: 0

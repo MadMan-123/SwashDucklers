@@ -17,9 +17,15 @@ public class Launcher : MonoBehaviour
         var area = AreaManager.GetArea(areaName);
         pos = area.GeneratePositionInArea();
 
-        //clamp the position
-        NavMesh.SamplePosition(pos, out var hit, 2f, NavMesh.AllAreas);
-
+        //clamp the position to the navmesh
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(pos, out hit, 1.0f, NavMesh.AllAreas))
+        {
+            pos = hit.position;
+        }
+        
+        
+        
         var vel = LaunchManager.instance.LaunchObjectWithVar(obj,pos,launchDuration);
         if(shouldDebug)
             LaunchManager.DrawTrajectory(obj.transform.position,vel,launchDuration);

@@ -97,6 +97,7 @@ public class Inventory : MonoBehaviour
         //take the current item, move it to the passed inventory and remove it from the current inventory
         inv.AddItem(item.gameObject);
         inv.GetItem().current = inv;
+        
         item = null;
     }
 }

@@ -2,21 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Leak : Interactable 
 {
     [SerializeField] GameObject cam;
     [SerializeField] GameObject repairAnim;
-    [SerializeField] private int Damage = 1;
+    [SerializeField] private int damage = 1;
     [SerializeField] private int toRepair = 1;
     [SerializeField] private int count = 0;
     [SerializeField] private ShipHealth health;
+    [SerializeField] private PlankVisualiser plankVisualiser;
     Transform vfxHolder;
     private void Start()
     {
-        cam = Camera.main.gameObject; 
+        cam = Camera.main?.gameObject; 
         vfxHolder = GameObject.FindWithTag("VFXHolder").transform;
 
+        
     }
 
     private void OnEnable()
@@ -29,7 +32,7 @@ public class Leak : Interactable
         //effect the ship health
 
 
-        health.DamageShip(Damage);
+        health.DamageShip(damage);
         //health.dmgRate += leakAmmount;
 
     }
@@ -42,6 +45,7 @@ public class Leak : Interactable
         if ( inv.item.type != Item.Type.NoItem && inv.item.type != itemRequired) return;
         //increment the count
         count++;
+        plankVisualiser.RepairPlank();
         //take the players item
         inv.RemoveItem();
         //if the count is equal to the required amount
@@ -56,7 +60,7 @@ public class Leak : Interactable
     {
          if(cam == null) return;
          //health.dmgRate -= leakAmmount;
-         health.RepairShip(Damage);
+         health.RepairShip(damage);
          var pos = transform.position +  new Vector3(0, 0.5f, 0);
  
           
