@@ -173,6 +173,9 @@ namespace Core
             {
                 return objects.Contains(objectToReturn);
             }
+            
+            
+            
         }
     }
 

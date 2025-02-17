@@ -58,7 +58,8 @@ public class Item : MonoBehaviour
     {
         NoItem = -1,
         CannonBall,
-        Plank
+        Plank,
+        Cargo
         //other item types here
     }
 }

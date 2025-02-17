@@ -21,8 +21,8 @@ public class DifficultyManager : MonoBehaviour
     public Difficulty currentDifficulty = Difficulty.Hatchling;
 
     // References to the external scripts that will be affected by difficulty changes
-    public GameTimer;
-    public CannonBall;
+    /*public CannonBall;
+    public GameTimer;*/
 
     void Update()
     {
@@ -50,7 +50,7 @@ public class DifficultyManager : MonoBehaviour
     void ApplyDifficulty()
     {
         // Adjust game settings according to the current difficulty level
-        switch (currentDifficulty)
+        /*switch (currentDifficulty)
         {
             case Difficulty.Hatchling:
                 GameTimer.SetTimeScale(0.5f);  // Slows down the game timer by 50%
@@ -69,7 +69,7 @@ public class DifficultyManager : MonoBehaviour
                 CannonBall.SetDamage(0.5f);    // Reduces cannonball damage to 0.5
                 Debug.Log("Difficulty set to SwashDuckler (Hard)");
                 break;
-        }
+        }*/
     }
 }
 

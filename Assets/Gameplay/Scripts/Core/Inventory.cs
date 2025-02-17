@@ -44,7 +44,7 @@ public class Inventory : MonoBehaviour
     //get current item
     public bool AddItem(GameObject itemObj)
     {
-        if (!itemObj.TryGetComponent(out Item item)) return false;
+        if (!itemObj.TryGetComponent(out Item newItem) || item != null) return false;
             
         //if (!inv.AddItem(item)) return; //add this to inv
         //disable the rigidbody and collider
@@ -53,10 +53,10 @@ public class Inventory : MonoBehaviour
             //set the transforms
             itemObj.transform.SetParent(itemHolder, true);
         //Exactly what we want but just with the items data - MW
-        itemObj.transform.localPosition = item.offset;
-        itemObj.transform.localRotation = item.pickupRotation;
+        itemObj.transform.localPosition = newItem.offset;
+        itemObj.transform.localRotation = newItem.pickupRotation;
 
-        this.item = item;
+        this.item = newItem;
         return true;
 
     }

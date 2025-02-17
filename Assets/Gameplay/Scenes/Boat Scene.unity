@@ -2763,7 +2763,7 @@ MonoBehaviour:
     - {fileID: 1675978097}
     - {fileID: 219783267}
   tasksCompleted: 0
-  shouldDebug: 1
+  shouldDebug: 0
   playerCheckRadius: 5
 --- !u!4 &410785622
 Transform:
@@ -3749,7 +3749,7 @@ MonoBehaviour:
   onTrigger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1143316914}
         m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
         m_MethodName: Return
         m_Mode: 0
@@ -5268,7 +5268,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 920817951}
-  - component: {fileID: 920817952}
   m_Layer: 0
   m_Name: '[ItemManager]'
   m_TagString: Untagged
@@ -5291,21 +5290,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1143316912}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &920817952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 920817950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c3ca744e8add2f4998d9acfeb3535fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemList:
-  - {fileID: 7763439964233896069, guid: aad4c9916ddcb4341a7e29fa3f8a2c28, type: 3}
-  - {fileID: 8520338788584989061, guid: 9bb785f08d8cb89438169116a6911c62, type: 3}
 --- !u!1 &921437003
 GameObject:
   m_ObjectHideFlags: 0
@@ -6832,7 +6816,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1143316912}
-  - component: {fileID: 1143316913}
+  - component: {fileID: 1143316914}
   m_Layer: 0
   m_Name: ---------CORE--------
   m_TagString: Untagged
@@ -6864,7 +6848,7 @@ Transform:
   - {fileID: 894315974}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1143316913
+--- !u!114 &1143316914
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6873,13 +6857,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1143316911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd2226cc4927db649bd07ed7fc33cc4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 32e1dd05131e4604eb4913c3e17fe76e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 6274729092103594065, guid: b715cd45006e88c47990681c51d2c198, type: 3}
   poolSize: 10
-  interval: 10
-  waveSize: 1
+  interval: 30
+  waveSize: 2
   areaName: Deck
 --- !u!1 &1165149024
 GameObject:
@@ -11859,8 +11843,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c59de800c1e4caeb30db0b325a38669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemHolder: {fileID: 0}
-  item: {fileID: 0}
+  itemGenerated: {fileID: 5272932778111827330, guid: ef5798140b1c4dc419f8de1bbee644cb,
+    type: 3}
 --- !u!4 &1922169623 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03f564ea25b1e3d4ea401c92f259ad91,

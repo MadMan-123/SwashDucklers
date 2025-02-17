@@ -23,8 +23,13 @@ public class Interactor : MonoBehaviour
 
     [SerializeField] PhysicMaterial slapMat;
     [SerializeField] private bool shouldDebug = false;
+    bool isInteracting = false;
 
-    // Start is called before the first frame update
+    
+    Collider[] colliders = new Collider[10];
+    [SerializeField] private float howFar = 0.45f;
+    [SerializeField] private Vector3 offset = new(0,-0.1f,0);
+    [SerializeField] private float interactCooldown = 1f;
     void Start()
     {
         TryGetComponent(out playerControler);
@@ -37,6 +42,7 @@ public class Interactor : MonoBehaviour
     
     private void TryInteract()
     {
+        if (isInteracting) return;
         if (playerControler.interacting)
         {
             playerControler.interacting = false;
@@ -49,6 +55,8 @@ public class Interactor : MonoBehaviour
         playerControler.animator.SetBool("IsSlapping", true);
         playerControler.animator.CrossFade("Slap", 0.1f);
 
+        isInteracting = true;
+        StartCoroutine(InteractCooldown(interactCooldown));
         if (TryGetComponent(out Inventory inv) && inv.TryPickUp())
         {
            return;
@@ -96,7 +104,7 @@ public class Interactor : MonoBehaviour
         }
         
 
-
+        
         //Reset the flag
         Invoke(nameof(ResetSlapAnim), 0.5f);
     }
@@ -105,9 +113,6 @@ public class Interactor : MonoBehaviour
     {
         playerControler.animator.SetBool("IsSlapping", false);
     }
-    Collider[] colliders = new Collider[10];
-    [SerializeField] private float howFar = 0.45f;
-    [SerializeField] private Vector3 offset = new(0,-0.1f,0);
 
     private void Slap(GameObject toSlap)
     {
@@ -154,6 +159,14 @@ public class Interactor : MonoBehaviour
             SoundManager.PlayAudioClip("Slap",transform.position + transform.forward,1f);
     }
 
+
+    private IEnumerator InteractCooldown(float sec = 1f)
+    {
+        //wait for the cooldown
+        yield return new WaitForSeconds(sec);
+        isInteracting = false;
+        
+    }
     
     
 

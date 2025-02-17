@@ -4,7 +4,6 @@ using System.Linq;
 using Core;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class AIBrain : MonoBehaviour
@@ -32,7 +31,7 @@ public class AIBrain : MonoBehaviour
         private Health health;
         private LayerMask boatLayer;
         private Vector3 delta;
-        private Collider[] colliders = new Collider[10];
+        
         
         float[] distances = new float[10];
         private float wanderAngle = 0f; 
@@ -41,7 +40,10 @@ public class AIBrain : MonoBehaviour
         [SerializeField] private bool isFleeing;
         [SerializeField] private float fleeTime = 5f;
 
+        private readonly RaycastHit[] hits = new RaycastHit[2];
+        [SerializeField] private bool reenableFlag;
         
+        [SerializeField] private Collider[] colliders = new Collider[10];
         public enum State
         {
             Idle,
@@ -85,120 +87,142 @@ public class AIBrain : MonoBehaviour
                 StartCoroutine(WaitUntilFloorHit());
             }
 
+            
+            //for the reccord, i hate this, i absolutely hate this,
+            //there is nothing more i hate than thousands of if statements but we cant return in update because that breaks the AI - MW
             if (agent.enabled)
             {
                 //check for a target
-                CheckForPlayer(); 
+                CheckForTargets();
                 //decision tree
-                //is player near 
-                if (target != null && target.type == Target.Type.Player)
-                {
-                    //check if we have cargo
-                    if (hasCargo)
-                    {
-                        //if yes then flee
-                        ChangeState(State.Flee);
-                    }
-                    else if (!isFleeing)
-                    {
-                        //chase the player
-                        ChangeState(State.Chase);
-                        //if the player has an item and in range
+                //is player near
 
-                        if (delta.magnitude < attackDistance)
+                
+                if (target != null)
+                {
+                    
+                    if (target.type == Target.Type.Player)
+                    {
+                        //check if we have cargo
+                        if (hasCargo)
                         {
-                            //check if the player has an item and steal only if near   
-                            if (target.trackedTransform.TryGetComponent(out Inventory inv) && inv.item != null ) 
-                            {
-                                //check if the player has an item
-                                //if yes steal
-                                inv.TakeItem(inventory);
-                                hasCargo = true;
-                            } 
-                            ChangeState(State.Attack);
+                            //if yes then flee
+                            ChangeState(State.Flee);
                         }
-                        
+                        else if (!isFleeing)
+                        {
+                            //chase the player
+                            ChangeState(State.Chase);
+                            //if the player has an item and in range
+
+                            if (delta.magnitude < attackDistance)
+                            {
+                                //check if the player has an item and steal only if near   
+                                if (target.trackedTransform.TryGetComponent(out Inventory inv) && inv.item != null)
+                                {
+                                    //check if the player has an item
+                                    //if yes steal
+                                    inv.TakeItem(inventory);
+                                    hasCargo = true;
+                                }
+
+                                ChangeState(State.Attack);
+                            }
+
+                        }
+                        else
+                        {
+                            ChangeState(State.Flee);
+                        }
+
                     }
+                    //if no then check if we have cargo in hand
                     else
                     {
-                        ChangeState(State.Flee);
+                        if (hasCargo)
+                        {
+                            //if yes then flee
+                            ChangeState(State.Flee);
+                        }
+                        else if (target != null && target.trackedTransform)
+                        {
+                            //if no then chase
+                            ChangeState(State.Chase);
+                            //if less than attack distance then steal
+                            if (delta.magnitude < attackDistance)
+                            {
+                                //check if the player has an item
+                                if (target.trackedTransform.TryGetComponent(out CargoStack stack))
+                                {
+                                    stack.TryPickUp(gameObject);
+                                    hasCargo = true;
+                                    //we should run off now
+                                    ChangeState(State.JumpOff);
+                                }
+                            }
+                        }
                     }
 
+                    HandleMovement();
                 }
-                
-                //if no then check if we have cargo in hand
-                else
-                {
-                    if (hasCargo)
-                    {
-                        //if yes then flee
-                        ChangeState(State.Flee);
-                    }
-                    else if(target != null )
-                    {
-                        
-                        //if no then chase
-                        ChangeState(State.Chase);
-                        
-                        
-
-                    }
-                                                
-                }
-
-                HandleMovement();
             }
         }
-
-        
-        private Target GetClosestCargo()
-        {
-            Collider[] colliders = new Collider[5];
-            float[] cache = new float[5];
-            //sphere cast to get all the cargo
-            Physics.OverlapSphereNonAlloc(transform.position, viewRadius, colliders);
-            var cargo = colliders.Where(x => x && x.TryGetComponent(out Cargo cargo)).ToArray();
-            var count = cargo.Length;
-            if(count == 0) return null;
-            //get the distances
-            for (int i = 0; i < count; i++)
-            {
-                cache[i] = (cargo[i].transform.position - transform.position).magnitude;
-            }
             
-            //sort the cargo by distance
-            Helper.QuickSortWithDistances(cargo, cache, 0, count - 1);
-            //return the closest cargo
-            return new Target(cargo[0].transform, Target.Type.Cargo);
-        }
+        //return the closest cargo
 
-        private Target CheckForPlayer()
+        private Target CheckForTargets()
         {
+            //check if we have a target, if so can we see it
+            if(target != null && target.trackedTransform) 
+            {
+                //check if the target is in the view radius
+                if ((target.trackedTransform.position - transform.position).magnitude > viewRadius)
+                {
+                    //if not then set the target to null
+                    target = null;
+                    ChangeState(State.Wander);
+                }
+            }
             //get the player layer mask
             var playerLayer = LayerMask.NameToLayer("player");
+            var cargoLayer = LayerMask.NameToLayer("Cargo");
             
+            var layerMask = 1 << playerLayer | 1 << cargoLayer;
+           
+            //clear the colliders
+            Array.Clear(colliders, 0, colliders.Length);
             //sphere cast then filter with fov check
-            Physics.OverlapSphereNonAlloc(transform.position, viewRadius, colliders, 1 << playerLayer);
+            Physics.OverlapSphereNonAlloc(transform.position, viewRadius, colliders, layerMask);
             //get all the players by checking the tag and if the value is null
-            var players = colliders.Where(x => x).ToArray();
+            var targets = colliders.Where(x => x).ToArray();
             //get the count
-            var count = players.Length;
+            var count = targets.Length;
+            if(count == 0) return null;
             Array.Clear(distances, 0, distances.Length);
             //get the distances
             for (int i = 0; i < count; i++)
             {
                 //get the distance
-                distances[i] = (players[i].transform.position - transform.position).magnitude;
+                distances[i] = (targets[i].transform.position - transform.position).magnitude;
             }
             //sort the players by distance
-            Helper.QuickSortWithDistances(players, distances, 0, count - 1);
+            Helper.QuickSortWithDistances(targets, distances, 0, count - 1);
             //set the target to the first player, else null
-            target = players.Length > 0 ? new Target(players[0].transform, Target.Type.Player) : null;
-             
+            if(count > 0)
+                target = new Target(targets[0].transform, targets[0].gameObject.layer == playerLayer ? Target.Type.Player : Target.Type.Cargo);
+            else
+            {
+                
+                target = null;
+                return null;
+            }
+            
+            
+            var targetType = target.trackedTransform.gameObject.layer == playerLayer ? Target.Type.Player : Target.Type.Cargo;
+            target.type = targetType;
             //get the delta for later calculations
             if (target != null)
                 delta = transform.position - target.trackedTransform.position;
-            
             
             return target;
         }
@@ -247,7 +271,6 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 Steal() => throw new NotImplementedException();
 
-        private readonly RaycastHit[] hits = new RaycastHit[2];
 
         private void FixedUpdate()
         {
@@ -270,8 +293,20 @@ public class AIBrain : MonoBehaviour
 
         private IEnumerator WaitUntilFloorHit()
         {
+             Physics.SphereCastNonAlloc(
+                                transform.position,
+                                0.2f,
+                                Vector3.down,
+                                hits,
+                                0.1f,
+                                1 << boatLayer
+            );
+                
+            var objects = hits.Where(x => x.collider).ToArray();
+            
+            
             //wait until the agent is on the floor
-            while(onFloor) yield return null;
+            while(objects.Length == 0 || reenableFlag) yield return null;
             
             //check underneath 
             agent.enabled = true;
@@ -286,9 +321,11 @@ public class AIBrain : MonoBehaviour
                 ChangeState(State.Wander);
                 return transform.position;
             }
-            //get a position far away 
-            Vector3 directionToFlee = (transform.position - target.trackedTransform.position).normalized;
-            Vector3 fleePosition = transform.position + directionToFlee * fleeDistance; 
+            //get an edge of the navmesh
+            var fleePosition = transform.position + delta.normalized * fleeDistance;
+            var clamp = NavMesh.FindClosestEdge(fleePosition, out var clampHit, NavMesh.AllAreas);
+
+            fleePosition = clampHit.position;
             
             //clamp the destination to the navmesh, if the point is not on the navmesh then we should find the closest point
             if (!NavMesh.SamplePosition(fleePosition, out var hit, 2, NavMesh.AllAreas))
@@ -321,7 +358,21 @@ public class AIBrain : MonoBehaviour
             if (target.trackedTransform.TryGetComponent(out Health health))
             {
                 health.TakeDamage(gameObject,damage);
-              
+                
+                //if the player has a rigidbody then we should apply force based on health
+                if (target.trackedTransform.TryGetComponent(out Rigidbody rb))
+                {
+                    //calculate the velocity needed
+                    var healthPercent = health.GetHealth() / health.GetMaxHealth();
+                    
+                    //get the direction
+                    var direction = (transform.position - target.trackedTransform.position).normalized;
+                    //get the force
+                    var force = direction * (damage + healthPercent * damage);
+                    //apply the force
+                    
+                    rb.AddForce(force,ForceMode.VelocityChange);
+                }
                 //flee
                 ChangeState(State.Flee);
                 isFleeing = true;
@@ -337,9 +388,14 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 Chase()
         {
-
-
+            if(target == null || target.trackedTransform == null)
+            {
+                ChangeState(State.Wander);
+                return transform.position;
+            }
+        
             return target.trackedTransform.position;
+            
         }
 
 
@@ -401,8 +457,9 @@ public class AIBrain : MonoBehaviour
            
             //REMOVE THIS IF YOU DONT WANT THE AI TO GO LIMP - MW
             //unfreeze agent x and z rotation
-            rb.constraints = RigidbodyConstraints.None; 
-            
+            rb.constraints = RigidbodyConstraints.None;
+
+            reenableFlag = true;
             //while the agent is not on the ground
             yield return new WaitForSeconds(sec);
             //reenable the agent
@@ -421,7 +478,7 @@ public class AIBrain : MonoBehaviour
             
             rb.isKinematic = true;
             agent.enabled = true;
-            
+            reenableFlag = false;
             
         }
 
