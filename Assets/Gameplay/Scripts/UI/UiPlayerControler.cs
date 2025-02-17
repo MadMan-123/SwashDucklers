@@ -89,7 +89,7 @@ public class UiPlayerControler : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton9))
                 {
-                    UnityEngine.SceneManagement.SceneManager.LoadScene("Game Setup");
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(2);
                 }
 
             }
@@ -105,7 +105,7 @@ public class UiPlayerControler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Title Screen");
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
 
     }

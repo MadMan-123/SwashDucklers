@@ -33,14 +33,14 @@ public class UIGameSetup : MonoBehaviour
         //Return to previous menu
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Character Select");
+            UnityEngine.SceneManagement.SceneManager.LoadScene(1);
         }
 
     }
 
     public void startGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Boat Scene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(3);
     }
 
     public void kraken()
