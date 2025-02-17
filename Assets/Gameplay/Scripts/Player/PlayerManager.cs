@@ -27,6 +27,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float debugRadius = 0.45f;
     [SerializeField] private bool shouldDebug = false;
 
+    [SerializeField] private GameObject target; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,7 +75,8 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Player joined");
         Debug.Log($"Players:{PlayerStats.playerNo}");
 
-        
+        //target.GetComponent<CinemachineTargetGroup>();
+
         switch (player.playerIndex)
         {
             case 0:
