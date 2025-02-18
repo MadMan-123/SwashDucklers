@@ -236,11 +236,12 @@ public class AIBrain : MonoBehaviour
                     State.Flee => Flee(),
                     State.Attack => Attack(),
                     State.Chase => Chase(),
-                    State.Steal => Steal(),
-                    State.JumpOff => JumpOff(),
+                    State.Steal => Flee(), //Not implemented
+                    State.JumpOff => Flee(), //Not implemented
                     _ => transform.position
                 };
 
+                //TODO: implement jump off and steal
 
                 //clamp the destination to the navmesh, if the point is not on the navmesh then we should find the closest point
                 if (!NavMesh.SamplePosition(destination, out var hit, 0.5f, NavMesh.AllAreas))
