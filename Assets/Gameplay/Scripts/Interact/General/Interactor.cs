@@ -21,12 +21,17 @@ public class Interactor : MonoBehaviour
     [SerializeField] private float howMuchUp = 0.75f;
     [SerializeField] private float slapDamage = 5;
 
+    [SerializeField] private GameObject smokeParticle;
     [SerializeField] PhysicMaterial slapMat;
     [SerializeField] private bool shouldDebug = false;
+    [SerializeField] private Transform cam;
+    [SerializeField] private Transform vfxHolder;
 
     // Start is called before the first frame update
     void Start()
     {
+        cam = Camera.main?.gameObject.transform;
+        vfxHolder = GameObject.FindWithTag("VFXHolder").transform; //Sorry about this maddox, gonna move it to the gameManager when thats done, TS
         TryGetComponent(out playerControler);
         if (TryGetComponent(out input))
         {
@@ -149,6 +154,10 @@ public class Interactor : MonoBehaviour
             }
             rb.AddForce(((transform.forward ) * (slapForce + extraForce/5) )+ ((transform.up * howMuchUp) * slapForce / 5), ForceMode.Impulse);
             
+            var pos = transform.position +  Vector3.forward*0.5f;
+            Vector3 lookDir = cam.position - pos;
+            Quaternion direction = Quaternion.LookRotation(lookDir);
+            Instantiate(smokeParticle, pos, direction);
         }
         if(canSlapSfx)
             SoundManager.PlayAudioClip("Slap",transform.position + transform.forward,1f);
