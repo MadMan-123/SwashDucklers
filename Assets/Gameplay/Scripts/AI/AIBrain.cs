@@ -163,8 +163,14 @@ public class AIBrain : MonoBehaviour
                         }
                     }
 
-                    HandleMovement();
                 }
+                else
+                {
+                    //if no target then wander
+                    ChangeState(State.Wander);
+                }
+                
+                HandleMovement();
             }
         }
             
@@ -208,17 +214,23 @@ public class AIBrain : MonoBehaviour
             //sort the players by distance
             Helper.QuickSortWithDistances(targets, distances, 0, count - 1);
             //set the target to the first player, else null
-            if(count > 0)
-                target = new Target(targets[0].transform, targets[0].gameObject.layer == playerLayer ? Target.Type.Player : Target.Type.Cargo);
+            int currentLayer;
+            if (count > 0)
+            {
+                currentLayer = targets[0].gameObject.layer;
+                target = new Target(targets[0].transform, 
+                    currentLayer == playerLayer ? Target.Type.Player : currentLayer == cargoLayer ? Target.Type.Cargo : Target.Type.NoTarget);
+            }
             else
             {
                 
                 target = null;
                 return null;
             }
+
+            currentLayer = target.trackedTransform.gameObject.layer;
             
-            
-            var targetType = target.trackedTransform.gameObject.layer == playerLayer ? Target.Type.Player : Target.Type.Cargo;
+            var targetType =  currentLayer == playerLayer ? Target.Type.Player : currentLayer == cargoLayer? Target.Type.Cargo : Target.Type.NoTarget;
             target.type = targetType;
             //get the delta for later calculations
             if (target != null)

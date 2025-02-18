@@ -145,15 +145,10 @@ public class Interactor : MonoBehaviour
                 StartCoroutine(brain.ReenableAgent(brain.knockDownTime));
                 brain.ChangeState(AIBrain.State.Chase);
 
-                var current = GetComponent<Inventory>();  
-                //see if we can take the item from the brain
-                if (brain.inventory && brain.inventory.item && (current.item == null || current.item.type == Item.Type.NoItem))
+
+                if(brain.TryGetComponent(out Inventory inv))
                 {
-                    current.AddItem(brain.inventory.item.gameObject);
-                }
-                else if (current.item)
-                {
-                    brain.inventory.TakeItem(current);
+                    inv.DropItem();
                 }
                 
             }
