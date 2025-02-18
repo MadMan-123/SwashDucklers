@@ -21,9 +21,12 @@ public class Interactor : MonoBehaviour
     [SerializeField] private float howMuchUp = 0.75f;
     [SerializeField] private float slapDamage = 5;
 
+    [SerializeField] private GameObject smokeParticle;
     [SerializeField] PhysicMaterial slapMat;
     [SerializeField] private bool shouldDebug = false;
     bool isInteracting = false;
+    [SerializeField] private Transform cam;
+    [SerializeField] private Transform vfxHolder;
 
     
     Collider[] colliders = new Collider[10];
@@ -32,6 +35,8 @@ public class Interactor : MonoBehaviour
     [SerializeField] private float interactCooldown = 1f;
     void Start()
     {
+        cam = Camera.main?.gameObject.transform;
+        //smh tom, im not sure i get why were doing that tbh
         TryGetComponent(out playerControler);
         if (TryGetComponent(out input))
         {
@@ -154,6 +159,11 @@ public class Interactor : MonoBehaviour
             }
             rb.AddForce(((transform.forward ) * (slapForce + extraForce/5) )+ ((transform.up * howMuchUp) * slapForce / 5), ForceMode.Impulse);
             
+            //much better, take the transform forward instead of vector3.forward, that way we can slap in any direction - MW
+            var pos = transform.position +  transform.forward * 0.5f;
+            var delta = cam.position - pos;
+            var direction = Quaternion.LookRotation(delta);
+            Instantiate(smokeParticle, pos, direction);
         }
         if(canSlapSfx)
             SoundManager.PlayAudioClip("Slap",transform.position + transform.forward,1f);

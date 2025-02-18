@@ -22,6 +22,7 @@ public class Launcher : MonoBehaviour
         if (NavMesh.SamplePosition(pos, out hit, 1.0f, NavMesh.AllAreas))
         {
             pos = hit.position;
+            SoundManager.PlayAudioClip("Splash", this.transform.position, 2f);
         }
         
         
