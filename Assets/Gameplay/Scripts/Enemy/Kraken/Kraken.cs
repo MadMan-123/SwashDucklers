@@ -14,6 +14,7 @@ public class Kraken : MonoBehaviour
     [SerializeField] PlayerManager pm;
     [SerializeField] Vector3 playerLoc;
     [SerializeField] bool activate;
+    [SerializeField] private float targetAngle = 30f;
 
     void Start()
     {
@@ -42,23 +43,19 @@ public class Kraken : MonoBehaviour
         //NormalWater();
     }
 
-    public IEnumerator EyeFollow()
+    private IEnumerator EyeFollow()
     {
-        eye.transform.LookAt(eyeTarget.transform.position);
-        eye.transform.rotation *= Quaternion.FromToRotation(Vector3.left, Vector3.forward);
-        if (eye.transform.rotation.x > 30)
+        //get the direction to the player
+        var delta = eyeTarget.transform.position - eye.transform.position;
+        //get the angle from -vector3.forward to the direction and if its less than target angle then rotate
+        var angle = Vector3.SignedAngle(-Vector3.forward, delta, Vector3.up);
+        angle = Mathf.Abs(angle);
+        if (angle < targetAngle)
         {
-                        Debug.Log("clamp");
-
-            //eye.transform.eulerAngles = new Vector3(30f,eye.transform.eulerAngles.y,eye.transform.eulerAngles.z);
-            eye.transform.Rotate(30f, eye.transform.eulerAngles.y, eye.transform.eulerAngles.z);
-        }
-        else if (eye.transform.rotation.x < -30)
-        {
-            Debug.Log("clamp");
-            eye.transform.Rotate(-30f, eye.transform.eulerAngles.y, eye.transform.eulerAngles.z);
-        }
-            yield return new WaitForSeconds(0.05f);
+            eye.transform.LookAt(eyeTarget.transform.position);
+            eye.transform.rotation *= Quaternion.FromToRotation(Vector3.left, Vector3.forward);
+        } 
+        yield return new WaitForSeconds(0.05f);
         StartCoroutine(EyeFollow());
     }
 }
