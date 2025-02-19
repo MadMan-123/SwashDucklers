@@ -11,6 +11,7 @@ public class Cannon : Interactable
     GameObjectPool cannonballPool;
     public Transform cannonballSpawnPoint;
     
+    [SerializeField] private ParticleSystem cannonballParticles;
     [SerializeField] private float launchDuration = 1f;
     [SerializeField] private float strength = 10f;
     [SerializeField] private bool canFire = true;
@@ -23,7 +24,8 @@ public class Cannon : Interactable
         if (OnInteract == null)
         {
             //    OnInteract = new UnityEvent<GameObject>();
-        }
+        } 
+        cannonballParticles = this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
     }
 
     public void Fire(GameObject Source)
@@ -48,6 +50,7 @@ public class Cannon : Interactable
         var cannonball = cannonballPool.GetObject();
         cannonball.transform.position = cannonballSpawnPoint.position;
         cannonball.transform.rotation = cannonballSpawnPoint.rotation;
+        cannonballParticles.Play();
         SoundManager.PlayAudioClip("CannnonFire", this.transform.position, 1f);
 
         if (cannonball.TryGetComponent(out Rigidbody rb))
