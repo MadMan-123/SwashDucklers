@@ -120,38 +120,52 @@ public class TaskManager : MonoBehaviour
                         //if the task is static and dynamic choose a random one to be active
                         if (task.isStatic && task.isDynamic)
                         {
-                                int counter = 0;
-Redo:
                                 //get a random index 
                                 //Lol forgot count returns the amount of elements from 1 not 0, that error has popped up for a while sos i didnt see this earlier :/ - MW
-                                var index = UnityEngine.Random.Range(0, pool.Count - 1);
+
+                                var players = GameData.Players;
                                 
-                                Collider[] colliders = Physics.OverlapSphere(pool[index].transform.position, playerCheckRadius);
-                                //remove any none player
-                                for (int j = 0; j < colliders.Length; j++)
+                                //get avg position of players
+                                Vector3 avgPos = Vector3.zero;
+                                for (int j = 0; j < players.Count; j++)
                                 {
-                                        if (!colliders[j].CompareTag("Player"))
-                                        {
-                                                colliders[j] = null;
-                                        }
+                                        avgPos += players[j].transform.position;
                                 }
+                                avgPos /= players.Count;
                                 
-                                //fix the size of the array
-                                colliders = colliders.Where(collider => collider != null).ToArray();
-
+                                //draw a line to the avg position
                                 
-                                //todo: remove this magic constant
-                                if (colliders.Length >= 2 && counter < colliders.Length)
+                                //calculate the distances between the task pool and avg position, then sort them based on distance
+                                float[] distances = new float[pool.Count];
+                                for (int j = 0; j < pool.Count; j++)
                                 {
-                                        //if theres more than 2 players near, redo
-                                        counter++;
-
+                                        distances[j] = (avgPos - pool[j].transform.position).magnitude;
+                                        if(shouldDebug)
+                                                Debug.DrawLine(pool[j].transform.position,avgPos + Vector3.up,Color.green,1f);
                                         
-                                        goto Redo;
+                                }
+
+                                var tasks = new GameObject[pool.Count];
+                                tasks = pool.GetAllObjects().ToArray();
+                                
+                                //print before then after
+
+                                
+                                //sort the distances
+                                Helper.QuickSortWithDistances(tasks, distances,0, distances.Length - 1);
+        
+     
+                                
+                                //get the furthest one
+                                var count = tasks.Length - 1;
+                                int last = count;
+                                while (pool[last].activeSelf && last >= 0)
+                                {
+                                        last--;
                                 }
                                 
                                 //enable the interact area
-                                obj = pool[index];
+                                obj = tasks[last];
                                 if(obj.activeSelf) continue;
                                 //enable the object
                                 if (obj.TryGetComponent(out Interactable iArea))

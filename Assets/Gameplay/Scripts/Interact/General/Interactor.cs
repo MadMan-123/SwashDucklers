@@ -21,12 +21,22 @@ public class Interactor : MonoBehaviour
     [SerializeField] private float howMuchUp = 0.75f;
     [SerializeField] private float slapDamage = 5;
 
+    [SerializeField] private GameObject smokeParticle;
     [SerializeField] PhysicMaterial slapMat;
     [SerializeField] private bool shouldDebug = false;
+    bool isInteracting = false;
+    [SerializeField] private Transform cam;
+    [SerializeField] private Transform vfxHolder;
 
-    // Start is called before the first frame update
+    
+    Collider[] colliders = new Collider[10];
+    [SerializeField] private float howFar = 0.45f;
+    [SerializeField] private Vector3 offset = new(0,-0.1f,0);
+    [SerializeField] private float interactCooldown = 1f;
     void Start()
     {
+        cam = Camera.main?.gameObject.transform;
+        //smh tom, im not sure i get why were doing that tbh
         TryGetComponent(out playerControler);
         if (TryGetComponent(out input))
         {
@@ -37,6 +47,7 @@ public class Interactor : MonoBehaviour
     
     private void TryInteract()
     {
+        if (isInteracting) return;
         if (playerControler.interacting)
         {
             playerControler.interacting = false;
@@ -49,6 +60,8 @@ public class Interactor : MonoBehaviour
         playerControler.animator.SetBool("IsSlapping", true);
         playerControler.animator.CrossFade("Slap", 0.1f);
 
+        isInteracting = true;
+        StartCoroutine(InteractCooldown(interactCooldown));
         if (TryGetComponent(out Inventory inv) && inv.TryPickUp())
         {
            return;
@@ -96,7 +109,7 @@ public class Interactor : MonoBehaviour
         }
         
 
-
+        
         //Reset the flag
         Invoke(nameof(ResetSlapAnim), 0.5f);
     }
@@ -105,9 +118,6 @@ public class Interactor : MonoBehaviour
     {
         playerControler.animator.SetBool("IsSlapping", false);
     }
-    Collider[] colliders = new Collider[10];
-    [SerializeField] private float howFar = 0.45f;
-    [SerializeField] private Vector3 offset = new(0,-0.1f,0);
 
     private void Slap(GameObject toSlap)
     {
@@ -135,25 +145,33 @@ public class Interactor : MonoBehaviour
                 StartCoroutine(brain.ReenableAgent(brain.knockDownTime));
                 brain.ChangeState(AIBrain.State.Chase);
 
-                var current = GetComponent<Inventory>();  
-                //see if we can take the item from the brain
-                if (brain.inventory && brain.inventory.item && (current.item == null || current.item.type == Item.Type.NoItem))
+
+                if(brain.TryGetComponent(out Inventory inv))
                 {
-                    current.AddItem(brain.inventory.item.gameObject);
-                }
-                else if (current.item)
-                {
-                    brain.inventory.TakeItem(current);
+                    inv.DropItem();
                 }
                 
             }
             rb.AddForce(((transform.forward ) * (slapForce + extraForce/5) )+ ((transform.up * howMuchUp) * slapForce / 5), ForceMode.Impulse);
             
+            //much better, take the transform forward instead of vector3.forward, that way we can slap in any direction - MW
+            var pos = transform.position +  transform.forward * 0.5f;
+            var delta = cam.position - pos;
+            var direction = Quaternion.LookRotation(delta);
+            Instantiate(smokeParticle, pos, direction);
         }
         if(canSlapSfx)
             SoundManager.PlayAudioClip("Slap",transform.position + transform.forward,1f);
     }
 
+
+    private IEnumerator InteractCooldown(float sec = 1f)
+    {
+        //wait for the cooldown
+        yield return new WaitForSeconds(sec);
+        isInteracting = false;
+        
+    }
     
     
 

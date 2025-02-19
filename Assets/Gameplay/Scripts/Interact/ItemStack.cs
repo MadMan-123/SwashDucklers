@@ -8,8 +8,8 @@ using UnityEngine.Assertions;
 
 public class ItemStack : MonoBehaviour
 {
-    [SerializeField] GameObject itemGenerated;
-    private GameObjectPool pool;
+    [SerializeField] public GameObject itemGenerated;
+    protected GameObjectPool pool;
 
     private void Start()
     {
@@ -29,7 +29,7 @@ public class ItemStack : MonoBehaviour
         }
         
         //check if the source already has an item
-        if (inv.item != null) return ;
+        if (inv.item != null) return;
         
         //instantiate the item
         GameObject current = pool.GetObject();

@@ -13,15 +13,19 @@ public class Spawner : MonoBehaviour
     public float interval = 1f;
     public int waveSize = 1;
     public string areaName;
-    private AreaManager.Area area;
-    private GameObjectPool pool;
-    
-    
-    private IEnumerator routine;
+    protected AreaManager.Area area;
+    protected GameObjectPool pool;
+
+
+    protected IEnumerator routine;
     private void Start()
     {
-        pool = new GameObjectPool(prefab, poolSize,transform);
-        pool.Dynamic = true;
+        Init();
+    }
+    
+    public virtual void Init()
+    {
+        pool = new GameObjectPool(prefab, poolSize, transform);
         routine = _spawn();
         StartCoroutine(routine);
     }
@@ -37,51 +41,16 @@ public class Spawner : MonoBehaviour
         {
             var obj = pool.GetObject();
             
-            //disable the agent and enable kinematic
-            NavMeshAgent agent;
-            if (obj.TryGetComponent(out agent))
-            {
-                agent.enabled = false;
-                
-            }
-
-            if (obj.TryGetComponent(out Rigidbody rb))
-            {
-                rb.isKinematic = false;
-            }
-
-            //reenable the agent and disable kinematic
-            StartCoroutine(_reenable(obj,agent));
-            
             //set the position
             obj.transform.position = area.GeneratePositionInArea(true,true,true);   
             //draw the position
             Debug.DrawLine(obj.transform.position,obj.transform.position + Vector3.up,Color.red,5f);
-            
-            
         }
         yield return new WaitForSeconds(interval);
         routine = _spawn();
         StartCoroutine(routine);
     }
 
-    private IEnumerator _reenable(GameObject aiInstance, NavMeshAgent agent) 
-    {
-        while (!Physics.Raycast(aiInstance.transform.position, Vector3.down, 0.5f,LayerMask.GetMask("Boat")))
-        {
-            yield return null;
-        }
-       
-        // clamp the agent to the navmesh
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(aiInstance.transform.position, out hit, 1.0f, NavMesh.AllAreas))
-        {
-            aiInstance.transform.position = hit.position;
-        }
-        //  enable NavMeshAgent
-        if (agent) agent.enabled = true;
-        
-    }
 
     public void Return(GameObject gameObject)
     {
