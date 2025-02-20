@@ -590,10 +590,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  acceleration: 0.25
-  maxSpeed: 3.5
+  acceleration: 0.5
+  maxSpeed: 3.3
   vMaxSpeed: 20
-  deceleration: 0.15
+  deceleration: 0.05
   jumpPower: 0.00001
   jumpDuration: 0.000001
   airControl: 0.1
@@ -919,10 +919,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.28
+  m_Radius: 0.37814596
+  m_Height: 1.1926668
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.0436666, z: 0}
 --- !u!114 &-3264851227348481002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,6 +959,8 @@ MonoBehaviour:
     type: 3}
   slapMat: {fileID: 0}
   shouldDebug: 0
+  cam: {fileID: 0}
+  vfxHolder: {fileID: 0}
   howFar: 0.45
   offset: {x: 0, y: -0.1, z: 0}
   interactCooldown: 0.5
