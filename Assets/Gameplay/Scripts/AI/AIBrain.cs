@@ -26,8 +26,9 @@ public class AIBrain : MonoBehaviour
         [SerializeField] private float cooldownTime = 3f;
         [SerializeField] public float knockDownTime = 5f;
         [SerializeField] private bool shouldDebug = false;
-        
         [SerializeField] private float fleeDistance = 5f;
+        [Header("Visual behaviour")]
+        [SerializeField] private Animator anim;
         private Health health;
         private LayerMask boatLayer;
         private Vector3 delta;
@@ -77,6 +78,9 @@ public class AIBrain : MonoBehaviour
             
             if(!TryGetComponent(out inventory))
                 inventory = gameObject.AddComponent<Inventory>();
+
+        anim = GetComponent<Animator>();
+        anim.SetBool("Walking") = true;
         }
        
         private void Update()
