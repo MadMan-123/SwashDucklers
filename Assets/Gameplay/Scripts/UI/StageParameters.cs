@@ -39,4 +39,10 @@ public static class StageParameters
 
     //Kraken Health
     public static int krakenHealth = 5;
+
+    //Starting cargo
+    public static int startingCargo = 5;
+
+    //Current cargo
+    public static int currentCargo = 5;
 }
