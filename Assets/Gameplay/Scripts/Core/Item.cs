@@ -40,15 +40,18 @@ public class Item : MonoBehaviour
         }
     }
     
-    public void DropItem(GameObject source)
+    public void DropItem( )
     {
-        if (source.TryGetComponent(out Inventory inv) && inv == current)
-        {
+
+            GetComponent<Collider>().enabled = true;
+            GetComponent<Rigidbody>().isKinematic = false; 
+            current.item = null;
+            
             //set the inventory to null
             current = null;
+
             //set the transforms to allow the item to be dropped
             transform.SetParent(null);
-        }
     }
     
     
@@ -58,7 +61,8 @@ public class Item : MonoBehaviour
     {
         NoItem = -1,
         CannonBall,
-        Plank
+        Plank,
+        Cargo
         //other item types here
     }
 }

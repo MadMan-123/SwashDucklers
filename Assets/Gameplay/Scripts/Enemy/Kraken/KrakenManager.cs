@@ -22,7 +22,7 @@ public class KrakenManager : MonoBehaviour
     [SerializeField] private CinemachineTargetGroup cameraTarget;
 
     float timeBeforeNext;
-    bool isActive = false;
+    //bool isActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +63,7 @@ public class KrakenManager : MonoBehaviour
     //Function called by cannons when fired -SD
     public void krakenHit()
     {
-        SoundManager.PlayAudioClip("KrakenHurt", this.transform.position, 1f);
+        SoundManager.PlayAudioClip("KrakenHurt", this.transform.position, 2f);
         krakenHud.KrakenHit();
 
         if (krakenHud.currentHealth == 0)

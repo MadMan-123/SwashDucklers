@@ -590,10 +590,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  acceleration: 0.25
-  maxSpeed: 3.5
+  acceleration: 0.5
+  maxSpeed: 3.3
   vMaxSpeed: 20
-  deceleration: 0.15
+  deceleration: 0.05
   jumpPower: 0.00001
   jumpDuration: 0.000001
   airControl: 0.1
@@ -919,10 +919,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.28
+  m_Radius: 0.37814596
+  m_Height: 1.1926668
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.0436666, z: 0}
 --- !u!114 &-3264851227348481002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -952,14 +952,18 @@ MonoBehaviour:
   tempIndicator: {fileID: 0}
   toolPU: {fileID: 0}
   slapForce: 5
-  slapDistance: 0.2
   slapRadius: 0.75
   howMuchUp: 0.75
   slapDamage: 5
+  smokeParticle: {fileID: 6887231780596014542, guid: 23720299645a3444eba9fad7c5d9b365,
+    type: 3}
   slapMat: {fileID: 0}
   shouldDebug: 0
+  cam: {fileID: 0}
+  vfxHolder: {fileID: 0}
   howFar: 0.45
   offset: {x: 0, y: -0.1, z: 0}
+  interactCooldown: 0.5
 --- !u!1 &8910317409946814105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,34 +1209,8 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 868855801236186011}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 62f9fc09e5f60f64c981b3764eba8045,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6404247148127617893}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62f9fc09e5f60f64c981b3764eba8045, type: 3}
---- !u!1 &3475128058790683021 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 62f9fc09e5f60f64c981b3764eba8045,
-    type: 3}
-  m_PrefabInstance: {fileID: 4394188734186855644}
-  m_PrefabAsset: {fileID: 0}
---- !u!111 &6404247148127617893
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3475128058790683021}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 2cec2f5f8ceb2324bb138b2512576d8a, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: f9513427e11bc8c47b7be561524e27fc, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!4 &4283470949246204727 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 62f9fc09e5f60f64c981b3764eba8045,

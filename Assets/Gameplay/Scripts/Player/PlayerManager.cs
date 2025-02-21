@@ -73,6 +73,7 @@ public class PlayerManager : MonoBehaviour
     {
         //PlayerStats.playerNo++;
         players.Add(player.gameObject);
+        GameData.Players.Add(player.gameObject);
         Debug.Log("Player joined");
         Debug.Log($"Players:{PlayerStats.playerNo}");
 

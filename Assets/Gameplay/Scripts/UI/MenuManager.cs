@@ -22,10 +22,10 @@ public class MenuManager : MonoBehaviour
     }
     
     bool toggle = false;
-    public void LoadScene(string sceneName)
+    public void LoadScene(int index)
     {
         // Load the scene
-        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(index);
     }
     
     public void ExitGame()
@@ -88,7 +88,8 @@ public class MenuManager : MonoBehaviour
         }
         //pause the game
         PauseGame();
+        LoadScene(4);
         //
-        
+
     }
 }
