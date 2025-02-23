@@ -26,7 +26,9 @@ public class AIBrain : MonoBehaviour
         [SerializeField] private float cooldownTime = 3f;
         [SerializeField] public float knockDownTime = 5f;
         [SerializeField] private bool shouldDebug = false;
-        
+        [Header("Visual behaviour")] 
+        private int walkingID;
+        [SerializeField] private Animator anim;
         [SerializeField] private float fleeDistance = 5f;
         private Health health;
         private LayerMask boatLayer;
@@ -74,9 +76,10 @@ public class AIBrain : MonoBehaviour
                 health = gameObject.AddComponent<Health>();
             
             health.SetHealth(health.GetMaxHealth());
-            
-            if(!TryGetComponent(out inventory))
+
+            if (!TryGetComponent(out inventory))
                 inventory = gameObject.AddComponent<Inventory>();
+            walkingID = Animator.StringToHash("IsWalking");
         }
        
         private void Update()
@@ -385,6 +388,7 @@ public class AIBrain : MonoBehaviour
                     //apply the force
                     
                     rb.AddForce(force,ForceMode.VelocityChange);
+                    anim.SetBool(walkingID, true);
                 }
                 //flee
                 ChangeState(State.Flee);
