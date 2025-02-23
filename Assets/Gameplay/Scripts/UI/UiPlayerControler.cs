@@ -36,11 +36,11 @@ public class UiPlayerControler : MonoBehaviour
     {
 
         //References to join text
-        joinText1 = this.transform.GetChild(1).gameObject;
-        joinText2 = this.transform.GetChild(2).gameObject;
-        joinText3 = this.transform.GetChild(3).gameObject;
-        joinText4 = this.transform.GetChild(4).gameObject;
-        startText = this.transform.GetChild(5).gameObject;
+        joinText1 = this.transform.GetChild(0).gameObject;
+        joinText2 = this.transform.GetChild(1).gameObject;
+        joinText3 = this.transform.GetChild(2).gameObject;
+        joinText4 = this.transform.GetChild(3).gameObject;
+        startText = this.transform.GetChild(4).gameObject;
 
         //TODO:all this needs to be added to the game manager
         PlayerStats.playerNo = 0;

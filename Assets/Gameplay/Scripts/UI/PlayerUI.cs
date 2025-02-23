@@ -22,8 +22,11 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] Button forwardHat;
 
     [SerializeField] TextMeshProUGUI costumeText;
-    [SerializeField] TextMeshProUGUI PlayerText;
-
+    //[SerializeField] TextMeshProUGUI PlayerText;
+    [SerializeField] private Image playerSprite;
+    [SerializeField] private Sprite[] playerTextSprites;
+    [SerializeField] private Sprite[] readySprites;
+    [SerializeField] private Image readyButton;
     [SerializeField] GameObject ReadyIcon;
 
     float red;
@@ -46,28 +49,32 @@ public class PlayerUI : MonoBehaviour
                 red = PlayerStats.player1Color.r; //Default Colors
                 green = PlayerStats.player1Color.g; ;
                 blue = PlayerStats.player1Color.b; ;
-                PlayerText.text = "Player 1";
+                playerSprite.sprite = playerTextSprites[0];
+                //PlayerText.text = "Player 1";
                 break;
             case 1:
                 PlayerStats.player2input = playerInput.devices[0];
                 red = PlayerStats.player2Color.r; //Default Colors
                 green = PlayerStats.player2Color.g; ;
                 blue = PlayerStats.player2Color.b; ;
-                PlayerText.text = "Player 2";
+                playerSprite.sprite = playerTextSprites[1];
+                //PlayerText.text = "Player 2";
                 break;
             case 2:
                 PlayerStats.player3input = playerInput.devices[0];
                 red = PlayerStats.player3Color.r; //Default Colors
                 green = PlayerStats.player3Color.g; ;
                 blue = PlayerStats.player3Color.b; ;
-                PlayerText.text = "Player 3";
+                playerSprite.sprite = playerTextSprites[2];
+                //PlayerText.text = "Player 3";
                 break;
             case 3:
                 PlayerStats.player4input = playerInput.devices[0];
                 red = PlayerStats.player4Color.r; //Default Colors
                 green = PlayerStats.player4Color.g; ;
                 blue = PlayerStats.player4Color.b; ;
-                PlayerText.text = "Player 4";
+                playerSprite.sprite = playerTextSprites[3];
+                //PlayerText.text = "Player 4";
                 break;
         }
 
@@ -146,12 +153,14 @@ public class PlayerUI : MonoBehaviour
         {
             isReady = true;
             ReadyIcon.SetActive(true);
+            readyButton.sprite = readySprites[1];
             PlayerStats.readyPlayers = PlayerStats.readyPlayers + 1;
         }
         else
         {
             isReady = false;
             ReadyIcon.SetActive(false);
+            readyButton.sprite = readySprites[0];
             PlayerStats.readyPlayers = PlayerStats.readyPlayers - 1;
         }
     }
