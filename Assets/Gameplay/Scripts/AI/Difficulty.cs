@@ -14,7 +14,7 @@ using TMPro;
 //        Hatchling, //easy difficulty
 //        Crewmate,  //normal difficulty
 //        SwashDuckler //hard difficulty
-
+        
 //    }
 
 //    // Current difficulty level, default set to Hatchling (easy)

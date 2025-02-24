@@ -1,14 +1,28 @@
-using System;
-using UnityEngine;
+//using System;
+//using UnityEngine;
 
-///// <summary>
+//<summary>
 ///// GM: Manages the game states using an enum for readability and maintainability.
 ///// GM: Implements event-driven notifications for state changes and contains logic for handling individual states.
 ///// </summary>
 //public class GameStateManager : Singleton<GameStateManager>
 //{
+//    public static GameStateManager Instance;
+
+//    public GameState State;
+
+
+//    public static event Action<GameState> GameStateChanged;
+    
+
+//    void Start()
+
+//    {
+//        UpdateGameState(GameState.Kraken);
+//    }
+
 //    // GM: Define possible game states as an enum for clear representation.
-//    public enum GameState
+//        public enum GameState
 //    {
 //        none,
 //        Kraken,
@@ -23,7 +37,7 @@ using UnityEngine;
 //    // GM: Holds the current state of the game.
 //    private GameState currentState = GameState.None;
 
-//    // GM: Property to access the current state, with a private setter to control changes.
+//   // GM: Property to access the current state, with a private setter to control changes.
 //    public GameState CurrentState
 //    {
 //        get => currentState;
@@ -33,7 +47,7 @@ using UnityEngine;
 //            if (currentState == value) return;
 
 //            // GM: Notify subscribers that the state is about to change.
-//            OnBEFOREStateChanged?.Invoke(value);
+//           OnBEFOREStateChanged?.Invoke(value);
 
 //            // GM: Update the current state to the new value.
 //            currentState = value;
@@ -61,17 +75,9 @@ using UnityEngine;
 //    {
 //        switch (state)
 //        {
-//            case GameState.Starting:
-//                HandleStarting();
-//                break;
-//            case GameState.SpawningPlayers:
-//                HandleSpawningPlayers();
-//                break;
-//            case GameState.SpawningEnemies:
-//                HandleSpawningEnemies();
-//                break;
-//            case GameState.KrakenAttack:
-//                HandleKrakenAttack();
+
+//            case GameState.Kraken:
+//                HandleKraken();
 //                break;
 //            case GameState.ShipAt50PercentHealth:
 //                HandleShipAt50PercentHealth();
@@ -84,34 +90,17 @@ using UnityEngine;
 //                Debug.LogWarning("Unhandled game state: " + state);
 //                break;
 //        }
+
+//        OnGameStateChanged?.(newState); //GM: this chest to see if anyone has subscribed this function, in which case if not it won't be triggered.
+
 //    }
 //    /// <summary>
 //    /// GM: Feel free to edit this at any time btw, this should be treated more as a template rather than a finished system :D
 //    /// gm: Also I may have went in a bit heavy with the debug logs
 //    /// </summary>
-//    // GM: Example method for handling the "Starting" state. Replace with actual logic.
-//    private void HandleStarting()
-//    {
-//        Debug.Log("Game is starting...");
-//        // GM: Add logic for the starting state here.
-//    }
-
-//    // GM: Example method for handling the "SpawningPlayers" state. Replace with actual logic.
-//    private void HandleSpawningPlayers()
-//    {
-//        Debug.Log("Spawning players...");
-//        // GM: Add logic for player spawning here.
-//    }
-
-//    // GM: Example method for handling the "SpawningEnemies" state. Replace with actual logic.
-//    private void HandleSpawningEnemies()
-//    {
-//        Debug.Log("Spawning enemies...");
-//        // GM: Add logic for enemy spawning here.
-//    }
 
 //    // GM: Example method for handling the "KrakenAttack" state. Replace with actual logic.
-//    private void HandleKrakenAttack()
+//    private void HandleKraken()
 //    {
 //        Debug.Log("Kraken is attacking!");
 //        // GM: Add logic for Kraken attack here.
