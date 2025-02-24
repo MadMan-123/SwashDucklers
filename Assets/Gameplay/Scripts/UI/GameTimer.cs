@@ -51,7 +51,7 @@ public class GameTimer : MonoBehaviour
 
         //Looks complicated but effectively  (edge of screen +/- offset * modifier for current resolution) -SD
         StartPosition = (570 * (Screen.width / 1920f));
-        EndPosition = (HudRect.rect.width - 1150) * (Screen.width / 1920f);// * (Screen.width / 9020f);//Width of this object;
+        EndPosition = (HudRect.rect.width - 1150) * (Screen.width / 1920f);
 
         if (currentTime < endTime)
         {

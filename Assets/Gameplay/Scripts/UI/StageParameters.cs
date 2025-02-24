@@ -45,4 +45,7 @@ public static class StageParameters
 
     //Current cargo
     public static int currentCargo = 5;
+
+    //Score
+    public static int Score = 0;
 }

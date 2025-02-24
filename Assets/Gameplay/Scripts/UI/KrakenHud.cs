@@ -28,12 +28,12 @@ public class KrakenHud : MonoBehaviour
             //Debug.Log(Screen.height - 325);
 
             //Bomb positionX = furthest left position + (furthest right position * id of bomb/start health)
-            float positionX = leftPosition + (rightPosition * percentage);
+            float positionX = (leftPosition + (rightPosition * percentage));
             //Vector3 position = new Vector3(positionX, 0, 0);
 
             BombList.Add(Instantiate(Bomb, this.transform,false));
 
-            BombList[BombList.Count - 1].transform.position = new Vector3(positionX, BombList[BombList.Count - 1].transform.position.y, BombList[BombList.Count - 1].transform.position.z);
+            BombList[BombList.Count - 1].transform.position = new Vector3(positionX * (Screen.width/1920f), BombList[BombList.Count - 1].transform.position.y, BombList[BombList.Count - 1].transform.position.z);
         }
 
 
