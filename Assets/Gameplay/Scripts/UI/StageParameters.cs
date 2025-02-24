@@ -48,4 +48,10 @@ public static class StageParameters
 
     //Score
     public static int Score = 0;
+
+    //Max Ship health
+    public static float maxShipHealth = 100;
+
+    //current Ship health
+    public static float currentShipHealth = 0;
 }

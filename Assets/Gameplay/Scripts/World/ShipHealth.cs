@@ -52,6 +52,8 @@ public class ShipHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Set the max health
+        maxShipHealth = StageParameters.maxShipHealth;
 
         //SD:Set the max ship height to the current height of the ship in game space
         //Should prevent it teleporting at game start
@@ -78,6 +80,8 @@ public class ShipHealth : MonoBehaviour
         {
             RepairShip(5);
         }
+
+        StageParameters.currentShipHealth = shipHealth;
 
         if (shipHealth <= 0)
         {
