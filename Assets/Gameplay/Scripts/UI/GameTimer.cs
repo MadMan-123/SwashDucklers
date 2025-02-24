@@ -14,12 +14,15 @@ public class GameTimer : MonoBehaviour
     [SerializeField] float boatposition;
 
     [SerializeField] GameObject Hud;
+    [SerializeField] RectTransform Water;
+    [SerializeField] RectTransform HudRect;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartPosition = transform.position.x;
-        EndPosition = StartPosition + 250;
+
+        //StartPosition = (0 + 500) * (Screen.width / 9020f);
+        //EndPosition = (HudRect.rect.width - 500) * (Screen.width/9020f);//Width of this object;
 
         currentTime = 0;
 
@@ -45,6 +48,11 @@ public class GameTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //Looks complicated but effectively  (edge of screen +/- offset * modifier for current resolution) -SD
+        StartPosition = (570 * (Screen.width / 1920f));
+        EndPosition = (HudRect.rect.width - 1150) * (Screen.width / 1920f);// * (Screen.width / 9020f);//Width of this object;
+
         if (currentTime < endTime)
         {
             currentTime = currentTime + 1 * Time.deltaTime;

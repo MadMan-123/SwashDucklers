@@ -4483,7 +4483,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1677275323}
-  m_Father: {fileID: 2094662991}
+  - {fileID: 2004744700}
+  m_Father: {fileID: 1143316912}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4519,12 +4520,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -5309,12 +5310,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -6960,6 +6961,7 @@ Transform:
   - {fileID: 1122676179}
   - {fileID: 27301137}
   - {fileID: 894315974}
+  - {fileID: 824746697}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1143316914
@@ -7768,12 +7770,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0384513035b5b047a4111bb0c843242, type: 3}
---- !u!4 &1416729271 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1166853638082625062, guid: b0384513035b5b047a4111bb0c843242,
-    type: 3}
-  m_PrefabInstance: {fileID: 1416729270}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1466594115 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
@@ -10474,6 +10470,8 @@ GameObject:
   - component: {fileID: 1677275323}
   - component: {fileID: 1677275327}
   - component: {fileID: 1677275326}
+  - component: {fileID: 1677275329}
+  - component: {fileID: 1677275328}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -10492,8 +10490,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2004744700}
+  m_Children: []
   m_Father: {fileID: 824746697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10539,6 +10536,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1677275322}
   m_CullTransparentMesh: 1
+--- !u!114 &1677275328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677275322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &1677275329
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677275322}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &1685696418
 GameObject:
   m_ObjectHideFlags: 0
@@ -12024,6 +12067,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 875717203}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1883787736 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7476453747853682304, guid: b0384513035b5b047a4111bb0c843242,
+    type: 3}
+  m_PrefabInstance: {fileID: 1416729270}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1922169623 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03f564ea25b1e3d4ea401c92f259ad91,
@@ -12505,7 +12554,7 @@ Transform:
   - {fileID: 1946073060}
   - {fileID: 1127802237}
   - {fileID: 75170552}
-  - {fileID: 1416729271}
+  - {fileID: 1883787736}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1986898624
@@ -12564,16 +12613,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004744699}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1677275323}
+  m_Father: {fileID: 824746697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -400, y: 47}
+  m_AnchoredPosition: {x: -381.4, y: 487.30002}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2004744702
@@ -12603,6 +12652,8 @@ MonoBehaviour:
   PercentageTimePassed: 0
   boatposition: 0
   Hud: {fileID: 824746696}
+  Water: {fileID: 1677275323}
+  HudRect: {fileID: 824746697}
 --- !u!212 &2004744704
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13823,7 +13874,6 @@ Transform:
   - {fileID: 410087041}
   - {fileID: 2539043704645613167}
   - {fileID: 1645392300}
-  - {fileID: 824746697}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2124061314
