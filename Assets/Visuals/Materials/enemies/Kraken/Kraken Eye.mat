@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Kraken Eye
-  m_Shader: {fileID: -6465566751694194690, guid: 5012f261a3a2cf34599845f563c8bcec,
+  m_Shader: {fileID: -6465566751694194690, guid: d5e177436e736814cbdfb053c1d99302,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -37,6 +37,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Roughness:
+        m_Texture: {fileID: 2800000, guid: eea42c3fd45091348a5665353b16deae, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseColourTexture:
         m_Texture: {fileID: 2800000, guid: 546cd58fc1fd14947899e9df1c778763, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -89,12 +93,28 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _baseColour:
+        m_Texture: {fileID: 2800000, guid: 546cd58fc1fd14947899e9df1c778763, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _emmissive:
+        m_Texture: {fileID: 2800000, guid: 5d6222f9b0f23314ba2dd36f072621ae, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _heightTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _metalicTexture:
         m_Texture: {fileID: 2800000, guid: eea42c3fd45091348a5665353b16deae, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _metallic:
+        m_Texture: {fileID: 2800000, guid: eea42c3fd45091348a5665353b16deae, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _normal:
+        m_Texture: {fileID: 2800000, guid: e169597e88b093b4b99077f5a345f516, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _normalTexture:
@@ -140,6 +160,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
+    - _HighlightSize: 0.05
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -152,10 +173,15 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
+    - _Steps: 10
     - _Surface: 0
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _metallic_strength: 0.4
+    - _non_emmisive: 0
+    - _normal_strength: 1.02
+    - _smoothness_strength: 0.307
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

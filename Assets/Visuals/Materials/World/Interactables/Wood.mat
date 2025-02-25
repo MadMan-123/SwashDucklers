@@ -116,6 +116,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _baseColour:
+        m_Texture: {fileID: 2800000, guid: 88b2b6c257034a345b22f28cff21c6db, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _emmissive:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _heightTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -201,6 +209,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     - _metallic_strength: 0
+    - _non_emmisive: 1
     - _normal_strength: 0.29
     - _smoothness_strength: 0.26
     m_Colors:
