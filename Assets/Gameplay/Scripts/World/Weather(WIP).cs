@@ -39,7 +39,7 @@ public class Weather : MonoBehaviour
     {
         waterRenderer = water.transform.GetChild(1).GetComponent<MeshRenderer>();
         weatherState = WeatherState.KRAKEN;
-        StartCoroutine(ChangeWaterColor());
+        StartCoroutine(ChangeWeather());
 
     }
 
@@ -47,16 +47,16 @@ public class Weather : MonoBehaviour
     {
         waterRenderer = water.transform.GetChild(1).GetComponent<MeshRenderer>();
         weatherState = WeatherState.NORMAL;
-        StartCoroutine(ChangeWaterColor());
+        StartCoroutine(ChangeWeather());
 
     }
 
-    IEnumerator ChangeWaterColor()
+    IEnumerator ChangeWeather()
     {
         float progress = 0;
         float increment = smoothness / waterChangeDuration;
         var emission = rain.emission;
-        Material currentMat = waterRenderer.material;
+        //Material currentMat = waterRenderer.material;
         switch (weatherState)
         {
             case WeatherState.NORMAL:
@@ -64,7 +64,7 @@ public class Weather : MonoBehaviour
                 {
                     sunlight.intensity = Mathf.Lerp(1.5f, 2, progress);
                     emission.rateOverTime = 200 * (1 - progress);
-                    waterRenderer.material.Lerp(currentMat, waterMaterial, progress);
+                    //waterRenderer.material.Lerp(currentMat, waterMaterial, progress);
                     progress += increment;
                     yield return new WaitForSeconds(smoothness);
                 }
@@ -79,7 +79,7 @@ public class Weather : MonoBehaviour
                 {
                     sunlight.intensity = Mathf.Lerp(2, 0.5f, progress);
                     emission.rateOverTime = 200 * progress;
-                    waterRenderer.material.Lerp(currentMat, krakenMaterial, progress);
+                    //waterRenderer.material.Lerp(currentMat, krakenMaterial, progress);
                     progress += increment;
                     yield return new WaitForSeconds(smoothness);
                 }
