@@ -21,6 +21,6 @@ public class SmokeParticle : MonoBehaviour
     {
         //anim.SetTrigger("Repair");
         //this.gameObject.SetActive(false);
-        //DestroyImmediate(gameObject);
+        DestroyImmediate(gameObject);
     }
 }

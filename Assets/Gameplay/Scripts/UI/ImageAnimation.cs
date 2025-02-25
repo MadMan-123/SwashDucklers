@@ -9,6 +9,7 @@ public class ImageAnimation : MonoBehaviour
     public int framePerSprite = 6;
     public bool loop = true;
     public bool destroyOnEnd = false;
+    public bool disableOnEnd = false;
 
     private int index = 0;
     private Image image;
@@ -19,7 +20,7 @@ public class ImageAnimation : MonoBehaviour
         image = GetComponent<Image>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!loop && index == sprites.Length) return;
         frame++;
@@ -31,6 +32,7 @@ public class ImageAnimation : MonoBehaviour
         {
             if (loop) index = 0;
             if (destroyOnEnd) Destroy(gameObject);
+            if(disableOnEnd) gameObject.SetActive(false);
         }
     }
 }
