@@ -96,7 +96,7 @@ public class GameStateManager : Singleton<GameStateManager>
                 break;
         }
 
-        OnGameStateChanged?.(newState); //GM: this checks to see if anyone has subscribed this function, in which case if not it won't be triggered.
+        OnGameStateChanged?.invoke(newState); //GM: this checks to see if anyone has subscribed this function, in which case if not it won't be triggered.
 
     }
     /// <summary>
