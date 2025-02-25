@@ -13558,8 +13558,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76b7a169ddb2d347b8132e835f8e124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tentacleDeployedTime: 20
-  waitBetweenTents: 0
+  tentacleDeployedTime: 5
+  waitBetweenTents: 5
   tentacleObjects:
   - {fileID: 1052386099}
   - {fileID: 694203335}
@@ -13567,8 +13567,6 @@ MonoBehaviour:
   - {fileID: 842860670}
   - {fileID: 1937866891}
   - {fileID: 206331830}
-  weightedSums: []
-  krakenAlive: 0
 --- !u!4 &1961987635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5161091590877973449, guid: 124d3f8452a334c4c910899bd0ffd6bb,
