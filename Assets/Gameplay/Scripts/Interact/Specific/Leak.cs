@@ -45,6 +45,7 @@ public class Leak : Interactable
         if ( inv.item.type != Item.Type.NoItem && inv.item.type != itemRequired) return;
         //increment the count
         count++;
+        
         plankVisualiser.RepairPlank();
         //take the players item
         inv.RemoveItem();
