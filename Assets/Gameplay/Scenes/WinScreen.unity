@@ -801,10 +801,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6022663425321368706}
-        m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
-        m_MethodName: ReturnToMenu
-        m_Mode: 1
+      - m_Target: {fileID: 6022663425321368707}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -846,6 +846,7 @@ GameObject:
   - component: {fileID: 1427984479062405358}
   - component: {fileID: 29155112771814486}
   - component: {fileID: 6022663425321368706}
+  - component: {fileID: 6022663425321368707}
   m_Layer: 5
   m_Name: Canvas_menu
   m_TagString: Untagged
@@ -865,6 +866,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8737ee0393f9944a4ee7046bd93d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6022663425321368707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6022663425321368705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b99987b665380f74c9b83f4aef6836ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverPanel: {fileID: 0}
 --- !u!1 &6261706256743452962
 GameObject:
   m_ObjectHideFlags: 0
