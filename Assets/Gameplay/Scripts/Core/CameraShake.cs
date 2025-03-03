@@ -22,13 +22,14 @@ public class CameraShake : MonoBehaviour
         if (shakeTimer > 0)
         {
             shakeTimer -= Time.deltaTime;
-            if (shakeTimer <= 0f)
-            {
-                //Timer over!
-                CinemachineBasicMultiChannelPerlin cmCamP = cmCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        }
+        else if (shakeTimer <= 0f)
+        {
+            //Timer over!
+            CinemachineBasicMultiChannelPerlin cmCamP = cmCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
-                cmCamP.m_AmplitudeGain = 0f;
-            }
+            cmCamP.m_AmplitudeGain = 0f;
+            cmCam.m_Lens.FieldOfView = 60f;
         }
 
         if (Input.GetKeyDown(KeyCode.P)) { ShakeCamera(10, 10); }
