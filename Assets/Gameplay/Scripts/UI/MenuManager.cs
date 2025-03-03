@@ -1,27 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    public static MenuManager Instance;
+    public static MenuManager instance;
     
     public GameObject gameOverPanel;
     
     //singleton pattern
     private void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
         }
         else
         {
             Destroy(gameObject);
         }
     }
-    
-    bool toggle = false;
+
+    private bool toggle;
     public void LoadScene(int index)
     {
         // Load the scene
@@ -78,18 +76,18 @@ public class MenuManager : MonoBehaviour
     }
 
 
-    public void LoadGameOver()
-    {
-        if (!gameOverPanel)
-        {
-            #if UNITY_EDITOR
-                        Debug.LogError("No Game Over Panel found.");
-            #endif
-        }
+   // public void LoadGameOver()
+    //{
+     //   if (!gameOverPanel)
+     //   {
+     //       #if UNITY_EDITOR
+     //                   Debug.LogError("No Game Over Panel found.");
+     //       #endif
+      //  }
         //pause the game
-        PauseGame();
-        LoadScene(4);
+    //    PauseGame();
+    //    LoadScene(4);
         //
 
-    }
+    //
 }
