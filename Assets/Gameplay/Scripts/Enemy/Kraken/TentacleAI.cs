@@ -12,30 +12,31 @@ public class TentacleAI : MonoBehaviour
     private int lastCalled;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        for (int i = 0; i < tentacleObjects.Length; i++)
+        foreach (GameObject obj in tentacleObjects)
         {
-            tentacleObjects[i].SetActive(false);
+            obj.SetActive(false);
         }
         TentacleAttack();
     }
     private void TentacleAttack()
     {
         int tentAttack = Random.Range(0, tentacleObjects.Length);
-        if (tentAttack == lastCalled){TentacleAttack();}
+        if (tentAttack == lastCalled){tentAttack = Random.Range(0, tentacleObjects.Length);}
         lastCalled = tentAttack;
         StartCoroutine(TentacleTimer(tentAttack, tentacleDeployedTime, waitBetweenTents));
+        Debug.Log("Coroutine Started");
     }
 
     IEnumerator TentacleTimer(int tentacle, float waitTime, float nextAttackTime)
     {
+        Debug.Log("SetActive");
         tentacleObjects[tentacle].SetActive(true);
         yield return new WaitForSeconds(waitBetweenTents);
-
+        Debug.Log("SetDeactive");
         tentacleObjects[tentacle].SetActive(false);
         yield return new WaitForSeconds(tentacleDeployedTime);
-
         TentacleAttack();
     }
 }
