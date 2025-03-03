@@ -17024,10 +17024,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlankStack
       objectReference: {fileID: 0}
+    - target: {fileID: 7012375058897915608, guid: 0ea83d9e89bbe1648bbbf5254c80280b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fcc6f23e3c56e9a47b7c3e31ccdf8271, type: 2}
     - target: {fileID: 7455892935728452265, guid: 0ea83d9e89bbe1648bbbf5254c80280b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.41
+      value: -5.251
       objectReference: {fileID: 0}
     - target: {fileID: 7455892935728452265, guid: 0ea83d9e89bbe1648bbbf5254c80280b,
         type: 3}
@@ -17037,7 +17042,7 @@ PrefabInstance:
     - target: {fileID: 7455892935728452265, guid: 0ea83d9e89bbe1648bbbf5254c80280b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.81999993
+      value: -1.431
       objectReference: {fileID: 0}
     - target: {fileID: 7455892935728452265, guid: 0ea83d9e89bbe1648bbbf5254c80280b,
         type: 3}
@@ -17073,6 +17078,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960803191623030573, guid: 0ea83d9e89bbe1648bbbf5254c80280b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.341
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960803191623030573, guid: 0ea83d9e89bbe1648bbbf5254c80280b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960803191623030573, guid: 0ea83d9e89bbe1648bbbf5254c80280b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.488
       objectReference: {fileID: 0}
     - target: {fileID: 9093146496918056002, guid: 0ea83d9e89bbe1648bbbf5254c80280b,
         type: 3}
