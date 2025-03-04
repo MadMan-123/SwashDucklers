@@ -1219,9 +1219,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
+        type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 952539425}
+    - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1412264315}
+    - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CannonShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: KrakenHud, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6783439727225733875, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8571,12 +8606,12 @@ PrefabInstance:
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
@@ -8587,7 +8622,7 @@ PrefabInstance:
         type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1412264315}
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -8596,17 +8631,17 @@ PrefabInstance:
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: set_clip
+      value: CannonShot
       objectReference: {fileID: 0}
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: UnityEngine.AudioSource, UnityEngine
+      value: KrakenHud, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.AudioClip, UnityEngine
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9142333337070584888, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
