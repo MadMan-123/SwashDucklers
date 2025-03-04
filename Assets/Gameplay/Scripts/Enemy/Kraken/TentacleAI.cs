@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class TentacleAI : MonoBehaviour
 {
@@ -12,13 +14,21 @@ public class TentacleAI : MonoBehaviour
     private int lastCalled;
 
     // Start is called before the first frame update
+
     void OnEnable()
     {
         foreach (GameObject obj in tentacleObjects)
-        {
             obj.SetActive(false);
-        }
-        TentacleAttack();
+        Debug.Log("TentacleAI OnEnable");
+        //TentacleAttack();
+        int tentAttack = Random.Range(0, tentacleObjects.Length);
+        //while (tentAttack == lastCalled)
+        //{
+            //tentAttack = Random.Range(0, tentacleObjects.Length);
+        //}
+        tentacleObjects[tentAttack].SetActive(true);
+        lastCalled = tentAttack;
+        Debug.Log("Activated tentacle");
     }
     private void TentacleAttack()
     {
@@ -38,5 +48,12 @@ public class TentacleAI : MonoBehaviour
         tentacleObjects[tentacle].SetActive(false);
         yield return new WaitForSeconds(tentacleDeployedTime);
         TentacleAttack();
+    }
+
+    private void OnDisable()
+    {
+        foreach (GameObject obj in tentacleObjects)
+            obj.SetActive(false);
+        //throw new NotImplementedException();
     }
 }
