@@ -4891,7 +4891,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5914371, y: 0.65158445, z: 0.59104973}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7811544128816470542}
@@ -4936,8 +4936,7 @@ MonoBehaviour:
   OnInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 919132149155446097, guid: 333c163fe3ad8344ea99c48ee89f28ee,
-          type: 3}
+      - m_Target: {fileID: 5661676496664633201}
         m_TargetAssemblyTypeName: Cannon, Assembly-CSharp
         m_MethodName: Fire
         m_Mode: 0
@@ -4953,11 +4952,12 @@ MonoBehaviour:
   cannonballPrefab: {fileID: 6431738259369445543, guid: fff432052bad16b4b9db2c1c5abadacf,
     type: 3}
   cannonballSpawnPoint: {fileID: 6783439727225733875}
-  cannonballParticles: {fileID: 0}
+  cannonballParticles: {fileID: 7054740943694813931}
   launchDuration: 1
   strength: 10
   canFire: 1
-  coolDownTime: 5
+  coolDownTime: 1
+  anim: {fileID: 0}
 --- !u!95 &7934842037677255886
 Animator:
   serializedVersion: 5
@@ -4967,11 +4967,11 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9142333337070584888}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 333c163fe3ad8344ea99c48ee89f28ee, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 6bb2d28b83090f1498bc6007058c87b9, type: 3}
   m_Controller: {fileID: 9100000, guid: b0e9d29a309c5fc459560b66f7634d4f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -4992,7 +4992,7 @@ Animation:
     type: 3}
   m_Animations: []
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!1001 &1081587979813595699
@@ -5068,6 +5068,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3930963011339636009, guid: 6bb2d28b83090f1498bc6007058c87b9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 387fd5f2552b26641afc7fa76bd36a84, type: 2}
+    - target: {fileID: -3611543718717689449, guid: 6bb2d28b83090f1498bc6007058c87b9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 387fd5f2552b26641afc7fa76bd36a84, type: 2}
+    - target: {fileID: -175175603315267731, guid: 6bb2d28b83090f1498bc6007058c87b9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 387fd5f2552b26641afc7fa76bd36a84, type: 2}
     - target: {fileID: -37445397394511822, guid: 6bb2d28b83090f1498bc6007058c87b9,
         type: 3}
       propertyPath: m_Materials.Array.size

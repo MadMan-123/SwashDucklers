@@ -16,7 +16,7 @@ public class Cannon : Interactable
     [SerializeField] private float strength = 10f;
     [SerializeField] private bool canFire = true;
     [SerializeField] private float coolDownTime = 5f;
-    private Animation anim;
+    [SerializeField] private Animator anim;
 
 
     void Start()
@@ -27,11 +27,12 @@ public class Cannon : Interactable
             //    OnInteract = new UnityEvent<GameObject>();
         } 
         cannonballParticles = this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
-        anim = this.transform.GetChild(1).gameObject.GetComponent<Animation>();
+        anim = this.transform.gameObject.GetComponent<Animator>();
     }
 
     public void Fire(GameObject Source)
     {
+
         if (!canFire) return;
         canFire = false;
         
@@ -45,6 +46,22 @@ public class Cannon : Interactable
         //remove the cannonball from the inventory
         inv.RemoveItem();
         
+        
+
+        StartCoroutine(FireCannon());
+
+        StartCoroutine(CoolDown());
+        
+
+    }
+
+    IEnumerator FireCannon()
+    {
+        if (!anim.GetBool("IsShooting"))
+            //animator.CrossFade("IsWalking")
+            anim.SetBool("IsShooting", true);
+        yield return new WaitForSeconds(0.75f);
+
         //fire the cannon
         //play some vfx
         //play some sfx
@@ -53,25 +70,23 @@ public class Cannon : Interactable
         cannonball.transform.position = cannonballSpawnPoint.position;
         cannonball.transform.rotation = cannonballSpawnPoint.rotation;
         cannonballParticles.Play();
-        anim.Play();
+
         SoundManager.PlayAudioClip("CannnonFire", this.transform.position, 1f);
 
         if (cannonball.TryGetComponent(out Rigidbody rb))
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            rb.AddForce(cannonballSpawnPoint.forward * strength,ForceMode.VelocityChange);
+            rb.AddForce(cannonballSpawnPoint.forward * strength, ForceMode.VelocityChange);
         }
-        
-        StartCoroutine(CoolDown());
-        
 
     }
-    
+
     IEnumerator CoolDown()
     {
         yield return new WaitForSeconds(coolDownTime);
         canFire = true;
+        anim.SetBool("IsShooting", false);
     }
 
     private void OnDrawGizmos()
