@@ -4872,6 +4872,8 @@ GameObject:
   - component: {fileID: 161687909159249456}
   - component: {fileID: 849538731795174332}
   - component: {fileID: 5661676496664633201}
+  - component: {fileID: 7934842037677255886}
+  - component: {fileID: 2305893407475133245}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -4956,6 +4958,43 @@ MonoBehaviour:
   strength: 10
   canFire: 1
   coolDownTime: 5
+--- !u!95 &7934842037677255886
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9142333337070584888}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 333c163fe3ad8344ea99c48ee89f28ee, type: 3}
+  m_Controller: {fileID: 9100000, guid: b0e9d29a309c5fc459560b66f7634d4f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!111 &2305893407475133245
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9142333337070584888}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 1827226128182048838, guid: 6bb2d28b83090f1498bc6007058c87b9,
+    type: 3}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &1081587979813595699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4982,17 +5021,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 6bb2d28b83090f1498bc6007058c87b9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.542
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6bb2d28b83090f1498bc6007058c87b9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.025
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6bb2d28b83090f1498bc6007058c87b9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.29
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6bb2d28b83090f1498bc6007058c87b9,
         type: 3}
