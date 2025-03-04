@@ -2391,14 +2391,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206331830}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tentacles: []
-  hitBox: []
-  anim: []
+  tentacles:
+  - {fileID: 675187498}
+  - {fileID: 1034167702}
+  hitBox:
+  - {fileID: 1082328165}
+  - {fileID: 1349454439}
+  anim:
+  - {fileID: 2043053150}
+  - {fileID: 1799235064}
   spawnTime: 0
 --- !u!1 &213613925
 GameObject:
@@ -2715,7 +2721,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270517992}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
   m_Name: 
@@ -3557,7 +3563,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 482245465}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
   m_Name: 
@@ -5401,6 +5407,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 962595632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &675187498 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 2043053148}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &694203335
 GameObject:
   m_ObjectHideFlags: 0
@@ -5442,7 +5454,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 694203335}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
   m_Name: 
@@ -5519,6 +5531,12 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.529102, y: 1, z: 0.6725644}
   m_Center: {x: 0.2993042, y: 0, z: 0.1637148}
+--- !u!1 &743564151 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 875717203}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &759061094
 GameObject:
   m_ObjectHideFlags: 0
@@ -7286,6 +7304,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031428286}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1034167702 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779946192}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1037955814
 GameObject:
   m_ObjectHideFlags: 0
@@ -7329,14 +7353,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1037955814}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tentacles: []
-  hitBox: []
-  anim: []
+  tentacles:
+  - {fileID: 1479327939}
+  - {fileID: 743564151}
+  hitBox:
+  - {fileID: 1937866891}
+  - {fileID: 1796102769}
+  anim:
+  - {fileID: 1479327940}
+  - {fileID: 1842991547}
   spawnTime: 0
 --- !u!1 &1038018306
 GameObject:
@@ -9742,6 +9772,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2535728324463025361, guid: c18e547c8cb00694da8769bf6104962b,
     type: 3}
   m_PrefabInstance: {fileID: 587094196}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1479327939 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1626924602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1479327940 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1626924602}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1488423137
 PrefabInstance:
@@ -13971,6 +14013,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1779946192}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1799235064 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779946192}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1803640415
 GameObject:
   m_ObjectHideFlags: 0
@@ -14514,6 +14562,12 @@ Animator:
 --- !u!4 &1842991546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 875717203}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1842991547 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
     type: 3}
   m_PrefabInstance: {fileID: 875717203}
   m_PrefabAsset: {fileID: 0}
@@ -15408,14 +15462,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2023198573}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56eebf0de2c8f6943a22a4b524c952e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tentacles:
   - {fileID: 96744756}
-  hitBox: []
+  hitBox:
+  - {fileID: 842860670}
   anim:
   - {fileID: 0}
   spawnTime: 0
@@ -16140,6 +16195,12 @@ PrefabInstance:
 --- !u!4 &2043053149 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 2043053148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2043053150 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
     type: 3}
   m_PrefabInstance: {fileID: 2043053148}
   m_PrefabAsset: {fileID: 0}
