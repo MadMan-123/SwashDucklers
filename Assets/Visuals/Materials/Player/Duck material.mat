@@ -238,6 +238,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _baseColour:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _emmissive:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _heightTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -554,6 +562,7 @@ Material:
     - _ZWriteMode: 1
     - _isUnityToonshader: 1
     - _metallic_strength: 0
+    - _non_emmisive: 1
     - _normal_strength: 0
     - _simpleUI: 0
     - _smoothness_strength: 0

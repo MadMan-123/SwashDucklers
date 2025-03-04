@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_outline shader
+  m_Name: white outlines
   m_Shader: {fileID: -6465566751694194690, guid: 7cce0f29094557540be1947814f6489d,
     type: 3}
   m_Parent: {fileID: 0}
@@ -41,11 +41,11 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _fade_distance: 75
-    - _outline_thickness: 0.0029
+    - _outline_thickness: 0.003
     m_Colors:
-    - _outline_colour: {r: 0, g: 0, b: 0, a: 0}
+    - _outline_colour: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &1957494976728542953
+--- !u!114 &1980500870615210460
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

@@ -66,7 +66,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d3cdbe7efb3a78149855179c99908f3b, type: 2}
+  - {fileID: 2100000, guid: c255aad5f56c2d2479b5e8ac7973bb4c, type: 2}
+  - {fileID: 2100000, guid: 08fb21db49d04e3448cba0cd53954ac9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -167,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  impactAnim: {fileID: 0}
 --- !u!1001 &2812088777091426838
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -97,7 +97,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  itemRequired: {fileID: 0}
+  itemRequired: -1
 --- !u!1001 &7633826967552389318
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -156,6 +156,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8601812784077160930, guid: ef8cd147a479c15438bf43226225ef1f,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8601812784077160930, guid: ef8cd147a479c15438bf43226225ef1f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 48b301d9edbd96946a9b6aa9e1632a91, type: 2}
+    - target: {fileID: -8601812784077160930, guid: ef8cd147a479c15438bf43226225ef1f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 08fb21db49d04e3448cba0cd53954ac9, type: 2}
     - target: {fileID: -7511558181221131132, guid: ef8cd147a479c15438bf43226225ef1f,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -166,6 +181,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wood Pile
       objectReference: {fileID: 0}
+    - target: {fileID: 1688860407849250583, guid: ef8cd147a479c15438bf43226225ef1f,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688860407849250583, guid: ef8cd147a479c15438bf43226225ef1f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bf06dc96ff3dad40b0fb26d46dcabf7, type: 2}
+    - target: {fileID: 1688860407849250583, guid: ef8cd147a479c15438bf43226225ef1f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 08de252f79c36064da7b77e3e9b1673c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
