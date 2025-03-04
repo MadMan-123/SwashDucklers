@@ -62,9 +62,23 @@ public class KrakenHud : MonoBehaviour
             currentHealth = currentHealth - 1;
 
             //Destroy(BombList[BombList.Count - 1]);
-            BombList[BombList.Count - 1].GetComponent<ImageAnimation>().enabled = true;
             BombList.Remove(BombList[BombList.Count - 1]);
 
         }
     }
+
+    public void CannonShot()
+    {
+        if (currentHealth == 0)
+        {
+            //Kraken is dead
+        }
+        else
+        {
+
+            BombList[BombList.Count - 1].GetComponent<ImageAnimation>().enabled = true;
+
+        }
+    }
+
 }
