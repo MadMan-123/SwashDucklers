@@ -108,6 +108,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   rb: {fileID: 0}
   inventory: {fileID: -8340207847162814124}
+  owner: {fileID: 0}
   viewRadius: 4
   target:
     trackedTransform: {fileID: 0}
@@ -123,7 +124,7 @@ MonoBehaviour:
   knockDownTime: 5
   shouldDebug: 0
   anim: {fileID: 4574048064265776387}
-  fleeDistance: 5
+  fleeDistance: 7.5
   onFloor: 0
   hasCargo: 0
   isFleeing: 0

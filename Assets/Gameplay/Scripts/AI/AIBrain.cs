@@ -31,7 +31,7 @@ public class AIBrain : MonoBehaviour
         [Header("Visual behaviour")] 
         private int walkingID;
         [SerializeField] private Animator anim;
-        [SerializeField] private float fleeDistance = 5f;
+        [SerializeField] private float fleeDistance = 10f;
         private Health health;
         private LayerMask boatLayer;
         private Vector3 delta;
@@ -341,9 +341,19 @@ public class AIBrain : MonoBehaviour
             }
             //get an edge of the navmesh
             var fleePosition = transform.position + delta.normalized * fleeDistance;
-            var clamp = NavMesh.FindClosestEdge(fleePosition, out var clampHit, NavMesh.AllAreas);
-
+           
+            //find the furthest edge of the navmesh from the target
+            int max = 10, attempts = 0;
+            NavMeshHit clampHit = default; 
+            //find the furthest point from the target on the navmesh
+            while (attempts < max && !NavMesh.FindClosestEdge(fleePosition, out  clampHit, NavMesh.AllAreas))
+            {
+                fleePosition = transform.position + delta.normalized * fleeDistance;
+                attempts++;
+            }
+            
             fleePosition = clampHit.position;
+            
             
             //clamp the destination to the navmesh, if the point is not on the navmesh then we should find the closest point
             if (!NavMesh.SamplePosition(fleePosition, out var hit, 2, NavMesh.AllAreas))

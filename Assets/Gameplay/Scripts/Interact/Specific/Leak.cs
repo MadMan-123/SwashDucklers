@@ -13,6 +13,7 @@ public class Leak : Interactable
     [SerializeField] private int count = 0;
     [SerializeField] private ShipHealth health;
     [SerializeField] private PlankVisualiser plankVisualiser;
+    [SerializeField] private GameObject leakEffect;
     Transform vfxHolder;
     private void Start()
     {
@@ -52,10 +53,18 @@ public class Leak : Interactable
         //if the count is equal to the required amount
         if (count != toRepair) return;
         //disable the object
-        gameObject.SetActive(false);
-
+        leakEffect.SetActive(false);
+       
+        DisableLogic();
+        //wait to disable the object for x amount of time
+        StartCoroutine(DisableLeak());
     }
 
+    IEnumerator DisableLeak(float wait = 5)
+    {
+        yield return new WaitForSeconds(5);
+        gameObject.SetActive(false);
+    }
 
     void DisableLogic()
     {
@@ -72,6 +81,5 @@ public class Leak : Interactable
 
     private void OnDisable()
     {
-        DisableLogic();
     }
 }
