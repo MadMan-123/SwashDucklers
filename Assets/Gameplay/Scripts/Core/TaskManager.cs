@@ -140,9 +140,7 @@ public class TaskManager : MonoBehaviour
                                 for (int j = 0; j < pool.Count; j++)
                                 {
                                         distances[j] = (avgPos - pool[j].transform.position).magnitude;
-                                        if(shouldDebug)
-                                                Debug.DrawLine(pool[j].transform.position,avgPos + Vector3.up,Color.green,1f);
-                                        
+                                      
                                 }
 
                                 var tasks = new GameObject[pool.Count];
@@ -154,14 +152,14 @@ public class TaskManager : MonoBehaviour
                                 //sort the distances
                                 Helper.QuickSortWithDistances(tasks, distances,0, distances.Length - 1);
         
-     
-                                
-                                //get the furthest one
-                                var count = tasks.Length - 1;
-                                int last = count;
-                                while (pool[last].activeSelf && last >= 0)
+                                //get the task that is the furthest away from the average position by
+                                //checking all elements and finding the first one that is not active
+                                int last = 0;
+                                for (int j = tasks.Length - 1; j >= 0; j--)
                                 {
-                                        last--;
+                                        if (tasks[j].activeSelf) continue;
+                                        last = j;
+                                        break;
                                 }
                                 
                                 //enable the interact area
