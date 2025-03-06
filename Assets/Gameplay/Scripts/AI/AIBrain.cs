@@ -266,20 +266,15 @@ public class AIBrain : MonoBehaviour
                     NavMesh.FindClosestEdge(destination, out hit, NavMesh.AllAreas);
                     destination = hit.position;
                 }
-
+  
+                
                 //draw the destination as a big line
                 //if the agent is enabled and is placed on a nav mesh area
                 if (agent.enabled && NavMesh.SamplePosition(transform.position, out var hit2, 0.5f, NavMesh.AllAreas))
                     agent.SetDestination(destination);
+              
                 
-                //obstacle avoidance
-                //we need to turn around if there is something infront of us or we are looking off the edge of the navmesh
-                /*if (Physics.Raycast(transform.position, transform.forward, out var hit3, 1f, NavMesh.AllAreas))
-                {
-                    //turn around
-                    transform.Rotate(Vector3.up, 180);
-                }*/
-                
+
         }
 
         private Vector3 JumpOff()
@@ -342,17 +337,42 @@ public class AIBrain : MonoBehaviour
             //get an edge of the navmesh
             var fleePosition = transform.position + delta.normalized * fleeDistance;
            
-            //find the furthest edge of the navmesh from the target
-            int max = 10, attempts = 0;
-            NavMeshHit clampHit = default; 
-            //find the furthest point from the target on the navmesh
-            while (attempts < max && !NavMesh.FindClosestEdge(fleePosition, out  clampHit, NavMesh.AllAreas))
-            {
-                fleePosition = transform.position + delta.normalized * fleeDistance;
-                attempts++;
-            }
+            //get the two furthest points from the target (as we are on a boat there is the back and front we can go to)
+            //the axis is the x axis
             
-            fleePosition = clampHit.position;
+            var targetPos = target.trackedTransform.position;
+            var targetX = targetPos.x;
+            
+            const float difference = 15;
+            //get the two points
+
+            var pos = transform.position;
+            
+            var back = new Vector3(targetX - difference, pos.y, pos.z);
+            var front = new Vector3(targetX + difference, pos.y ,pos.z);
+            
+            //try and sample the position of the two points
+            NavMeshHit backHit;
+            NavMeshHit frontHit;
+            
+            const float checkDistance = 10f;
+            NavMesh.SamplePosition(back, out backHit, checkDistance, NavMesh.AllAreas);
+            NavMesh.SamplePosition(front, out frontHit, checkDistance, NavMesh.AllAreas);
+           
+            //draw the two points
+            if (shouldDebug)
+            {
+                Debug.DrawLine(back, backHit.position, Color.green);
+                Debug.DrawLine(front, frontHit.position, Color.green);
+            }
+                
+            
+            //get the distance to the two points
+            var backDistance = (backHit.position - target.trackedTransform.position).magnitude;
+            var frontDistance = (frontHit.position - target.trackedTransform.position).magnitude;
+            
+            //get the furthest point
+            fleePosition = backDistance > frontDistance ? backHit.position : frontHit.position;
             
             
             //clamp the destination to the navmesh, if the point is not on the navmesh then we should find the closest point
