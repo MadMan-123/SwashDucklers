@@ -3335,7 +3335,7 @@ MonoBehaviour:
     - {fileID: 1675978097}
     - {fileID: 219783267}
   tasksCompleted: 0
-  shouldDebug: 0
+  shouldDebug: 1
   playerCheckRadius: 5
 --- !u!4 &410785622
 Transform:
@@ -15188,7 +15188,6 @@ Transform:
   - {fileID: 1238394735}
   - {fileID: 233507831}
   - {fileID: 1749537679}
-  - {fileID: 410785622}
   - {fileID: 1093960493}
   - {fileID: 1692819187}
   - {fileID: 1946073060}
@@ -15198,6 +15197,7 @@ Transform:
   - {fileID: 986737839}
   - {fileID: 852826574}
   - {fileID: 379022050}
+  - {fileID: 410785622}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1986898624
@@ -16619,9 +16619,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_CollectObjects: 2
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
+  m_CollectObjects: 1
+  m_Size: {x: 5.687627, y: 8.199816, z: 19.767578}
+  m_Center: {x: 0.14226246, y: 2.9000921, z: 2.8369162}
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 64
