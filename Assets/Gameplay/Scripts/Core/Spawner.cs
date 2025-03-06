@@ -52,7 +52,7 @@ public class Spawner : MonoBehaviour
     }
 
 
-    public void Return(GameObject gameObject)
+    public virtual void Return(GameObject gameObject)
     {
         if (gameObject.TryGetComponent(out NavMeshAgent agent))
         {

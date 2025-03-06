@@ -11,6 +11,8 @@ public class AIBrain : MonoBehaviour
         public NavMeshAgent agent;
         public Rigidbody rb;
         public Inventory inventory;
+        public EnemySpawner owner;
+        
         [SerializeField] private float viewRadius = 10;
         [SerializeField] private Target target;
         [SerializeField] private State state;
@@ -514,6 +516,13 @@ public class AIBrain : MonoBehaviour
             Gizmos.DrawRay(transform.position, transform.forward * viewRadius);
         }
 
+        /*public void Death()
+        {
+            //disable the object
+            owner.spawnedCount--; 
+            gameObject.SetActive(false);
+        }*/
+        
         [Serializable]
         public class Target
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -173,9 +174,12 @@ namespace Core
             {
                 return objects.Contains(objectToReturn);
             }
-            
-            
-            
+
+
+            public IEnumerator GetEnumerator()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 
