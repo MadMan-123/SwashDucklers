@@ -1212,6 +1212,11 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.07232677
       objectReference: {fileID: 0}
+    - target: {fileID: 2305893407475133245, guid: dac2729b836eb4f4eb1fda4a1718acff,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: cannonfire
@@ -1347,7 +1352,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cannon (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2305893407475133245, guid: dac2729b836eb4f4eb1fda4a1718acff, type: 3}
     m_RemovedGameObjects:
     - {fileID: 6544991673522097656, guid: dac2729b836eb4f4eb1fda4a1718acff, type: 3}
     m_AddedGameObjects: []
@@ -8611,6 +8617,11 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.22769031
       objectReference: {fileID: 0}
+    - target: {fileID: 2305893407475133245, guid: dac2729b836eb4f4eb1fda4a1718acff,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4444266030789693907, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: m_Animations.Array.size
@@ -8682,7 +8693,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cannon
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2305893407475133245, guid: dac2729b836eb4f4eb1fda4a1718acff, type: 3}
     m_RemovedGameObjects:
     - {fileID: 6544991673522097656, guid: dac2729b836eb4f4eb1fda4a1718acff, type: 3}
     m_AddedGameObjects: []
@@ -15356,7 +15368,7 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004744699}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 8b6fb13cd9cc9254bb55af70ee95a285, type: 2}
   m_Animations:
@@ -15419,7 +15431,7 @@ MonoBehaviour:
   - {fileID: 1636487992, guid: 5d793c93a24356749af6f3f97dd74dc1, type: 3}
   - {fileID: 781810847, guid: 5d793c93a24356749af6f3f97dd74dc1, type: 3}
   - {fileID: -692207203, guid: 5d793c93a24356749af6f3f97dd74dc1, type: 3}
-  framePerSprite: 100
+  framePerSprite: 10
   loop: 1
   destroyOnEnd: 0
   disableOnEnd: 0

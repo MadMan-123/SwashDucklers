@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 using Quaternion = UnityEngine.Quaternion;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 //using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerControler : MonoBehaviour
@@ -52,12 +53,13 @@ public class PlayerControler : MonoBehaviour
     private Renderer bodyRenderer;
     private GameObject hat;
     private Vector3 hatposition;
-
+    
     private static readonly int Color1 = Shader.PropertyToID("_Color");
-
+    [SerializeField] public CinemachineTargetGroup cameraTarget;
     //On Awake
     private void Awake()
     {
+        cameraTarget.AddMember(transform, 3, 2.5f);
         //input = new InputManager();
         rb = GetComponent<Rigidbody>();
         relative0 = new Vector3(0.0f, 0.0f, 0.0f);
@@ -365,36 +367,6 @@ public class PlayerControler : MonoBehaviour
                 }
             }
         }
-        //Jumping
-        /*if (isJumping)
-        {
-            //Continue to jump
-            rb.velocity = rb.velocity + new Vector3(relative0.x, jumpPower, relative0.z);
-
-            //Decrease jump time
-            jumpTimer = jumpTimer - 1 * Time.deltaTime;
-            if (jumpTimer < 0)
-            {
-                isJumping = false;
-                jumpTimer = jumpDuration;
-            }
-
-
-        }
-        if (isGliding)
-        {
-            //Stay at current height
-            rb.position = new Vector3(rb.position.x, glideHeight, rb.position.z);
-
-            //Decrease jump time
-            glideTimer = glideTimer - 1 * Time.deltaTime;
-            if (glideTimer < 0)
-            {
-                isGliding = false;
-                glideTimer = glideDuration;
-
-            }
-        }*/
 
     }
 
@@ -646,5 +618,17 @@ public class PlayerControler : MonoBehaviour
         rb.freezeRotation = false;
         StartCoroutine(UndoRagdoll(customTime));
         DisableMovement();
+    }
+
+    public void ToggleCamera(bool value)
+    {
+        if (value)
+        {
+            cameraTarget.AddMember(transform, 3, 2.5f);
+        }
+        else
+        {
+         cameraTarget.RemoveMember(transform);            
+        }
     }
 }

@@ -76,8 +76,8 @@ public class PlayerManager : MonoBehaviour
         GameData.Players.Add(player.gameObject);
         Debug.Log("Player joined");
         Debug.Log($"Players:{PlayerStats.playerNo}");
-
-        cameraTarget.AddMember(player.transform, 3, 2.5f);
+        player.GetComponent<PlayerControler>().cameraTarget = cameraTarget;
+        //cameraTarget.AddMember(player.transform, 3, 2.5f);
 
         switch (player.playerIndex)
         {
