@@ -137,7 +137,7 @@ public class Interactor : MonoBehaviour
             {
                 StartCoroutine(ReduceFriction(toSlap.gameObject,pc, (extraForce/5)));
                 pc.Ragdoll(0.25f + 0.25f*extraForce,true);
-                extraForce -= 21;
+                extraForce -= 15;
             }
             if (toSlap.TryGetComponent(out AIBrain brain))
             {
