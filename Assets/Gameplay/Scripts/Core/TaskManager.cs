@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Security.Cryptography;
+using Cinemachine;
 using Core;
 using UnityEngine;
 
@@ -32,6 +34,8 @@ public class TaskManager : MonoBehaviour
         [SerializeField] private float playerCheckRadius = 4.5f;
         
         LayerMask playerMask;
+
+        [SerializeField] private CinemachineTargetGroup cinemachineTarget;
 
         private void Awake()
         {
@@ -65,6 +69,7 @@ public class TaskManager : MonoBehaviour
                         //set up object pools
                         if((taskList[i].task.isDynamic || !taskList[i].task.isStatic) || taskList[i].dynamicObjectPrefab)
                                 dynamicIds.Add(i);
+                        foreach (var interactable in taskList[i].Interactables) { if (interactable is Leak leak) { leak.target = cinemachineTarget; } }
                 }
                 
                 //get all the dynamic tasks

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -15,12 +16,13 @@ public class Leak : Interactable
     [SerializeField] private PlankVisualiser plankVisualiser;
     [SerializeField] private GameObject leakEffect;
     Transform vfxHolder;
+    public CinemachineTargetGroup target;
+    [SerializeField] private float cameraTargetWeight=1;
+    [SerializeField] private float cameraTargetRadius = 3.5f;
     private void Start()
     {
         cam = Camera.main?.gameObject; 
         vfxHolder = GameObject.FindWithTag("VFXHolder").transform;
-
-        
     }
 
     private void OnEnable()
@@ -35,7 +37,7 @@ public class Leak : Interactable
 
         health.DamageShip(damage);
         //health.dmgRate += leakAmmount;
-
+        target.AddMember(transform, cameraTargetWeight,cameraTargetRadius);
     }
 
     public void Repaired(GameObject source)
@@ -76,6 +78,7 @@ public class Leak : Interactable
           
          Vector3 lookDir = cam.transform.position - pos;
          Quaternion direction = Quaternion.LookRotation(lookDir);
+         target.RemoveMember(transform);
          Instantiate(repairAnim,pos,direction);
     }
 
