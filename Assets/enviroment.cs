@@ -44,10 +44,11 @@ public class enviroment : MonoBehaviour
 
 
 
+
     // Start is called before the first frame update
     private void Start()
     {
-       
+        
     }
     void Update()
     {  
@@ -69,8 +70,8 @@ public class enviroment : MonoBehaviour
             if (TimeTillLarge <= 0)
             {
                 int randomIndex = Random.Range(0, large.Length);
-                GameObject instantiatedislands = Instantiate(large[randomIndex], LargeSpawn.position, Quaternion.identity) as GameObject;
-
+                large[randomIndex].SetActive(true);
+               
                 TimeTillLarge = initTimeTillLarge;
             }
         }
@@ -87,8 +88,7 @@ public class enviroment : MonoBehaviour
             if (TimeTillMedium <= 0)
             {
                 int randomIndex = Random.Range(0, medium.Length);
-                GameObject instantiatedsmall = Instantiate(medium[randomIndex], MediumSpawn.position, Quaternion.identity) as GameObject;
-
+                medium[randomIndex].SetActive(true);
                 TimeTillMedium = initTimeTillMedium;
             }
         }
@@ -104,9 +104,10 @@ public class enviroment : MonoBehaviour
             if (TimeTillSmall <= 0)
             {
                 int randomIndex = Random.Range(0, small.Length);
-                GameObject instantiatedsmall = Instantiate(small[randomIndex], SmallSpawn.position, Quaternion.identity) as GameObject;
-                
+                small[randomIndex].SetActive(true);
+
                 TimeTillSmall = initTimeTillSmall;
+                
             }
         }
     }
