@@ -7,8 +7,8 @@ public class enviroment : MonoBehaviour
 {
     #region objects
 
-    public GameObject[] islands; //used for objects that stop during kraken fight
-    public GameObject[] boats; //used for normal speend moving objects
+    public GameObject[] large; //used for objects that stop during kraken fight
+    public GameObject[] medium; //used for normal speend moving objects
     public GameObject[] small; //used for slow non-stopping objects
     public GameObject[] skyunused; //used for  objects that go over the ship example birds
 
@@ -18,15 +18,15 @@ public class enviroment : MonoBehaviour
 
     #region variables
 
-    public int SpeedIsland; //speed of objects
-    public int SpeedBoat; //speed of objects    
+    public int SpeedLarge; //speed of objects
+    public int SpeedMedium; //speed of objects    
     public int SpeedSmall;//speed of objects
-    private float TimeTillIsland = 0; //delay between object spawns 
-    private float TimeTillBoat = 0; //delay between object spawns 
+    private float TimeTillLarge = 0; //delay between object spawns 
+    private float TimeTillMedium = 0; //delay between object spawns 
     private float TimeTillSmall = 0; //delay between object spawns 
     
-    public float initTimeTillIsland = 0; //delay between object spawns 
-    public float initTimeTillBoat = 0; //delay between object spawns 
+    public float initTimeTillLarge = 0; //delay between object spawns 
+    public float initTimeTillMedium = 0; //delay between object spawns 
     public float initTimeTillSmall = 0; //delay between object spawns 
     
     public bool IsSpawner;
@@ -36,9 +36,9 @@ public class enviroment : MonoBehaviour
 
  
     #region spawn locations
-    public Transform islandsSpawn; //used for objects that stop during kraken fight
-    public Transform boatsSpawn; //used for normal speend moving objects
-    public Transform smallSpawn; //used for slow non-stopping objects
+    public Transform LargeSpawn; //used for objects that stop during kraken fight
+    public Transform MediumSpawn; //used for normal speend moving objects
+    public Transform SmallSpawn; //used for slow non-stopping objects
 
     #endregion
 
@@ -57,8 +57,8 @@ public class enviroment : MonoBehaviour
       
         
         TimeTillSmall -= Time.deltaTime;
-        TimeTillBoat -= Time.deltaTime;
-        TimeTillIsland -= Time.deltaTime;
+        TimeTillMedium -= Time.deltaTime;
+        TimeTillLarge -= Time.deltaTime;
     }
 
     
@@ -66,12 +66,12 @@ public class enviroment : MonoBehaviour
     {
         if (IsSpawner)
         {
-            if (TimeTillIsland <= 0)
+            if (TimeTillLarge <= 0)
             {
-                int randomIndex = Random.Range(0, islands.Length);
-                GameObject instantiatedislands = Instantiate(islands[randomIndex], islandsSpawn.position, Quaternion.identity) as GameObject;
+                int randomIndex = Random.Range(0, large.Length);
+                GameObject instantiatedislands = Instantiate(large[randomIndex], LargeSpawn.position, Quaternion.identity) as GameObject;
 
-                TimeTillIsland = initTimeTillIsland;
+                TimeTillLarge = initTimeTillLarge;
             }
         }
     }
@@ -84,12 +84,12 @@ public class enviroment : MonoBehaviour
         if (IsSpawner)
         {
             if (!krakenactive)
-            if (TimeTillBoat <= 0)
+            if (TimeTillMedium <= 0)
             {
-                int randomIndex = Random.Range(0, boats.Length);
-                GameObject instantiatedsmall = Instantiate(boats[randomIndex], boatsSpawn.position, Quaternion.identity) as GameObject;
+                int randomIndex = Random.Range(0, medium.Length);
+                GameObject instantiatedsmall = Instantiate(medium[randomIndex], MediumSpawn.position, Quaternion.identity) as GameObject;
 
-                TimeTillBoat = initTimeTillBoat;
+                TimeTillMedium = initTimeTillMedium;
             }
         }
     }
@@ -104,7 +104,7 @@ public class enviroment : MonoBehaviour
             if (TimeTillSmall <= 0)
             {
                 int randomIndex = Random.Range(0, small.Length);
-                GameObject instantiatedsmall = Instantiate(small[randomIndex], smallSpawn.position, Quaternion.identity) as GameObject;
+                GameObject instantiatedsmall = Instantiate(small[randomIndex], SmallSpawn.position, Quaternion.identity) as GameObject;
                 
                 TimeTillSmall = initTimeTillSmall;
             }
