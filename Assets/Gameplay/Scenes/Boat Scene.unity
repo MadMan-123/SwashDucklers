@@ -8688,6 +8688,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1466594116}
+    - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
+        type: 3}
       propertyPath: cannonfire
       value: 
       objectReference: {fileID: 0}
@@ -8731,6 +8736,11 @@ PrefabInstance:
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6802695073208178594, guid: dac2729b836eb4f4eb1fda4a1718acff,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b0e9d29a309c5fc459560b66f7634d4f, type: 2}
     - target: {fileID: 7934842037677255886, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: m_Avatar
@@ -9768,6 +9778,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7312f7168159549932a626d28ff7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1466594116 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7934842037677255886, guid: dac2729b836eb4f4eb1fda4a1718acff,
+    type: 3}
+  m_PrefabInstance: {fileID: 1127802236}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1468988862
 GameObject:
   m_ObjectHideFlags: 0
@@ -16642,6 +16658,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2043391526}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 26a393a724294e947916c579b0aa2c74,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2043391527}
     - targetCorrespondingSourceObject: {fileID: -7439762632115596060, guid: 26a393a724294e947916c579b0aa2c74,
         type: 3}
       insertIndex: -1
@@ -16700,6 +16720,27 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: cf86e6369484f2649a719a945d884ed8, type: 2}
   m_BuildHeightMesh: 1
+--- !u!95 &2043391527
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043391525}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 26a393a724294e947916c579b0aa2c74, type: 3}
+  m_Controller: {fileID: 9100000, guid: e5b09cf38e0ac3c45a415d2269369d19, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2047425906
 GameObject:
   m_ObjectHideFlags: 0
