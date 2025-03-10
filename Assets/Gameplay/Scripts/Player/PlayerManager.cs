@@ -28,8 +28,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float debugRadius = 0.45f;
     [SerializeField] private bool shouldDebug = false;
 
-    [SerializeField] private CinemachineTargetGroup cameraTarget; 
-
+    [SerializeField] private CinemachineTargetGroup cameraTarget;
+    [SerializeField] private float playerCameraWeight;
+    [SerializeField] private float playerCameraRadius;
     // Start is called before the first frame update
     void Start()
     {
@@ -76,7 +77,10 @@ public class PlayerManager : MonoBehaviour
         GameData.Players.Add(player.gameObject);
         Debug.Log("Player joined");
         Debug.Log($"Players:{PlayerStats.playerNo}");
-        player.GetComponent<PlayerControler>().cameraTarget = cameraTarget;
+        var pc = player.GetComponent<PlayerControler>();
+        pc.cameraTarget = cameraTarget;
+        pc.playerCameraWeight = playerCameraWeight;
+        pc.playerCameraRadius = playerCameraRadius;
         //cameraTarget.AddMember(player.transform, 3, 2.5f);
 
         switch (player.playerIndex)

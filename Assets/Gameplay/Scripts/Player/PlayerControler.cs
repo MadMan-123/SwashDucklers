@@ -76,6 +76,8 @@ public class PlayerControler : MonoBehaviour
 
     private static readonly int Color1 = Shader.PropertyToID("_Color");
     [SerializeField] public CinemachineTargetGroup cameraTarget;
+    [SerializeField] public float playerCameraWeight;
+    [SerializeField] public float playerCameraRadius;
     //On Awake
     private void Awake()
     {
@@ -684,7 +686,7 @@ public class PlayerControler : MonoBehaviour
     {
         if (value)
         {
-            cameraTarget.AddMember(transform, 3, 2.5f);
+            cameraTarget.AddMember(transform, playerCameraWeight, playerCameraRadius);
         }
         else
         {

@@ -2912,7 +2912,7 @@ MonoBehaviour:
   hitBox:
   - {fileID: 1468988862}
   anim:
-  - {fileID: 0}
+  - {fileID: 1096261453}
   spawnTime: 0
 --- !u!1 &379022049
 GameObject:
@@ -3755,7 +3755,7 @@ MonoBehaviour:
   hitBox:
   - {fileID: 1052386099}
   anim:
-  - {fileID: 0}
+  - {fileID: 1922169624}
   spawnTime: 0
 --- !u!1 &511253202
 GameObject:
@@ -4653,7 +4653,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 566.85, y: -459.6493}
+  m_AnchoredPosition: {x: 622, y: -459.6493}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &577813430
@@ -5768,7 +5768,7 @@ MonoBehaviour:
   hitBox:
   - {fileID: 921437003}
   anim:
-  - {fileID: 0}
+  - {fileID: 1732648865}
   spawnTime: 0
 --- !u!4 &710657237 stripped
 Transform:
@@ -7337,6 +7337,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 96744755}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &967575383 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 96744755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &986737838
 GameObject:
   m_ObjectHideFlags: 0
@@ -8572,6 +8578,12 @@ Transform:
 --- !u!1 &1096261452 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1096261449}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1096261453 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
     type: 3}
   m_PrefabInstance: {fileID: 1096261449}
   m_PrefabAsset: {fileID: 0}
@@ -13460,6 +13472,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1732648861}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1732648865 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 1732648861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1749537679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7455892935728452265, guid: 0ea83d9e89bbe1648bbbf5254c80280b,
@@ -14610,7 +14628,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 123, y: -15}
+  m_AnchoredPosition: {x: 67, y: -15}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1805140049
@@ -15013,6 +15031,12 @@ Transform:
 --- !u!4 &1922169623 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+    type: 3}
+  m_PrefabInstance: {fileID: 68571028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1922169624 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 03f564ea25b1e3d4ea401c92f259ad91,
     type: 3}
   m_PrefabInstance: {fileID: 68571028}
   m_PrefabAsset: {fileID: 0}
@@ -15531,7 +15555,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1961030953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15590,11 +15614,11 @@ MonoBehaviour:
   tentacleDeployedTime: 5
   waitBetweenTents: 5
   tentacleObjects:
-  - {fileID: 1052386099}
+  - {fileID: 482245465}
   - {fileID: 694203335}
   - {fileID: 270517992}
-  - {fileID: 842860670}
-  - {fileID: 1937866891}
+  - {fileID: 2023198573}
+  - {fileID: 1037955814}
   - {fileID: 206331830}
 --- !u!4 &1961987635 stripped
 Transform:
@@ -16027,7 +16051,7 @@ MonoBehaviour:
   hitBox:
   - {fileID: 842860670}
   anim:
-  - {fileID: 0}
+  - {fileID: 967575383}
   spawnTime: 0
 --- !u!1001 &2043053148
 PrefabInstance:
@@ -17873,6 +17897,16 @@ PrefabInstance:
         type: 3}
       propertyPath: player4DarkColor.r
       value: 0.37296787
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: playerCameraRadius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: playerCameraWeight
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
         type: 3}
