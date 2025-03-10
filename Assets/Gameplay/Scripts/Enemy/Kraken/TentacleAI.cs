@@ -13,22 +13,20 @@ public class TentacleAI : MonoBehaviour
     public GameObject[] tentacleObjects;
     private int lastCalled;
 
-    // Start is called before the first frame update
+    private void Start()
+    {
+        Random.seed = System.DateTime.Now.Millisecond;
+    }
 
     void OnEnable()
     {
         foreach (GameObject obj in tentacleObjects)
             obj.SetActive(false);
         Debug.Log("TentacleAI OnEnable");
-        //TentacleAttack();
         int tentAttack = Random.Range(0, tentacleObjects.Length);
-        //while (tentAttack == lastCalled)
-        //{
-            //tentAttack = Random.Range(0, tentacleObjects.Length);
-        //}
         tentacleObjects[tentAttack].SetActive(true);
-        lastCalled = tentAttack;
-        Debug.Log("Activated tentacle");
+        //lastCalled = tentAttack;
+        Debug.Log("Activated tentacle " + tentAttack);
     }
     private void TentacleAttack()
     {

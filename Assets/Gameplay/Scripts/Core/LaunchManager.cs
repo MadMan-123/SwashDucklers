@@ -109,13 +109,14 @@ public class LaunchManager : MonoBehaviour
                     obj.transform.position = hit2.position;
                     //tell the object to stop moving
                     elapsedTime = duration;
-                    obj.GetComponent<PlayerControler>().ToggleCamera(true);
+                    //obj.GetComponent<PlayerControler>().ToggleCamera(true);
                 }
             }
             
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        
 
         //ensure last position is met
 
@@ -130,6 +131,7 @@ public class LaunchManager : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
         }
+        obj.GetComponent<PlayerControler>().ToggleCamera(true);
     }
 
     public Vector3 LaunchObjectWithVar(GameObject obj, Vector3 target, float duration = 1f)
