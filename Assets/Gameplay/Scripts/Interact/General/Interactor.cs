@@ -55,7 +55,9 @@ public class Interactor : MonoBehaviour
             //AreaImIn.InteractCancel();
             return;
         }
-        
+
+        playerControler.Rumble(playerControler.interactRumble);
+
         playerControler.interacting = true;
         playerControler.animator.SetBool("IsSlapping", true);
         playerControler.animator.CrossFade("Slap", 0.1f);
@@ -66,9 +68,7 @@ public class Interactor : MonoBehaviour
         {
            return;
         }
-        
-        
-        
+
         var count = Physics.OverlapSphereNonAlloc((transform.position + offset) + (transform.forward * howFar), slapRadius, colliders);
 
         GameObject tracked = null;
@@ -137,7 +137,7 @@ public class Interactor : MonoBehaviour
             {
                 StartCoroutine(ReduceFriction(toSlap.gameObject,pc, (extraForce/5)));
                 pc.Ragdoll(0.25f + 0.25f*extraForce,true);
-                extraForce -= 21;
+                extraForce -= 15;
             }
             if (toSlap.TryGetComponent(out AIBrain brain))
             {

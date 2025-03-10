@@ -593,11 +593,11 @@ MonoBehaviour:
   acceleration: 0.5
   maxSpeed: 3.3
   vMaxSpeed: 20
-  deceleration: 0.05
+  deceleration: 0.15
   jumpPower: 0.00001
   jumpDuration: 0.000001
-  airControl: 0.1
-  glideDuration: 0.75
+  airControl: 0
+  glideDuration: 0
   playerID: 1
   interacting: 0
   Quack: {fileID: -5957354204565098106}
@@ -612,6 +612,20 @@ MonoBehaviour:
   darkColor: {r: 0, g: 0, b: 0, a: 0}
   animator: {fileID: 7895336772769128781}
   canMove: 1
+  isGamepad: 0
+  interactRumble:
+    lowFRumble: 1
+    highFRumble: 1
+    rumbleLength: 1
+  onHitRumble:
+    lowFRumble: 1
+    highFRumble: 1
+    rumbleLength: 1
+  itemStolenRumble:
+    lowFRumble: 1
+    highFRumble: 1
+    rumbleLength: 1
+  cameraTarget: {fileID: 0}
 --- !u!54 &3701548156983837710
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -620,7 +634,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5368657179478143323}
   serializedVersion: 4
-  m_Mass: 0.25
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -919,10 +933,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.37814596
-  m_Height: 1.1926668
+  m_Radius: 0.43072993
+  m_Height: 1.084115
   m_Direction: 1
-  m_Center: {x: 0, y: -0.0436666, z: 0}
+  m_Center: {x: 0, y: 0.010609269, z: 0}
 --- !u!114 &-3264851227348481002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -953,7 +967,7 @@ MonoBehaviour:
   toolPU: {fileID: 0}
   slapForce: 5
   slapRadius: 0.75
-  howMuchUp: 0.75
+  howMuchUp: 4
   slapDamage: 5
   smokeParticle: {fileID: 6887231780596014542, guid: 23720299645a3444eba9fad7c5d9b365,
     type: 3}
