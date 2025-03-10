@@ -54,6 +54,26 @@ public class PlayerControler : MonoBehaviour
     private GameObject hat;
     private Vector3 hatposition;
     
+    //Reference to gamepad for rumble -SD
+    public bool isGamepad = false;
+    public Gamepad pad;
+
+    //Rumble values -SD
+    [Serializable] public struct RumbleVariables
+    {
+        [SerializeField][Range(0.0f, 1.0f)] public float lowFRumble;
+        [SerializeField][Range(0.0f, 1.0f)] public float highFRumble;
+        [SerializeField] public float rumbleLength;
+    }
+
+    [Header("Rumble Settings")]
+    [Header("Interact Rumble")]
+    [SerializeField] public RumbleVariables interactRumble;
+    [Header("OnHit Rumble")]
+    [SerializeField] public RumbleVariables onHitRumble;
+    [Header("Item stolen Rumble")]
+    [SerializeField] public RumbleVariables itemStolenRumble;
+
     private static readonly int Color1 = Shader.PropertyToID("_Color");
     [SerializeField] public CinemachineTargetGroup cameraTarget;
     //On Awake
@@ -66,7 +86,20 @@ public class PlayerControler : MonoBehaviour
 
         playerInput = GetComponent<PlayerInput>();
         playerID = playerInput.playerIndex;
-        
+
+        //Check type on input, used for rumble -SD
+        if (playerInput.devices[0] is Gamepad)
+        {
+            Debug.Log("Gamepad");
+            isGamepad = true;
+            pad = (Gamepad)playerInput.devices[0];
+        }
+        else
+        {
+            Debug.Log("Keyboard");
+            isGamepad = false;
+        }
+
         // Cache model renderers
         modelTransform = transform.GetChild(2).GetChild(0);
 
@@ -433,6 +466,7 @@ public class PlayerControler : MonoBehaviour
         {
 
             //Interact behaviour
+
         }
         else if (value.canceled) //Cancelled
         {
@@ -611,6 +645,11 @@ public class PlayerControler : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(RagdollTime);
         UnRagdoll();
+        //Rumble
+        if (isGamepad)
+        {
+            pad.SetMotorSpeeds(0, 0);
+        }
     }
     public void Ragdoll(float customTime, bool addToBase)
     {
@@ -618,6 +657,27 @@ public class PlayerControler : MonoBehaviour
         rb.freezeRotation = false;
         StartCoroutine(UndoRagdoll(customTime));
         DisableMovement();
+
+        //Rumble
+        Rumble(onHitRumble);
+
+    }
+
+    public void Rumble(RumbleVariables rumbleVariable)
+    {
+        //Rumble
+        if (isGamepad)
+        {
+            pad.SetMotorSpeeds(rumbleVariable.lowFRumble, rumbleVariable.highFRumble);
+            StartCoroutine(RumbleStop(rumbleVariable.rumbleLength));
+        }
+
+    }
+    private IEnumerator RumbleStop(float Time)         //just a timer really
+    {
+        yield return new WaitForSecondsRealtime(Time);
+
+        pad.SetMotorSpeeds(0, 0);
     }
 
     public void ToggleCamera(bool value)

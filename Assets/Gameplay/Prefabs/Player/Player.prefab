@@ -612,6 +612,19 @@ MonoBehaviour:
   darkColor: {r: 0, g: 0, b: 0, a: 0}
   animator: {fileID: 7895336772769128781}
   canMove: 1
+  isGamepad: 0
+  interactRumble:
+    lowFRumble: 1
+    highFRumble: 1
+    rumbleLength: 1
+  onHitRumble:
+    lowFRumble: 1
+    highFRumble: 1
+    rumbleLength: 1
+  itemStolenRumble:
+    lowFRumble: 1
+    highFRumble: 1
+    rumbleLength: 1
   cameraTarget: {fileID: 0}
 --- !u!54 &3701548156983837710
 Rigidbody:

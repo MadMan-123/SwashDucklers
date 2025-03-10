@@ -386,7 +386,15 @@ public class AIBrain : MonoBehaviour
             if (target.trackedTransform.TryGetComponent(out Health health))
             {
                 health.TakeDamage(gameObject,damage);
-                
+
+                //Rumble logic -SD
+                if (target.type == Target.Type.Player)
+                {
+                    //not sure if this is the best place to put this but eh
+                    PlayerControler playerControler = target.trackedTransform.gameObject.GetComponent<PlayerControler>(); 
+                    playerControler.Rumble(playerControler.itemStolenRumble);
+                }
+
                 //if the player has a rigidbody then we should apply force based on health
                 if (target.trackedTransform.TryGetComponent(out Rigidbody rb))
                 {
