@@ -17,6 +17,7 @@ public class Launcher : MonoBehaviour
         var area = AreaManager.GetArea(areaName);
         pos = area.GeneratePositionInArea();
 
+
         //clamp the position to the navmesh
         NavMeshHit hit;
         if (NavMesh.SamplePosition(pos, out hit, 1.0f, NavMesh.AllAreas))

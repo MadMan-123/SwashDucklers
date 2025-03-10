@@ -88,7 +88,6 @@ public class LaunchManager : MonoBehaviour
     {
         float elapsedTime = 0;
         int lastPointIndex = points.Count - 1;
-        obj.GetComponent<PlayerControler>().ToggleCamera(false);
         while (elapsedTime < duration)
         {
             float normalizedTime = elapsedTime / duration;

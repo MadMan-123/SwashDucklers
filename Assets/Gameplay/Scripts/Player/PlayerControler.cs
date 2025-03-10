@@ -690,7 +690,7 @@ public class PlayerControler : MonoBehaviour
         }
         else
         {
-         cameraTarget.RemoveMember(transform);            
+            cameraTarget.RemoveMember(transform);
         }
     }
 }

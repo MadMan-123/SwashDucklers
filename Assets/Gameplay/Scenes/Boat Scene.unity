@@ -8040,7 +8040,7 @@ GameObject:
   - component: {fileID: 1093960494}
   - component: {fileID: 1093960496}
   m_Layer: 0
-  m_Name: Launch
+  m_Name: '[LAUNCH]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8055,7 +8055,7 @@ Transform:
   m_GameObject: {fileID: 1093960492}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.7200003, y: -2.68, z: -0.25}
+  m_LocalPosition: {x: 1.7200003, y: -5.06, z: -0.25}
   m_LocalScale: {x: 47.072, y: 0.6964757, z: 27.667461}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8076,9 +8076,9 @@ MonoBehaviour:
   onTrigger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1499519733}
-        m_TargetAssemblyTypeName: Launcher, Assembly-CSharp
-        m_MethodName: LaunchObject
+      - m_Target: {fileID: 1093960496}
+        m_TargetAssemblyTypeName: PlayerContainer, Assembly-CSharp
+        m_MethodName: HoldPlayer
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8124,8 +8124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e381c4d53c19e5f49801791bf7f9fa00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launcher: {fileID: 0}
-  boat: {fileID: 0}
+  launcher: {fileID: 1499519733}
 --- !u!1001 &1096261449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15780,7 +15779,6 @@ Transform:
   - {fileID: 1238394735}
   - {fileID: 233507831}
   - {fileID: 1749537679}
-  - {fileID: 1093960493}
   - {fileID: 1692819187}
   - {fileID: 1946073060}
   - {fileID: 1127802237}
@@ -15790,6 +15788,7 @@ Transform:
   - {fileID: 852826574}
   - {fileID: 379022050}
   - {fileID: 410785622}
+  - {fileID: 1093960493}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1986898624
