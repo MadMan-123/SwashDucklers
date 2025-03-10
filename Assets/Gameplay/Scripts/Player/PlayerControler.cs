@@ -103,7 +103,7 @@ public class PlayerControler : MonoBehaviour
         }
 
         // Cache model renderers
-        modelTransform = transform.GetChild(2).GetChild(0);
+        //modelTransform = transform.GetChild(2).GetChild(0);
 
         beakRenderer = modelTransform.GetChild(0).GetComponent<Renderer>();
         bodyRenderer = modelTransform.GetChild(1).GetComponent<Renderer>();
