@@ -615,17 +615,17 @@ MonoBehaviour:
   canMove: 1
   isGamepad: 0
   interactRumble:
-    lowFRumble: 1
-    highFRumble: 1
-    rumbleLength: 0.3
+    lowFRumble: 0.01
+    highFRumble: 0.01
+    rumbleLength: 0.09
   onHitRumble:
-    lowFRumble: 1
-    highFRumble: 1
-    rumbleLength: 0.3
+    lowFRumble: 0.3
+    highFRumble: 0.3
+    rumbleLength: 0.125
   itemStolenRumble:
     lowFRumble: 1
     highFRumble: 1
-    rumbleLength: 0.5
+    rumbleLength: 0.4
   cameraTarget: {fileID: 0}
   playerCameraWeight: 0
   playerCameraRadius: 0
