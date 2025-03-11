@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class Leak : Interactable 
 {
@@ -14,22 +15,29 @@ public class Leak : Interactable
     [SerializeField] private int count = 0;
     [SerializeField] private ShipHealth health;
     [SerializeField] private PlankVisualiser plankVisualiser;
-    [SerializeField] private GameObject leakEffect;
+    [SerializeField] private GameObject[] leakEffect;
     Transform vfxHolder;
+    [SerializeField]private int active;
+    [SerializeField] private int doubleRarity = 5;
     public CinemachineTargetGroup target;
     [SerializeField] private float cameraTargetWeight=1;
     [SerializeField] private float cameraTargetRadius = 3.5f;
     private void Start()
     {
+        Random.seed = System.DateTime.Now.Millisecond;
         cam = Camera.main?.gameObject; 
         vfxHolder = GameObject.FindWithTag("VFXHolder").transform;
     }
 
     private void OnEnable()
     {
-
-        //reset the count
         count = 0;
+        foreach (GameObject effect in leakEffect) { effect.SetActive(false); }
+        var num = Random.Range(0, doubleRarity);
+        active = num < 4 ? 0 : 1;
+        leakEffect[active].SetActive(true);
+        toRepair = active+1;
+        //reset the count
         
         health = FindObjectOfType<ShipHealth>();
         //effect the ship health
@@ -55,7 +63,7 @@ public class Leak : Interactable
         //if the count is equal to the required amount
         if (count != toRepair) return;
         //disable the object
-        leakEffect.SetActive(false);
+        leakEffect[active].SetActive(false);
        
         DisableLogic();
         //wait to disable the object for x amount of time
