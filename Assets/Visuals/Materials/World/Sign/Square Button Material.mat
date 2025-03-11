@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sign_Material
+  m_Name: Square Button Material
   m_Shader: {fileID: -6465566751694194690, guid: d5e177436e736814cbdfb053c1d99302,
     type: 3}
   m_Parent: {fileID: 0}
@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Roughness:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6b213a0129bb89041b3f7fdae74afced, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -73,7 +73,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _baseColour:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 04792ed3edf477e4683190185f478cd5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _emmissive:
@@ -81,11 +81,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _metallic:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6b213a0129bb89041b3f7fdae74afced, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _normal:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 4547f6d0030767c4ea88d72897b6f492, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
