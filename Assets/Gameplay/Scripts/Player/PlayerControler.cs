@@ -310,7 +310,6 @@ public class PlayerControler : MonoBehaviour
                             {
                                 //Set z value to 0
                                 rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
-                                ;
                             }
                         }
                         else //If Velocity Z is Negative
@@ -323,7 +322,6 @@ public class PlayerControler : MonoBehaviour
                             {
                                 //Set z value to 0
                                 rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
-                                ;
                             }
                         }
                     }
