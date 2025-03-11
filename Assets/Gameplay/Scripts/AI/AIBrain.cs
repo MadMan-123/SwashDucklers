@@ -11,8 +11,7 @@ public class AIBrain : MonoBehaviour
         public NavMeshAgent agent;
         public Rigidbody rb;
         public Inventory inventory;
-        public EnemySpawner owner;
-        
+        public EnemySpawner owner; 
         [SerializeField] private float viewRadius = 10;
         [SerializeField] private Target target;
         [SerializeField] private State state;

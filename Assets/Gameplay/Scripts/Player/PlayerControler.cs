@@ -684,9 +684,14 @@ public class PlayerControler : MonoBehaviour
 
     public void ToggleCamera(bool value)
     {
+        print("Hello");
         if (value)
         {
-            cameraTarget.AddMember(transform, playerCameraWeight, playerCameraRadius);
+            cameraTarget.AddMember(
+                transform, 
+                playerCameraWeight,
+                playerCameraRadius
+                );
         }
         else
         {

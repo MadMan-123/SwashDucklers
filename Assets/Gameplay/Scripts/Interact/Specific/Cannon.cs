@@ -17,7 +17,8 @@ public class Cannon : Interactable
     [SerializeField] private bool canFire = true;
     [SerializeField] private float coolDownTime = 5f;
     [SerializeField] private Animator anim;
-
+    
+    private int cannonballCount = 0, jamAmmount = 3, timeToUnJam = 12;
 
     void Start()
     {
@@ -52,9 +53,22 @@ public class Cannon : Interactable
 
         StartCoroutine(CoolDown());
         
+        cannonballCount++;
+    
+        if(cannonballCount >= jamAmmount)
+        {
+            StartCoroutine(UnJam());
 
+       }
     }
 
+    IEnumerator UnJam()
+    {
+        canFire = false;
+        yield return new WaitForSeconds(timeToUnJam);
+        canFire = true;
+    }
+     
     IEnumerator FireCannon()
     {
         if (!anim.GetBool("IsShooting"))
@@ -80,12 +94,15 @@ public class Cannon : Interactable
             rb.AddForce(cannonballSpawnPoint.forward * strength, ForceMode.VelocityChange);
         }
 
+        
+
     }
 
     IEnumerator CoolDown()
     {
         yield return new WaitForSeconds(coolDownTime);
-        canFire = true;
+        if(cannonballCount < jamAmmount)
+            canFire = true;
         anim.SetBool("IsShooting", false);
     }
 

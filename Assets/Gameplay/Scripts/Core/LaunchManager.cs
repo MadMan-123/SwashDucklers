@@ -130,8 +130,8 @@ public class LaunchManager : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
         }
-        obj.GetComponent<PlayerControler>().ToggleCamera(true);
     }
+
 
     public Vector3 LaunchObjectWithVar(GameObject obj, Vector3 target, float duration = 1f)
     {

@@ -10,7 +10,7 @@ public class PlayerContainer : MonoBehaviour
 
     public void HoldPlayer(GameObject obj)
     {
-        if (!obj.CompareTag("Player")) return;
+        if (!obj.CompareTag("Player") && !players.Contains(obj)) return;
 
         //this makes sense here
         obj.GetComponent<PlayerControler>().ToggleCamera(false);
@@ -32,8 +32,12 @@ public class PlayerContainer : MonoBehaviour
         yield return new WaitForSeconds(time);
         launcher.LaunchObject(obj);
         rb.isKinematic = false;
-        players.Remove(obj);
+        yield return new WaitForSeconds(time); 
         obj.GetComponent<PlayerControler>().ToggleCamera(true);
+        
+        //designed and implemented by daniel doyle (the doyleson (john swashduckler))
+        yield return new WaitForSeconds(time);
+        players.Remove(obj);
 
     }
 
