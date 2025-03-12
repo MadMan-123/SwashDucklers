@@ -40,18 +40,21 @@ public class Item : MonoBehaviour
         }
     }
     
-    public void DropItem( )
+    public void DropItem(GameObject source)
     {
-
+        if (source.TryGetComponent(out Inventory inv)) //try to see if player has an inv
+        {
+            current = inv;
             GetComponent<Collider>().enabled = true;
-            GetComponent<Rigidbody>().isKinematic = false; 
+            GetComponent<Rigidbody>().isKinematic = false;
             current.item = null;
-            
+
             //set the inventory to null
             current = null;
 
             //set the transforms to allow the item to be dropped
             transform.SetParent(null);
+        }
     }
     
     

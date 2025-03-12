@@ -20,10 +20,6 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
         
         //sean suggested a quack when the player gets slapped so ill implament a quick on damage
         onDamageTaken?.Invoke(source);
-
-        //We were already doing knockback in the interact component -MW
-        //GM: Apply knockback
-        //ApplyKnockback();
     }
 
 
@@ -33,10 +29,7 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
     {
         //if there is no health text return
         if (!healthText) return;
-        //healthText.text = string.Format("player health: {00:0.0}%", health);//stuart's code
-        //healthText.text = health.ToString("F1") + "%"; //GM: this should display the health as a percentage with one decimal point | update: it doesn't :|
         healthText.text = $"HP: {health}%"; //updating the text 
-        // Ensure health text uses the assigned color
         healthText.color = Color.white;//gm: STILL WORKING ON THIS
     }
     

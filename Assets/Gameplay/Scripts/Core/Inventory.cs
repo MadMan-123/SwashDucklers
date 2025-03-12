@@ -38,9 +38,7 @@ public class Inventory : MonoBehaviour
     {
         if (item)  //if holding item?
         {
-            
-            
-            item.DropItem();
+            item.DropItem(gameObject);
             //enable rigidbody and collider
         }
     }

@@ -15,6 +15,7 @@ public class Interactor : MonoBehaviour
     private PlayerControler playerControler;
     private PlayerInput input;
     private InputAction interact;
+    private InputAction dropItem;
 
     [SerializeField] private float slapForce = 5f;
     [SerializeField] private float slapRadius = 0.75f;
@@ -42,6 +43,8 @@ public class Interactor : MonoBehaviour
         {
             interact = input.actions["Interact"];
             interact.performed += ctx => TryInteract();
+            dropItem = input.actions["DropItem"];
+            dropItem.performed += ctx => TryDropItem();
         }
     }
     
@@ -62,7 +65,7 @@ public class Interactor : MonoBehaviour
         playerControler.animator.SetBool("IsSlapping", true);
         playerControler.animator.CrossFade("Slap", 0.1f);
 
-        isInteracting = true;
+        //isInteracting = true;
         StartCoroutine(InteractCooldown(interactCooldown));
         if (TryGetComponent(out Inventory inv) && inv.TryPickUp())
         {
@@ -168,12 +171,21 @@ public class Interactor : MonoBehaviour
     private IEnumerator InteractCooldown(float sec = 1f)
     {
         //wait for the cooldown
+        isInteracting = false;
         yield return new WaitForSeconds(sec);
         isInteracting = false;
         
     }
-    
-    
+
+    private void TryDropItem()
+    {
+        if(isInteracting) return;
+        if (TryGetComponent(out Inventory inv))
+        {
+            inv.DropItem();
+        }
+        StartCoroutine(InteractCooldown(interactCooldown));
+    }
 
 
    
