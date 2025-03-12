@@ -10292,6 +10292,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0384513035b5b047a4111bb0c843242, type: 3}
+--- !u!4 &1426812018 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4291987818766931251, guid: d7daac6ef4c61d84baa635e679f3b87f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1090488746889013503}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1466594115 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
@@ -16073,6 +16079,7 @@ Transform:
   - {fileID: 379022050}
   - {fileID: 410785622}
   - {fileID: 1093960493}
+  - {fileID: 1426812018}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1986898624
@@ -17858,7 +17865,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1986898623}
     m_Modifications:
     - target: {fileID: 1032587847433015031, guid: d7daac6ef4c61d84baa635e679f3b87f,
         type: 3}
@@ -17868,17 +17875,17 @@ PrefabInstance:
     - target: {fileID: 4291987818766931251, guid: d7daac6ef4c61d84baa635e679f3b87f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.679
+      value: 7.0810003
       objectReference: {fileID: 0}
     - target: {fileID: 4291987818766931251, guid: d7daac6ef4c61d84baa635e679f3b87f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.88
+      value: 1.1200001
       objectReference: {fileID: 0}
     - target: {fileID: 4291987818766931251, guid: d7daac6ef4c61d84baa635e679f3b87f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.454
+      value: -2.546
       objectReference: {fileID: 0}
     - target: {fileID: 4291987818766931251, guid: d7daac6ef4c61d84baa635e679f3b87f,
         type: 3}
@@ -18785,4 +18792,3 @@ SceneRoots:
   - {fileID: 1986898623}
   - {fileID: 1213591005}
   - {fileID: 527275650}
-  - {fileID: 1090488746889013503}

@@ -29,7 +29,7 @@ public class ItemStack : MonoBehaviour
         }
         
         //check if the source already has an item
-        if (inv.item != null) return;
+        if (inv.item != null) inv.RemoveItem();
         
         //instantiate the item
         GameObject current = pool.GetObject();

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7455892935728452265}
   - component: {fileID: 871764854552383412}
-  - component: {fileID: 3488892426402094936}
   - component: {fileID: 2708445309521886351}
+  - component: {fileID: 3488892426402094936}
   m_Layer: 0
   m_Name: PlankStack
   m_TagString: Untagged
@@ -56,20 +56,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.6, y: 0.5, z: 1.6}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3488892426402094936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204416406603644912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7117c78e00adabe46a811660fc0a62db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemGenerated: {fileID: 8520338788584989061, guid: 9bb785f08d8cb89438169116a6911c62,
-    type: 3}
 --- !u!114 &2708445309521886351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +84,20 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   itemRequired: -1
+--- !u!114 &3488892426402094936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204416406603644912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7117c78e00adabe46a811660fc0a62db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemGenerated: {fileID: 8520338788584989061, guid: 9bb785f08d8cb89438169116a6911c62,
+    type: 3}
 --- !u!1001 &7633826967552389318
 PrefabInstance:
   m_ObjectHideFlags: 0
