@@ -103,7 +103,7 @@ public class LaunchManager : MonoBehaviour
             //if there is a floor below us we should stop
             if (clamp)
             {
-                if (NavMesh.SamplePosition(obj.transform.position + Vector3.down, out var hit2, 0.75f,NavMesh.AllAreas))
+                if (NavMesh.SamplePosition(obj.transform.position + Vector3.down, out var hit2, 0.5f,NavMesh.AllAreas))
                 {
                     obj.transform.position = hit2.position;
                     //tell the object to stop moving
@@ -121,7 +121,13 @@ public class LaunchManager : MonoBehaviour
 
         if(NavMesh.SamplePosition(points[^1], out var hit, 2f,NavMesh.AllAreas))
         {
-            obj.transform.position = hit.position;
+            const float lerpSpeed = 0.1f;
+            //smoothly move to the position by lerp
+            while (Vector3.Distance(obj.transform.position, hit.position) > 0.1f)
+            {
+                obj.transform.position = Vector3.Lerp(obj.transform.position, hit.position, Time.deltaTime * lerpSpeed);
+                yield return null;
+            }
         }
 
         
