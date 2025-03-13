@@ -11,6 +11,7 @@ public class KrakenManager : MonoBehaviour
     [SerializeField] GameObject kraken;
     [SerializeField] GameObject tentacles;
     [SerializeField] GameObject krakenHealth;
+    [SerializeField] private Health health;
     [SerializeField] KrakenHud krakenHud;
     [SerializeField] GameObject gameTimer;
     [SerializeField] float SpawnTime;
@@ -66,21 +67,20 @@ public class KrakenManager : MonoBehaviour
         SoundManager.PlayAudioClip("KrakenHurt", this.transform.position, 2f);
         krakenHud.KrakenHit();
 
-        if (krakenHud.currentHealth == 0)
+        if (!health.IsDead) return;
+        //Kraken is dead
+        kraken.SetActive(false);
+        tentacles.SetActive(false);
+        krakenHealth.SetActive(false);
+        
+        health.SetHealth(0);
+        if (StageParameters.levelLength != Length.Endless)
         {
-            //Kraken is dead
-            kraken.SetActive(false);
-            tentacles.SetActive(false);
-            krakenHealth.SetActive(false);
-            if (StageParameters.levelLength != Length.Endless)
-            {
-                gameTimer.SetActive(true);
-            }
-            weather.KrakenDeSpawn();
-            cameraTarget.RemoveMember(kraken.transform);
-            StartCoroutine(KrakenSpawnTimer());
-
+            gameTimer.SetActive(true);
         }
+        weather.KrakenDeSpawn();
+        cameraTarget.RemoveMember(kraken.transform);
+        StartCoroutine(KrakenSpawnTimer());
     }
 
 }

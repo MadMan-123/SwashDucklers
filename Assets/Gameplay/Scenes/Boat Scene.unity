@@ -1288,7 +1288,7 @@ PrefabInstance:
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
@@ -9133,7 +9133,7 @@ PrefabInstance:
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
@@ -10036,7 +10036,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a860197978f104488aacb7ab972eb0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
   Bomb: {fileID: 4169245712280144332, guid: b76dd66457984a046bf469582b66b47b, type: 3}
   BombList: []
   rightPosition: 600
@@ -13047,7 +13046,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 1
+        m_CallState: 2
 --- !u!136 &1685696423
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13121,6 +13120,7 @@ MonoBehaviour:
   kraken: {fileID: 1685696418}
   tentacles: {fileID: 1961030952}
   krakenHealth: {fileID: 912533329}
+  health: {fileID: 1685696422}
   krakenHud: {fileID: 1412264315}
   gameTimer: {fileID: 824746696}
   SpawnTime: 30

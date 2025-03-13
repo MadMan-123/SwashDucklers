@@ -7,7 +7,6 @@ public class KrakenHud : MonoBehaviour
 
 
     int startHealth = StageParameters.krakenHealth;
-    [SerializeField] public int currentHealth;
 
     [SerializeField] public GameObject Bomb;
     [SerializeField] public List<GameObject> BombList = null;
@@ -17,7 +16,6 @@ public class KrakenHud : MonoBehaviour
 
     private void OnEnable()
     {
-        currentHealth = startHealth;
 
         BombList.Clear();
         for (int i = 0; i < startHealth; i++)
@@ -33,7 +31,7 @@ public class KrakenHud : MonoBehaviour
 
             BombList.Add(Instantiate(Bomb, this.transform,false));
 
-            BombList[BombList.Count - 1].transform.position = new Vector3(positionX * (Screen.width/1920f), BombList[BombList.Count - 1].transform.position.y, BombList[BombList.Count - 1].transform.position.z);
+            BombList[^1].transform.position = new Vector3(positionX * (Screen.width/1920f), BombList[^1].transform.position.y, BombList[BombList.Count - 1].transform.position.z);
         }
 
 
@@ -45,6 +43,7 @@ public class KrakenHud : MonoBehaviour
  
         for (int i = 0; i < BombList.Count; i++)
         {
+            //should we be destroying the object or just setting it to inactive?
             Destroy(BombList[i]);
         }
         BombList.Clear();
@@ -53,32 +52,10 @@ public class KrakenHud : MonoBehaviour
 
     public void KrakenHit()
     {
-        if (currentHealth == 0)
-        {
-            //Kraken is dead
-        }
-        else
-        {
-            currentHealth = currentHealth - 1;
-
-            //Destroy(BombList[BombList.Count - 1]);
-            BombList.Remove(BombList[BombList.Count - 1]);
-
-        }
+        Destroy(BombList[^1]);
+        BombList.Remove(BombList[^1]);
     }
 
-    public void CannonShot()
-    {
-        if (currentHealth == 0)
-        {
-            //Kraken is dead
-        }
-        else
-        {
 
-            BombList[BombList.Count - 1].GetComponent<ImageAnimation>().enabled = true;
-
-        }
-    }
 
 }

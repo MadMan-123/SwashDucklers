@@ -68,7 +68,7 @@ public class Weather : MonoBehaviour
                     progress += increment;
                     yield return new WaitForSeconds(smoothness);
                 }
-                GetComponent<Light>().intensity = 2;
+                //GetComponent<Light>().intensity = 2;
                 rain.gameObject.SetActive(false);
                 break;
 

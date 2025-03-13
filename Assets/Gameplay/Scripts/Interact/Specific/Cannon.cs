@@ -59,7 +59,7 @@ public class Cannon : Interactable
         {
             StartCoroutine(UnJam());
 
-       }
+        }
     }
 
     IEnumerator UnJam()

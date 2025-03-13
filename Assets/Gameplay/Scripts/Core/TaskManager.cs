@@ -37,8 +37,11 @@ public class TaskManager : MonoBehaviour
 
         [SerializeField] private CinemachineTargetGroup cinemachineTarget;
 
+
+        private bool ranOnce = false;
         private void Awake()
         {
+                DontDestroyOnLoad(this);
                 //singleton boilerplate
                 if (!instance)
                 {
@@ -54,7 +57,7 @@ public class TaskManager : MonoBehaviour
 
         private void Start()
         {
-
+                if(ranOnce) return;
             TaskHashMap = new();
 
                 //for each task in the task list
@@ -103,7 +106,9 @@ public class TaskManager : MonoBehaviour
                 }
                 //setup the coroutine
                 SpawnDynamicTasks = _SpawnDynamicTasks();
+                ranOnce = true;
                 StartCoroutine(SpawnDynamicTasks);
+                
         }
 
         private IEnumerator _SpawnDynamicTasks()

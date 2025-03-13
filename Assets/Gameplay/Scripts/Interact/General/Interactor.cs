@@ -107,7 +107,8 @@ public class Interactor : MonoBehaviour
         
         if (TryGetComponent(out Inventory inventory) && tracked.TryGetComponent(out Interactable interact))
         {
-            print("Interacting with " + tracked.name);
+            if(shouldDebug)
+                print("Interacting with " + tracked.name);
             interact.Interact(inventory.item, gameObject);
         }
         
