@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class InteractFlash : MonoBehaviour
@@ -12,9 +13,8 @@ public class InteractFlash : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.tag == 2)
+        if (col.tag == "")
         {
-            
         }
     }
 }
