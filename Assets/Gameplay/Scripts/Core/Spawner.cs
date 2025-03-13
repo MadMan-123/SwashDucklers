@@ -54,10 +54,6 @@ public class Spawner : MonoBehaviour
 
     public virtual void Return(GameObject gameObject)
     {
-        if (gameObject.TryGetComponent(out NavMeshAgent agent))
-        {
-        }
-
         if (gameObject.TryGetComponent(out Rigidbody rb))
         {
             rb.isKinematic = false;

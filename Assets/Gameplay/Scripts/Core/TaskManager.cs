@@ -41,7 +41,6 @@ public class TaskManager : MonoBehaviour
         private bool ranOnce = false;
         private void Awake()
         {
-                DontDestroyOnLoad(this);
                 //singleton boilerplate
                 if (!instance)
                 {
@@ -262,6 +261,14 @@ public class TaskManager : MonoBehaviour
                         }
                 }
         }
+
+        private void OnDestroy()
+        {
+                StopCoroutine(SpawnDynamicTasks);
+                //remove the instance
+                instance = null;
+        }
+        
 
         //Used to define a task in the editor
         [Serializable]

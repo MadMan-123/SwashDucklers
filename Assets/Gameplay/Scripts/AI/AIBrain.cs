@@ -54,12 +54,12 @@ public class AIBrain : MonoBehaviour
             Attack,
             Flee,
             Wander,
-            JumpOff,
-            Steal
+            JumpOff
         }
 
         void Start()
         {
+            shouldDebug = true;
             boatLayer = LayerMask.NameToLayer("Boat");
             state = State.Wander;
             
@@ -102,80 +102,82 @@ public class AIBrain : MonoBehaviour
                 //is player near
 
                 
-                if (target != null)
-                {
-                    
-                    if (target.type == Target.Type.Player)
+                    if (target != null)
                     {
-                        //check if we have cargo
-                        if (hasCargo)
-                        {
-                            //if yes then flee
-                            ChangeState(State.Flee);
-                        }
-                        else if (!isFleeing)
-                        {
-                            //chase the player
-                            ChangeState(State.Chase);
-                            //if the player has an item and in range
 
-                            if (delta.magnitude < attackDistance)
+                        if (target.type == Target.Type.Player)
+                        {
+                            //check if we have cargo
+                            if (hasCargo)
                             {
-                                //check if the player has an item and steal only if near   
-                                if (target.trackedTransform.TryGetComponent(out Inventory inv) && inv.item != null)
+                                //if yes then flee
+                                ChangeState(State.JumpOff);
+                            }
+                            else if (!isFleeing)
+                            {
+                                //chase the player
+                                ChangeState(State.Chase);
+                                //if the player has an item and in range
+
+                                if (delta.magnitude < attackDistance)
                                 {
-                                    //check if the player has an item
-                                    //if yes steal
-                                    inv.TakeItem(inventory);
-                                    hasCargo = true;
+                                    //check if the player has an item and steal only if near   
+                                    if (target.trackedTransform.TryGetComponent(out Inventory inv) && inv.item != null)
+                                    {
+                                        //check if the player has an item
+                                        //if yes steal
+                                        inv.TakeItem(inventory);
+                                        hasCargo = true;
+                                    }
+
+                                    ChangeState(State.Attack);
                                 }
 
-                                ChangeState(State.Attack);
+                            }
+                            else
+                            {
+                                ChangeState(State.Flee);
                             }
 
                         }
+                        //if no then check if we have cargo in hand
                         else
                         {
-                            ChangeState(State.Flee);
-                        }
-
-                    }
-                    //if no then check if we have cargo in hand
-                    else
-                    {
-                        if (hasCargo)
-                        {
-                            //if yes then flee
-                            ChangeState(State.Flee);
-                        }
-                        else if (target != null && target.trackedTransform)
-                        {
-                            //if no then chase
-                            ChangeState(State.Chase);
-                            //if less than attack distance then steal
-                            if (delta.magnitude < attackDistance)
+                            if (hasCargo)
                             {
-                                //check if the player has an item
-                                if (target.trackedTransform.TryGetComponent(out CargoStack stack))
+                                //if yes then flee
+                                ChangeState(State.JumpOff);
+                            }
+                            else if (target != null && target.trackedTransform)
+                            {
+                                //if no then chase
+                                ChangeState(State.Chase);
+                                //if less than attack distance then steal
+                                if (delta.magnitude < attackDistance)
                                 {
-                                    stack.TryPickUp(gameObject);
-                                    hasCargo = true;
-                                    //we should run off now
-                                    ChangeState(State.JumpOff);
+                                    //check if the player has an item
+                                    if (target.trackedTransform.TryGetComponent(out CargoStack stack))
+                                    {
+                                        stack.TryPickUp(gameObject);
+                                        hasCargo = true;
+                                        //we should run off now
+                                        ChangeState(State.JumpOff);
+                                    }
                                 }
                             }
                         }
+
+                    }
+                    else
+                    {
+                        //if no target then wander
+                        ChangeState(State.Wander);
                     }
 
-                }
-                else
-                {
-                    //if no target then wander
-                    ChangeState(State.Wander);
-                }
-                
-                HandleMovement();
+                    HandleMovement();
             }
+            
+
         }
             
         //return the closest cargo
@@ -252,14 +254,14 @@ public class AIBrain : MonoBehaviour
                     State.Flee => Flee(),
                     State.Attack => Attack(),
                     State.Chase => Chase(),
-                    State.Steal => Flee(), //Not implemented
-                    State.JumpOff => Flee(), //Not implemented
+                    State.JumpOff => JumpOff(),  
                     _ => transform.position
                 };
 
                 //TODO: implement jump off and steal
 
-                //clamp the destination to the navmesh, if the point is not on the navmesh then we should find the closest point
+                    
+                    //clamp the destination to the navmesh, if the point is not on the navmesh then we should find the closest point
                 if (!NavMesh.SamplePosition(destination, out var hit, 0.5f, NavMesh.AllAreas))
                 {
                     NavMesh.FindClosestEdge(destination, out hit, NavMesh.AllAreas);
@@ -278,17 +280,58 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 JumpOff()
         {
-            throw new NotImplementedException();
+            //get the edge of the navmesh on the z axis 
+            NavMeshHit upHit = new(), downHit = new();
+            //jump into the enemy death area
+            var pos1 = transform.position + new Vector3(0, 0, 10);
+            var pos2 = transform.position + new Vector3(0, 0, -10);
+            
+            //try sample the position
+            NavMesh.SamplePosition(pos1, out upHit, 10, NavMesh.AllAreas);
+            NavMesh.SamplePosition(pos2, out downHit, 10, NavMesh.AllAreas);
+            
+            //draw the two points
+            if (shouldDebug)
+            {
+                Debug.DrawLine(pos1, upHit.position, Color.green);
+                Debug.DrawLine(pos2, downHit.position, Color.green);
+            }
+            
+            //get the distance to the two points
+            var upDistance = (upHit.position - transform.position).magnitude;
+            var downDistance = (downHit.position - transform.position).magnitude;
+            
+            //get the closest point
+            var fleePosition = upDistance < downDistance ? upHit.position : downHit.position;
+           
+            //check if the distance is less than 1, if so we will make the launcher lanch the AI to the enemy death area
+            if ((fleePosition != upHit.position || !(upDistance < 0.5f)) &&
+                (fleePosition != downHit.position || !(downDistance < 0.5f))) return fleePosition;
+            // enable rigidbody and disable agent
+            rb.isKinematic = false;
+            agent.enabled = false;
+            
+            print("Jumping off");
+            //launch the AI to the enemy death area
+            //launch upright relative to the forward direction
+            var direction = transform.forward;
+            direction.y = 2;
+            //launch the AI
+            rb.AddForce(direction * 3f , ForceMode.VelocityChange);
+            
+            
+            enabled = false;
+
+            return fleePosition;
         }
 
-        private Vector3 Steal() => throw new NotImplementedException();
 
 
         private void FixedUpdate()
         {
             //check if we are on the boat, if we are then we should flag the agent to be enabled
             //sphere cast to check if we are on the boat just below the agent
-            if (!onFloor)
+            if (!onFloor )
             {
                 var count = (Physics.SphereCastNonAlloc(
                     transform.position,
@@ -305,6 +348,7 @@ public class AIBrain : MonoBehaviour
 
         private IEnumerator WaitUntilFloorHit()
         {
+            if(state == State.JumpOff) yield break;
              Physics.SphereCastNonAlloc(
                                 transform.position,
                                 0.2f,

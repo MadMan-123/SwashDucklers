@@ -36,7 +36,7 @@ public class Launcher : MonoBehaviour
         if(shouldDebug)
             LaunchManager.DrawTrajectory(obj.transform.position,vel,launchDuration);
     }
-
+  
 
     private void ValidateLaunchPosition(Vector3 vel,GameObject obj)
     {

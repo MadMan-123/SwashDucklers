@@ -8,6 +8,7 @@ public class EnemySpawner : Spawner
 {
     public int maxSpawnSize = 3;
     public int spawnedCount = 0;
+    
    public override void Init()
    {
          pool = new GameObjectPool(prefab, poolSize, transform);
@@ -112,4 +113,8 @@ public class EnemySpawner : Spawner
         if (agent) agent.enabled = true;
         
     }
+
+
+
 }
+
