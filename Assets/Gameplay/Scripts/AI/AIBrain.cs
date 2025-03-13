@@ -85,7 +85,7 @@ public class AIBrain : MonoBehaviour
        
         private void Update()
         {
-            if (!agent.enabled)
+            if (!agent.enabled || !enabled)
             {
                 //if the agent is not enabled wait to be on the floor
                 StartCoroutine(WaitUntilFloorHit());
@@ -268,11 +268,33 @@ public class AIBrain : MonoBehaviour
                     destination = hit.position;
                 }
   
+               
+                
                 
                 //draw the destination as a big line
                 //if the agent is enabled and is placed on a nav mesh area
                 if (agent.enabled && NavMesh.SamplePosition(transform.position, out var hit2, 0.5f, NavMesh.AllAreas))
+                {
+                    //obstacle avoidance
+                    //check in front of the agent for physical objects
+                    var count = Physics.RaycastNonAlloc(transform.position, transform.forward, hits, 1f);
+                    //get the valid hits
+                    var valid = hits.Where(h => h.collider).ToList();
+                    
+                    //if there is a hit then we should move the agent to the side
+                    if (count > 0 && valid.Count > 0)
+                    {
+                        //get the hit
+                        var hitInfo = valid[0];
+                        //get the normal
+                        var normal = hitInfo.normal;
+                        //get the direction
+                        var direction = Vector3.Cross(normal, Vector3.up);
+                        //get the destination
+                        destination = transform.position + direction;
+                    }
                     agent.SetDestination(destination);
+                }
               
                 
 
@@ -311,7 +333,6 @@ public class AIBrain : MonoBehaviour
             rb.isKinematic = false;
             agent.enabled = false;
             
-            print("Jumping off");
             //launch the AI to the enemy death area
             //launch upright relative to the forward direction
             var direction = transform.forward;
@@ -319,7 +340,12 @@ public class AIBrain : MonoBehaviour
             //launch the AI
             rb.AddForce(direction * 3f , ForceMode.VelocityChange);
             
-            
+            //reset the ai state
+            ChangeState(State.Wander);
+            //drop the cargo
+            hasCargo = false;
+            inventory.DropItem();
+            //disable the AI
             enabled = false;
 
             return fleePosition;
@@ -366,6 +392,7 @@ public class AIBrain : MonoBehaviour
             
             //check underneath 
             agent.enabled = true;
+            enabled = true;
             rb.isKinematic = true;
         }
 
