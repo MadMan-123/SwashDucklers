@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Assertions.Must;
@@ -31,6 +32,7 @@ public class Interactor : MonoBehaviour
 
     
     Collider[] colliders = new Collider[10];
+    Collider[] prevColliders = new Collider[10];
     [SerializeField] private float howFar = 0.45f;
     [SerializeField] private Vector3 offset = new(0,-0.1f,0);
     [SerializeField] private float interactCooldown = 1f;
@@ -47,7 +49,35 @@ public class Interactor : MonoBehaviour
             dropItem.performed += ctx => TryDropItem();
         }
     }
-    
+
+    private void Update()
+    {
+        var count = Physics.OverlapSphereNonAlloc((transform.position + offset) + (transform.forward * howFar), slapRadius, colliders);
+        var valid = colliders.Where(col => col!=null && TryGetComponent(out Interactable interactable)).ToList();
+        if (valid.Count != 0)
+        {
+            for (int i = 0; i < valid.Count-1; i++) { valid[i].GetComponent<Interactable>().ToggleFlash(true); }
+
+            for (int i = 0; i < prevColliders.Length; i++)
+            {
+                for (var j = 0; j < valid.Count-1; j++)
+                {
+                    if (prevColliders[i].gameObject.Equals(valid[j].gameObject)){break;}
+                    if(j == valid.Count-1){ prevColliders[i].GetComponent<Interactable>().ToggleFlash(false);}
+                }
+                
+            }
+        }
+        else
+        {
+            for (var i = 0; i < prevColliders.Length; i++)
+            {
+                if (prevColliders[i] != null && prevColliders[i].TryGetComponent(out Interactable interactable)) {interactable.ToggleFlash(false); }
+            }
+        }
+        prevColliders = colliders;
+    }
+
     private void TryInteract()
     {
         if (isInteracting) return;
