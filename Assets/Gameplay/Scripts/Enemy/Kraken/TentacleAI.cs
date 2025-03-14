@@ -14,7 +14,10 @@ public class TentacleAI : MonoBehaviour
     private int lastCalled;
     
     public bool shouldDebug = false;
+   
     
+    
+    //COMMIT 500 baby
     private void Start()
     {
         Random.seed = System.DateTime.Now.Millisecond;
