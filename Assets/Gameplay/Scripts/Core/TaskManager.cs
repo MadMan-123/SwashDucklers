@@ -71,7 +71,11 @@ public class TaskManager : MonoBehaviour
                         //set up object pools
                         if((taskList[i].task.isDynamic || !taskList[i].task.isStatic) || taskList[i].dynamicObjectPrefab)
                                 dynamicIds.Add(i);
-                        foreach (var interactable in taskList[i].Interactables) { if (interactable is Leak leak) { leak.target = cinemachineTarget; } }
+                        foreach (var interactable in taskList[i].Interactables)
+                        {
+                                if (interactable is Leak leak) { leak.target = cinemachineTarget; } 
+                                interactable.gameObject.SetActive(false);
+                        }
                 }
                 
                 //get all the dynamic tasks
@@ -104,14 +108,15 @@ public class TaskManager : MonoBehaviour
                         }
                 }
                 //setup the coroutine
-                SpawnDynamicTasks = _SpawnDynamicTasks();
+                SpawnDynamicTasks = _SpawnDynamicTasks(true);
                 ranOnce = true;
                 StartCoroutine(SpawnDynamicTasks);
                 
         }
 
-        private IEnumerator _SpawnDynamicTasks()
+        private IEnumerator _SpawnDynamicTasks(bool first)
         {
+                if (first) yield return new WaitForSeconds(1f);
                 float timeToTake = 0f;
                 
                 //todo: this might change, right now its just randomly spawning all dynamic tasks
@@ -177,7 +182,6 @@ public class TaskManager : MonoBehaviour
                                 //enable the object
                                 if (obj.TryGetComponent(out Interactable iArea))
                                 {
-
                                         iArea.gameObject.SetActive(true);
                                 }
                                 timeToTake = task.taskSecondInterval;
@@ -196,7 +200,7 @@ public class TaskManager : MonoBehaviour
                 //wait for X seconds
                 yield return new WaitForSeconds(timeToTake);
                 //recursively call this coroutine
-                SpawnDynamicTasks = _SpawnDynamicTasks();
+                SpawnDynamicTasks = _SpawnDynamicTasks(false);
                 StartCoroutine(SpawnDynamicTasks);
         }
         public void CompleteTask(string taskName)
