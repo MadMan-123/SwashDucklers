@@ -209,7 +209,7 @@ public class PlayerControler : MonoBehaviour
                 //add direction * acceleration to velocity
                 rb.velocity += (moveVector * acceleration);
 
-               // Debug.Log(rb.velocity);
+                // Debug.Log(rb.velocity);
             }
             else
             {
@@ -242,8 +242,14 @@ public class PlayerControler : MonoBehaviour
                 rb.velocity += relative0;
             }
 
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
-
+        
+                Vector3 horizontalVelocity = rb.velocity; 
+                horizontalVelocity.y = 0; // Keeps gravity unchanged
+                horizontalVelocity += moveVector * acceleration;
+                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeed);
+                
+                rb.velocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
+            
             //Debug.Log(rb.velocity);
 
             //Rotate to face direction moving
