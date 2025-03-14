@@ -203,9 +203,9 @@ MonoBehaviour:
   m_LookAt: {fileID: 1122676179}
   m_Follow: {fileID: 1122676179}
   m_Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 70
     OrthographicSize: 5
-    NearClipPlane: 0.3
+    NearClipPlane: 0.1
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -2826,7 +2826,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &270517993
 Transform:
   m_ObjectHideFlags: 0
@@ -5580,7 +5580,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &694203336
 Transform:
   m_ObjectHideFlags: 0
@@ -6502,7 +6502,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -8234,6 +8234,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.018
+      objectReference: {fileID: 0}
+    - target: {fileID: -2683796822981170199, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2683796822981170199, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+        type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 03f564ea25b1e3d4ea401c92f259ad91,
         type: 3}
@@ -13067,6 +13077,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 54.322998
       objectReference: {fileID: 0}
+    - target: {fileID: -2683796822981170199, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2683796822981170199, guid: 03f564ea25b1e3d4ea401c92f259ad91,
+        type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -22737601688127608, guid: 03f564ea25b1e3d4ea401c92f259ad91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14848,7 +14868,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 03f564ea25b1e3d4ea401c92f259ad91, type: 3}
   m_Controller: {fileID: 9100000, guid: 714388683be55f44d865ea4c6b9d6cdf, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -15414,7 +15434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1961030953
 MonoBehaviour:
   m_ObjectHideFlags: 0
