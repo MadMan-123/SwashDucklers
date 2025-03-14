@@ -8,13 +8,23 @@ public class PlayerContainer : MonoBehaviour
     public Launcher launcher;
     List<GameObject> players = new ();
 
+    
+    //this method is being called twice when it should only be called once
+    
     public void HoldPlayer(GameObject obj)
     {
-        if (!obj.CompareTag("Player") && !players.Contains(obj)) return;
-
-        //this makes sense here
-        obj.GetComponent<PlayerControler>().ToggleCamera(false);
+        if (!obj.CompareTag("Player") || players.Contains(obj)) return;
+        
         players.Add(obj);
+        print("Start Launch");
+        //this makes sense here
+        if(obj.TryGetComponent(out PlayerControler controler))
+        {
+            //disable the camera
+            controler.ToggleCamera(false);
+            //disable the player
+            controler.canMove = false;
+        }
 
         //disable the rigidbody
         if (obj.TryGetComponent(out Rigidbody rb))
@@ -32,13 +42,18 @@ public class PlayerContainer : MonoBehaviour
         yield return new WaitForSeconds(time);
         launcher.LaunchObject(obj);
         rb.isKinematic = false;
-        yield return new WaitForSeconds(time); 
-        obj.GetComponent<PlayerControler>().ToggleCamera(true);
-        
-        //designed and implemented by daniel doyle (the doyleson (john swashduckler))
         yield return new WaitForSeconds(time);
-        players.Remove(obj);
 
+        if (obj.TryGetComponent(out PlayerControler controler))
+        {
+            controler.ToggleCamera(true);
+            controler.canMove = true;
+            rb.isKinematic = false; 
+        }
+        //designed and implemented by daniel doyle (the doyleson (john swashduckler))
+        yield return new WaitForSeconds(1);
+        players.Remove(obj);
+        
     }
 
    

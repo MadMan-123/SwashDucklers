@@ -132,8 +132,9 @@ public class LaunchManager : MonoBehaviour
 
         
         //reset velocity
-        if (obj.TryGetComponent(out Rigidbody rb))
+        if (obj.TryGetComponent(out Rigidbody rb) && !rb.isKinematic)
         {
+            
             rb.velocity = Vector3.zero;
         }
     }

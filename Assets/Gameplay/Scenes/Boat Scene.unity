@@ -3530,8 +3530,8 @@ Transform:
   m_GameObject: {fileID: 504729692}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.41, y: -1.47, z: -22.61}
-  m_LocalScale: {x: 18.954636, y: 0.78882825, z: 20.222475}
+  m_LocalPosition: {x: -8.93, y: -1.47, z: -23.35}
+  m_LocalScale: {x: 18.954636, y: 0.78882825, z: 11.700117}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1499519732}
@@ -3566,6 +3566,7 @@ MonoBehaviour:
   box: {fileID: 504729695}
   ignoreTag: Player
   shouldDebug: 1
+  tracked: []
 --- !u!65 &504729695
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5002,6 +5003,7 @@ MonoBehaviour:
   box: {fileID: 587693590}
   ignoreTag: Player
   shouldDebug: 0
+  tracked: []
 --- !u!65 &587693590
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7895,6 +7897,7 @@ MonoBehaviour:
   box: {fileID: 1093960495}
   ignoreTag: Pooled
   shouldDebug: 0
+  tracked: []
 --- !u!65 &1093960495
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12680,7 +12683,7 @@ MonoBehaviour:
   kraken: {fileID: 1685696418}
   tentacles: {fileID: 1961030952}
   krakenHealth: {fileID: 912533329}
-  health: {fileID: 1685696422}
+  health: {fileID: 0}
   krakenHud: {fileID: 1412264315}
   gameTimer: {fileID: 824746696}
   SpawnTime: 30

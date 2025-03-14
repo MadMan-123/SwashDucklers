@@ -111,9 +111,9 @@ public class ShipHealth : MonoBehaviour
         //figure out the dmg speed using the level time
     }
 
-    public void RepairShip(int repair)
+    public void RepairShip(int repair, int bonus = 10)
     {
-        shipHealth = Mathf.Clamp(shipHealth + repair, 0, maxShipHealth);
+        shipHealth = Mathf.Clamp(shipHealth + repair + bonus, 0, maxShipHealth);
         leaks = Mathf.Clamp(leaks-1, 0 ,100);
         if (leaks < 1) regenerate = true;
         //percentageDamaged = Mathf.Clamp(100-(Mathf.Lerp(shipHealth, 0, maxShipHealth) * 100),0, 100);
@@ -123,7 +123,7 @@ public class ShipHealth : MonoBehaviour
     {
         //percentageDamaged = Mathf.Lerp(maxShipHealth, 0, shipHealth) * 100;  //if ship is on 90% health this value shows 10% || 80% shows 20% et
         //percentageDamaged = Mathf.Lerp(maxShipHealth - shipHealth, 0, maxShipHealth) * 100;
-        dmgSpeed = (dmgRate)/10 * leaks;                                     
+        dmgSpeed = (dmgRate)/20 * leaks;                                     
         if(regenerate) //if regenerate
         {
             shipHealth = Mathf.Clamp(shipHealth + (regenRate / 10), 0 ,maxShipHealth); //gain hp

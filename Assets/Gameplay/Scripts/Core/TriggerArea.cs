@@ -14,6 +14,7 @@ public class TriggerArea : MonoBehaviour
     public string ignoreTag;
     [SerializeField] private bool shouldDebug = false;
 
+    public List<GameObject> tracked = new();
     private void Awake()
     {
         if (box != null) return;
@@ -24,11 +25,21 @@ public class TriggerArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (ignoreTag != "" && other.CompareTag(ignoreTag))
+        if (((ignoreTag != "" && other.CompareTag(ignoreTag) ) || tracked.Contains(other.gameObject)))
         {
             return;
         }
+        tracked.Add(other.gameObject); 
+        
         onTrigger?.Invoke(other.gameObject);
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        if ((ignoreTag != "" && other.CompareTag(ignoreTag)) || tracked.Contains(other.gameObject))
+        {
+            tracked.Remove(other.gameObject);
+        }
     }
 
 #if UNITY_EDITOR 

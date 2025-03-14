@@ -11,9 +11,11 @@ public class Launcher : MonoBehaviour
     Vector3 pos;
     [SerializeField] private bool shouldDebug = false;
 
+    List<GameObject> players = new ();
 
     public void LaunchObject(GameObject obj)
     {
+        if(players.Contains(obj)) return;
         var area = AreaManager.GetArea(areaName);
         pos = area.GeneratePositionInArea();
 
@@ -33,10 +35,22 @@ public class Launcher : MonoBehaviour
         
         ValidateLaunchPosition(cachedVel,obj);
         var vel = LaunchManager.instance.LaunchObjectWithVar(obj,pos,launchDuration);
+        //add the player to the list of players
+        players.Add(obj);
+        
+        //remove the player from the list after a certain amount of time
+        StartCoroutine(RemovePlayer(obj,launchDuration));
+       
         if(shouldDebug)
             LaunchManager.DrawTrajectory(obj.transform.position,vel,launchDuration);
     }
-  
+
+    private IEnumerator RemovePlayer(GameObject o, float f)
+    {
+        yield return new WaitForSeconds(f);
+        players.Remove(o);
+    }
+
 
     private void ValidateLaunchPosition(Vector3 vel,GameObject obj)
     {

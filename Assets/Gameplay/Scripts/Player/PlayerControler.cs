@@ -243,12 +243,12 @@ public class PlayerControler : MonoBehaviour
             }
 
         
-                Vector3 horizontalVelocity = rb.velocity; 
-                horizontalVelocity.y = 0; // Keeps gravity unchanged
-                horizontalVelocity += moveVector * acceleration;
-                horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeed);
+            Vector3 horizontalVelocity = rb.velocity; 
+            horizontalVelocity.y = 0; // Keeps gravity unchanged
+            horizontalVelocity += moveVector * acceleration;
+            horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeed);
                 
-                rb.velocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
+            rb.velocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
             
             //Debug.Log(rb.velocity);
 
@@ -688,7 +688,7 @@ public class PlayerControler : MonoBehaviour
 
     public void ToggleCamera(bool value)
     {
-        print("Hello");
+        //print("Hello");
         if (value)
         {
             cameraTarget.AddMember(
