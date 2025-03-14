@@ -12,7 +12,9 @@ public class TentacleAI : MonoBehaviour
     public float waitBetweenTents;
     public GameObject[] tentacleObjects;
     private int lastCalled;
-
+    
+    public bool shouldDebug = false;
+    
     private void Start()
     {
         Random.seed = System.DateTime.Now.Millisecond;
@@ -22,30 +24,34 @@ public class TentacleAI : MonoBehaviour
     {
         foreach (GameObject obj in tentacleObjects)
             obj.SetActive(false);
-        Debug.Log("TentacleAI OnEnable");
-        int tentAttack = Random.Range(0, tentacleObjects.Length);
-        tentacleObjects[tentAttack].SetActive(true);
+        
+        if(shouldDebug)
+            Debug.Log("TentacleAI OnEnable");
+        
+        int tentIndex = Random.Range(0, tentacleObjects.Length);
+        var routine = EnableTentacle(tentIndex);
+
+        StartCoroutine(routine);
         //lastCalled = tentAttack;
-        Debug.Log("Activated tentacle " + tentAttack);
-    }
-    private void TentacleAttack()
-    {
-        int tentAttack = Random.Range(0, tentacleObjects.Length);
-        if (tentAttack == lastCalled){tentAttack = Random.Range(0, tentacleObjects.Length);}
-        lastCalled = tentAttack;
-        StartCoroutine(TentacleTimer(tentAttack, tentacleDeployedTime, waitBetweenTents));
-        Debug.Log("Coroutine Started");
+        
+        if(shouldDebug)
+            Debug.Log("Activated tentacle " + tentIndex);
     }
 
-    IEnumerator TentacleTimer(int tentacle, float waitTime, float nextAttackTime)
+    private IEnumerator EnableTentacle(int tentIndex, float animationTime = 0.5f)
     {
-        Debug.Log("SetActive");
-        tentacleObjects[tentacle].SetActive(true);
-        yield return new WaitForSeconds(waitBetweenTents);
-        Debug.Log("SetDeactive");
-        tentacleObjects[tentacle].SetActive(false);
-        yield return new WaitForSeconds(tentacleDeployedTime);
-        TentacleAttack();
+        var tentacle = tentacleObjects[tentIndex];
+        
+        if(shouldDebug)
+            Debug.Log("Enabling tentacle " + tentIndex);
+       
+        //animation shit
+        yield return new WaitForSeconds(animationTime);
+        
+        tentacle.SetActive(true);
+        
+        //other tentacle shit here 
+        
     }
 
     private void OnDisable()
