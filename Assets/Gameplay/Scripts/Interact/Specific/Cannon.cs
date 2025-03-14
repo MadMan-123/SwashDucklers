@@ -57,8 +57,8 @@ public class Cannon : Interactable
     
         if(cannonballCount >= jamAmmount)
         {
+            cannonballCount = 0;
             StartCoroutine(UnJam());
-
         }
     }
 
