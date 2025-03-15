@@ -8845,8 +8845,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 6274729092103594065, guid: b715cd45006e88c47990681c51d2c198, type: 3}
   poolSize: 3
-  interval: 30
-  waveSize: 1
+  interval: 25
+  waveSize: 3
   areaName: Air
   maxSpawnSize: 3
   spawnedCount: 0
@@ -15499,6 +15499,7 @@ MonoBehaviour:
   - {fileID: 2023198573}
   - {fileID: 1037955814}
   - {fileID: 206331830}
+  shouldDebug: 0
 --- !u!4 &1961987635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5161091590877973449, guid: 124d3f8452a334c4c910899bd0ffd6bb,
