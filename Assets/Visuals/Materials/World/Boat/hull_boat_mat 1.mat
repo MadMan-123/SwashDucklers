@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Roughness:
-        m_Texture: {fileID: 2800000, guid: 34c599739990fc24bb7c34533f9a37d5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1af6eb9705a14884ab12bf4bc35065da, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColourTexture:
@@ -106,7 +106,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _baseColour:
-        m_Texture: {fileID: 2800000, guid: 0999b62e34909d7458c263b9d1ca9226, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6008b93a2b0afbd429313efb63aa9301, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _emmissive:
@@ -122,11 +122,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _metallic:
-        m_Texture: {fileID: 2800000, guid: 34c599739990fc24bb7c34533f9a37d5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1af6eb9705a14884ab12bf4bc35065da, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _normal:
-        m_Texture: {fileID: 2800000, guid: 81c96a688bbf7be418f73866d6ed54d3, type: 3}
+        m_Texture: {fileID: 2800000, guid: dc779c99d63e61e408202234a64165a0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _normalTexture:
@@ -192,10 +192,10 @@ Material:
     - _ZWrite: 1
     - _metallic_strength: 0.15
     - _non_emmisive: 1
-    - _normal_strength: 1
+    - _normal_strength: 0.5
     - _outline_fade_distance: 0
     - _outline_thickness: 1
-    - _smoothness_strength: 0.976
+    - _smoothness_strength: 0.486
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
