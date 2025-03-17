@@ -37,7 +37,7 @@ public class Weather : MonoBehaviour
 
     public void KrakenSpawn()
     {
-        waterRenderer = water.transform.GetChild(1).GetComponent<MeshRenderer>();
+        //waterRenderer = water.transform.GetChild(1).GetComponent<MeshRenderer>();
         weatherState = WeatherState.KRAKEN;
         StartCoroutine(ChangeWeather());
 
@@ -45,7 +45,7 @@ public class Weather : MonoBehaviour
 
     public void KrakenDeSpawn()
     {
-        waterRenderer = water.transform.GetChild(1).GetComponent<MeshRenderer>();
+        //waterRenderer = water.transform.GetChild(1).GetComponent<MeshRenderer>();
         weatherState = WeatherState.NORMAL;
         StartCoroutine(ChangeWeather());
 

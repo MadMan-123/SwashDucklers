@@ -93,7 +93,6 @@ public class KrakenManager : MonoBehaviour
         yield return new WaitForSeconds(tentaclesSpawns);
         tentacles.SetActive(true);
         gameTimer.SetActive(false);
-        CameraShake.Instance.ShakeCamera(1.5f, waterChangeDuration + 0.5f);
     }
 
     //Function called by cannons when fired -SD
@@ -104,8 +103,9 @@ public class KrakenManager : MonoBehaviour
 
         if (!health.IsDead) return;
         //Kraken is dead
-        krakenBodyAnimator.SetTrigger("KrakenDies");
-        tentacleAI.KrakenDeath();
+        //krakenBodyAnimator.SetTrigger("KrakenDies");
+        krakenBody.SetActive(false);
+        StartCoroutine(tentacleAI.KrakenDeath());
         krakenHealth.SetActive(false);
         
         health.SetHealth(0);
@@ -115,7 +115,7 @@ public class KrakenManager : MonoBehaviour
         }
         weather.KrakenDeSpawn();
         cameraTarget.RemoveMember(krakenBody.transform);
-        StartRoutines();
+        //StartRoutines();
     }
 
     public void DisableBody()
@@ -129,5 +129,4 @@ public class KrakenManager : MonoBehaviour
         //Can also just remove in its own script, will see - TS
         tentacles.SetActive(false);
     }
-
 }
