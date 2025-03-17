@@ -182,7 +182,7 @@ public class Interactor : MonoBehaviour
 
                 if(brain.TryGetComponent(out Inventory inv))
                 {
-                    inv.DropItem();
+                    inv.DropItem(Vector3.zero, false);
                 }
                 
             }
@@ -213,7 +213,7 @@ public class Interactor : MonoBehaviour
         if(isInteracting) return;
         if (TryGetComponent(out Inventory inv))
         {
-            inv.DropItem();
+            inv.DropItem(Vector3.zero,false);
         }
         StartCoroutine(InteractCooldown(interactCooldown));
     }

@@ -303,48 +303,49 @@ public class AIBrain : MonoBehaviour
         private Vector3 JumpOff()
         {
             //get the edge of the navmesh on the z axis 
-            NavMeshHit upHit = new(), downHit = new();
+            NavMeshHit upHit = new();
             //jump into the enemy death area
-            var pos1 = transform.position + new Vector3(0, 0, 10);
-            var pos2 = transform.position + new Vector3(0, 0, -10);
+            var pos1 = transform.position + new Vector3(0, 0, -10);
             
             //try sample the position
             NavMesh.SamplePosition(pos1, out upHit, 10, NavMesh.AllAreas);
-            NavMesh.SamplePosition(pos2, out downHit, 10, NavMesh.AllAreas);
             
             //draw the two points
             if (shouldDebug)
             {
                 Debug.DrawLine(pos1, upHit.position, Color.green);
-                Debug.DrawLine(pos2, downHit.position, Color.green);
             }
             
             //get the distance to the two points
             var upDistance = (upHit.position - transform.position).magnitude;
-            var downDistance = (downHit.position - transform.position).magnitude;
             
             //get the closest point
-            var fleePosition = upDistance < downDistance ? upHit.position : downHit.position;
+            var fleePosition = upHit.position;
            
             //check if the distance is less than 1, if so we will make the launcher lanch the AI to the enemy death area
-            if ((fleePosition != upHit.position || !(upDistance < 0.5f)) &&
-                (fleePosition != downHit.position || !(downDistance < 0.5f))) return fleePosition;
+            if ((fleePosition != upHit.position || !(upDistance < 0.5f))) return fleePosition;
             // enable rigidbody and disable agent
             rb.isKinematic = false;
             agent.enabled = false;
+           
+            var camTransform = Camera.main.transform;
+            //ensure the crab's y axis is facing the camera 
+            //smoothly rotate the crab to face the camera
+            transform.rotation = Quaternion.LookRotation(-Vector3.forward);
+ 
             
-            //launch the AI to the enemy death area
-            //launch upright relative to the forward direction
             var direction = transform.forward;
             direction.y = 2;
             //launch the AI
-            rb.AddForce(direction * 3f , ForceMode.VelocityChange);
+            rb.AddForce(direction * 4.25f , ForceMode.VelocityChange);
             
             //reset the ai state
             ChangeState(State.Wander);
             //drop the cargo
             hasCargo = false;
-            inventory.DropItem();
+            inventory.DropItem(direction, true);
+            
+            
             //disable the AI
             enabled = false;
 
