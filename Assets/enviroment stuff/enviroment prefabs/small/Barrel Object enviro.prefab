@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2101078283334332912}
   - component: {fileID: 4916550442334802724}
   - component: {fileID: 5974809743073055698}
-  - component: {fileID: -7821060161809568792}
   m_Layer: 0
   m_Name: Barrel Object enviro
   m_TagString: environment
@@ -84,21 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-7821060161809568792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1029962160934103079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c7e7c3c92a95204f832b51ad3f48667, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isboat: 0
-  isisland: 0
-  issmall: 1
-  boatspd: 0
-  islandspd: 0
-  smallspd: 0

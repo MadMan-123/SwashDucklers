@@ -1,4 +1,3 @@
-
 using System;
 using UnityEngine;
 
@@ -8,9 +7,9 @@ public class Enviromentmove : MonoBehaviour
     public bool islarge;
     public bool issmall;
 
-    public int mediumspd;
-    public int largespd;
-    public int smallspd;
+    private int mediumspd;
+    private int largespd;
+    private int smallspd;
     enviroment getspeed;
 
     private Transform small;
@@ -19,18 +18,21 @@ public class Enviromentmove : MonoBehaviour
  
     private float x;
 
-    private float disableDistance = 100;
+    private float disableDistance = 200;
     
     // Start is called before the first frame update
     void Start()
     {  
         
-        transform.Rotate(new Vector3(0,-90,0));
-        getspeed = GameObject.FindWithTag("environment").GetComponent<enviroment>();
         
+        
+        
+        //getspeed = GameObject.FindWithTag("environment").GetComponent<enviroment>();
+        getspeed = GameObject.FindObjectOfType<enviroment>();
         large = getspeed.LargeSpawn;
         small = getspeed.SmallSpawn;
         medium = getspeed.MediumSpawn;
+        
         if (issmall)
         {
             transform.position = small.position;
@@ -43,6 +45,7 @@ public class Enviromentmove : MonoBehaviour
         {
             transform.position = large.position;
         }
+       
         
     }
 
@@ -56,14 +59,21 @@ public class Enviromentmove : MonoBehaviour
         
         if (issmall)
         {
+            if (!getspeed.krakenactive)
+            {
+                smallspd = getspeed.SpeedSmall;
+            }
+            else if (getspeed.krakenactive)
+            {
+                smallspd = 0;
+            }
             
-            smallspd = getspeed.SpeedSmall;
             var move =  Time.deltaTime * smallspd;
             transform.Translate(new Vector3(0,0,move));
             
             float distance = Vector3.Distance(transform.position, getspeed.SmallSpawn.transform.position);
 
-            if (distance > disableDistance)
+            if (distance > disableDistance )
             {
                 gameObject.SetActive(false); 
             }
@@ -76,9 +86,19 @@ public class Enviromentmove : MonoBehaviour
         else
         if (islarge)
         {
-            largespd = getspeed.SpeedLarge;
+            
+            if (!getspeed.krakenactive)
+            {
+                largespd = getspeed.SpeedLarge;
+            }
+            else if (getspeed.krakenactive)
+            {
+                largespd = 0;
+            }
+            
             var move =  Time.deltaTime * largespd;
             transform.Translate(new Vector3(0,0,move));
+            
             float distance = Vector3.Distance(transform.position, getspeed.LargeSpawn.transform.position);
 
             if (distance > disableDistance)

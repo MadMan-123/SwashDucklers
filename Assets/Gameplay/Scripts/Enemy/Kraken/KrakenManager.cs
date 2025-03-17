@@ -18,6 +18,8 @@ public class KrakenManager : MonoBehaviour
     [SerializeField] float waterChangeDuration;
 
     [SerializeField] Weather weather;
+    
+    [SerializeField] enviroment krakEnviroment;
 
     [SerializeField] private CinemachineTargetGroup cameraTarget;
 
@@ -50,6 +52,7 @@ public class KrakenManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         weather.KrakenSpawn();
+       // krakEnviroment.krakenactive = true;
         yield return new WaitForSeconds(5f);
         kraken.SetActive(true);
         tentacles.SetActive(true);
@@ -72,6 +75,7 @@ public class KrakenManager : MonoBehaviour
             kraken.SetActive(false);
             tentacles.SetActive(false);
             krakenHealth.SetActive(false);
+            krakEnviroment.krakenactive = false;
             if (StageParameters.levelLength != Length.Endless)
             {
                 gameTimer.SetActive(true);
