@@ -18,6 +18,21 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] GameObject slapImage;
     [SerializeField] GameObject timmyTurnersDad;
 
+    [SerializeField] GameObject exampleLeak;
+    [SerializeField] GameObject leakArrow;
+    [SerializeField] GameObject moreExampleLeaks;
+
+    [SerializeField] GameObject examplePlanks;
+    [SerializeField] GameObject plankArrow;
+
+    [SerializeField] EnemySpawner crabs;
+
+    [SerializeField] GameObject exampleCannons;
+    [SerializeField] GameObject cannonballs;
+    [SerializeField] GameObject carboardKraken;
+
+    [SerializeField] int flagsTriggered = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +49,19 @@ public class TutorialManager : MonoBehaviour
         grabImage.SetActive(false);
         slapImage.SetActive(false);
         timmyTurnersDad.SetActive(false);
+
+        exampleLeak.SetActive(false);
+        leakArrow.SetActive(false);
+        moreExampleLeaks.SetActive(false);
+
+        examplePlanks.SetActive(false);
+        plankArrow.SetActive(false);
+
+        crabs.enabled = false;
+
+        exampleCannons.SetActive(false);
+        cannonballs.SetActive(false);
+        carboardKraken.SetActive(false);
 
         //Start tutorial
         StartCoroutine(tutorial());
@@ -65,7 +93,32 @@ public class TutorialManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void triggerFlag()
+    {
+        flagsTriggered = flagsTriggered + 1;
+    }
+
+    bool firstLeakFixed()
+    {
+        return (flagsTriggered == 1);
+    }
+
+    bool halfLeaksFixed()
+    {
+        return (flagsTriggered == 5);
+    }
+
+    bool allLeaksFixed()
+    {
+        return (flagsTriggered == 10);
+    }
+
+    bool cannonsFired()
+    {
+        return (flagsTriggered == 3);
     }
 
     private IEnumerator tutorial()
@@ -90,13 +143,16 @@ public class TutorialManager : MonoBehaviour
         StartCoroutine(TypeText("While on our journey, There will be all sorts of Dangers"));
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("When you see a leak like this, that means the ships taking damage :("));
-        //Spawn Leak with arrow
+        leakArrow.SetActive(true);
+        exampleLeak.SetActive(true);
+
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("You`ll need to work together to repair it post-haste!"));
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("Head over to the wood pile, and press the left button to grab a plank"));
-        //Despawn leak arrow
-        //Spawn wood with arrow
+        leakArrow.SetActive(false);
+        examplePlanks.SetActive(true);
+        plankArrow.SetActive(true);
         imageBox.SetActive(true);
         grabImage.SetActive(true);
         yield return new WaitForSeconds(5f);
@@ -104,9 +160,11 @@ public class TutorialManager : MonoBehaviour
         imageBox2.SetActive(true);
         fixImage.SetActive(true);
 
-        yield return new WaitForSeconds(5f);//is repaired
+        yield return new WaitUntil(firstLeakFixed);//is repaired
+        StopCoroutine("TypeText");
+        flagsTriggered = 0;
 
-        //Despawn wood arrow arrow
+        plankArrow.SetActive(false);
         imageBox.SetActive(false);
         grabImage.SetActive(false);
         imageBox2.SetActive(false);
@@ -114,45 +172,58 @@ public class TutorialManager : MonoBehaviour
         StartCoroutine(TypeText("Good Job! but just to make sure everyones got a hang of it..."));
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("Try Fixing a few more!"));
+        moreExampleLeaks.SetActive(true);
         //Spawn leak counter
 
-        yield return new WaitForSeconds(5f);//5/10 reached
+        yield return new WaitUntil(halfLeaksFixed);//5/10 reached
+        StopCoroutine("TypeText");
 
         StartCoroutine(TypeText("Oh no here come some crabs!"));
-        //Spawn crabs
+        crabs.enabled = true;
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("Try using the left button to fight them off!"));
         imageBox.SetActive(true);
         slapImage.SetActive(true);
 
-        yield return new WaitForSeconds(5f);//10/10 reached
+        yield return new WaitUntil(allLeaksFixed);//10/10 reached
+        StopCoroutine("TypeText");
+        flagsTriggered = 0;
+
         imageBox.SetActive(false);
         slapImage.SetActive(false);
-        //Despawn crabs
-        //Despawn leaks
-        //Despawn wood
+        crabs.enabled = false;
+        exampleLeak.SetActive(false);
+        moreExampleLeaks.SetActive(false);
+        examplePlanks.SetActive(false);
         StartCoroutine(TypeText("Good Job! Theres just one last thing to teach you!"));
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("You might encounter the legendary Kraken!"));
-        //Spawn Dummy Kraken
+        carboardKraken.SetActive(true);
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("You`ll need to fight them off or the ship will be stuck in place!"));
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("Grab a cannonball and load it into the cannon to fight them off!"));
         imageBox.SetActive(true);
         cannonImage.SetActive(true);
+        exampleCannons.SetActive(true);
+        cannonballs.SetActive(true);
         //Show kraken health
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("You can also use the right button to drop items if you need to!"));
         imageBox2.SetActive(true);
         dropImage.SetActive(true);
 
-        yield return new WaitForSeconds(5f);//Kraken Defeated
+        yield return new WaitUntil(cannonsFired);//Kraken Defeated
+        StopCoroutine("TypeText");
+        flagsTriggered = 0;
 
         imageBox.SetActive(false);
         cannonImage.SetActive(false);
         imageBox2.SetActive(false);
         dropImage.SetActive(false);
+        exampleCannons.SetActive(false);
+        cannonballs.SetActive(false);
+        carboardKraken.SetActive(false);
 
         StartCoroutine(TypeText("Thats it!, youve really got the hang of this now"));
         yield return new WaitForSeconds(5f);
@@ -168,6 +239,8 @@ public class TutorialManager : MonoBehaviour
         StartCoroutine(TypeText("With that, its time for you to get going!"));
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("Good luck! and try not to sink!"));
+        yield return new WaitForSeconds(5f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Boat Scene");
     }
 
     private IEnumerator TypeText(string Text)
