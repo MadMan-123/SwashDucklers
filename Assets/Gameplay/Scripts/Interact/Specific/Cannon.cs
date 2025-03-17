@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class Cannon : Interactable
 {
-    
+    private static readonly int IsShooting = Animator.StringToHash("IsShooting");
+
     public GameObject cannonballPrefab;
     GameObjectPool cannonballPool;
     public Transform cannonballSpawnPoint;
@@ -18,7 +19,7 @@ public class Cannon : Interactable
     [SerializeField] private float coolDownTime = 5f;
     [SerializeField] private Animator anim;
     
-    private int cannonballCount = 0, jamAmmount = 3, timeToUnJam = 12;
+    [SerializeField]private int cannonballCount = 0, jamAmmount = 3, timeToUnJam = 12;
 
     void Start()
     {
@@ -38,7 +39,7 @@ public class Cannon : Interactable
         canFire = false;
         
         //get rid of the cannonball
-        if (!Source.TryGetComponent(out Inventory inv))
+        if (!Source.TryGetComponent(out Inventory inv) && cannonballCount < jamAmmount)
         {
             canFire = true;
             return;
@@ -47,33 +48,34 @@ public class Cannon : Interactable
         //remove the cannonball from the inventory
         inv.RemoveItem();
         
-        
-
         StartCoroutine(FireCannon());
-
-        StartCoroutine(CoolDown());
-        
+        if(cannonballCount + 1 < jamAmmount)
+        {
+            StartCoroutine(CoolDown());
+        }
         cannonballCount++;
     
         if(cannonballCount >= jamAmmount)
         {
-            cannonballCount = 0;
+            
             StartCoroutine(UnJam());
+            cannonballCount = 0;
+            
         }
     }
 
     IEnumerator UnJam()
     {
         canFire = false;
+        anim.SetBool(IsShooting, false);
         yield return new WaitForSeconds(timeToUnJam);
         canFire = true;
     }
      
     IEnumerator FireCannon()
     {
-        if (!anim.GetBool("IsShooting"))
-            //animator.CrossFade("IsWalking")
-            anim.SetBool("IsShooting", true);
+       if(cannonballCount >= jamAmmount) yield break; 
+        anim.SetBool(IsShooting, true);
         yield return new WaitForSeconds(0.75f);
 
         //fire the cannon
@@ -103,6 +105,10 @@ public class Cannon : Interactable
         yield return new WaitForSeconds(coolDownTime);
         if(cannonballCount < jamAmmount)
             canFire = true;
+        else
+            yield break;
+        
+
         anim.SetBool("IsShooting", false);
     }
 

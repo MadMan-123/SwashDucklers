@@ -337,7 +337,7 @@ Transform:
   m_GameObject: {fileID: 46018006}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.96, y: 0.21, z: -5.29}
+  m_LocalPosition: {x: 1.72, y: 0.21, z: -10.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1161,6 +1161,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154994611}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &173481959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 173481960}
+  m_Layer: 0
+  m_Name: Min
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &173481960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173481959}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.32, y: -1.46, z: -7.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1532081157}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &174770963
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1608,7 +1639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   areas:
-  - name: Deck
+  - name: DeckA
     Min: {fileID: 659719417}
     Max: {fileID: 46018007}
   - name: Air
@@ -1617,6 +1648,12 @@ MonoBehaviour:
   - name: Plank
     Min: {fileID: 92071226}
     Max: {fileID: 839813808}
+  - name: DeckB
+    Min: {fileID: 173481960}
+    Max: {fileID: 1327316392}
+  - name: DeckC
+    Min: {fileID: 1504278420}
+    Max: {fileID: 1706081907}
   areaColour: {r: 0.24528301, g: 0, b: 0, a: 1}
   shouldDebug: 1
 --- !u!4 &227639489 stripped
@@ -1799,6 +1836,39 @@ MonoBehaviour:
     tentacleAnimator: {fileID: 885129429}
     hitBox: {fileID: 2097484922}
   spawnTime: 0
+--- !u!1 &285713130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 285713131}
+  m_Layer: 0
+  m_Name: Deck C
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &285713131
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285713130}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.51, y: 2.59, z: 1.03}
+  m_LocalScale: {x: 0.48352462, y: 1, z: 0.3557656}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1504278420}
+  - {fileID: 1706081907}
+  m_Father: {fileID: 1986898623}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &379022049
 GameObject:
   m_ObjectHideFlags: 0
@@ -2648,8 +2718,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 504729696}
-        m_TargetAssemblyTypeName: Launcher, Assembly-CSharp
-        m_MethodName: LaunchObject
+        m_TargetAssemblyTypeName: EnemyLauncher, Assembly-CSharp
+        m_MethodName: LaunchEnemy
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2693,12 +2763,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 504729692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 541696f0ce4e8bb4b913e47c84c6dee7, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ece5edbb44749b4c9d8dd2dd3319321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchDuration: 3
-  areaName: Deck
-  shouldDebug: 1
+  launchDuration: 1
+  areaName: 
+  shouldDebug: 0
+  areaNames:
+  - DeckA
+  - DeckB
+  - DeckC
 --- !u!1 &511253202
 GameObject:
   m_ObjectHideFlags: 0
@@ -4813,7 +4887,7 @@ Transform:
   m_GameObject: {fileID: 659719416}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.4, y: -1.46, z: 4.81}
+  m_LocalPosition: {x: -7.32, y: -1.46, z: -7.5999994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6225,7 +6299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 962595632}
   m_Layer: 0
-  m_Name: Deck
+  m_Name: Deck A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8306,6 +8380,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b0344dfd93d33488708910a5e02743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1327316391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1327316392}
+  m_Layer: 0
+  m_Name: Max
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1327316392
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327316391}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.9, y: 0.21, z: -10.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1532081157}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1357618314 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cd94c4ad34db5554294849fe57d8f964,
@@ -9476,6 +9581,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heightModifier: 1
   durationModifer: 0.99
+--- !u!1 &1504278419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1504278420}
+  m_Layer: 0
+  m_Name: Min
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1504278420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504278419}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.32, y: -1.46, z: -7.5999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 285713131}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1520766466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9699,6 +9835,39 @@ Transform:
   m_Children:
   - {fileID: 511253206}
   m_Father: {fileID: 1213591005}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1532081156
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1532081157}
+  m_Layer: 0
+  m_Name: Deck B
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1532081157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532081156}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.09, y: 2.59, z: 1.03}
+  m_LocalScale: {x: 0.48352462, y: 1, z: 0.3557656}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 173481960}
+  - {fileID: 1327316392}
+  m_Father: {fileID: 1986898623}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1552339461
 GameObject:
@@ -10765,6 +10934,37 @@ MonoBehaviour:
   tentaclesSpawns: 7.5
   weatherChanges: 5
   weather: {fileID: 1645392301}
+--- !u!1 &1706081906
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1706081907}
+  m_Layer: 0
+  m_Name: Max
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1706081907
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706081906}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.48, y: 0.21, z: -10.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 285713131}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1728935986
 GameObject:
   m_ObjectHideFlags: 0
@@ -12977,6 +13177,8 @@ Transform:
   - {fileID: 1093960493}
   - {fileID: 759061097}
   - {fileID: 962595632}
+  - {fileID: 1532081157}
+  - {fileID: 285713131}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1986898624

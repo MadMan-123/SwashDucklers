@@ -6,10 +6,10 @@ using UnityEngine.AI;
 
 public class Launcher : MonoBehaviour
 {
-    [SerializeField] private float launchDuration = 1f;
+    [SerializeField] public float launchDuration = 1f;
     [SerializeField] private string areaName;
     Vector3 pos;
-    [SerializeField] private bool shouldDebug = false;
+    [SerializeField] public bool shouldDebug = false;
 
     List<GameObject> players = new ();
 
@@ -52,7 +52,7 @@ public class Launcher : MonoBehaviour
     }
 
 
-    private void ValidateLaunchPosition(Vector3 vel,GameObject obj)
+    protected void ValidateLaunchPosition(Vector3 vel,GameObject obj)
     {
         //take the position of the player and the position of the boat
         //get a difference in the z axis and based if positive or negative adjust the player position along the z axis in the respective direction
