@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TentacleAnimationEvents : MonoBehaviour
 {
-    private KrakenManager krakenManager;
+    [SerializeField]private KrakenManager krakenManager;
     public float intensity = 10f;
     public float duration = 0.1f;
     public void Shake()

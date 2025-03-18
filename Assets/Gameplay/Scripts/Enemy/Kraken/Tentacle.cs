@@ -21,6 +21,9 @@ public class Tentacle : MonoBehaviour
         {
             tentacleList[i].tentacleModel.SetActive(true);
             tentacleList[i].tentacleAnimator.enabled = true;
+            tentacleList[i].tentacleAnimator.SetTrigger("Spawn");
+            tentacleList[i].hitBox.SetActive(false);
+            
         }
     }
     public void KrakenDead()

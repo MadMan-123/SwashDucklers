@@ -13,6 +13,8 @@ public class Weather : MonoBehaviour
     [SerializeField] Light sunlight;
     [SerializeField] float waterChangeDuration;
     [SerializeField] ParticleSystem rain;
+    [SerializeField] private AudioSource rainSound;
+    [SerializeField] private float rainVolume;
     [SerializeField] Material waterMaterial;
     [SerializeField] Material krakenMaterial;
     WeatherState weatherState;
@@ -64,6 +66,7 @@ public class Weather : MonoBehaviour
                 {
                     sunlight.intensity = Mathf.Lerp(1.5f, 2, progress);
                     emission.rateOverTime = 200 * (1 - progress);
+                    rainSound.volume = Mathf.Lerp(rainVolume, 0f, progress);
                     //waterRenderer.material.Lerp(currentMat, waterMaterial, progress);
                     progress += increment;
                     yield return new WaitForSeconds(smoothness);
@@ -79,6 +82,7 @@ public class Weather : MonoBehaviour
                 {
                     sunlight.intensity = Mathf.Lerp(2, 0.5f, progress);
                     emission.rateOverTime = 200 * progress;
+                    rainSound.volume = Mathf.Lerp(0f, rainVolume, progress);
                     //waterRenderer.material.Lerp(currentMat, krakenMaterial, progress);
                     progress += increment;
                     yield return new WaitForSeconds(smoothness);
