@@ -14,6 +14,12 @@ public class PlayerContainer : MonoBehaviour
     public void HoldPlayer(GameObject obj)
     {
         if (!obj.CompareTag("Player") || players.Contains(obj)) return;
+       
+        //TODO: GET SOME VALUE OF THE ACTUAL PLAYER COUNT
+        if (players.Count >= 4)
+        {
+            //die
+        }
         
         players.Add(obj);
         print("Start Launch");

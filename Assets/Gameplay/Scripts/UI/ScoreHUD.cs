@@ -16,10 +16,14 @@ public class ScoreHUD : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    
+    //No texts to be updated per frame
+    /*// Update is called once per frame
     void Update()
     {
         cargoText.text = StageParameters.currentCargo.ToString() + "/" + StageParameters.startingCargo.ToString();
+        /*
         scoreText.text = StageParameters.Score.ToString();
-    }
+        #1#
+    }*/
 }

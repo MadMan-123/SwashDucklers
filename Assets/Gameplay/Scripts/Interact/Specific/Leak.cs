@@ -72,7 +72,7 @@ public class Leak : Interactable
 
     IEnumerator DisableLeak(float wait = 5)
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(wait);
         gameObject.SetActive(false);
     }
 
@@ -83,6 +83,7 @@ public class Leak : Interactable
          health.RepairShip(damage);
          var pos = transform.position +  new Vector3(0, 0.5f, 0);
  
+         ScoreManager.Instance.AddScore(10);
           
          Vector3 lookDir = cam.transform.position - pos;
          Quaternion direction = Quaternion.LookRotation(lookDir);
