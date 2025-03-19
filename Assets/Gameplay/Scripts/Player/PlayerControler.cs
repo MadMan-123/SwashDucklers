@@ -497,7 +497,7 @@ public class PlayerControler : MonoBehaviour
                 Quack.pitch = Random.Range(0.0f, 1.0f);
             }
             Quack.Play(0);
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y /2, transform.localScale.z);
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 0.5f, transform.localScale.z);
             transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
         }
         else if (value.canceled) //Cancelled
