@@ -72,9 +72,6 @@ public class Launcher : MonoBehaviour
             playerPos.z *= 2.5f;
         }
         
-        
-        
-        
     }
         
         public bool IsValidPath(GameObject obj,Vector3 velocity)

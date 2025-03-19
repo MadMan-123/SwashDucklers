@@ -1,70 +1,162 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Core;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class EnvironmentManager : MonoBehaviour
 {
+    
     [SerializeField] private List<EnvironmentObjectType> environmentObjects = new();
+    [SerializeField] private float outOfBoundsDistance = -25;
+    [SerializeField] private bool debug;
+    
     private static readonly Vector3 movment = new Vector3(-1, 0, 0);
+    private const int MaxObjects = 5;
+    
+    private EnvironmentObject[] active = new EnvironmentObject[MaxObjects * 2];
 
-    private List<GameObject> active = new();
-   
+    
+    
+    //edit this to stop moving stuff and cancel the recursive coroutine, 
+    public bool shouldMove = true;
+    private bool wait = false;
     private void Start()
     {
-        foreach (var environmentObject in environmentObjects)
+        for (var index = 0; index < environmentObjects.Count; index++)
         {
-            environmentObject.pool = new GameObjectPool(environmentObject.prefab, 10, transform);
+            var environmentObject = environmentObjects[index];
+            environmentObject.pools = new GameObjectPool[environmentObject.prefabs.Length];
+            for (int i = 0; i < environmentObject.prefabs.Length; i++)
+            {
+                environmentObject.pools[i] = new GameObjectPool(environmentObject.prefabs[i], MaxObjects, transform);
+            }
         }
+        
+
+        StartCoroutine(SpawnRandomObject());
     }
 
     private void Update()
     {
-        for (var index = 0; index < active.Count; index++)
+        if (shouldMove)
         {
-            var o = active[index];
-            
-            if (o == null)
+            for (var index = 0; index < active.Length; index++)
             {
-                active.RemoveAt(index);
-                continue;
-            } 
-            
-            //move the object
-            o.transform.position += movment * (environmentObjects[index].speed * Time.deltaTime);
-            
-            //check if the object is out of bounds
-            if (o.transform.position.x < -10)
-            {
-                o.SetActive(false);
-                active.RemoveAt(index);
+                var o = active[index];
+
+                if (o == null) continue;
+                
+
+                //move the object
+                o.transform.position += movment * (o.speed * Time.deltaTime);
+
+                //check if the object is out of bounds
+                if (!(o.transform.position.x < outOfBoundsDistance)) continue;
+
+                o.transform.gameObject.SetActive(false);
+                active[index] = null;
             }
         }
     }
 
-    private IEnumerator SpawnRandomObject(float interval = 10)
+    public IEnumerator SpawnRandomObject(float interval = 15)
     {
-        var index = Random.Range(0, environmentObjects.Count);
+        if(!shouldMove) yield break;
+        //get a random enviroment object
+        var index = Random.Range(0, environmentObjects.Count );
         var current = environmentObjects[index];
-        var obj = current.pool.GetObject();
-        obj.transform.position = transform.position;
-        obj.SetActive(true);
-        active.Add(obj);
-        yield return new WaitForSeconds(interval);
-        StartCoroutine(SpawnRandomObject());
         
+        //get a random prefab from the pools
+        var pool = current.pools[Random.Range(0, current.pools.Length)];
+        //check if its valid
+        if (pool == null) yield break;
+        
+        var obj = pool.GetObject();
+        
+        //set the position of the object
+        obj.transform.position = current.position;
+        obj.SetActive(true);
+        
+        int validIndex = active.ToList().FindIndex(x => x == null);
+        
+        if (validIndex == -1)
+        {
+            yield return new WaitForSeconds(interval);
+            StartCoroutine(SpawnRandomObject());
+            yield break;
+        }
+       
+        active[validIndex] = new EnvironmentObject
+        {
+            transform = obj.transform,
+            speed = current.speed
+        };
+        
+        
+        yield return new WaitForSeconds(interval);
+        if(shouldMove) 
+            StartCoroutine(SpawnRandomObject()); 
+    }
+
+
+    
+    [ExecuteAlways]
+    private void OnDrawGizmos()
+    {
+        if (!debug) return;
+        //if there is a valid environment object
+        if (environmentObjects.Count > 0)
+        {
+            for (var i = 0; i < environmentObjects.Count; i++)
+            {
+                var environmentObject = environmentObjects[i];
+                if(environmentObject == null || environmentObject.prefabs.Length == 0) continue;
+                
+                //make a colour that is based of the speed, 0 is red and 10 is green
+                var color = Color.Lerp(Color.red, Color.green, environmentObject.speed / 10);
+                
+                
+               
+                //set the gizmo colour
+                Gizmos.color = color;
+                
+                
+                
+                //get a formated string of each prefab name line for line
+                var prefabNames = environmentObject.prefabs.Aggregate("", (current, prefab) => current + prefab.name + "\n");
+                
+                //draw the name of the prefab above this and display the speed of the object
+                Handles.Label(environmentObject.position + Vector3.up * 1.25f + Vector3.right / 2 + Vector3.forward /2,  prefabNames +" \nSpeed: " + environmentObject.speed);
+                
+                Gizmos.DrawWireCube(environmentObject.position, Vector3.one);
+            }
+            
+        }
+        
+        //draw the out of bounds line
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(new Vector3(outOfBoundsDistance, 0, 0), new Vector3(outOfBoundsDistance, 0, 100));
         
     }
     
-    
 }
 
+public class EnvironmentObject
+{
+    public Transform transform;
+    public float speed;
+}
 
+[Serializable]
 public class EnvironmentObjectType
 {
-    public GameObject prefab;
-    public GameObjectPool pool;
+    public GameObject[] prefabs;
+    public Vector3 position;
+    public GameObjectPool[] pools;
     public float speed;
 }

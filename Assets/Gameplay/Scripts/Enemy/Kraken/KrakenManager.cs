@@ -32,8 +32,10 @@ public class KrakenManager : MonoBehaviour
     [SerializeField] private float bodySpawns=12.5f;
     [SerializeField] private float tentaclesSpawns=7.5f;
     [SerializeField] private float weatherChanges=5f;
-    [SerializeField] Weather weather;
     
+    [Header("Other World Stuff")]
+    [SerializeField] Weather weather;
+    [SerializeField] private EnvironmentManager environmentManager;
 
     float timeBeforeNext;
     //bool isActive = false;
@@ -78,6 +80,10 @@ public class KrakenManager : MonoBehaviour
         krakenHealth.SetActive(true);
         SoundManager.PlayAudioClip("KrakenSpawn", this.transform.position, 1f);
         cameraTarget.AddMember(krakenBody.transform, cameraPullWeight, cameraPullRadius);
+        
+        //tell the environment manager to stop moving objects
+        environmentManager.shouldMove = false; 
+        
     }
 
     IEnumerator WeatherSpawn()
@@ -107,6 +113,11 @@ public class KrakenManager : MonoBehaviour
         krakenBody.SetActive(false);
         StartCoroutine(tentacleAI.KrakenDeath());
         krakenHealth.SetActive(false);
+       
+        //reengage the environment manager
+        environmentManager.shouldMove = true;
+        StartCoroutine(environmentManager.SpawnRandomObject());
+        
         
         health.SetHealth(0);
         if (StageParameters.levelLength != Length.Endless)
