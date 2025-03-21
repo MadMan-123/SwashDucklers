@@ -497,8 +497,14 @@ public class PlayerControler : MonoBehaviour
                 Quack.pitch = Random.Range(0.0f, 1.0f);
             }
             Quack.Play(0);
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 0.5f, transform.localScale.z);
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+            //changing localScale.y /2 to 0.5f has 0 difference and does not fix the qwack clipping issue - MW
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / 2, transform.localScale.z);
+            //ensuring the player is not placed below the ground is what we want to do here. -MW
+            
+            
+            //if the scale is 1, and we are dividing by 2 (or multiply 0.5f) then moving down by 0.5f is the same as moving down by half the scale,
+            //which is causing the clipping issue.
+            transform.position = new Vector3(transform.position.x, transform.position.y - 0.4f, transform.position.z);
         }
         else if (value.canceled) //Cancelled
         {
