@@ -6,6 +6,7 @@ public class TentacleAnimationEvents : MonoBehaviour
 {
     [SerializeField]private KrakenManager krakenManager;
     [SerializeField]private TentacleAI tentacleAI;
+    [SerializeField] private Tentacle tentacle;
     public float intensity = 10f;
     public float duration = 0.1f;
     public void Shake()
@@ -19,8 +20,13 @@ public class TentacleAnimationEvents : MonoBehaviour
         krakenManager.DisableTentacles();
     }
 
-    public void EnableHitboxes()
+    public void EnableHitBoxes()
     {
-        tentacleAI.ActivateHitboxes();
+        tentacle.ToggleHitboxes(true);
+    }
+
+    public void DisableHitBoxes()
+    {
+        tentacle.ToggleHitboxes(false);
     }
 }

@@ -7,15 +7,16 @@ public class Tentacle : MonoBehaviour
 {
     [SerializeField] private TentacleStuff[] tentacleList;
     [SerializeField] float spawnTime;
-    
+
     // Start is called before the first frame update
     void Start()
     {
-       // for (int i = 0; i < tentacleList.Length; i++)
-       // {
-       //     tentacleList[i].tentacleAnimator.;
-       // }
+        // for (int i = 0; i < tentacleList.Length; i++)
+        // {
+        //     tentacleList[i].tentacleAnimator.;
+        // }
     }
+
     private void OnEnable()
     {
         for (int i = 0; i < tentacleList.Length; i++)
@@ -24,9 +25,10 @@ public class Tentacle : MonoBehaviour
             tentacleList[i].tentacleAnimator.enabled = true;
             tentacleList[i].tentacleAnimator.SetTrigger("Spawn");
             tentacleList[i].hitBox.SetActive(false);
-            
+
         }
     }
+
     public void KrakenDead()
     {
         for (int i = 0; i < tentacleList.Length; i++)
@@ -34,15 +36,10 @@ public class Tentacle : MonoBehaviour
             tentacleList[i].tentacleAnimator.SetTrigger("KrakenDead");
         }
     }
-    public void ActivateHitBoxes()
-    {
-        for(int i = 0; i < tentacleList.Length; i++)
-            tentacleList[i].hitBox.SetActive(true);
-    }
 
     public void PlaySound()
     {
-        SoundManager.PlayAudioClip("TentacleSlam",tentacleList[0].tentacleModel.transform.position, 1f);
+        SoundManager.PlayAudioClip("TentacleSlam", tentacleList[0].tentacleModel.transform.position, 1f);
     }
 
     [Serializable]
@@ -60,4 +57,11 @@ public class Tentacle : MonoBehaviour
             tentacleList[i].hitBox.SetActive(false);
         }
     }
+
+    public void ToggleHitboxes(bool on)
+    {
+        for (int i = 0; i < tentacleList.Length; i++)
+            tentacleList[i].hitBox.SetActive(on);
+    }
+
 }
