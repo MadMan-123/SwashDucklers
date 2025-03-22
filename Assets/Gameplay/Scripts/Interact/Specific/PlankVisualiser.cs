@@ -12,7 +12,17 @@ public class PlankVisualiser : MonoBehaviour
    {
       if (repairCount >= plankVisuals.Length) return;
       plankVisuals[repairCount].SetActive(true);
+      plankVisuals[repairCount].transform.rotation = Quaternion.Euler(0, Random.Range(0, 180f), 0);
       repairCount++;
+   }
+
+   public void RemovePlank()
+   {
+      foreach (var plankVisual in plankVisuals)
+      {
+         plankVisual.SetActive(false);
+      }
+      repairCount = 0;
    }
    
    //on disable reset the visuals

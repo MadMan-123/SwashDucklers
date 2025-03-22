@@ -33,6 +33,7 @@ public class Leak : Interactable
     {
         count = 0;
         foreach (GameObject effect in leakEffect) { effect.SetActive(false); }
+        plankVisualiser.RemovePlank();
         var num = Random.Range(0, doubleRarity);
         active = num < 4 ? 0 : 1;
         leakEffect[active].SetActive(true);

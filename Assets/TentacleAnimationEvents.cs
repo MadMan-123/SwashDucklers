@@ -5,6 +5,7 @@ using UnityEngine;
 public class TentacleAnimationEvents : MonoBehaviour
 {
     [SerializeField]private KrakenManager krakenManager;
+    [SerializeField]private TentacleAI tentacleAI;
     public float intensity = 10f;
     public float duration = 0.1f;
     public void Shake()
@@ -16,5 +17,10 @@ public class TentacleAnimationEvents : MonoBehaviour
     {
         Debug.Log("Disabling tentacles");
         krakenManager.DisableTentacles();
+    }
+
+    public void EnableHitboxes()
+    {
+        tentacleAI.ActivateHitboxes();
     }
 }

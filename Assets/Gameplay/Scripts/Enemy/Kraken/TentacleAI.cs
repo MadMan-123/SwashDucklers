@@ -54,4 +54,9 @@ public class TentacleAI : MonoBehaviour
         foreach (GameObject obj in tentacleObjects)
             obj.SetActive(false);
     }
+
+    public void ActivateHitboxes()
+    {
+        
+    }
 }

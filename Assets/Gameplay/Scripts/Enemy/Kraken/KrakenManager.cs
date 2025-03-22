@@ -140,4 +140,5 @@ public class KrakenManager : MonoBehaviour
         //Can also just remove in its own script, will see - TS
         tentacles.SetActive(false);
     }
+
 }

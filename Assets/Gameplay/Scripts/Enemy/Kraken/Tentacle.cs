@@ -7,6 +7,7 @@ public class Tentacle : MonoBehaviour
 {
     [SerializeField] private TentacleStuff[] tentacleList;
     [SerializeField] float spawnTime;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -50,5 +51,13 @@ public class Tentacle : MonoBehaviour
         public GameObject tentacleModel;
         public Animator tentacleAnimator;
         public GameObject hitBox;
+    }
+
+    private void OnDisable()
+    {
+        for (int i = 0; i < tentacleList.Length; i++)
+        {
+            tentacleList[i].hitBox.SetActive(false);
+        }
     }
 }
