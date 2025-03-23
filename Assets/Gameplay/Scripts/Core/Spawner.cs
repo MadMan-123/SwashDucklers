@@ -40,11 +40,8 @@ public class Spawner : MonoBehaviour
         for (int i = 0; i < waveSize; i++)
         {
             var obj = pool.GetObject();
-            
             //set the position
             obj.transform.position = area.GeneratePositionInArea(true,true,true);   
-            //draw the position
-            Debug.DrawLine(obj.transform.position,obj.transform.position + Vector3.up,Color.red,5f);
         }
         yield return new WaitForSeconds(interval);
         routine = _spawn();

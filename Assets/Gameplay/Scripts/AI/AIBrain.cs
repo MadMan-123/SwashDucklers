@@ -275,9 +275,11 @@ public class AIBrain : MonoBehaviour
                 //if the agent is enabled and is placed on a nav mesh area
                 if (agent.enabled && NavMesh.SamplePosition(transform.position, out var hit2, 0.5f, NavMesh.AllAreas))
                 {
+                    //ignore the layer mask -> stairs
+                    var layer = 1 << LayerMask.NameToLayer("Stairs");
                     //obstacle avoidance
                     //check in front of the agent for physical objects
-                    var count = Physics.RaycastNonAlloc(transform.position, transform.forward, hits, 1f);
+                    var count = Physics.RaycastNonAlloc(transform.position, transform.forward, hits, 1f, ~layer);
                     //get the valid hits
                     var valid = hits.Where(h => h.collider).ToList();
                     
@@ -286,12 +288,18 @@ public class AIBrain : MonoBehaviour
                     {
                         //get the hit
                         var hitInfo = valid[0];
+                        
+                        
                         //get the normal
                         var normal = hitInfo.normal;
                         //get the direction
+                        //the strength of the direction is the distance to the hit based on the view radius
+                        
+                        var strength = (hitInfo.distance / (viewRadius * 2));
+                        //get the direction
                         var direction = Vector3.Cross(normal, Vector3.up);
                         //get the destination
-                        destination = transform.position + direction;
+                        destination = transform.position + (direction * strength);
                     }
                     agent.SetDestination(destination);
                 }
@@ -340,19 +348,24 @@ public class AIBrain : MonoBehaviour
             rb.AddForce(direction * 4.25f , ForceMode.VelocityChange);
             
             //reset the ai state
-            ChangeState(State.Wander);
-            //drop the cargo
-            hasCargo = false;
-            inventory.DropItem(direction, true);
+            StartCoroutine(WaitForThrowAndDisable());
             
-            
-            //disable the AI
-            enabled = false;
-
             return fleePosition;
         }
 
-
+        IEnumerator WaitForThrowAndDisable(float throwTime = 1.5f, float disableTime = 1.5f)
+        {
+            yield return new WaitForSeconds(throwTime);
+            //throw the cargo
+            
+            hasCargo = false;
+            inventory.DropItem(Vector3.zero, true);
+            yield return new WaitForSeconds(disableTime);
+            //disable the object
+            gameObject.SetActive(false);
+            
+            enabled = false;
+        }
 
         private void FixedUpdate()
         {
@@ -625,6 +638,10 @@ public class AIBrain : MonoBehaviour
             Gizmos.DrawRay(transform.position, transform.forward * viewRadius);
         }
 
+        
+         
+        
+        
         /*public void Death()
         {
             //disable the object
