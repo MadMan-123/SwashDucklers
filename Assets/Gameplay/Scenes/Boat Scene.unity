@@ -6885,7 +6885,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.05978595, z: -0, w: 0.99821126}
   m_LocalPosition: {x: -4.106, y: 0.00000023842, z: -3.56}
-  m_LocalScale: {x: 4.536925, y: 7.136826, z: 1}
+  m_LocalScale: {x: 4.536925, y: 4.3260784, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 852826574}
@@ -10315,7 +10315,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4afa910b1b6c1ea4a98439d01a9f5858,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.4
+      value: 82.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4afa910b1b6c1ea4a98439d01a9f5858,
         type: 3}
@@ -10325,7 +10325,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4afa910b1b6c1ea4a98439d01a9f5858,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20.78
+      value: 18.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4afa910b1b6c1ea4a98439d01a9f5858,
         type: 3}
@@ -12155,14 +12155,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   environmentObjects:
   - prefabs:
-    - {fileID: 0}
+    - {fileID: 2087402902}
     position: {x: 26, y: 0, z: 18.5}
     speed: 5
-  - prefabs:
-    - {fileID: 0}
-    position: {x: 47.3, y: 1.88, z: 41}
-    speed: 1.13
-  outOfBoundsDistance: -25
+  outOfBoundsDistance: -35.4
   debug: 1
   shouldMove: 1
 --- !u!1001 &1798536955
@@ -14708,6 +14704,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cd94c4ad34db5554294849fe57d8f964,
     type: 3}
   m_PrefabInstance: {fileID: 2086789900}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2087402902 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4afa910b1b6c1ea4a98439d01a9f5858,
+    type: 3}
+  m_PrefabInstance: {fileID: 1534009286}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2094662990
 GameObject:
