@@ -14,13 +14,14 @@ public class ShipHealth : MonoBehaviour
     bool regenerate;
     bool loop;
 
-    [Header("Damage")] 
+    [Header("Damage")]
     [SerializeField] public float dmgRate;
     [SerializeField] float dmgSpeed;
     [SerializeField] int leaks;
     [SerializeField] float shipFilled;
     [SerializeField] GameManager gm;
     [SerializeField] GameObject ship;
+    [SerializeField] Animator shipAnim;
 
     [Header("UI")]
     [SerializeField] public TextMeshProUGUI healthText;
@@ -46,7 +47,7 @@ public class ShipHealth : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
+
     }
 
     // Start is called before the first frame update
@@ -68,8 +69,8 @@ public class ShipHealth : MonoBehaviour
         gm = gameObject.AddComponent<GameManager>();
 
     }
-    
-   void Update()
+
+    void Update()
     {
 
         if (Input.GetKeyDown(KeyCode.F))
@@ -86,14 +87,14 @@ public class ShipHealth : MonoBehaviour
         if (shipHealth <= 0)
         {
             gm.gameOver = true;
-
+            StartCoroutine(Death());
         }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (loop==true)
+        if (loop == true)
         {
             StartCoroutine(PassiveShipHealth(regenerate));
             loop = false;
@@ -114,7 +115,7 @@ public class ShipHealth : MonoBehaviour
     public void RepairShip(int repair, int bonus = 10)
     {
         shipHealth = Mathf.Clamp(shipHealth + repair + bonus, 0, maxShipHealth);
-        leaks = Mathf.Clamp(leaks-1, 0 ,100);
+        leaks = Mathf.Clamp(leaks - 1, 0, 100);
         if (leaks < 1) regenerate = true;
         //percentageDamaged = Mathf.Clamp(100-(Mathf.Lerp(shipHealth, 0, maxShipHealth) * 100),0, 100);
     }
@@ -123,10 +124,10 @@ public class ShipHealth : MonoBehaviour
     {
         //percentageDamaged = Mathf.Lerp(maxShipHealth, 0, shipHealth) * 100;  //if ship is on 90% health this value shows 10% || 80% shows 20% et
         //percentageDamaged = Mathf.Lerp(maxShipHealth - shipHealth, 0, maxShipHealth) * 100;
-        dmgSpeed = (dmgRate)/20 * leaks;                                     
-        if(regenerate) //if regenerate
+        dmgSpeed = (dmgRate) / 20 * leaks;
+        if (regenerate) //if regenerate
         {
-            shipHealth = Mathf.Clamp(shipHealth + (regenRate / 10), 0 ,maxShipHealth); //gain hp
+            shipHealth = Mathf.Clamp(shipHealth + (regenRate / 10), 0, maxShipHealth); //gain hp
 
         }
         else if (!regenerate) //if not regenerate
@@ -134,13 +135,13 @@ public class ShipHealth : MonoBehaviour
             shipHealth = Mathf.Clamp(shipHealth - dmgSpeed, 0, maxShipHealth); //take DOT proportional to leaks
         }
         percentageDamaged = Mathf.Clamp(shipHealth / maxShipHealth, 0f, 1f);
-        vCam.m_Lens.FieldOfView = 70-(percentageDamaged*10) ;
+        vCam.m_Lens.FieldOfView = 70 - (percentageDamaged * 10);
         yield return new WaitForSeconds(0.1f);
         loop = true;
 
         //shipFilled = Mathf.Clamp((shipFilled + fillSpeed), 0, 100);
-        currentShipHeight = Mathf.Lerp(minShipHeight, maxShipHeight, percentageDamaged);       
-        ship.transform.position = new Vector3(ship.transform.position.x,currentShipHeight,ship.transform.position.z);
+        currentShipHeight = Mathf.Lerp(minShipHeight, maxShipHeight, percentageDamaged);
+        ship.transform.position = new Vector3(ship.transform.position.x, currentShipHeight, ship.transform.position.z);
         //might rewrite this to move water for simplicity, will talk to designer
     }
 
@@ -151,7 +152,7 @@ public class ShipHealth : MonoBehaviour
 
     public void EmptyShip(float remove)
     {
-        shipFilled = Mathf.Clamp(0,100,remove);
+        shipFilled = Mathf.Clamp(0, 100, remove);
     }
 
 
@@ -165,7 +166,11 @@ public class ShipHealth : MonoBehaviour
     }
 
 
-
-
+    private IEnumerator Death()
+    {
+        shipAnim.SetBool("Sinking", true);
+        yield return new WaitForSeconds(5f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScreen");
+    }
 }
 
