@@ -6,7 +6,8 @@ public class PlayerContainer : MonoBehaviour
 {
     //reference to the launcher
     public Launcher launcher;
-    List<GameObject> players = new ();
+    public TriggerArea triggerArea;
+    public List<GameObject> players = new ();
 
     
     //this method is being called twice when it should only be called once
@@ -43,11 +44,24 @@ public class PlayerContainer : MonoBehaviour
         StartCoroutine(routine);     
     }
 
-    IEnumerator StartLaunch(GameObject obj,Rigidbody rb,float time = 5)
+    IEnumerator StartLaunch(GameObject obj,Rigidbody rb,float time = 3)
     {
         yield return new WaitForSeconds(time);
         launcher.LaunchObject(obj);
+        
+        
         rb.isKinematic = false;
+        
+        triggerArea.tracked.Remove(obj);
+        
+        //disable the collider
+        if (obj.TryGetComponent(out Collider col))
+        {
+            col.enabled = false;
+        }
+
+        yield return new WaitForSeconds(time - 1.5f);
+        col.enabled = true;
         yield return new WaitForSeconds(time);
 
         if (obj.TryGetComponent(out PlayerControler controler))
@@ -55,6 +69,7 @@ public class PlayerContainer : MonoBehaviour
             controler.ToggleCamera(true);
             controler.canMove = true;
             rb.isKinematic = false; 
+            
         }
         //designed and implemented by daniel doyle (the doyleson (john swashduckler))
         yield return new WaitForSeconds(1);

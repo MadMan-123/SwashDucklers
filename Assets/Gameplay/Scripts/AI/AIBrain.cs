@@ -34,8 +34,10 @@ public class AIBrain : MonoBehaviour
         private Health health;
         private LayerMask boatLayer;
         private Vector3 delta;
+
+        private bool gotCargoWander = true;
         
-        
+        private bool hasRun;
         float[] distances = new float[10];
         private float wanderAngle = 0f; 
         [SerializeField] private bool onFloor;
@@ -47,6 +49,7 @@ public class AIBrain : MonoBehaviour
         [SerializeField] private bool reenableFlag;
         
         [SerializeField] private Collider[] colliders = new Collider[10];
+
         public enum State
         {
             Idle,
@@ -145,8 +148,23 @@ public class AIBrain : MonoBehaviour
                         {
                             if (hasCargo)
                             {
-                                //if yes then flee
-                                ChangeState(State.JumpOff);
+                                if(!hasRun)
+                                {
+                                    StartCoroutine(WanderThenJumpOff());
+
+                                    IEnumerator WanderThenJumpOff()
+                                    {
+                                        hasRun = true;
+                                        gotCargoWander = true;
+                                        //wander for 5 seconds
+                                        yield return new WaitForSeconds(5);
+                                        gotCargoWander = false;
+                                        yield return new WaitForSeconds(2);
+                                        hasRun = false;
+                                    }
+                                }
+
+                                ChangeState(!gotCargoWander ? State.JumpOff : State.Wander);
                             }
                             else if (target != null && target.trackedTransform)
                             {
@@ -276,7 +294,7 @@ public class AIBrain : MonoBehaviour
                 if (agent.enabled && NavMesh.SamplePosition(transform.position, out var hit2, 0.5f, NavMesh.AllAreas))
                 {
                     //ignore the layer mask -> stairs
-                    var layer = 1 << LayerMask.NameToLayer("Stairs");
+                    /*var layer = 1 << LayerMask.NameToLayer("Stairs");
                     //obstacle avoidance
                     //check in front of the agent for physical objects
                     var count = Physics.RaycastNonAlloc(transform.position, transform.forward, hits, 1f, ~layer);
@@ -300,7 +318,7 @@ public class AIBrain : MonoBehaviour
                         var direction = Vector3.Cross(normal, Vector3.up);
                         //get the destination
                         destination = transform.position + (direction * strength);
-                    }
+                    }*/
                     agent.SetDestination(destination);
                 }
               
@@ -361,6 +379,7 @@ public class AIBrain : MonoBehaviour
             hasCargo = false;
             inventory.DropItem(Vector3.zero, true);
             yield return new WaitForSeconds(disableTime);
+            
             //disable the object
             gameObject.SetActive(false);
             
@@ -391,7 +410,7 @@ public class AIBrain : MonoBehaviour
             if(state == State.JumpOff) yield break;
              Physics.SphereCastNonAlloc(
                                 transform.position,
-                                0.2f,
+                                0.5f,
                                 Vector3.down,
                                 hits,
                                 0.1f,
@@ -408,6 +427,7 @@ public class AIBrain : MonoBehaviour
             agent.enabled = true;
             enabled = true;
             rb.isKinematic = true;
+     
         }
 
 

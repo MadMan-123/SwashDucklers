@@ -11,7 +11,7 @@ public class Launcher : MonoBehaviour
     Vector3 pos;
     [SerializeField] public bool shouldDebug = false;
 
-    List<GameObject> players = new ();
+    public List<GameObject> players = new ();
 
     public void LaunchObject(GameObject obj)
     {
