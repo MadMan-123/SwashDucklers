@@ -8,6 +8,8 @@ using UnityEngine.Assertions;
 
 public class ItemStack : MonoBehaviour
 {
+    
+    protected Action<GameObject> OnPickUp;
     [SerializeField] public GameObject itemGenerated;
     protected GameObjectPool pool;
 
@@ -36,7 +38,8 @@ public class ItemStack : MonoBehaviour
         
         //add the item to the inventory
         inv.AddItem(current);
-
+        
+        OnPickUp?.Invoke(current);
 
     }
     
