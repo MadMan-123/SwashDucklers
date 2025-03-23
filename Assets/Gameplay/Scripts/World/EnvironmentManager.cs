@@ -6,6 +6,7 @@ using Core;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+
 using Random = UnityEngine.Random;
 
 public class EnvironmentManager : MonoBehaviour
@@ -130,9 +131,10 @@ public class EnvironmentManager : MonoBehaviour
                 //get a formated string of each prefab name line for line
                 var prefabNames = environmentObject.prefabs.Aggregate("", (current, prefab) => current + prefab.name + "\n");
                 
-                //draw the name of the prefab above this and display the speed of the object
-                Handles.Label(environmentObject.position + Vector3.up * 1.25f + Vector3.right / 2 + Vector3.forward /2,  prefabNames +" \nSpeed: " + environmentObject.speed);
-                
+                #if UNITY_EDITOR
+                    //draw the name of the prefab above this and display the speed of the object
+                    Handles.Label(environmentObject.position + Vector3.up * 1.25f + Vector3.right / 2 + Vector3.forward /2,  prefabNames +" \nSpeed: " + environmentObject.speed);
+                #endif
                 Gizmos.DrawWireCube(environmentObject.position, Vector3.one);
             }
             
