@@ -43,7 +43,7 @@ public class KrakenManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(krakenBody.TryGetComponent(out Animator krakenAnimator)){krakenBodyAnimator = krakenAnimator;}
+        if(krakenBodyAsset.TryGetComponent(out Animator krakenAnimator)){krakenBodyAnimator = krakenAnimator;}
         if(tentacles.TryGetComponent(out TentacleAI tentAI)){tentacleAI = tentAI;}
             
         if (StageParameters.krakenEnabled == true)
@@ -106,33 +106,40 @@ public class KrakenManager : MonoBehaviour
     {
         SoundManager.PlayAudioClip("KrakenHit", this.transform.position, 2f);
         krakenHud.KrakenHit();
-
-        if (!health.IsDead) return;
-        //Kraken is dead
-        //krakenBodyAnimator.SetTrigger("KrakenDies");
-        krakenBody.SetActive(false);
-        StartCoroutine(tentacleAI.KrakenDeath());
-        krakenHealth.SetActive(false);
-       
-        //reengage the environment manager
-        environmentManager.shouldMove = true;
-        StartCoroutine(environmentManager.SpawnRandomObject());
         
-        
-        health.SetHealth(0);
-        if (StageParameters.levelLength != Length.Endless)
+        if (!health.IsDead)
         {
-            gameTimer.SetActive(true);
+            krakenBodyAnimator.SetTrigger("KrakenHit");
         }
-        weather.KrakenDeSpawn();
-        cameraTarget.RemoveMember(krakenBody.transform);
-        //StartRoutines();
+        else
+        {
+            //Kraken is dead
+            krakenBodyAnimator.SetTrigger("KrakenDies");
+            //krakenBody.SetActive(false);
+            StartCoroutine(tentacleAI.KrakenDeath());
+
+            //reengage the environment manager
+            environmentManager.shouldMove = true;
+            StartCoroutine(environmentManager.SpawnRandomObject());
+
+
+            health.SetHealth(0);
+            if (StageParameters.levelLength != Length.Endless)
+            {
+                gameTimer.SetActive(true);
+            }
+
+            weather.KrakenDeSpawn();
+            //StartRoutines();
+        }
     }
 
     public void DisableBody()
     {
         //Can also just remove in its own script, will see - TS
         krakenBody.SetActive(false);
+        cameraTarget.RemoveMember(krakenBody.transform); // Could also have this in the main Kraken Dying - TS
+        krakenHealth.SetActive(false);
     }
 
     public void DisableTentacles()

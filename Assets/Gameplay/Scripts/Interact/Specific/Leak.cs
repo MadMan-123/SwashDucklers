@@ -68,7 +68,7 @@ public class Leak : Interactable
        
         DisableLogic();
         //wait to disable the object for x amount of time
-        StartCoroutine(DisableLeak());
+        //StartCoroutine(DisableLeak());
     }
 
     IEnumerator DisableLeak(float wait = 5)
