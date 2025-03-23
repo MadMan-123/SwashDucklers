@@ -8,10 +8,13 @@ using Random = UnityEngine.Random;
 
 public class AIBrain : MonoBehaviour
 {
+        //components from the Object
         public NavMeshAgent agent;
         public Rigidbody rb;
         public Inventory inventory;
         public EnemySpawner owner; 
+        
+        //AI metadata
         [SerializeField] private float viewRadius = 10;
         [SerializeField] private Target target;
         [SerializeField] private State state;
@@ -50,6 +53,7 @@ public class AIBrain : MonoBehaviour
         
         [SerializeField] private Collider[] colliders = new Collider[10];
 
+        //FSM states
         public enum State
         {
             Idle,
@@ -62,32 +66,47 @@ public class AIBrain : MonoBehaviour
 
         void Start()
         {
-            shouldDebug = true;
+            //setup the AI
+            
+            //get the boat layer
             boatLayer = LayerMask.NameToLayer("Boat");
+            //set the state to wander
             state = State.Wander;
             
+            //get the components
+            //if the agent is not present then add it
             if (!TryGetComponent(out agent))
                 agent = gameObject.AddComponent<NavMeshAgent>(); 
             
+            //disable the agent
             agent.enabled = false;
             
+            
+            //if the rigidbody is not present then add it
             if(!TryGetComponent(out rb))
                 rb = gameObject.AddComponent<Rigidbody>();
                 
+            
+            //set the rigidbody to kinematic
             rb.isKinematic = false;
             
+            //if the health is not present then add it
             if (!TryGetComponent(out health))
                 health = gameObject.AddComponent<Health>();
             
+            //set the health to max
             health.SetHealth(health.GetMaxHealth());
 
+            //if the inventory is not present then add it
             if (!TryGetComponent(out inventory))
                 inventory = gameObject.AddComponent<Inventory>();
+            
             walkingID = Animator.StringToHash("IsWalking");
         }
        
         private void Update()
         {
+            //if the agent is not enabled then wait until the agent is on the floor
             if (!agent.enabled || !enabled)
             {
                 //if the agent is not enabled wait to be on the floor
@@ -133,12 +152,14 @@ public class AIBrain : MonoBehaviour
                                         hasCargo = true;
                                     }
 
+                                    //if the player is close enough then attack
                                     ChangeState(State.Attack);
                                 }
 
                             }
                             else
                             {
+                                //if the player is near and we have cargo then flee
                                 ChangeState(State.Flee);
                             }
 

@@ -40,6 +40,8 @@ public class Spawner : MonoBehaviour
         for (int i = 0; i < waveSize; i++)
         {
             var obj = pool.GetObject();
+            
+            
             //set the position
             obj.transform.position = area.GeneratePositionInArea(true,true,true);   
         }

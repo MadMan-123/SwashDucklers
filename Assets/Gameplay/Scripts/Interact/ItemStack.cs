@@ -8,13 +8,17 @@ using UnityEngine.Assertions;
 
 public class ItemStack : MonoBehaviour
 {
-    
+    //delegate for the pickup event 
     protected Action<GameObject> OnPickUp;
+    //the item that will be generated
     [SerializeField] public GameObject itemGenerated;
+    
+    //the pool that will be used to generate the items
     protected GameObjectPool pool;
 
     private void Start()
     {
+        //initialize the pool
        pool = new GameObjectPool(itemGenerated, 10, transform); 
     }
 

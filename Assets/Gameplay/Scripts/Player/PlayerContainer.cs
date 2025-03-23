@@ -6,12 +6,13 @@ public class PlayerContainer : MonoBehaviour
 {
     //reference to the launcher
     public Launcher launcher;
+    //reference to the trigger area
     public TriggerArea triggerArea;
+    //list of players
     public List<GameObject> players = new ();
 
     
     //this method is being called twice when it should only be called once
-    
     public void HoldPlayer(GameObject obj)
     {
         if (!obj.CompareTag("Player") || players.Contains(obj)) return;
@@ -46,12 +47,17 @@ public class PlayerContainer : MonoBehaviour
 
     IEnumerator StartLaunch(GameObject obj,Rigidbody rb,float time = 3)
     {
+        //wait for the time
         yield return new WaitForSeconds(time);
+        
+        //launch the object
         launcher.LaunchObject(obj);
         
         
+        //enable the rigidbody
         rb.isKinematic = false;
         
+        //remove the object from the list of players
         triggerArea.tracked.Remove(obj);
         
         //disable the collider
@@ -61,9 +67,11 @@ public class PlayerContainer : MonoBehaviour
         }
 
         yield return new WaitForSeconds(time - 1.5f);
+        //enable the collider
         col.enabled = true;
         yield return new WaitForSeconds(time);
 
+        //ensure the agent is ready
         if (obj.TryGetComponent(out PlayerControler controler))
         {
             controler.ToggleCamera(true);
