@@ -31,9 +31,16 @@ public class CargoStack : ItemStack
 
     }
 
+    public override void TryPickUp(GameObject source)
+    {
+        if(GameData.CargoCount <= 0) return;
+        base.TryPickUp(source);
+    }
     
     public void DropOff(GameObject src)
     {
+        
+        if(src.TryGetComponent(out AIBrain brain)) return;
         //increase the cargo count
         GameData.CargoCount++;
         
@@ -54,6 +61,7 @@ public class CargoStack : ItemStack
     //Handles what happens when the cargo is picked up
     void UpdateCargo(GameObject src)
     {
+        if(GameData.CargoCount <= 0) return;
         //increase the cargo count
         GameData.CargoCount--;
         //decrease the score

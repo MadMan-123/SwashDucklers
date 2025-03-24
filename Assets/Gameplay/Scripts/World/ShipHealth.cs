@@ -112,7 +112,7 @@ public class ShipHealth : MonoBehaviour
         //figure out the dmg speed using the level time
     }
 
-    public void RepairShip(int repair, int bonus = 10)
+    public void RepairShip(int repair, int bonus = 4)
     {
         shipHealth = Mathf.Clamp(shipHealth + repair + bonus, 0, maxShipHealth);
         leaks = Mathf.Clamp(leaks - 1, 0, 100);

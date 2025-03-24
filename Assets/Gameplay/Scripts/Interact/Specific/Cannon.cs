@@ -39,7 +39,7 @@ public class Cannon : Interactable
         canFire = false;
         
         //get rid of the cannonball
-        if (!Source.TryGetComponent(out Inventory inv) && cannonballCount < jamAmmount)
+        if (!Source.TryGetComponent(out Inventory inv) )
         {
             canFire = true;
             return;
@@ -109,7 +109,9 @@ public class Cannon : Interactable
             yield break;
         
 
+        /*
         anim.SetBool("IsShooting", false);
+    */
     }
 
     private void OnDrawGizmos()

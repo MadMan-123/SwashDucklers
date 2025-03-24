@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour
     protected IEnumerator routine;
     private void Start()
     {
-        Init();
+        //Init();
     }
     
     public virtual void Init()

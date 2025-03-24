@@ -557,8 +557,16 @@ public class PlayerControler : MonoBehaviour
 
         if (value.performed && canMove) //Performed
         {
-            SceneManager.LoadScene("Character Select"); //GM: returns to the "menu test" screen
-            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+
+            //Disabled for demo day -SD
+            //SceneManager.LoadScene("Character Select"); //GM: returns to the "menu test" screen
+            //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+
+            //Same thing as above but only works on keyboard -SD
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("Character Select"); //GM: returns to the "menu test" screen
+            }
 
         }
         else if (value.canceled) //Cancelled
