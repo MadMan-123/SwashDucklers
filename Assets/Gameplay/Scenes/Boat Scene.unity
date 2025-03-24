@@ -2044,7 +2044,6 @@ MonoBehaviour:
   - tentacleModel: {fileID: 885129428}
     tentacleAnimator: {fileID: 885129429}
     hitBox: {fileID: 2097484922}
-  spawnTime: 0
 --- !u!1 &285713130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2968,7 +2967,6 @@ MonoBehaviour:
   - tentacleModel: {fileID: 1043734750}
     tentacleAnimator: {fileID: 1043734751}
     hitBox: {fileID: 612986325}
-  spawnTime: 0
 --- !u!1 &504729692
 GameObject:
   m_ObjectHideFlags: 0
@@ -3067,14 +3065,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ece5edbb44749b4c9d8dd2dd3319321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchDuration: 1
-  areaName: 
-  shouldDebug: 0
-  players: []
-  areaNames:
-  - DeckA
-  - DeckB
-  - DeckC
 --- !u!1 &511253202
 GameObject:
   m_ObjectHideFlags: 0
@@ -5450,7 +5440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   krakenManager: {fileID: 1692819188}
   tentacleAI: {fileID: 1961030955}
-  tentacle: {fileID: 0}
+  tentacle: {fileID: 2023198575}
   intensity: 4
   duration: 0.1
 --- !u!95 &808680857
@@ -6946,7 +6936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   krakenManager: {fileID: 1692819188}
   tentacleAI: {fileID: 1961030955}
-  tentacle: {fileID: 0}
+  tentacle: {fileID: 482245467}
   intensity: 4
   duration: 0.1
 --- !u!1 &1052386099
@@ -7237,7 +7227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   krakenManager: {fileID: 1692819188}
   tentacleAI: {fileID: 1961030955}
-  tentacle: {fileID: 0}
+  tentacle: {fileID: 482245467}
   intensity: 4
   duration: 0.1
 --- !u!1 &1073893093 stripped
@@ -15180,6 +15170,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3703008532379488523, guid: c11f2892891382b4a9593f81d49b2dbb,
+        type: 3}
+      propertyPath: tentacleAI
+      value: 
+      objectReference: {fileID: 1961030955}
+    - target: {fileID: 3703008532379488523, guid: c11f2892891382b4a9593f81d49b2dbb,
+        type: 3}
+      propertyPath: krakenManager
+      value: 
+      objectReference: {fileID: 1692819188}
     - target: {fileID: 5828246977995838086, guid: c11f2892891382b4a9593f81d49b2dbb,
         type: 3}
       propertyPath: m_Size.x
@@ -15467,6 +15467,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1493615812239809161, guid: 66e5ad187614a8147b7be7805cdd91e2,
         type: 3}
+    - target: {fileID: 4540782507161105190, guid: 553a47fac97c1ff42a8771131a7b5c08,
+        type: 3}
+      propertyPath: plankPool.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4981101601905341017, guid: 553a47fac97c1ff42a8771131a7b5c08,
         type: 3}
       propertyPath: m_Enabled
@@ -15822,7 +15827,6 @@ MonoBehaviour:
   - tentacleModel: {fileID: 661160739}
     tentacleAnimator: {fileID: 661160741}
     hitBox: {fileID: 1073893093}
-  spawnTime: 0
 --- !u!1 &1677275322
 GameObject:
   m_ObjectHideFlags: 0
@@ -18190,7 +18194,6 @@ MonoBehaviour:
   - tentacleModel: {fileID: 808680855}
     tentacleAnimator: {fileID: 808680857}
     hitBox: {fileID: 672326472}
-  spawnTime: 0
 --- !u!4 &2039116981 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2790518327934164944, guid: c11f2892891382b4a9593f81d49b2dbb,

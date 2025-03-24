@@ -9,19 +9,21 @@ using Random = UnityEngine.Random;
 public class Leak : Interactable 
 {
     [SerializeField] GameObject cam;
-    [SerializeField] GameObject repairAnim;
+    [SerializeField] GameObject bigRepairAnim;
+    [SerializeField] private GameObject smallRepairAnim;
     [SerializeField] private int damage = 1;
     [SerializeField] private int toRepair = 1;
     [SerializeField] private int count = 0;
     [SerializeField] private ShipHealth health;
     [SerializeField] private PlankVisualiser plankVisualiser;
     [SerializeField] private GameObject[] leakEffect;
-    Transform vfxHolder;
+    public Transform vfxHolder;
     [SerializeField]private int active;
     [SerializeField] private int doubleRarity = 5;
     public CinemachineTargetGroup target;
     [SerializeField] private float cameraTargetWeight=1;
     [SerializeField] private float cameraTargetRadius = 3.5f;
+    private bool start = false;
     private void Start()
     {
         Random.seed = System.DateTime.Now.Millisecond;
@@ -33,13 +35,12 @@ public class Leak : Interactable
     {
         count = 0;
         foreach (GameObject effect in leakEffect) { effect.SetActive(false); }
-        plankVisualiser.RemovePlank();
-        var num = Random.Range(0, doubleRarity);
-        active = num < 4 ? 0 : 1;
+        int num = Random.Range(0, doubleRarity);
+        active = num < doubleRarity-1 ? 0 : 1;
         leakEffect[active].SetActive(true);
         toRepair = active+1;
         //reset the count
-        
+        if(start){plankVisualiser.LeakSpawn(active);}
         health = FindObjectOfType<ShipHealth>();
         //effect the ship health
 
@@ -47,6 +48,7 @@ public class Leak : Interactable
         health.DamageShip(damage);
         //health.dmgRate += leakAmmount;
         target.AddMember(transform, cameraTargetWeight,cameraTargetRadius);
+        start = true;
     }
 
     public void Repaired(GameObject source)
@@ -58,20 +60,22 @@ public class Leak : Interactable
         //increment the count
         count++;
         
-        plankVisualiser.RepairPlank();
+        plankVisualiser.RepairPlank(count-1);
         //take the players item
         inv.RemoveItem();
         //if the count is equal to the required amount
+        RepairAnim(smallRepairAnim,3);
+        
         if (count != toRepair) return;
         //disable the object
         leakEffect[active].SetActive(false);
        
         DisableLogic();
         //wait to disable the object for x amount of time
-        //StartCoroutine(DisableLeak());
+        StartCoroutine(DisableLeak());
     }
 
-    IEnumerator DisableLeak(float wait = 5)
+    IEnumerator DisableLeak(float wait = 0.5f)
     {
         yield return new WaitForSeconds(wait);
         gameObject.SetActive(false);
@@ -80,17 +84,23 @@ public class Leak : Interactable
     void DisableLogic()
     {
          if(cam == null) return;
-         //health.dmgRate -= leakAmmount;
          health.RepairShip(damage);
-         var pos = transform.position +  new Vector3(0, 0.5f, 0);
- 
+        
+         RepairAnim(bigRepairAnim);
+         
          ScoreManager.Instance.AddScore(10);
-          
-         Vector3 lookDir = cam.transform.position - pos;
-         Quaternion direction = Quaternion.LookRotation(lookDir);
          target.RemoveMember(transform);
-         Instantiate(repairAnim,pos,direction);
     }
+
+    void RepairAnim(GameObject repairAnim,float distance = 0)
+    {
+        var pos = transform.position +  new Vector3(0, 0.5f, 0);
+        Vector3 lookDir = (cam.transform.position - pos).normalized;
+        var vfxSpawnLoc = transform.position +(lookDir*distance);
+        Quaternion direction = Quaternion.LookRotation(lookDir);
+        Instantiate(repairAnim,vfxSpawnLoc,direction,vfxHolder);
+    }
+
 
     private void OnDisable()
     {

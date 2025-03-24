@@ -1,6 +1,8 @@
 ﻿
     
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlankVisualiser : MonoBehaviour
 {
@@ -8,35 +10,61 @@ public class PlankVisualiser : MonoBehaviour
    
    
    //order of visuals is the order of how the planks are placed
-   [SerializeField] private GameObject[] plankVisuals;
-   public int repairCount = 0;
-   
-   public void RepairPlank()
+   [SerializeField] private GameObject plankVisuals;
+   [SerializeField] GameObject[] plankPool= new GameObject[2];
+   [SerializeField] private Leak leak;
+   [SerializeField] private GameObject spawnLoc;
+   private float firstRotation;
+   Transform vfxHolder;
+   private int toRepair = 0;
+
+
+   private void Start()
    {
-      if (repairCount >= plankVisuals.Length) return;
-      plankVisuals[repairCount].SetActive(true);
-      plankVisuals[repairCount].transform.rotation *= Quaternion.Euler(0, Random.Range(0, 180f), 0);
-      repairCount++;
+      leak = gameObject.GetComponent<Leak>();
+      vfxHolder = leak.vfxHolder;
+      for (int i = 0; i < plankPool.Length; i++)
+      {
+         plankPool[i] = Instantiate(plankVisuals,spawnLoc.transform.position,Quaternion.Euler(0,0,0),vfxHolder);
+         plankPool[i].SetActive(false);
+      }
+      
    }
 
-   public void RemovePlank()
+   public void LeakSpawn(int num)
    {
-      foreach (var plankVisual in plankVisuals)
+      toRepair = num;
+      
+      for (int i = 0; i < plankPool.Length; i++)
       {
-         plankVisual.SetActive(false);
+            plankPool[i].SetActive(false);
       }
-      repairCount = 0;
+   }
+   public void RepairPlank(int count)
+   {
+      //if (repairCount >= toRepair+1) return;
+
+      float yRot = Random.Range(0, 180);
+      Quaternion rotation = (Quaternion.Euler(0, yRot, 0));
+      if (count == toRepair)
+      {
+         rotation = (Quaternion.Euler(0, firstRotation+90f, 0));
+      }
+      firstRotation = yRot;
+      plankPool[count].transform.rotation = rotation;
+      plankPool[count].SetActive(true);
    }
    
    //on disable reset the visuals
    private void OnDisable()
    {
-      foreach (var plankVisual in plankVisuals)
-      {
-         plankVisual.SetActive(false);
-      }
-      repairCount = 0;
+      //foreach (var plankVisual in plankVisuals)
+      //{
+      //   plankVisual.SetActive(false);
+      //}
+      //repairCount = 0;
    }
+
 
 
 }

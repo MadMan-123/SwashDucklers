@@ -1,53 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1143644578848068042
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4977383978972180698}
-  - component: {fileID: 5729713440062116333}
-  m_Layer: 0
-  m_Name: Planks
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4977383978972180698
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1143644578848068042}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2196968523246325923}
-  m_Father: {fileID: 9035631983788131242}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5729713440062116333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1143644578848068042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b05d4a8a75a64606b12eef501a115218, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plankVisuals:
-  - {fileID: 1528659364448012825}
-  repairCount: 0
 --- !u!1 &1365406143041740020
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1971171665014800385
 Transform:
   m_ObjectHideFlags: 0
@@ -5140,7 +5092,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4656374437208540904
 Transform:
   m_ObjectHideFlags: 0
@@ -10003,6 +9955,7 @@ GameObject:
   - component: {fileID: 4981101601905341017}
   - component: {fileID: 8801728608532051539}
   - component: {fileID: 424926215238221376}
+  - component: {fileID: 4540782507161105190}
   m_Layer: 0
   m_Name: Pump
   m_TagString: Untagged
@@ -10025,7 +9978,6 @@ Transform:
   m_Children:
   - {fileID: 1971171665014800385}
   - {fileID: 4656374437208540904}
-  - {fileID: 4977383978972180698}
   - {fileID: 1478058391811865466}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10131,21 +10083,40 @@ MonoBehaviour:
         m_CallState: 2
   itemRequired: 1
   cam: {fileID: 0}
-  repairAnim: {fileID: 6887231780596014542, guid: 23720299645a3444eba9fad7c5d9b365,
+  bigRepairAnim: {fileID: 1493615812239809161, guid: 66e5ad187614a8147b7be7805cdd91e2,
+    type: 3}
+  smallRepairAnim: {fileID: 6887231780596014542, guid: 23720299645a3444eba9fad7c5d9b365,
     type: 3}
   damage: 1
   toRepair: 1
   count: 0
   health: {fileID: 0}
-  plankVisualiser: {fileID: 5729713440062116333}
+  plankVisualiser: {fileID: 4540782507161105190}
   leakEffect:
   - {fileID: 1365406143041740020}
   - {fileID: 4735619967402330355}
+  vfxHolder: {fileID: 0}
   active: 0
-  doubleRarity: 5
+  doubleRarity: 2
   target: {fileID: 0}
   cameraTargetWeight: 2.25
   cameraTargetRadius: 0.5
+--- !u!114 &4540782507161105190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6960886509012401907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b05d4a8a75a64606b12eef501a115218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plankVisuals: {fileID: 1403254262330327218, guid: 5038370300c07a94a83f2633335f0932,
+    type: 3}
+  leak: {fileID: 424926215238221376}
+  spawnLoc: {fileID: 7855440938945484278}
 --- !u!1 &7855440938945484278
 GameObject:
   m_ObjectHideFlags: 0
@@ -10177,91 +10148,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9035631983788131242}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &454792948198869675
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 4977383978972180698}
-    m_Modifications:
-    - target: {fileID: 1403254262330327218, guid: 5038370300c07a94a83f2633335f0932,
-        type: 3}
-      propertyPath: m_Name
-      value: Wooden Plank
-      objectReference: {fileID: 0}
-    - target: {fileID: 1403254262330327218, guid: 5038370300c07a94a83f2633335f0932,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1743611026172074504, guid: 5038370300c07a94a83f2633335f0932,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1743611026172074504, guid: 5038370300c07a94a83f2633335f0932,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1743611026172074504, guid: 5038370300c07a94a83f2633335f0932,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1743611026172074504, guid: 5038370300c07a94a83f2633335f0932,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.98609734
-      objectReference: {fileID: 0}
-    - target: {fileID: 1743611026172074504, guid: 5038370300c07a94a83f2633335f0932,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1743611026172074504, guid: 5038370300c07a94a83f2633335f0932,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.16616918
-      objectReference: {fileID: 0}
-    - target: {fileID: 1743611026172074504, guid: 5038370300c07a94a83f2633335f0932,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1743611026172074504, guid: 5038370300c07a94a83f2633335f0932,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1743611026172074504, guid: 5038370300c07a94a83f2633335f0932,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 19.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 1743611026172074504, guid: 5038370300c07a94a83f2633335f0932,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5038370300c07a94a83f2633335f0932, type: 3}
---- !u!1 &1528659364448012825 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1403254262330327218, guid: 5038370300c07a94a83f2633335f0932,
-    type: 3}
-  m_PrefabInstance: {fileID: 454792948198869675}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2196968523246325923 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1743611026172074504, guid: 5038370300c07a94a83f2633335f0932,
-    type: 3}
-  m_PrefabInstance: {fileID: 454792948198869675}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &952911510589935454
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10428,6 +10314,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: leak model
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299382341353509651, guid: 080e0ddd6af1ef843a5ff08212899d74,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
