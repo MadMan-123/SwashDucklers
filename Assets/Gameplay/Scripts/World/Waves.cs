@@ -112,15 +112,21 @@ public class Waves : MonoBehaviour
             }
         }
     }
-    public float GetWaveHeight(float x, float z)
+    public float GetWaveHeight(Vector3 pos)
     {
-        float waveFrequency = 0.2f;  // Control the speed of wave movement
-        float waveY = waveHeight * Mathf.Sin(waveFrequency * x + Time.time) * Mathf.Cos(waveFrequency * z + Time.time);
-
-        // Debugging: Print the calculated wave height
-        Debug.Log($"Wave Height at ({x}, {z}): {waveY}");
-
-        return waveY;
+        // convert the world position to local wave position , based on the grid size and cell size
+        float x = pos.x + (gridX * cellSize * 0.5f);
+        float z = pos.z + (gridZ * cellSize * 0.5f);
+        
+        // Calculate the grid cell position
+        int xIndex = Mathf.FloorToInt(x / cellSize);
+        int zIndex = Mathf.FloorToInt(z / cellSize);
+        
+        // Get the vertices of the grid cell
+        int vertexIndex = zIndex * gridX + xIndex;
+        
+        //get the y position of the vertex
+        return vertices[vertexIndex].y;
     }
     void UpdateMesh()
     {

@@ -21,7 +21,7 @@ public class EnvironmentManager : MonoBehaviour
     private const int MaxObjects = 5;
     private Waves waves;
     private EnvironmentObject[] active = new EnvironmentObject[MaxObjects * 2];
-
+    
     
     
     //edit this to stop moving stuff and cancel the recursive coroutine, 
@@ -53,36 +53,39 @@ public class EnvironmentManager : MonoBehaviour
     private void Update()
     {
         for (var index = 0; index < active.Length; index++)
-    {
-        var o = active[index];
-        if (o == null) continue;
-
-        //We no longer use Waves.cs -MW
-        
-        /*// Smooth Y transition
-        if (waves != null)
         {
-            float waveY = waves.GetWaveHeight(o.transform.position.x, o.transform.position.z);
-            Vector3 pos = o.transform.position;
+            var o = active[index];
+            if (o == null) continue;
+
             
-            pos.y = Mathf.Lerp(pos.y, waveY, Time.deltaTime * 5.0f);
-            o.transform.position = pos;
-        }*/
+            //get current wave height and set the object to that height
+            //get the x and z axis
+            float x = o.transform.position.x;
+            float z = o.transform.position.z;
+            
+            //get the wave height at the current x and z position
+            float waveHeight = waves.GetWaveHeight(o.transform.position);
+           
+            print(waveHeight);
+            //set the object to the wave height`
+            
+            o.transform.position = new Vector3(x, waveHeight, z);
+            
+        
+            // Only move the object if shouldMove is true
+            if (shouldMove)
+            {
+                // Move the object along the X-axis (or the direction you choose)
+                o.transform.position += movment * (o.speed * Time.deltaTime) + upMovment * (Mathf.Sin(Time.time * o.bobSpeed ) *  o.bobHeight * Time.deltaTime);
+            }
 
-        // Only move the object if shouldMove is true
-        if (shouldMove)
-        {
-            // Move the object along the X-axis (or the direction you choose)
-            o.transform.position += movment * (o.speed * Time.deltaTime) + upMovment * (Mathf.Sin(Time.time * o.bobSpeed ) *  o.bobHeight * Time.deltaTime);
+            // Check if the object is out of bounds
+            if (o.transform.position.x < outOfBoundsDistance)
+            {
+                o.transform.gameObject.SetActive(false);
+                active[index] = null;
+            }
         }
-
-        // Check if the object is out of bounds
-        if (o.transform.position.x < outOfBoundsDistance)
-        {
-            o.transform.gameObject.SetActive(false);
-            active[index] = null;
-        }
-    }
 }
 
     public IEnumerator SpawnRandomObject(float interval = 15)
