@@ -34,6 +34,7 @@ public class CargoStack : ItemStack
     
     public void DropOff(GameObject src)
     {
+        if(src.TryGetComponent(out AIBrain brain)) return;
         //increase the cargo count
         GameData.CargoCount++;
         

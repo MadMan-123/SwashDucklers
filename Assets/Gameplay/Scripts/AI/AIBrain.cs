@@ -55,6 +55,7 @@ public class AIBrain : MonoBehaviour
         [SerializeField] private bool reenableFlag;
         
         [SerializeField] private Collider[] colliders = new Collider[10];
+        [SerializeField] private bool set = false;
 
         //FSM states
         public enum State
@@ -683,14 +684,54 @@ public class AIBrain : MonoBehaviour
             Gizmos.DrawRay(transform.position, transform.forward * viewRadius);
         }
 
-        
-         
-        
-        
+
+
+        private void ResetAgent()
+        {
+            //set the agent to the default values
+            agent.speed = wanderSpeed;
+            
+            //set the agent to wander
+            ChangeState(State.Wander);
+            
+            //reset target
+            target = null;
+            
+            //reset the health
+            health.SetHealth(health.GetMaxHealth());
+            
+            //reset the inventory
+            inventory.DropItem(Vector3.zero, true);
+            
+            //reset the flags
+            hasCargo = false;
+            isFleeing = false;
+            canAttack = true;
+            reenableFlag = false;
+            onFloor = false;
+            hasRun = false;
+            gotCargoWander = true;
+            
+        }
+
+        private void OnDisable()
+        {
+            if (!set)
+            {
+
+                set = true;
+            }
+            else
+            {
+                
+                ResetAgent();
+            }
+        }
+
         /*public void Death()
         {
             //disable the object
-            owner.spawnedCount--; 
+            owner.spawnedCount--;
             gameObject.SetActive(false);
         }*/
         
