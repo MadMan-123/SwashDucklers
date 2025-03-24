@@ -17,6 +17,7 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField] private bool debug;
     
     private static readonly Vector3 movment = new Vector3(-1, 0, 0);
+    private static readonly Vector3 upMovment = new Vector3(0, 1, 0);
     private const int MaxObjects = 5;
     private Waves waves;
     private EnvironmentObject[] active = new EnvironmentObject[MaxObjects * 2];
@@ -41,7 +42,12 @@ public class EnvironmentManager : MonoBehaviour
         }
         
 
-        StartCoroutine(SpawnRandomObject());
+        //for each environment object prefab 
+        for (var i = 0; i < environmentObjects.Count; i++)
+        {
+            //start the coroutine to spawn the objects
+            StartCoroutine(SpawnRandomObject());
+        }
     }
 
     private void Update()
@@ -51,7 +57,9 @@ public class EnvironmentManager : MonoBehaviour
         var o = active[index];
         if (o == null) continue;
 
-        // Smooth Y transition
+        //We no longer use Waves.cs -MW
+        
+        /*// Smooth Y transition
         if (waves != null)
         {
             float waveY = waves.GetWaveHeight(o.transform.position.x, o.transform.position.z);
@@ -59,13 +67,13 @@ public class EnvironmentManager : MonoBehaviour
             
             pos.y = Mathf.Lerp(pos.y, waveY, Time.deltaTime * 5.0f);
             o.transform.position = pos;
-        }
+        }*/
 
         // Only move the object if shouldMove is true
         if (shouldMove)
         {
             // Move the object along the X-axis (or the direction you choose)
-            o.transform.position += movment * (o.speed * Time.deltaTime);
+            o.transform.position += movment * (o.speed * Time.deltaTime) + upMovment * (Mathf.Sin(Time.time * o.bobSpeed ) *  o.bobHeight * Time.deltaTime);
         }
 
         // Check if the object is out of bounds
@@ -107,7 +115,10 @@ public class EnvironmentManager : MonoBehaviour
         active[validIndex] = new EnvironmentObject
         {
             transform = obj.transform,
-            speed = current.speed
+            speed = current.speed,
+            bobSpeed = current.bobSpeed,
+            bobHeight = current.bobHeight
+            
         };
         
         
@@ -164,6 +175,9 @@ public class EnvironmentObject
 {
     public Transform transform;
     public float speed;
+    public float bobSpeed;
+    public float bobHeight;
+    
 }
 
 [Serializable]
@@ -173,4 +187,6 @@ public class EnvironmentObjectType
     public Vector3 position;
     public GameObjectPool[] pools;
     public float speed;
+    public float bobSpeed;
+    public float bobHeight;
 }

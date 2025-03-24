@@ -8256,7 +8256,6 @@ Transform:
   - {fileID: 97111787}
   - {fileID: 212033700}
   - {fileID: 1096829975}
-  - {fileID: 1775374990}
   - {fileID: 390914527}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16855,12 +16854,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1775374989}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1143316912}
+  m_Father: {fileID: 2094662991}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1775374991
 MonoBehaviour:
@@ -16879,10 +16878,14 @@ MonoBehaviour:
     - {fileID: 760277361}
     position: {x: 26, y: 0, z: 18.5}
     speed: 5
+    bobSpeed: 1.17
+    bobHeight: 0.5
   - prefabs:
     - {fileID: 760277361}
     position: {x: 47.3, y: 1.88, z: 41}
     speed: 1.13
+    bobSpeed: 0
+    bobHeight: 0
   outOfBoundsDistance: -25
   debug: 1
   shouldMove: 1
@@ -19463,6 +19466,7 @@ Transform:
   - {fileID: 410087041}
   - {fileID: 2539043704645613167}
   - {fileID: 1645392300}
+  - {fileID: 1775374990}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2097484922
