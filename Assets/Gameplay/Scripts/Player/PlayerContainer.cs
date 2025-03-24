@@ -58,7 +58,8 @@ public class PlayerContainer : MonoBehaviour
         rb.isKinematic = false;
         
         //remove the object from the list of players
-        triggerArea.tracked.Remove(obj);
+        if(triggerArea.tracked.Contains(obj))
+            triggerArea.tracked.Remove(obj);
         
         //disable the collider
         if (obj.TryGetComponent(out Collider col))
