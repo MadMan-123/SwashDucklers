@@ -227,14 +227,15 @@ public class TutorialManager : MonoBehaviour
 
         StartCoroutine(TypeText("Thats it!, youve really got the hang of this now"));
         yield return new WaitForSeconds(5f);
-        StartCoroutine(TypeText("This is where id put my cargo tutorial"));
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(TypeText("IF I HAD ONE"));
-        imageBox.SetActive(true);
-        timmyTurnersDad.SetActive(true);
-        yield return new WaitForSeconds(5f);
-        imageBox.SetActive(false);
-        timmyTurnersDad.SetActive(false);
+
+        //StartCoroutine(TypeText("This is where id put my cargo tutorial"));
+        //yield return new WaitForSeconds(5f);
+        //StartCoroutine(TypeText("IF I HAD ONE"));
+        //imageBox.SetActive(true);
+        //timmyTurnersDad.SetActive(true);
+        //yield return new WaitForSeconds(5f);
+        //imageBox.SetActive(false);
+        //timmyTurnersDad.SetActive(false);
 
         StartCoroutine(TypeText("With that, its time for you to get going!"));
         yield return new WaitForSeconds(5f);
