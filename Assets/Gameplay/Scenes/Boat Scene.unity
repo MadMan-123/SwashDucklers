@@ -3108,14 +3108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ece5edbb44749b4c9d8dd2dd3319321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchDuration: 1
-  areaName: 
-  shouldDebug: 0
-  players: []
-  areaNames:
-  - DeckA
-  - DeckB
-  - DeckC
 --- !u!1 &511253202
 GameObject:
   m_ObjectHideFlags: 0
@@ -16006,6 +15998,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2137943444}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e94c53ef0fb119145affd8e488a3fbff,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2137943446}
   m_SourcePrefab: {fileID: 100100000, guid: e94c53ef0fb119145affd8e488a3fbff, type: 3}
 --- !u!1 &1685696418
 GameObject:
@@ -19622,13 +19618,28 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2765577547532117337, guid: e94c53ef0fb119145affd8e488a3fbff, type: 3}
+--- !u!114 &2137943446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137943442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67fb25c9d35ce34bb47ed2b243c96ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Force: 10
+  moveDirection: {x: 1, y: 1, z: 0}
+  resetVelocityOnLaunch: 1
 --- !u!1 &2141236194 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cd94c4ad34db5554294849fe57d8f964,
