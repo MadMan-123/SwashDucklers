@@ -18,6 +18,9 @@ public class AIBrain : MonoBehaviour
         [SerializeField] private float viewRadius = 10;
         [SerializeField] private Target target;
         [SerializeField] private State state;
+        
+        [SerializeField] private float wanderSpeed = 1f;
+        [SerializeField] private float chaseSpeed = 2f;
         [Header("Wander behaviour")]
         [SerializeField] private float circleDistance = 5f;
         [SerializeField] private float randDifference = 90f;
@@ -198,6 +201,7 @@ public class AIBrain : MonoBehaviour
                                     if (target.trackedTransform.TryGetComponent(out CargoStack stack))
                                     {
                                         stack.TryPickUp(gameObject);
+                                        
                                         hasCargo = true;
                                         //we should run off now
                                         ChangeState(State.JumpOff);
