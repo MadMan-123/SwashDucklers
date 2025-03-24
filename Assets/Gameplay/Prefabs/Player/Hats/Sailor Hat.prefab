@@ -73,6 +73,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5363085697948450572, guid: 99704c93b8e3cce4896f1bd46e51e2db,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -5363085697948450572, guid: 99704c93b8e3cce4896f1bd46e51e2db,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 08de252f79c36064da7b77e3e9b1673c, type: 2}
     - target: {fileID: -3519699734577959538, guid: 99704c93b8e3cce4896f1bd46e51e2db,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -111,7 +121,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 99704c93b8e3cce4896f1bd46e51e2db,
         type: 3}
       propertyPath: m_Name
-      value: duck (sailor) hat tester
+      value: Sailor Hat
       objectReference: {fileID: 0}
     - target: {fileID: 2938334392151325481, guid: 99704c93b8e3cce4896f1bd46e51e2db,
         type: 3}
