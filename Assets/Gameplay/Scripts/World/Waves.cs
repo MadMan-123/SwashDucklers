@@ -112,7 +112,16 @@ public class Waves : MonoBehaviour
             }
         }
     }
+    public float GetWaveHeight(float x, float z)
+    {
+        float waveFrequency = 0.2f;  // Control the speed of wave movement
+        float waveY = waveHeight * Mathf.Sin(waveFrequency * x + Time.time) * Mathf.Cos(waveFrequency * z + Time.time);
 
+        // Debugging: Print the calculated wave height
+        Debug.Log($"Wave Height at ({x}, {z}): {waveY}");
+
+        return waveY;
+    }
     void UpdateMesh()
     {
         mesh.Clear();

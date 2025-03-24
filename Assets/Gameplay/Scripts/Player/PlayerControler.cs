@@ -37,11 +37,13 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] int playerID; //Why the fuck is an id a float, its never going to need to be a real number - MW
     [SerializeField] public bool interacting;
     [SerializeField] AudioSource Quack;
+    [SerializeField] AudioSource audioSource;
     [SerializeField] private Transform modelTransform;
     [SerializeField] float bumpForce;
     [SerializeField] float bumpForceUp;
     [SerializeField] float ragdollTime=5f;
     [SerializeField] Transform hatTransform;
+    public bool isSoundPlaying = false;
     public Vector3 spawnpoint;
     public Vector3 spawnRotation;
     public Color litColor;
@@ -269,6 +271,7 @@ public class PlayerControler : MonoBehaviour
                     //If velocity X isnt 0
                     if (rb.velocity.x != relative0.x)
                     {
+                        
                         //If Velocity X is positive
                         if (Mathf.Sign(rb.velocity.x) == 1)
                         {
@@ -280,7 +283,7 @@ public class PlayerControler : MonoBehaviour
                             {
                                 //Set X value to 0
                                 rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
-                                ;
+                                
                             }
                         }
                         else //If Velocity X is Negative
@@ -293,6 +296,7 @@ public class PlayerControler : MonoBehaviour
                             {
                                 //Set X value to 0
                                 rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
+                                
                                 ;
                             }
                         }
@@ -355,7 +359,12 @@ public class PlayerControler : MonoBehaviour
                         {
                             //Set X value to 0
                             rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
-                            ;
+                            ;  if (isSoundPlaying)
+                            {
+                                audioSource.Stop();
+
+                                isSoundPlaying = false; // Mark sound as playing
+                            }
                         }
                     }
                     else //If Velocity X is Negative
@@ -368,7 +377,12 @@ public class PlayerControler : MonoBehaviour
                         {
                             //Set X value to 0
                             rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
-                            ;
+                            if (isSoundPlaying)
+                            {
+                                audioSource.Stop();
+
+                                isSoundPlaying = false; // Mark sound as playing
+                            }
                         }
                     }
                 }
@@ -387,7 +401,12 @@ public class PlayerControler : MonoBehaviour
                         {
                             //Set z value to 0
                             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
-                            ;
+                            ;  if (isSoundPlaying)
+                            {
+                                audioSource.Stop();
+
+                                isSoundPlaying = false; // Mark sound as playing
+                            }
                         }
                     }
                     else //If Velocity Z is Negative
@@ -400,7 +419,13 @@ public class PlayerControler : MonoBehaviour
                         {
                             //Set z value to 0
                             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
-                            ;
+                            if (isSoundPlaying)
+                            {
+                                audioSource.Stop();
+
+                                isSoundPlaying = false; // Mark sound as playing
+                            }
+                          
                         }
                     }
                 }
@@ -412,18 +437,30 @@ public class PlayerControler : MonoBehaviour
     //Movement
     public void OnMovement(InputAction.CallbackContext value)
     {
-       
+  
+        
         if (value.performed && canMove) //Performed
         {
+
+            if (!isSoundPlaying)
+            {
+                audioSource.Play();
+                isSoundPlaying = true; // Mark sound as playing
+
+            }
+
             //Setup Move vector to contain direction from input
             moveVector = value.ReadValue<Vector3>();
-
+            
         }
         else if (value.canceled) //Cancelled
         {
+            
 
             //Setup Move vector to Zero
             moveVector = Vector3.zero;
+          
+
 
         }
 

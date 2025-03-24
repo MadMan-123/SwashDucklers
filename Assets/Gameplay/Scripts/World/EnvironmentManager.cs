@@ -18,7 +18,7 @@ public class EnvironmentManager : MonoBehaviour
     
     private static readonly Vector3 movment = new Vector3(-1, 0, 0);
     private const int MaxObjects = 5;
-    
+    private Waves waves;
     private EnvironmentObject[] active = new EnvironmentObject[MaxObjects * 2];
 
     
@@ -36,6 +36,8 @@ public class EnvironmentManager : MonoBehaviour
             {
                 environmentObject.pools[i] = new GameObjectPool(environmentObject.prefabs[i], MaxObjects, transform);
             }
+            
+            waves = FindObjectOfType<Waves>(); // Find the wave generator in the scene
         }
         
 
@@ -44,26 +46,36 @@ public class EnvironmentManager : MonoBehaviour
 
     private void Update()
     {
+        for (var index = 0; index < active.Length; index++)
+    {
+        var o = active[index];
+        if (o == null) continue;
+
+        // Smooth Y transition
+        if (waves != null)
+        {
+            float waveY = waves.GetWaveHeight(o.transform.position.x, o.transform.position.z);
+            Vector3 pos = o.transform.position;
+            
+            pos.y = Mathf.Lerp(pos.y, waveY, Time.deltaTime * 5.0f);
+            o.transform.position = pos;
+        }
+
+        // Only move the object if shouldMove is true
         if (shouldMove)
         {
-            for (var index = 0; index < active.Length; index++)
-            {
-                var o = active[index];
+            // Move the object along the X-axis (or the direction you choose)
+            o.transform.position += movment * (o.speed * Time.deltaTime);
+        }
 
-                if (o == null) continue;
-                
-
-                //move the object
-                o.transform.position += movment * (o.speed * Time.deltaTime);
-
-                //check if the object is out of bounds
-                if (!(o.transform.position.x < outOfBoundsDistance)) continue;
-
-                o.transform.gameObject.SetActive(false);
-                active[index] = null;
-            }
+        // Check if the object is out of bounds
+        if (o.transform.position.x < outOfBoundsDistance)
+        {
+            o.transform.gameObject.SetActive(false);
+            active[index] = null;
         }
     }
+}
 
     public IEnumerator SpawnRandomObject(float interval = 15)
     {
