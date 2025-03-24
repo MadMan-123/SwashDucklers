@@ -31,7 +31,9 @@ public class KrakenHud : MonoBehaviour
 
             BombList.Add(Instantiate(Bomb, this.transform,false));
 
-            BombList[^1].transform.position = new Vector3(positionX * (Screen.width/1920f), BombList[^1].transform.position.y, BombList[BombList.Count - 1].transform.position.z);
+            //BombList[^1].transform.position = new Vector3(positionX * (Screen.width/1920f), BombList[^1].transform.position.y, BombList[BombList.Count - 1].transform.position.z);
+
+            BombList[^1].GetComponent<RectTransform>().localPosition = new Vector3(positionX , 10, 0);
         }
 
 

@@ -134,6 +134,7 @@ public class PlayerUI : MonoBehaviour
                 costumeText.text = PlayerStats.Hatlist[PlayerStats.player4Hat].name;
                 break;
         }
+
     }
 
     //Start Game
