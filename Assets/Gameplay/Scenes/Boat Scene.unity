@@ -3067,6 +3067,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ece5edbb44749b4c9d8dd2dd3319321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  launchDuration: 1
+  areaName: 
+  shouldDebug: 0
+  players: []
+  areaNames:
+  - DeckA
+  - DeckB
+  - DeckC
 --- !u!1 &511253202
 GameObject:
   m_ObjectHideFlags: 0
@@ -16832,13 +16840,13 @@ MonoBehaviour:
     position: {x: 26, y: 0, z: 18.5}
     speed: 5
     bobSpeed: 1.17
-    bobHeight: 0.5
+    bobHeight: 2.23
   - prefabs:
     - {fileID: 760277361}
     position: {x: 47.3, y: 1.88, z: 41}
     speed: 1.13
-    bobSpeed: 0
-    bobHeight: 0
+    bobSpeed: 1.16
+    bobHeight: 2.33
   outOfBoundsDistance: -25
   debug: 1
   shouldMove: 1
