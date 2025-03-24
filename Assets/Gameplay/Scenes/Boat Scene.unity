@@ -13786,6 +13786,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2115048037}
+    - targetCorrespondingSourceObject: {fileID: 7075122363978985264, guid: b0384513035b5b047a4111bb0c843242,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2115048038}
   m_SourcePrefab: {fileID: 100100000, guid: b0384513035b5b047a4111bb0c843242, type: 3}
 --- !u!114 &1466594115 stripped
 MonoBehaviour:
@@ -19445,6 +19449,34 @@ MonoBehaviour:
     type: 3}
   cargoText: {fileID: 2047425908}
   score: 10
+--- !u!114 &2115048038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115048035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b59bef384f566409d1b862a63fc991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2115048037}
+        m_TargetAssemblyTypeName: CargoStack, Assembly-CSharp
+        m_MethodName: DropOff
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  itemRequired: 2
 --- !u!1001 &2124061314
 PrefabInstance:
   m_ObjectHideFlags: 0
