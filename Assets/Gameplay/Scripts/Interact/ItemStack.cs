@@ -5,11 +5,14 @@ using Core;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 public class ItemStack : MonoBehaviour
 {
     //delegate for the pickup event 
     protected Action<GameObject> OnPickUp;
+    
+    public Action<GameObject> OnDropOff;
     //the item that will be generated
     [SerializeField] public GameObject itemGenerated;
     
@@ -19,9 +22,11 @@ public class ItemStack : MonoBehaviour
     private void Start()
     {
         //initialize the pool
-       pool = new GameObjectPool(itemGenerated, 10, transform); 
+        pool = new GameObjectPool(itemGenerated, 10, transform); 
     }
 
+
+    
     public void TryPickUp(GameObject source)
     {
         //check if we have a source to work with

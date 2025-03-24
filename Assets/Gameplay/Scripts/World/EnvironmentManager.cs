@@ -66,7 +66,6 @@ public class EnvironmentManager : MonoBehaviour
             //get the wave height at the current x and z position
             float waveHeight = waves.GetWaveHeight(o.transform.position);
            
-            print(waveHeight);
             //set the object to the wave height`
             
             o.transform.position = new Vector3(x, waveHeight, z);
