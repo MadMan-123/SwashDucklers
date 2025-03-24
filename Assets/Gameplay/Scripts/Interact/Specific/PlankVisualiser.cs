@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlankVisualiser : MonoBehaviour
 {
+   //New idea, Instantiate an instance of the planks so we can move it later, also i cant get it to rotate for some reason cos im a dumbass - TS
+   
+   
    //order of visuals is the order of how the planks are placed
    [SerializeField] private GameObject[] plankVisuals;
    public int repairCount = 0;
