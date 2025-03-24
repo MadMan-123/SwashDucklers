@@ -34,7 +34,7 @@ public class GameTimer : MonoBehaviour
                 endTime = 30;
                 break;
             case Length.Medium:
-                endTime = 60;
+                endTime = 45;
                 break;
             case Length.Long:
                 endTime = 90;
