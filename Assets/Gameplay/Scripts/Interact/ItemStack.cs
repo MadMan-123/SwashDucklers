@@ -27,7 +27,7 @@ public class ItemStack : MonoBehaviour
 
 
     
-    public void TryPickUp(GameObject source)
+    public virtual void TryPickUp(GameObject source)
     {
         //check if we have a source to work with
         Assert.IsNotNull(source);

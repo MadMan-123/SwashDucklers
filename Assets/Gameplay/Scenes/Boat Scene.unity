@@ -8147,11 +8147,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 6274729092103594065, guid: b715cd45006e88c47990681c51d2c198, type: 3}
   poolSize: 3
-  interval: 1
+  interval: 30
   waveSize: 3
   areaName: Air
   maxSpawnSize: 3
   spawnedCount: 0
+  start: 0
+  startInterval: 10
 --- !u!1 &1213591004
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,7 +20,8 @@ public class AIBrain : MonoBehaviour
         [SerializeField] private State state;
         
         [SerializeField] private float wanderSpeed = 1f;
-        [SerializeField] private float chaseSpeed = 2f;
+        [SerializeField] private float chaseSpeed = 1.25f;
+        [SerializeField] private float fleeSpeed = 0.5f;
         [Header("Wander behaviour")]
         [SerializeField] private float circleDistance = 5f;
         [SerializeField] private float randDifference = 90f;
@@ -136,8 +137,16 @@ public class AIBrain : MonoBehaviour
                             //check if we have cargo
                             if (hasCargo)
                             {
+                                //check if we still have a cargo 
+                                if (inventory.item is not Cargo || inventory.item == null)
+                                {
+                                    //if not then
+                                    hasCargo = false;
+                                    ChangeState(State.Wander);
+                                }
                                 //if yes then flee
                                 ChangeState(State.JumpOff);
+                                
                             }
                             else if (!isFleeing)
                             {
@@ -459,6 +468,7 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 Flee()
         {
+            agent.speed = fleeSpeed;
             if (target == null)
             {
                 ChangeState(State.Wander);
@@ -575,6 +585,9 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 Chase()
         {
+            //set the speed to chase speed 
+            agent.speed = chaseSpeed;
+            
             if(target == null || target.trackedTransform == null)
             {
                 ChangeState(State.Wander);
@@ -602,7 +615,9 @@ public class AIBrain : MonoBehaviour
         
         private Vector3 Wander()
         {
-
+            //set speed
+            agent.speed = wanderSpeed;
+            
             wanderAngle += Random.Range(-randDifference, randDifference) * Mathf.Deg2Rad;
             var circlePos = transform.position + (transform.forward * circleDistance);
             
@@ -718,12 +733,10 @@ public class AIBrain : MonoBehaviour
         {
             if (!set)
             {
-
                 set = true;
             }
             else
             {
-                
                 ResetAgent();
             }
         }
