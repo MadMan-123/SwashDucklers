@@ -89,7 +89,7 @@ public class UiPlayerControler : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton9))
                 {
-                    UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial debug screen");
                 }
 
             }
