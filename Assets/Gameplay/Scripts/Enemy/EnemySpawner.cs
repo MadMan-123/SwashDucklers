@@ -61,9 +61,6 @@ public class EnemySpawner : Spawner
         {
             var obj = pool.GetObject();
             
-            
-            
-            
             //disable the agent and enable kinematic
             if (obj.TryGetComponent(out NavMeshAgent agent))
             {
