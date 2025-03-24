@@ -7,6 +7,7 @@ using UnityEngine;
 public class Cannon : Interactable
 {
     private static readonly int IsShooting = Animator.StringToHash("IsShooting");
+    private static readonly int Unjammed = Animator.StringToHash("UNJAMMED");
 
     public GameObject cannonballPrefab;
     GameObjectPool cannonballPool;
@@ -58,6 +59,8 @@ public class Cannon : Interactable
         if(cannonballCount >= jamAmmount)
         {
             
+            anim.CrossFade("shoot 0", 0.1f);
+            anim.SetBool(Unjammed,false);
             StartCoroutine(UnJam());
             cannonballCount = 0;
             
@@ -70,6 +73,7 @@ public class Cannon : Interactable
         anim.SetBool(IsShooting, false);
         yield return new WaitForSeconds(timeToUnJam);
         canFire = true;
+        anim.SetBool(Unjammed,true);
     }
      
     IEnumerator FireCannon()
@@ -109,9 +113,9 @@ public class Cannon : Interactable
             yield break;
         
 
-        /*
+        
         anim.SetBool("IsShooting", false);
-    */
+    
     }
 
     private void OnDrawGizmos()
