@@ -1,9 +1,7 @@
-﻿
-    
-using System;
+﻿using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
+using System.Collections; 
 public class PlankVisualiser : MonoBehaviour
 {
    //New idea, Instantiate an instance of the planks so we can move it later, also i cant get it to rotate for some reason cos im a dumbass - TS
@@ -34,11 +32,7 @@ public class PlankVisualiser : MonoBehaviour
    public void LeakSpawn(int num)
    {
       toRepair = num;
-      
-      for (int i = 0; i < plankPool.Length; i++)
-      {
-            plankPool[i].SetActive(false);
-      }
+      StartCoroutine(PopOff());
    }
    public void RepairPlank(int count)
    {
@@ -52,7 +46,33 @@ public class PlankVisualiser : MonoBehaviour
       }
       firstRotation = yRot;
       plankPool[count].transform.rotation = rotation;
+      plankPool[count].transform.position = spawnLoc.transform.position;
       plankPool[count].SetActive(true);
+   }
+
+   public IEnumerator PopOff()
+   {
+      for (int i = 0; i < plankPool.Length; i++)
+      {
+         if (plankPool[i].TryGetComponent(out Rigidbody rb))
+         {
+            float ranX = Random.Range(0.75f, 0);
+            float ranZ = Random.Range(0.75f, 0);
+            rb.isKinematic = false;
+            //rb.AddTorque(ranX*20,ranZ*20,ranZ*20, ForceMode.Impulse);
+            rb.AddForce((Vector3.up + new Vector3(ranX,0,ranZ)) * 15, ForceMode.Impulse);
+         }
+      }
+      yield return new WaitForSeconds(1);
+      for (int i = 0; i < plankPool.Length; i++)
+      {
+         if (plankPool[i].TryGetComponent(out Rigidbody rb))
+         {
+            rb.velocity = Vector3.zero;
+         }
+         plankPool[i].SetActive(false);
+      }
+      
    }
    
    //on disable reset the visuals
