@@ -2653,6 +2653,7 @@ MonoBehaviour:
   shouldDebug: 1
   playerCheckRadius: 5
   cinemachineTarget: {fileID: 1122676178}
+  vfxHolder: {fileID: 1946073060}
 --- !u!4 &410785622
 Transform:
   m_ObjectHideFlags: 0
@@ -3065,14 +3066,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 026fa9716229dc447914b2b00ac942ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchDuration: 1
-  areaName: 
-  shouldDebug: 0
-  players: []
-  areaNames:
-  - DeckA
-  - DeckB
-  - DeckC
 --- !u!1 &511253202
 GameObject:
   m_ObjectHideFlags: 0

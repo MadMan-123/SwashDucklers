@@ -15,7 +15,7 @@ public class PlankVisualiser : MonoBehaviour
    [SerializeField] private Leak leak;
    [SerializeField] private GameObject spawnLoc;
    private float firstRotation;
-   Transform vfxHolder;
+   public Transform vfxHolder;
    private int toRepair = 0;
 
 

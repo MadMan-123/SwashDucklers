@@ -28,7 +28,6 @@ public class Leak : Interactable
     {
         Random.seed = System.DateTime.Now.Millisecond;
         cam = Camera.main?.gameObject; 
-        vfxHolder = GameObject.FindWithTag("VFXHolder").transform;
     }
 
     private void OnEnable()
