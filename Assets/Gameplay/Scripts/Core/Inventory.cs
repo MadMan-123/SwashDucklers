@@ -34,13 +34,14 @@ public class Inventory : MonoBehaviour
         return false;
     }
     //drop
-    public void DropItem()
+    public void DropItem(Vector3 direction, bool shouldLaunch = false)
     {
         if (item)  //if holding item?
         {
-            item.DropItem(gameObject);
+             item.DropItem(gameObject,shouldLaunch,direction); //drop the item
             //enable rigidbody and collider
         }
+
     }
     //get current item
     public bool AddItem(GameObject itemObj)

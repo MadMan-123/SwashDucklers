@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -39,7 +40,9 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-
+        //clear the game data's player list
+        GameData.Players.Clear();
+        
         Debug.Log($"Players on spawn: {PlayerStats.playerNo}");
 
         //Spawn joined players
@@ -60,6 +63,18 @@ public class PlayerManager : MonoBehaviour
                     PlayerInput.Instantiate(playerPrefab, i, null, -1, PlayerStats.player4input);
                     break;
             }
+            
+            /*var currentInputState = i switch
+            {
+                0 => PlayerStats.player1input,
+                1 => PlayerStats.player2input,
+                2 => PlayerStats.player3input,
+                3 => PlayerStats.player4input,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            
+            PlayerInput.Instantiate(playerPrefab, i, null, -1, currentInputState);*/
       
         }
     }

@@ -32,7 +32,7 @@ public static class StageParameters
     public static Level currentLevel;
 
     //Length of level -SD
-    public static Length levelLength = Length.Short;
+    public static Length levelLength = Length.Medium;
 
     //Kraken enabled -SD
     public static bool krakenEnabled = true;

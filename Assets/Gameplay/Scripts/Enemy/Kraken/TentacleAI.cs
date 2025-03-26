@@ -12,7 +12,7 @@ public class TentacleAI : MonoBehaviour
     public float waitBetweenTents;
     public GameObject[] tentacleObjects;
     private int lastCalled;
-    
+    private int tentIndex = 0;
     public bool shouldDebug = false;
    
     
@@ -27,40 +27,31 @@ public class TentacleAI : MonoBehaviour
     {
         foreach (GameObject obj in tentacleObjects)
             obj.SetActive(false);
-        
-        if(shouldDebug)
-            Debug.Log("TentacleAI OnEnable");
-        
-        int tentIndex = Random.Range(0, tentacleObjects.Length);
+        tentIndex = Random.Range(0, tentacleObjects.Length);
         var routine = EnableTentacle(tentIndex);
 
         StartCoroutine(routine);
         //lastCalled = tentAttack;
-        
-        if(shouldDebug)
-            Debug.Log("Activated tentacle " + tentIndex);
     }
 
     private IEnumerator EnableTentacle(int tentIndex, float animationTime = 0.5f)
     {
         var tentacle = tentacleObjects[tentIndex];
-        
-        if(shouldDebug)
-            Debug.Log("Enabling tentacle " + tentIndex);
-       
-        //animation shit
         yield return new WaitForSeconds(animationTime);
-        
         tentacle.SetActive(true);
-        
-        //other tentacle shit here 
-        
     }
 
+    public IEnumerator KrakenDeath()
+    {
+        yield return new WaitForSeconds(1f);
+        if (tentacleObjects[tentIndex].TryGetComponent(out Tentacle tentacle))
+        {
+            tentacle.KrakenDead();
+        }
+    }
     private void OnDisable()
     {
         foreach (GameObject obj in tentacleObjects)
             obj.SetActive(false);
-        //throw new NotImplementedException();
     }
 }

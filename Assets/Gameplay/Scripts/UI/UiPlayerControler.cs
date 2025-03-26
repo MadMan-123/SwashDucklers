@@ -89,7 +89,7 @@ public class UiPlayerControler : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton9))
                 {
-                    UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial debug screen");
                 }
 
             }
@@ -105,7 +105,8 @@ public class UiPlayerControler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            //Disbled for demo day -SD
+            //UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
 
     }

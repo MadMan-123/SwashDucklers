@@ -1,48 +1,66 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Tentacle : MonoBehaviour
 {
-    [SerializeField] GameObject[] tentacles;
-    [SerializeField] GameObject[] hitBox;
-    [SerializeField] Animator[] anim;
-    [SerializeField] float spawnTime;
+    [SerializeField] private TentacleStuff[] tentacleList;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // for (int i = 0; i < tentacleList.Length; i++)
+        // {
+        //     tentacleList[i].tentacleAnimator.;
+        // }
     }
 
     private void OnEnable()
     {
-        AnimateTentacle();
-    }
+        for (int i = 0; i < tentacleList.Length; i++)
+        {
+            tentacleList[i].tentacleModel.SetActive(true);
+            tentacleList[i].tentacleAnimator.enabled = true;
+            tentacleList[i].tentacleAnimator.SetTrigger("Spawn");
+            tentacleList[i].hitBox.SetActive(false);
 
-    IEnumerator AnimateTentacle()
-    {
-        for (int i = 0; i < tentacles.Length; i++)
-        {
-            tentacles[i].SetActive(true);
-            anim[i].SetTrigger("Spawned");
-        }
-        yield return new WaitForSeconds(spawnTime);
-        Knockback();
-        foreach (GameObject hb in hitBox)
-        {
-            hb.SetActive(true);
         }
     }
 
-    void Knockback()
+    public void KrakenDead()
     {
+        for (int i = 0; i < tentacleList.Length; i++)
+        {
+            tentacleList[i].tentacleAnimator.SetTrigger("KrakenDead");
+        }
+    }
 
+    public void PlaySound()
+    {
+        SoundManager.PlayAudioClip("TentacleSlam", tentacleList[0].tentacleModel.transform.position, 1f);
+    }
+
+    [Serializable]
+    public class TentacleStuff
+    {
+        public GameObject tentacleModel;
+        public Animator tentacleAnimator;
+        public GameObject hitBox;
+    }
+
+    private void OnDisable()
+    {
+        for (int i = 0; i < tentacleList.Length; i++)
+        {
+            tentacleList[i].hitBox.SetActive(false);
+        }
+    }
+
+    public void ToggleHitboxes(bool on)
+    {
+        for (int i = 0; i < tentacleList.Length; i++)
+            tentacleList[i].hitBox.SetActive(on);
     }
 
 }

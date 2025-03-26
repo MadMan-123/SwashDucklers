@@ -37,11 +37,13 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] int playerID; //Why the fuck is an id a float, its never going to need to be a real number - MW
     [SerializeField] public bool interacting;
     [SerializeField] AudioSource Quack;
+    [SerializeField] AudioSource audioSource;
     [SerializeField] private Transform modelTransform;
     [SerializeField] float bumpForce;
     [SerializeField] float bumpForceUp;
     [SerializeField] float ragdollTime=5f;
     [SerializeField] Transform hatTransform;
+    public bool isSoundPlaying = false;
     public Vector3 spawnpoint;
     public Vector3 spawnRotation;
     public Color litColor;
@@ -269,6 +271,7 @@ public class PlayerControler : MonoBehaviour
                     //If velocity X isnt 0
                     if (rb.velocity.x != relative0.x)
                     {
+                        
                         //If Velocity X is positive
                         if (Mathf.Sign(rb.velocity.x) == 1)
                         {
@@ -280,7 +283,7 @@ public class PlayerControler : MonoBehaviour
                             {
                                 //Set X value to 0
                                 rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
-                                ;
+                                
                             }
                         }
                         else //If Velocity X is Negative
@@ -293,6 +296,7 @@ public class PlayerControler : MonoBehaviour
                             {
                                 //Set X value to 0
                                 rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
+                                
                                 ;
                             }
                         }
@@ -355,7 +359,12 @@ public class PlayerControler : MonoBehaviour
                         {
                             //Set X value to 0
                             rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
-                            ;
+                            ;  if (isSoundPlaying)
+                            {
+                                audioSource.Stop();
+
+                                isSoundPlaying = false; // Mark sound as playing
+                            }
                         }
                     }
                     else //If Velocity X is Negative
@@ -368,7 +377,12 @@ public class PlayerControler : MonoBehaviour
                         {
                             //Set X value to 0
                             rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
-                            ;
+                            if (isSoundPlaying)
+                            {
+                                audioSource.Stop();
+
+                                isSoundPlaying = false; // Mark sound as playing
+                            }
                         }
                     }
                 }
@@ -387,7 +401,12 @@ public class PlayerControler : MonoBehaviour
                         {
                             //Set z value to 0
                             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
-                            ;
+                            ;  if (isSoundPlaying)
+                            {
+                                audioSource.Stop();
+
+                                isSoundPlaying = false; // Mark sound as playing
+                            }
                         }
                     }
                     else //If Velocity Z is Negative
@@ -400,7 +419,13 @@ public class PlayerControler : MonoBehaviour
                         {
                             //Set z value to 0
                             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
-                            ;
+                            if (isSoundPlaying)
+                            {
+                                audioSource.Stop();
+
+                                isSoundPlaying = false; // Mark sound as playing
+                            }
+                          
                         }
                     }
                 }
@@ -412,18 +437,30 @@ public class PlayerControler : MonoBehaviour
     //Movement
     public void OnMovement(InputAction.CallbackContext value)
     {
-       
+  
+        
         if (value.performed && canMove) //Performed
         {
+
+            if (!isSoundPlaying)
+            {
+                audioSource.Play();
+                isSoundPlaying = true; // Mark sound as playing
+
+            }
+
             //Setup Move vector to contain direction from input
             moveVector = value.ReadValue<Vector3>();
-
+            
         }
         else if (value.canceled) //Cancelled
         {
+            
 
             //Setup Move vector to Zero
             moveVector = Vector3.zero;
+          
+
 
         }
 
@@ -497,8 +534,14 @@ public class PlayerControler : MonoBehaviour
                 Quack.pitch = Random.Range(0.0f, 1.0f);
             }
             Quack.Play(0);
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y /2, transform.localScale.z);
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+            //changing localScale.y /2 to 0.5f has 0 difference and does not fix the qwack clipping issue - MW
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / 2, transform.localScale.z);
+            //ensuring the player is not placed below the ground is what we want to do here. -MW
+            
+            
+            //if the scale is 1, and we are dividing by 2 (or multiply 0.5f) then moving down by 0.5f is the same as moving down by half the scale,
+            //which is causing the clipping issue.
+            transform.position = new Vector3(transform.position.x, transform.position.y - 0.4f, transform.position.z);
         }
         else if (value.canceled) //Cancelled
         {
@@ -514,8 +557,16 @@ public class PlayerControler : MonoBehaviour
 
         if (value.performed && canMove) //Performed
         {
-            SceneManager.LoadScene("Character Select"); //GM: returns to the "menu test" screen
-            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+
+            //Disabled for demo day -SD
+            //SceneManager.LoadScene("Character Select"); //GM: returns to the "menu test" screen
+            //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+
+            //Same thing as above but only works on keyboard -SD
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("Character Select"); //GM: returns to the "menu test" screen
+            }
 
         }
         else if (value.canceled) //Cancelled

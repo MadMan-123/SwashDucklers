@@ -5,18 +5,29 @@ using Core;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 public class ItemStack : MonoBehaviour
 {
+    //delegate for the pickup event 
+    protected Action<GameObject> OnPickUp;
+    
+    public Action<GameObject> OnDropOff;
+    //the item that will be generated
     [SerializeField] public GameObject itemGenerated;
+    
+    //the pool that will be used to generate the items
     protected GameObjectPool pool;
 
     private void Start()
     {
-       pool = new GameObjectPool(itemGenerated, 10, transform); 
+        //initialize the pool
+        pool = new GameObjectPool(itemGenerated, 10, transform); 
     }
 
-    public void TryPickUp(GameObject source)
+
+    
+    public virtual void TryPickUp(GameObject source)
     {
         //check if we have a source to work with
         Assert.IsNotNull(source);
@@ -36,7 +47,8 @@ public class ItemStack : MonoBehaviour
         
         //add the item to the inventory
         inv.AddItem(current);
-
+        
+        OnPickUp?.Invoke(current);
 
     }
     

@@ -73,6 +73,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2466789682120263350, guid: f8f99471984fe65479f16724fd1d7a46,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -2466789682120263350, guid: f8f99471984fe65479f16724fd1d7a46,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 08de252f79c36064da7b77e3e9b1673c, type: 2}
     - target: {fileID: -1862696476090026562, guid: f8f99471984fe65479f16724fd1d7a46,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -91,7 +101,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f8f99471984fe65479f16724fd1d7a46,
         type: 3}
       propertyPath: m_Name
-      value: duck (witch) hat tester
+      value: Witch Hat
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

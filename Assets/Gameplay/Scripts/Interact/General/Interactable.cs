@@ -11,6 +11,7 @@ public class Interactable : MonoBehaviour
 
     public void Interact(Item item,GameObject source)
     {
+        if(source.TryGetComponent(out AIBrain brain)) return;
         if(itemRequired != Item.Type.NoItem && (!item || item.type != itemRequired)) return;
         Assert.IsNotNull(OnInteract);
         OnInteract?.Invoke(source);

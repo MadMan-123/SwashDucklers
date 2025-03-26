@@ -112,7 +112,22 @@ public class Waves : MonoBehaviour
             }
         }
     }
-
+    public float GetWaveHeight(Vector3 pos)
+    {
+        // convert the world position to local wave position , based on the grid size and cell size
+        float x = pos.x + (gridX * cellSize * 0.5f);
+        float z = pos.z + (gridZ * cellSize * 0.5f);
+        
+        // Calculate the grid cell position
+        int xIndex = Mathf.FloorToInt(x / gridX );
+        int zIndex = Mathf.FloorToInt(z / gridZ );
+        
+        // Get the vertices of the grid cell
+        int vertexIndex = zIndex * gridX + xIndex;
+        
+        //get the y position of the vertex
+        return vertices[vertexIndex].y;
+    }
     void UpdateMesh()
     {
         mesh.Clear();

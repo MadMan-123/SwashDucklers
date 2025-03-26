@@ -8,8 +8,17 @@ public class EnemySpawner : Spawner
 {
     public int maxSpawnSize = 3;
     public int spawnedCount = 0;
+    public bool start = false;
+    public float startInterval = 10f;
     
-   public override void Init()
+    
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(startInterval);
+        Init();
+    }
+    
+    public override void Init()
    {
          pool = new GameObjectPool(prefab, poolSize, transform);
          
@@ -23,21 +32,24 @@ public class EnemySpawner : Spawner
                  ai.owner = this;
              }
          }
-
-
-         routine = _spawn();
+        
+         
+         routine = _spawnEnemy();
          StartCoroutine(routine);
+
          
-         
-   }
+  }
    
-   private IEnumerator _spawn()
-    {
+    
+
+   private IEnumerator _spawnEnemy()
+   {
+ 
         //check if we have reached the max spawn size
         if (spawnedCount >= maxSpawnSize)
         {
             yield return new WaitForSeconds(interval);
-            routine = _spawn();
+            routine = _spawnEnemy();
             StartCoroutine(routine);
             //exit the coroutine
             yield break;
@@ -48,9 +60,6 @@ public class EnemySpawner : Spawner
         for (int i = 0; i < waveSize; i++)
         {
             var obj = pool.GetObject();
-            
-            
-            
             
             //disable the agent and enable kinematic
             if (obj.TryGetComponent(out NavMeshAgent agent))
@@ -85,7 +94,7 @@ public class EnemySpawner : Spawner
 
         }
         yield return new WaitForSeconds(interval);
-        routine = _spawn();
+        routine = _spawnEnemy();
         StartCoroutine(routine);
     }
 
