@@ -38,6 +38,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] public bool interacting;
     [SerializeField] AudioSource Quack;
     [SerializeField] AudioSource audioSource;
+    [SerializeField] public ParticleSystem movementVFX;
     [SerializeField] private Transform modelTransform;
     [SerializeField] float bumpForce;
     [SerializeField] float bumpForceUp;
@@ -55,7 +56,7 @@ public class PlayerControler : MonoBehaviour
     private Renderer bodyRenderer;
     private GameObject hat;
     private Vector3 hatposition;
-    
+    private Coroutine vfxFadeCoroutine;
     //Reference to gamepad for rumble -SD
     public bool isGamepad = false;
     public Gamepad pad;
@@ -167,6 +168,31 @@ public class PlayerControler : MonoBehaviour
         SetPlayerColor(playerID);
 
     }
+    void Update()
+    {
+        var main = movementVFX.main;
+        
+        if (moveVector != Vector3.zero) // Movement detected
+                                        
+        {
+            if (!movementVFX.isPlaying) // If it's not playing, start it
+            {
+                
+                main.loop = true;
+                movementVFX.Play();
+            }
+        }
+        else // If no movement, stop VFX
+        {
+            if (movementVFX.isPlaying)
+            {
+                
+                main.loop = false;
+                movementVFX.Stop();
+            }
+        }
+    
+    }
     private void SetPlayerColor(int playerId)
     {
 
@@ -205,6 +231,7 @@ public class PlayerControler : MonoBehaviour
 
         if (canMove)
         {
+           
             //If on the ground
             if (isGrounded)
             {
@@ -431,13 +458,13 @@ public class PlayerControler : MonoBehaviour
                 }
             }
         }
-
+      
     }
 
     //Movement
     public void OnMovement(InputAction.CallbackContext value)
     {
-  
+        var main = movementVFX.main;
         
         if (value.performed && canMove) //Performed
         {
@@ -451,20 +478,27 @@ public class PlayerControler : MonoBehaviour
 
             //Setup Move vector to contain direction from input
             moveVector = value.ReadValue<Vector3>();
-            
+
+        
+            if (value.performed && canMove) // Movement started
+            {
+                if (!isSoundPlaying)
+                {
+                    audioSource.Play();
+                    isSoundPlaying = true; // Mark sound as playing
+                }
+                
+                moveVector = value.ReadValue<Vector3>();
+
+            }
         }
-        else if (value.canceled) //Cancelled
+        else if (value.canceled )// Movement stopped
         {
-            
-
-            //Setup Move vector to Zero
             moveVector = Vector3.zero;
-          
-
-
+            
         }
-
     }
+
 
     //Jump
     public void OnJump(InputAction.CallbackContext value)
