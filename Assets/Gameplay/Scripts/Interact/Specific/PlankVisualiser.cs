@@ -59,8 +59,8 @@ public class PlankVisualiser : MonoBehaviour
             float ranX = Random.Range(0.75f, 0);
             float ranZ = Random.Range(0.75f, 0);
             rb.isKinematic = false;
-            //rb.AddTorque(ranX*20,ranZ*20,ranZ*20, ForceMode.Impulse);
             rb.AddForce((Vector3.up + new Vector3(ranX,0,ranZ)) * 15, ForceMode.Impulse);
+            rb.AddTorque(30000f,40000f, 40f, ForceMode.Acceleration);
          }
       }
       yield return new WaitForSeconds(1);

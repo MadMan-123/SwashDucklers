@@ -24,6 +24,7 @@ public class Leak : Interactable
     [SerializeField] private float cameraTargetWeight=1;
     [SerializeField] private float cameraTargetRadius = 3.5f;
     private bool start = false;
+    public bool tutLeak = false;
     private void Start()
     {
         Random.seed = System.DateTime.Now.Millisecond;
@@ -33,21 +34,40 @@ public class Leak : Interactable
     private void OnEnable()
     {
         count = 0;
-        foreach (GameObject effect in leakEffect) { effect.SetActive(false); }
-        int num = Random.Range(0, doubleRarity);
-        active = num < doubleRarity-1 ? 0 : 1;
-        leakEffect[active].SetActive(true);
-        toRepair = active+1;
-        //reset the count
-        if(start){plankVisualiser.LeakSpawn(active);}
-        health = FindObjectOfType<ShipHealth>();
-        //effect the ship health
+            
+            foreach (GameObject effect in leakEffect)
+            {
+                effect.SetActive(false);
+            }
+            if (tutLeak)
+            {
+                leakEffect[0].SetActive(true);
+                toRepair = 1;
+                plankVisualiser.LeakSpawn(active);
+            }
+            else if (!tutLeak)
+            {
+
+            int num = Random.Range(0, doubleRarity);
+            active = num < doubleRarity - 1 ? 0 : 1;
+
+            leakEffect[active].SetActive(true);
+            toRepair = active + 1;
+            //reset the count
+            if (start)
+            {
+                plankVisualiser.LeakSpawn(active);
+            }
+
+            health = FindObjectOfType<ShipHealth>();
+            //effect the ship health
 
 
-        health.DamageShip(damage);
-        //health.dmgRate += leakAmmount;
-        target.AddMember(transform, cameraTargetWeight,cameraTargetRadius);
-        start = true;
+            health.DamageShip(damage);
+            //health.dmgRate += leakAmmount;
+            target.AddMember(transform, cameraTargetWeight, cameraTargetRadius);
+            start = true;
+        }
     }
 
     public void Repaired(GameObject source)
@@ -82,10 +102,11 @@ public class Leak : Interactable
 
     void DisableLogic()
     {
+        RepairAnim(bigRepairAnim);
+        if (tutLeak) return;
          if(cam == null) return;
          health.RepairShip(damage);
-        
-         RepairAnim(bigRepairAnim);
+         
          
          ScoreManager.Instance.AddScore(10);
          target.RemoveMember(transform);

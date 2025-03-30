@@ -49,11 +49,12 @@ public class TutorialManager : MonoBehaviour
         grabImage.SetActive(false);
         slapImage.SetActive(false);
         timmyTurnersDad.SetActive(false);
-
+        
         exampleLeak.SetActive(false);
         leakArrow.SetActive(false);
         moreExampleLeaks.SetActive(false);
 
+        InitialiseLeaks();
         examplePlanks.SetActive(false);
         plankArrow.SetActive(false);
 
@@ -94,6 +95,15 @@ public class TutorialManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void InitialiseLeaks()
+    {
+        exampleLeak.GetComponent<Leak>().tutLeak = true;
+        for (int i = 0; i < moreExampleLeaks.transform.childCount; i++)
+        {
+            moreExampleLeaks.transform.GetChild(i).GetComponent<Leak>().tutLeak = true;
+        }
     }
 
     public void triggerFlag()
