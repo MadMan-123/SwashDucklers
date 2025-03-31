@@ -89,6 +89,15 @@ public class MenuManager : MonoBehaviour
         StartTransition.SetActive(true);
         yield return new WaitForSeconds(1f);
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
+        //UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scene);
+        //AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scene);
+
+        //while (!asyncLoad.isDone)
+        //{
+        //   yield return null;
+        //}
+
+        //return null;
     }
 
     // public void LoadGameOver()
