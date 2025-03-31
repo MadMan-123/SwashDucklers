@@ -36,6 +36,10 @@ public class ShipHealth : MonoBehaviour
     public static ShipHealth instance;
     //private CinemachineVirtualCamera vCam;
 
+    //Death animation stuff
+    [Header("Death Animation Stuff")]
+    [SerializeField] private CinemachineTargetGroup cameraTarget;
+    [SerializeField] GameObject DeathPlane;
 
     private void Awake()
     {
@@ -91,6 +95,20 @@ public class ShipHealth : MonoBehaviour
         {
             gm.gameOver = true;
             StartCoroutine(Death());
+        }
+
+        if (shipDestroyed)
+        {
+            //Death animation -SD
+            currentShipHeight = currentShipHeight - 0.01f;
+            ship.transform.position =
+               new Vector3(ship.transform.position.x, currentShipHeight, ship.transform.position.z);
+
+            //UnfocusCamera
+            cameraTarget.m_Targets = new CinemachineTargetGroup.Target[0];
+
+            //Disable Death Plane
+            DeathPlane.SetActive(false);
         }
 
     }
