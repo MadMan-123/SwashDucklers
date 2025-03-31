@@ -74,6 +74,8 @@ public class ShipHealth : MonoBehaviour
     void Update()
     {
 
+        shipAnim.SetInteger("Ship Health", (int)shipHealth);
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             DamageShip(5);
@@ -90,6 +92,7 @@ public class ShipHealth : MonoBehaviour
             gm.gameOver = true;
             StartCoroutine(Death());
         }
+
     }
 
     // Update is called once per frame
