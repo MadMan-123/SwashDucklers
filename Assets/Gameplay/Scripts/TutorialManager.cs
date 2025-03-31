@@ -34,6 +34,9 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] GameObject StartTransition;
 
     [SerializeField] int flagsTriggered = 0;
+    
+    [SerializeField] Coroutine typingCoroutine;
+
 
     // Start is called before the first frame update
     void Start()
@@ -257,18 +260,27 @@ public class TutorialManager : MonoBehaviour
         //UnityEngine.SceneManagement.SceneManager.LoadScene("Boat Scene");
     }
 
-    private IEnumerator TypeText(string Text)
+    private IEnumerator TypeText(string text)
     {
-
-        tutorialText.text = "";//Blank out text
-
-        //Type in all text
-        for (int i = 0; i < Text.Length; i++)
+        
+        if (typingCoroutine != null)
         {
-            tutorialText.text = tutorialText.text + Text[i];
-            yield return new WaitForSeconds(0.05f);
+            StopCoroutine(typingCoroutine);
         }
 
+        typingCoroutine = StartCoroutine(TypeTextCoroutine(text));
+        yield return typingCoroutine; 
+    }
+
+    private IEnumerator TypeTextCoroutine(string text)
+    {
+        tutorialText.text = ""; // Clear previous text
+
+        foreach (char c in text)
+        {
+            tutorialText.text += c;
+            yield return new WaitForSeconds(0.05f); // Typing speed
+        }
     }
 
     //Starts transition animation and waits till its done before moving scene
