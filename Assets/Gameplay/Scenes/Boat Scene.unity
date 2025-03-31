@@ -2954,7 +2954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &482245466
 Transform:
   m_ObjectHideFlags: 0
@@ -17877,10 +17877,10 @@ MonoBehaviour:
   tentacleDeployedTime: 5
   waitBetweenTents: 5
   tentacleObjects:
+  - {fileID: 2023198573}
+  - {fileID: 270517992}
   - {fileID: 482245465}
-  - {fileID: 482245465}
-  - {fileID: 482245465}
-  - {fileID: 482245465}
+  - {fileID: 1675852833}
   shouldDebug: 0
 --- !u!4 &1961987635 stripped
 Transform:
