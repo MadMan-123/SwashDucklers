@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SkipTutorial : MonoBehaviour
 {
+
+    [SerializeField] GameObject StartTransition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,12 +23,27 @@ public class SkipTutorial : MonoBehaviour
 
     public void Skip()
     {
-        SceneManager.LoadScene("Boat Scene");
+        //SceneManager.LoadScene("Boat Scene");
+        StartCoroutine(Transition("Boat Scene"));
     }
 
     public void dontSkip()
     {
-        SceneManager.LoadScene("island tutorial test");
+        //SceneManager.LoadScene("island tutorial test");
+        StartCoroutine(Transition("island tutorial test"));
+    }
+
+
+    //Starts transition animation and waits till its done before moving scene
+    //Ive coppied this into a bunch of scripts ideally we could set it up to be usable in any scene
+    //It also would probably be better if the time wasnt hardcoded, and the animation had a loop while the next scene loads
+    //-SD
+    private IEnumerator Transition(string scene)
+    {
+
+        StartTransition.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
     }
 
 }

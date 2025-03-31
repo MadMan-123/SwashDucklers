@@ -31,6 +31,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] GameObject cannonballs;
     [SerializeField] GameObject carboardKraken;
 
+    [SerializeField] GameObject StartTransition;
+
     [SerializeField] int flagsTriggered = 0;
 
     // Start is called before the first frame update
@@ -251,7 +253,8 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("Good luck! and try not to sink!"));
         yield return new WaitForSeconds(5f);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Boat Scene");
+        StartCoroutine(Transition("Boat Scene"));
+        //UnityEngine.SceneManagement.SceneManager.LoadScene("Boat Scene");
     }
 
     private IEnumerator TypeText(string Text)
@@ -266,6 +269,18 @@ public class TutorialManager : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
+    }
+
+    //Starts transition animation and waits till its done before moving scene
+    //Ive coppied this into a bunch of scripts ideally we could set it up to be usable in any scene
+    //It also would probably be better if the time wasnt hardcoded, and the animation had a loop while the next scene loads
+    //-SD
+    private IEnumerator Transition(string scene)
+    {
+
+        StartTransition.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
     }
 
 }

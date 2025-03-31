@@ -1,11 +1,14 @@
 using UnityEngine;
+using System.Collections;
 
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance;
     
     public GameObject gameOverPanel;
-    
+
+    [SerializeField] GameObject StartTransition;
+
     //singleton pattern
     private void Awake()
     {
@@ -23,7 +26,8 @@ public class MenuManager : MonoBehaviour
     public void LoadScene(int index)
     {
         // Load the scene
-        UnityEngine.SceneManagement.SceneManager.LoadScene(index);
+        StartCoroutine(Transition(index));
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(index);
     }
     
     public void ExitGame()
@@ -75,19 +79,30 @@ public class MenuManager : MonoBehaviour
         Cursor.visible = false;
     }
 
+    //Starts transition animation and waits till its done before moving scene
+    //Ive coppied this into a bunch of scripts ideally we could set it up to be usable in any scene
+    //It also would probably be better if the time wasnt hardcoded, and the animation had a loop while the next scene loads
+    //-SD
+    private IEnumerator Transition(int scene)
+    {
 
-   // public void LoadGameOver()
+        StartTransition.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
+    }
+
+    // public void LoadGameOver()
     //{
-     //   if (!gameOverPanel)
-     //   {
-     //       #if UNITY_EDITOR
-     //                   Debug.LogError("No Game Over Panel found.");
-     //       #endif
-      //  }
-        //pause the game
+    //   if (!gameOverPanel)
+    //   {
+    //       #if UNITY_EDITOR
+    //                   Debug.LogError("No Game Over Panel found.");
+    //       #endif
+    //  }
+    //pause the game
     //    PauseGame();
     //    LoadScene(4);
-        //
+    //
 
     //
 }

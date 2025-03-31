@@ -23,6 +23,8 @@ public class UiPlayerControler : MonoBehaviour
 
     [SerializeField] List<Hat> hatList;
 
+    [SerializeField] GameObject StartTransition;
+
     private GameObject joinText1;
     private GameObject joinText2;
     private GameObject joinText3;
@@ -89,7 +91,8 @@ public class UiPlayerControler : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton9))
                 {
-                    UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial debug screen");
+                    //UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial debug screen");
+                    StartCoroutine(Transition("Tutorial debug screen"));
                 }
 
             }
@@ -105,7 +108,7 @@ public class UiPlayerControler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
-            //Disbled for demo day -SD
+            StartCoroutine(Transition("Title Screen"));
             //UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
 
@@ -192,6 +195,18 @@ public class UiPlayerControler : MonoBehaviour
 
         //PlayerStats.playerNo = PlayerStats.playerNo - 1;
 
+    }
+
+    //Starts transition animation and waits till its done before moving scene
+    //Ive coppied this into a bunch of scripts ideally we could set it up to be usable in any scene
+    //It also would probably be better if the time wasnt hardcoded, and the animation had a loop while the next scene loads
+    //-SD
+    private IEnumerator Transition(string scene)
+    {
+
+        StartTransition.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
     }
 
 }
