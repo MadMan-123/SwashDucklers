@@ -100,18 +100,5 @@ public class MenuManager : MonoBehaviour
         //return null;
     }
 
-    // public void LoadGameOver()
-    //{
-    //   if (!gameOverPanel)
-    //   {
-    //       #if UNITY_EDITOR
-    //                   Debug.LogError("No Game Over Panel found.");
-    //       #endif
-    //  }
-    //pause the game
-    //    PauseGame();
-    //    LoadScene(4);
-    //
 
-    //
 }

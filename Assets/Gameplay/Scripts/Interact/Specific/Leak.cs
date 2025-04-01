@@ -27,7 +27,6 @@ public class Leak : Interactable
     public bool tutLeak = false;
     private void Start()
     {
-        Random.seed = System.DateTime.Now.Millisecond;
         cam = Camera.main?.gameObject; 
     }
 

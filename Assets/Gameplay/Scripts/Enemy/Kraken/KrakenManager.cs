@@ -43,8 +43,15 @@ public class KrakenManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(krakenBodyAsset.TryGetComponent(out Animator krakenAnimator)){krakenBodyAnimator = krakenAnimator;}
-        if(tentacles.TryGetComponent(out TentacleAI tentAI)){tentacleAI = tentAI;}
+        if (!krakenBodyAsset.TryGetComponent(out krakenBodyAnimator))
+        {
+            Debug.LogError("Kraken Body Animator not found");
+        }
+
+        if (!tentacles.TryGetComponent(out tentacleAI))
+        {
+            Debug.LogError("Tentacle AI not found");
+        }
             
         if (StageParameters.krakenEnabled == true)
         {
@@ -60,7 +67,7 @@ public class KrakenManager : MonoBehaviour
         }
         else
         {
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 
@@ -78,7 +85,7 @@ public class KrakenManager : MonoBehaviour
         yield return new WaitForSeconds(bodySpawns);
         krakenBody.SetActive(true);
         krakenHealth.SetActive(true);
-        SoundManager.PlayAudioClip("KrakenSpawn", this.transform.position, 1f);
+        SoundManager.PlayAudioClip("KrakenSpawn", transform.position, 1f);
         cameraTarget.AddMember(krakenBody.transform, cameraPullWeight, cameraPullRadius);
         
         //tell the environment manager to stop moving objects
@@ -104,7 +111,7 @@ public class KrakenManager : MonoBehaviour
     //Function called by cannons when fired -SD
     public void krakenHit()
     {
-        SoundManager.PlayAudioClip("KrakenHit", this.transform.position, 2f);
+        SoundManager.PlayAudioClip("KrakenHit", transform.position, 2f);
         krakenHud.KrakenHit();
         
         if (!health.IsDead)

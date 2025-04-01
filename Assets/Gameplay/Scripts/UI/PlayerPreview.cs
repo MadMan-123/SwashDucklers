@@ -31,69 +31,50 @@ public class PlayerPreview : MonoBehaviour
 
     }
 
+    void SetHatLogic()
+    {
+        var hatToCheck = playerID switch
+        {
+            0 => PlayerStats.player1Hat,
+            1 => PlayerStats.player2Hat,
+            2 => PlayerStats.player3Hat,
+            3 => PlayerStats.player4Hat,
+            _ => 0
+        };
+        
+        
+        //Set Color
+        if (hatToCheck != currentHat) //This if prevents unnessisary reinstantiation each frame
+        {
+            Destroy(hat);
+            if (PlayerStats.Hatlist[PlayerStats.player1Hat].model != null)
+            {
+                hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player1Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player1Hat].previewPosition, transform.rotation, hatTransform);
+            }
+            currentHat = PlayerStats.player1Hat;
+        }
+    }
+    
     // Update is called once per frame
     void Update()
     {
-
-        //Debug.Log(PlayerStats.player1Hat);
-
-        //Debug.Log(PlayerStats.Hatlist[PlayerStats.player1Hat].name);
-
+        
         //Get Color and hats
-        switch (playerID)
+        SetHatLogic(); 
+        
+        litColor = playerID switch
         {
-            case 0:
-                litColor = PlayerStats.player1Color;
-                if (PlayerStats.player1Hat != currentHat) //This if prevents unnessisary reinstantiation each frame
-                {
-                    Destroy(hat);
-                    if (PlayerStats.Hatlist[PlayerStats.player1Hat].model != null)
-                    {
-                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player1Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player1Hat].previewPosition, transform.rotation, hatTransform);
-                    }
-                    currentHat = PlayerStats.player1Hat;
-                    Debug.Log(hat);
-                }
-                break;
-            case 1:
-                litColor = PlayerStats.player2Color;
-                if (PlayerStats.player2Hat != currentHat)
-                {
-                    Destroy(hat);
-                    if (PlayerStats.Hatlist[PlayerStats.player2Hat].model != null)
-                    {
-                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player2Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player2Hat].previewPosition, transform.rotation, hatTransform);
-                    }
-                    currentHat = PlayerStats.player2Hat;
-                }
-                break;
-            case 2:
-                litColor = PlayerStats.player3Color;
-                if (PlayerStats.player3Hat != currentHat)
-                {
-                    Destroy(hat);
-                    if (PlayerStats.Hatlist[PlayerStats.player3Hat].model != null)
-                    {
-                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player3Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player3Hat].previewPosition, transform.rotation, hatTransform);
-                    }
-                    currentHat = PlayerStats.player3Hat;
-                }
-                break;
-            case 3:
-                litColor = PlayerStats.player4Color;
-                if (PlayerStats.player4Hat != currentHat)
-                {
-                    Destroy(hat);
-                    if (PlayerStats.Hatlist[PlayerStats.player4Hat].model != null)
-                    {
-                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player4Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player4Hat].previewPosition, transform.rotation, hatTransform);
-                    }
-                    currentHat = PlayerStats.player4Hat;
-                }
-                break;
-        }
-
+            0 => PlayerStats.player1Color,
+            1 => PlayerStats.player2Color,
+            2 => PlayerStats.player3Color,
+            3 => PlayerStats.player4Color,
+            _ => Color.white
+        };
+        
+        
         //Set Color
         bodyRenderer.material.SetColor("_Color", litColor); //Light Color
+        
+        
     }
 }

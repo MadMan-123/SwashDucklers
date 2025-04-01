@@ -55,12 +55,13 @@ public class GameTimer : MonoBehaviour
 
         if (currentTime < endTime)
         {
-            currentTime = currentTime + 1 * Time.deltaTime;
+            currentTime += 1 * Time.deltaTime;
         }
         else 
         {
             currentTime = endTime;
             //GAME WON
+            //todo: remove magic string
             UnityEngine.SceneManagement.SceneManager.LoadScene("WinScreen");
         }
 

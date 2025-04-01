@@ -55,7 +55,7 @@ public class ScoreManager : MonoBehaviour
         UpdateText();
     }
     //ensure the score is not negative 
-    private int ClampScore(int value) => value < 0 ? 0 : value;
+    private static int ClampScore(int value) => value < 0 ? 0 : value;
     
     //update the score text
     private void UpdateText()

@@ -48,23 +48,8 @@ public class PlayerManager : MonoBehaviour
         //Spawn joined players
         for (int i = 0; i < PlayerStats.playerNo; i++)
         {
-            switch (i)
-            {
-                case 0:
-                    PlayerInput.Instantiate(playerPrefab, i, null, -1, PlayerStats.player1input);
-                    break;
-                case 1:
-                    PlayerInput.Instantiate(playerPrefab, i, null, -1, PlayerStats.player2input);
-                    break;
-                case 2:
-                    PlayerInput.Instantiate(playerPrefab, i, null, -1, PlayerStats.player3input);
-                    break;
-                case 3:
-                    PlayerInput.Instantiate(playerPrefab, i, null, -1, PlayerStats.player4input);
-                    break;
-            }
-            
-            /*var currentInputState = i switch
+           
+            var currentInputState = i switch
             {
                 0 => PlayerStats.player1input,
                 1 => PlayerStats.player2input,
@@ -74,16 +59,11 @@ public class PlayerManager : MonoBehaviour
             };
 
             
-            PlayerInput.Instantiate(playerPrefab, i, null, -1, currentInputState);*/
+            PlayerInput.Instantiate(playerPrefab, i, null, -1, currentInputState);
       
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void OnPlayerJoined(PlayerInput player)
     {
@@ -97,27 +77,26 @@ public class PlayerManager : MonoBehaviour
         pc.playerCameraWeight = playerCameraWeight;
         pc.playerCameraRadius = playerCameraRadius;
         //cameraTarget.AddMember(player.transform, 3, 2.5f);
-
-        switch (player.playerIndex)
+        var spawn = player.playerIndex switch
         {
-            case 0:
-               player.GetComponent<PlayerControler>().spawnpoint = player1Spawn;
-                player.GetComponent<PlayerControler>().spawnRotation = player1SpawnRotation;
-                break;
-            case 1:
-                player.GetComponent<PlayerControler>().spawnpoint = player2Spawn;
-                player.GetComponent<PlayerControler>().spawnRotation = player2SpawnRotation;
-                break;
-            case 2:
-                player.GetComponent<PlayerControler>().spawnpoint = player3Spawn;
-                player.GetComponent<PlayerControler>().spawnRotation = player2SpawnRotation;
-                break;
-            case 3:
-                player.GetComponent<PlayerControler>().spawnpoint = player4Spawn;
-                player.GetComponent<PlayerControler>().spawnRotation = player4SpawnRotation;
-                break;
-        }
-
+            0 => player1Spawn,
+            1 => player2Spawn,
+            2 => player3Spawn,
+            3 => player4Spawn,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        var rotation = player.playerIndex switch
+        {
+            0 => player1SpawnRotation,
+            1 => player2SpawnRotation,
+            2 => player3SpawnRotation,
+            3 => player4SpawnRotation,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        pc.spawnpoint = spawn;
+        pc.spawnRotation = rotation;
     }
 
     public void OnPlayerLeft(PlayerInput player)

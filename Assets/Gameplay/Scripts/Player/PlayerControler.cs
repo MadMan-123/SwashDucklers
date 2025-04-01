@@ -569,7 +569,11 @@ public class PlayerControler : MonoBehaviour
             }
             Quack.Play(0);
             //changing localScale.y /2 to 0.5f has 0 difference and does not fix the qwack clipping issue - MW
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / 2, transform.localScale.z);
+            var localScale = transform.localScale;
+            localScale = new Vector3(localScale.x, localScale.y / 2, localScale.z);
+            
+            
+            transform.localScale = localScale;
             //ensuring the player is not placed below the ground is what we want to do here. -MW
             
             
@@ -648,20 +652,6 @@ public class PlayerControler : MonoBehaviour
             }
         }
 
-            //if (collision.gameObject.CompareTag("Player"))
-            //{
-            //    Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
-            //    Vector3 forceDirection = Vector3.Normalize(((collision.gameObject.transform.position - transform.position) * (bumpForce / 100) + (transform.up * (bumpForceUp / 100))));
-
-            //Debug.Log(rb.velocity.magnitude);
-            //if (rb.velocity.magnitude > 1.55)  //before anyone asks yes this is hella inefficient, however if it aint broke then dont fix it / testing - TS
-            //{
-            //     forceDirection = Vector3.Normalize(((collision.gameObject.transform.position - transform.position) * (bumpForce / 50) + (transform.up * (bumpForceUp / 50))));
-            //}
-            //rb.AddForce(forceDirection, ForceMode.Impulse);
-        
-            //StartCoroutine(TempDisableMovement(0.2f));
-        //}
         
     }
 
@@ -773,7 +763,6 @@ public class PlayerControler : MonoBehaviour
 
     public void ToggleCamera(bool value)
     {
-        //print("Hello");
         if (value)
         {
             cameraTarget.AddMember(

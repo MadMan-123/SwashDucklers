@@ -18,23 +18,32 @@ public class TentacleAI : MonoBehaviour
     
     
     //COMMIT 500 baby
-    private void Start()
-    {
-        Random.seed = System.DateTime.Now.Millisecond;
-    }
 
     void OnEnable()
     {
-        foreach (GameObject obj in tentacleObjects)
+        for (var i = 0; i < tentacleObjects.Length; i++)
+        {
+            var obj = tentacleObjects[i];
             obj.SetActive(false);
+        }
+
         tentIndex = Random.Range(0, tentacleObjects.Length);
-        var routine = EnableTentacle(tentIndex);
+
+        var routine = EnableTentacle();
 
         StartCoroutine(routine);
         //lastCalled = tentAttack;
     }
 
-    private IEnumerator EnableTentacle(int tentIndex, float animationTime = 0.5f)
+
+    /*
+    private IEnumerator GetNewTentacle()
+    {
+        //wait some time before picking the new tentacle
+    }
+    */
+    
+    private IEnumerator EnableTentacle( float animationTime = 0.5f)
     {
         var tentacle = tentacleObjects[tentIndex];
         yield return new WaitForSeconds(animationTime);
@@ -51,7 +60,9 @@ public class TentacleAI : MonoBehaviour
     }
     private void OnDisable()
     {
-        foreach (GameObject obj in tentacleObjects)
-            obj.SetActive(false);
+        for (var i = 0; i < tentacleObjects.Length; i++)
+        { 
+            tentacleObjects[i].SetActive(false);
+        }
     }
 }
