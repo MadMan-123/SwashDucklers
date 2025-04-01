@@ -91,7 +91,7 @@ public class Cannon : Interactable
         cannonball.transform.rotation = cannonballSpawnPoint.rotation;
         cannonballParticles.Play();
 
-        SoundManager.PlayAudioClip("CannnonFire", this.transform.position, 1f);
+        SoundManager.PlayAudioClip("CannonFire", this.transform.position, 1f);
 
         if (cannonball.TryGetComponent(out Rigidbody rb))
         {
