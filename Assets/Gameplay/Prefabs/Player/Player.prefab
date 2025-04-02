@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 6894795556538600543}
   - component: {fileID: 5690518441012888640}
   m_Layer: 3
-  m_Name: pHEALTH
+  m_Name: pName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,9 +129,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'HP:0%
-
-'
+  m_text: "Player \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -158,8 +156,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -424,12 +422,12 @@ GameObject:
   - component: {fileID: 5663198787297592277}
   - component: {fileID: 8343751771011976796}
   m_Layer: 3
-  m_Name: Canvas
+  m_Name: PlayerName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6714344321790105249
 RectTransform:
   m_ObjectHideFlags: 0
@@ -437,7 +435,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5170347533810196564}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.032063544, y: 0.032063544, z: 0.032063544}
   m_ConstrainProportionsScale: 0
@@ -619,6 +617,7 @@ MonoBehaviour:
   darkColor: {r: 0, g: 0, b: 0, a: 0}
   animator: {fileID: 2844649528853964558}
   canMove: 1
+  idText: {fileID: 5690518441012888640}
   isGamepad: 0
   interactRumble:
     lowFRumble: 0.01
@@ -988,6 +987,28 @@ MonoBehaviour:
   shouldDebug: 0
   cam: {fileID: 0}
   vfxHolder: {fileID: 0}
+  colliders:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  tracked:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   howFar: 0.45
   offset: {x: 0, y: -0.1, z: 0}
   interactCooldown: 0.5
