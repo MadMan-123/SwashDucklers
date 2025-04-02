@@ -52,6 +52,8 @@ public class Interactor : MonoBehaviour
 
     private void Update()
     {
+        //clear the colliders array
+        Array.Clear(colliders, 0, colliders.Length);
         Physics.OverlapSphereNonAlloc((transform.position + offset) + (transform.forward * howFar), slapRadius, colliders);
        
         var valid = colliders.Where(col => col!=null).ToList();
@@ -128,7 +130,7 @@ public class Interactor : MonoBehaviour
 
         var count = Physics.OverlapSphereNonAlloc((transform.position + offset) + (transform.forward * howFar), slapRadius, colliders);
 
-        var valid = colliders.Where(col => col!=null && TryGetComponent(out Interactable interactable)).ToList();
+        var valid = colliders.Where(col => col!=null && col.gameObject != gameObject).ToList();
         GameObject tracked = null;
         List<Rigidbody> rigidBodies = new(10);
         //go through and check if we can interact
