@@ -35,49 +35,46 @@ public class PlayerUI : MonoBehaviour
 
     public bool isReady = false;
 
+
+    private void PlayerUIHandle()
+    {
+        //get the correct player input
+        var input = this.playerInput.playerIndex switch
+        {
+            0 => PlayerStats.player1input,
+            1 => PlayerStats.player2input,
+            2 => PlayerStats.player3input,
+            3 => PlayerStats.player4input,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        //get the colours
+        var colour = playerInput.playerIndex switch
+        {
+            0 => PlayerStats.player1Color,
+            1 => PlayerStats.player2Color,
+            2 => PlayerStats.player3Color,
+            3 => PlayerStats.player4Color,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        input = playerInput.devices[0]; //Set device
+        red = colour.r; //Default Colors
+        green = colour.g; ;
+        blue = colour.b; ;
+        playerSprite.sprite = playerTextSprites[0];
+        //PlayerText.text = "Player 1";
+                
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
 
         playerInput = GetComponent<PlayerInput>();
 
-        //Set device for this player
-        switch (playerInput.playerIndex)
-        {
-            case 0:
-                PlayerStats.player1input = playerInput.devices[0]; //Set device
-                red = PlayerStats.player1Color.r; //Default Colors
-                green = PlayerStats.player1Color.g; ;
-                blue = PlayerStats.player1Color.b; ;
-                playerSprite.sprite = playerTextSprites[0];
-                //PlayerText.text = "Player 1";
-                break;
-            case 1:
-                PlayerStats.player2input = playerInput.devices[0];
-                red = PlayerStats.player2Color.r; //Default Colors
-                green = PlayerStats.player2Color.g; ;
-                blue = PlayerStats.player2Color.b; ;
-                playerSprite.sprite = playerTextSprites[1];
-                //PlayerText.text = "Player 2";
-                break;
-            case 2:
-                PlayerStats.player3input = playerInput.devices[0];
-                red = PlayerStats.player3Color.r; //Default Colors
-                green = PlayerStats.player3Color.g; ;
-                blue = PlayerStats.player3Color.b; ;
-                playerSprite.sprite = playerTextSprites[2];
-                //PlayerText.text = "Player 3";
-                break;
-            case 3:
-                PlayerStats.player4input = playerInput.devices[0];
-                red = PlayerStats.player4Color.r; //Default Colors
-                green = PlayerStats.player4Color.g; ;
-                blue = PlayerStats.player4Color.b; ;
-                playerSprite.sprite = playerTextSprites[3];
-                //PlayerText.text = "Player 4";
-                break;
-        }
-
+        PlayerUIHandle();
+              
         R.value = red;
         G.value = green;
         B.value = blue;
@@ -155,14 +152,14 @@ public class PlayerUI : MonoBehaviour
             isReady = true;
             ReadyIcon.SetActive(true);
             readyButton.sprite = readySprites[1];
-            PlayerStats.readyPlayers = PlayerStats.readyPlayers + 1;
+            PlayerStats.readyPlayers++;
         }
         else
         {
             isReady = false;
             ReadyIcon.SetActive(false);
             readyButton.sprite = readySprites[0];
-            PlayerStats.readyPlayers = PlayerStats.readyPlayers - 1;
+            PlayerStats.readyPlayers--;
         }
     }
 

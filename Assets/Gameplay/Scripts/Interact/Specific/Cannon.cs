@@ -31,6 +31,8 @@ public class Cannon : Interactable
         } 
         cannonballParticles = this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
         anim = this.transform.gameObject.GetComponent<Animator>();
+        
+        TryGetOutlineMaterials();
     }
 
     public void Fire(GameObject Source)

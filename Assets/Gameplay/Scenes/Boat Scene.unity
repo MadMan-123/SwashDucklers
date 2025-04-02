@@ -745,7 +745,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 08de252f79c36064da7b77e3e9b1673c, type: 2}
+      objectReference: {fileID: 2100000, guid: 08fb21db49d04e3448cba0cd53954ac9, type: 2}
     - target: {fileID: 9142333337070584888, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: m_Name
@@ -8091,7 +8091,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 08de252f79c36064da7b77e3e9b1673c, type: 2}
+      objectReference: {fileID: 2100000, guid: 08fb21db49d04e3448cba0cd53954ac9, type: 2}
     - target: {fileID: 9142333337070584888, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: m_Name
@@ -14958,6 +14958,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   itemRequired: -1
+  outlineMaterials: []
 --- !u!136 &1529406051
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -20256,6 +20257,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   itemRequired: 2
+  outlineMaterials: []
 --- !u!1001 &2124061314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21170,6 +21172,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlankStack
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708445309521886351, guid: 0ea83d9e89bbe1648bbbf5254c80280b,
+        type: 3}
+      propertyPath: outlineMaterials.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7012375058897915608, guid: 0ea83d9e89bbe1648bbbf5254c80280b,
         type: 3}

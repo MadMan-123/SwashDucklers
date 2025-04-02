@@ -30,9 +30,9 @@ public class Interactor : MonoBehaviour
     [SerializeField] private Transform cam;
     [SerializeField] private Transform vfxHolder;
 
-    
-    Collider[] colliders = new Collider[10];
-    Collider[] prevColliders = new Collider[10];
+
+    [SerializeField] private Collider[] colliders = new Collider[10];
+    [SerializeField] private Collider[] tracked = new Collider[10];
     [SerializeField] private float howFar = 0.45f;
     [SerializeField] private Vector3 offset = new(0,-0.1f,0);
     [SerializeField] private float interactCooldown = 1f;
@@ -52,30 +52,54 @@ public class Interactor : MonoBehaviour
 
     private void Update()
     {
-        var count = Physics.OverlapSphereNonAlloc((transform.position + offset) + (transform.forward * howFar), slapRadius, colliders);
-        var valid = colliders.Where(col => col!=null && TryGetComponent(out Interactable interactable)).ToList();
-        if (valid.Count != 0)
-        {
-            for (int i = 0; i < valid.Count-1; i++) { valid[i].GetComponent<Interactable>().ToggleFlash(true); }
+        Physics.OverlapSphereNonAlloc((transform.position + offset) + (transform.forward * howFar), slapRadius, colliders);
+       
+        var valid = colliders.Where(col => col!=null).ToList();
 
-            for (int i = 0; i < prevColliders.Length; i++)
-            {
-                for (var j = 0; j < valid.Count-1; j++)
-                {
-                    if (prevColliders[i].gameObject.Equals(valid[j].gameObject)){break;}
-                    if(j == valid.Count-1){ prevColliders[i].GetComponent<Interactable>().ToggleFlash(false);}
-                }
-                
-            }
-        }
-        else
+        for (int i = 0; i < valid.Count; i++)
         {
-            for (var i = 0; i < prevColliders.Length; i++)
+            //if the object is already being tracked, skip
+            if (tracked.Contains(valid[i])) continue;
+            
+            valid[i].TryGetComponent(out Interactable interactable); 
+            
+            if (interactable == null) continue;
+            
+            //try to flash the object
+            interactable.ToggleFlash(true);
+           
+            print("Flashing");
+            
+            //add to the tracked list
+            
+            //get a valid index
+            var index = Array.FindIndex(tracked, col => col == null);
+            
+            //if the index is valid
+            if (index != -1)
             {
-                if (prevColliders[i] != null && prevColliders[i].TryGetComponent(out Interactable interactable)) {interactable.ToggleFlash(false); }
+                tracked[index] = valid[i];
             }
         }
-        prevColliders = colliders;
+        
+        
+        //go through the tracked list and check if the object is still in range
+        for (int i = 0; i < tracked.Length; i++)
+        {
+            //if the object is null, skip
+            if (tracked[i] == null) continue;
+            
+            //if the object is still in range, skip
+            if (valid.Contains(tracked[i])) continue;
+            
+            //if the object is out of range, stop flashing
+            tracked[i].TryGetComponent(out Interactable interactable);
+            interactable.ToggleFlash(false);
+            
+            //remove from the tracked list
+            tracked[i] = null;
+        }
+        
     }
 
     private void TryInteract()
@@ -104,13 +128,14 @@ public class Interactor : MonoBehaviour
 
         var count = Physics.OverlapSphereNonAlloc((transform.position + offset) + (transform.forward * howFar), slapRadius, colliders);
 
+        var valid = colliders.Where(col => col!=null && TryGetComponent(out Interactable interactable)).ToList();
         GameObject tracked = null;
         List<Rigidbody> rigidBodies = new(10);
         //go through and check if we can interact
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < valid.Count; i++)
         {
             //check if the collider has a rigidbody
-            if (colliders[i].TryGetComponent(out Rigidbody rb))
+            if (valid[i].TryGetComponent(out Rigidbody rb))
             {
                 rigidBodies.Add(rb);
             }
