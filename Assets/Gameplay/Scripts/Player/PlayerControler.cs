@@ -24,6 +24,7 @@ public class PlayerControler : MonoBehaviour
     private float glideTimer;
     private float glideHeight;
     private PlayerInput playerInput;
+    private InputAction displayNames;
     private Rigidbody platform; //Rigidbody of object player is standing on if there is one
     private Vector3 relative0; //A vector representing 0 relative to whatever platform you are currently on
     private Vector3 PrevRelative0; //A vector representing the last platform you where on
@@ -93,7 +94,8 @@ public class PlayerControler : MonoBehaviour
 
         playerInput = GetComponent<PlayerInput>();
         playerID = playerInput.playerIndex;
-
+        displayNames = playerInput.actions["DisplayNames"];
+        displayNames.performed += ctx => StartCoroutine(PlayerNameFade2(false, 1f));
         //Check type on input, used for rumble -SD
         if (playerInput.devices[0] is Gamepad)
         {
@@ -115,7 +117,7 @@ public class PlayerControler : MonoBehaviour
 
         hatposition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
-        StartCoroutine(PlayerNameFade2(2f));
+        StartCoroutine(PlayerNameFade2(true,2f));
         //Get Color and hat
         switch (playerID)
         {
@@ -779,10 +781,15 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayerNameFade2(float time = 5f)
+    private IEnumerator PlayerNameFade2(bool justOut, float time = 5f)
     {
         idText.gameObject.SetActive(true);
         idText.text = $"PLAYER {playerID + 1}";
+        if (!justOut)
+        {
+            idText.CrossFadeAlpha(1f, 0.5f,false );
+            yield return new WaitForSeconds(0.5f);
+        }
         yield return new WaitForSeconds(1f);
         idText.CrossFadeAlpha(0,time,false);
         yield return new WaitForSeconds(time);
