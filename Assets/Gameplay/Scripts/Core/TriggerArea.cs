@@ -37,6 +37,7 @@ public class TriggerArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        SoundManager.PlayAudioClip("Splash", this.transform.position, 1f);
         //if the tag is ignored or the object is already tracked return
         if (((ignoreTag != "" && other.CompareTag(ignoreTag) ) || tracked.Contains(other.gameObject)))
         {

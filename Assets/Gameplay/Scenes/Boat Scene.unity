@@ -2920,7 +2920,7 @@ MonoBehaviour:
   - name: KrakenHurt
     clip: {fileID: 8300000, guid: 829d559992730fa40b30180fd640e1f6, type: 3}
   - name: CannonFire
-    clip: {fileID: 8300000, guid: 32ab912a785144a47969bfbad94ce094, type: 3}
+    clip: {fileID: 8300000, guid: 91c7c32c698d0f041bf93768a89013bb, type: 3}
   - name: Splash
     clip: {fileID: 8300000, guid: bf6b980080c846347a7184cebed8625f, type: 3}
   - name: ShipCreak
@@ -8289,6 +8289,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Transitions
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438033353485847130, guid: 4fbfca26d11a40f4fb038312a31db565,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13749,7 +13754,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -588.9, y: -495.4}
+  m_AnchoredPosition: {x: -606.8, y: -495.4}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1416713295

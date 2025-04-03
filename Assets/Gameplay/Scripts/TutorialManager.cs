@@ -26,11 +26,19 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] GameObject plankArrow;
 
     [SerializeField] EnemySpawner crabs;
-
+    
+    [SerializeField] GameObject carboardKraken;
+    [SerializeField] GameObject cargocrab;
+    [SerializeField] GameObject cargo;
+    
+    
     [SerializeField] GameObject exampleCannons;
     [SerializeField] GameObject cannonballs;
-    [SerializeField] GameObject carboardKraken;
+    
 
+
+  
+    
     [SerializeField] GameObject StartTransition;
 
     [SerializeField] int flagsTriggered = 0;
@@ -62,6 +70,11 @@ public class TutorialManager : MonoBehaviour
 
         crabs.enabled = false;
 
+   
+        cargo.SetActive(false);
+        cargocrab.SetActive(false);
+       
+        
         exampleCannons.SetActive(false);
         cannonballs.SetActive(false);
         carboardKraken.SetActive(false);
@@ -108,6 +121,8 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+
+
     public void triggerFlag()
     {
         flagsTriggered = flagsTriggered + 1;
@@ -122,11 +137,16 @@ public class TutorialManager : MonoBehaviour
     {
         return (flagsTriggered == 5);
     }
-
+    
     bool allLeaksFixed()
     {
         return (flagsTriggered == 10);
     }
+    
+   public bool Cargoretrieved()
+   {
+       return (flagsTriggered == 1);
+   }
 
     bool cannonsFired()
     {
@@ -206,7 +226,20 @@ public class TutorialManager : MonoBehaviour
         crabs.enabled = false;
         exampleLeak.SetActive(false);
         moreExampleLeaks.SetActive(false);
-        examplePlanks.SetActive(false);
+        examplePlanks.SetActive(false); 
+        
+        cargocrab.SetActive(true);
+        cargo.SetActive(true);
+        StartCoroutine(TypeText("This is where id put my cargo tutorial"));
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(TypeText("IF I HAD ONE"));
+        imageBox.SetActive(true);
+        timmyTurnersDad.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        imageBox.SetActive(false);
+        timmyTurnersDad.SetActive(false);
+                                               
+                                               yield return new WaitUntil(Cargoretrieved);
         StartCoroutine(TypeText("Good Job! Theres just one last thing to teach you!"));
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("You might encounter the legendary Kraken!"));
@@ -240,15 +273,8 @@ public class TutorialManager : MonoBehaviour
         StartCoroutine(TypeText("Thats it!, youve really got the hang of this now"));
         yield return new WaitForSeconds(5f);
 
-        //StartCoroutine(TypeText("This is where id put my cargo tutorial"));
-        //yield return new WaitForSeconds(5f);
-        //StartCoroutine(TypeText("IF I HAD ONE"));
-        //imageBox.SetActive(true);
-        //timmyTurnersDad.SetActive(true);
-        //yield return new WaitForSeconds(5f);
-        //imageBox.SetActive(false);
-        //timmyTurnersDad.SetActive(false);
-
+        
+       
         StartCoroutine(TypeText("With that, its time for you to get going!"));
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("Good luck! and try not to sink!"));

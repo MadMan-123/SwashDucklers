@@ -108,7 +108,7 @@ public class AIBrain : MonoBehaviour
             
             walkingID = Animator.StringToHash("IsWalking");
         }
-       
+  
         private void Update()
         {
             //if the agent is not enabled then wait until the agent is on the floor

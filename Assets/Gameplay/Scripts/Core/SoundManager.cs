@@ -39,7 +39,8 @@ public class SoundManager : MonoBehaviour
     {
         if (audioClips.TryGetValue(name, out var clip))
         {
-            AudioSource.PlayClipAtPoint(clip.clip, position, volume);
+            //AudioSource.PlayClipAtPoint(clip.clip, position, volume);
+            AudioSource.PlayClipAtPoint(clip.clip, Camera.main.transform.position, volume);//temp change
         }
     }
 
