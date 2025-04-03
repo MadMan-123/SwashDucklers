@@ -1,3 +1,4 @@
+using TMPro;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -57,6 +58,7 @@ public class PlayerControler : MonoBehaviour
     private GameObject hat;
     private Vector3 hatposition;
     private Coroutine vfxFadeCoroutine;
+    [SerializeField] private TextMeshProUGUI idText;
     //Reference to gamepad for rumble -SD
     public bool isGamepad = false;
     public Gamepad pad;
@@ -113,7 +115,7 @@ public class PlayerControler : MonoBehaviour
 
         hatposition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
-
+        StartCoroutine(PlayerNameFade2(2f));
         //Get Color and hat
         switch (playerID)
         {
@@ -775,5 +777,15 @@ public class PlayerControler : MonoBehaviour
         {
             cameraTarget.RemoveMember(transform);
         }
+    }
+
+    private IEnumerator PlayerNameFade2(float time = 5f)
+    {
+        idText.gameObject.SetActive(true);
+        idText.text = $"PLAYER {playerID + 1}";
+        yield return new WaitForSeconds(1f);
+        idText.CrossFadeAlpha(0,time,false);
+        yield return new WaitForSeconds(time);
+        idText.gameObject.SetActive(false);
     }
 }

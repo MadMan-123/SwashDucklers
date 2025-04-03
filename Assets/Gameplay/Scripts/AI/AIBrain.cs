@@ -406,7 +406,7 @@ public class AIBrain : MonoBehaviour
             return fleePosition;
         }
 
-        IEnumerator WaitForThrowAndDisable(float throwTime = 3f, float disableTime = 1.5f)
+        IEnumerator WaitForThrowAndDisable(float throwTime = 1.5f, float disableTime = 1.5f)
         {
             yield return new WaitForSeconds(throwTime);
             //throw the cargo
