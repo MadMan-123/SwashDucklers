@@ -20858,6 +20858,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
         type: 3}
+      propertyPath: menuPrefab
+      value: 
+      objectReference: {fileID: 7523982353880718671, guid: e37984877413a084aa87c2eb53ee1707,
+        type: 3}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
       propertyPath: shouldDebug
       value: 0
       objectReference: {fileID: 0}
@@ -20932,6 +20938,11 @@ PrefabInstance:
       propertyPath: player4Spawn.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
+        type: 3}
+      propertyPath: pauseMenuHolder
+      value: 
+      objectReference: {fileID: 1799732359}
     - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
         type: 3}
       propertyPath: player1LitColor.b
