@@ -87,6 +87,9 @@ public class PlayerControler : MonoBehaviour
     //On Awake
     private void Awake()
     {
+        //get the camera target group
+        //this is a god awful way to do this, but you guys be setting shit up in the editor weird man, dont hate the player hate the game fool - mw
+        cameraTarget = GameObject.Find("Camera Target").GetComponent<CinemachineTargetGroup>();
         cameraTarget.AddMember(transform, 3, 2.5f);
         //input = new InputManager();
         rb = GetComponent<Rigidbody>();

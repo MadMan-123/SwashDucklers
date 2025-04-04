@@ -11,9 +11,8 @@ public class PlayerMenuController : MonoBehaviour
     
     private PlayerInput playerInput;
     private string previousActionMap;
-    private bool menuOpen = false;
+    public static bool menuOpen = false;
     
-    private static Dictionary<int,bool> activeMenus = new Dictionary<int, bool>();
     
     // Start is called before the first frame update
     private void Awake()
@@ -21,13 +20,14 @@ public class PlayerMenuController : MonoBehaviour
         menuPanel.SetActive(false);
         TryGetComponent(out playerInput);
 
-        activeMenus.TryAdd(playerIndex, false);
     }
     
     public void OnToggleMenu(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !menuOpen)
         {
+            menuOpen = true;
+            //check if the 
             ToggleMenu();
         }
     }
@@ -36,7 +36,6 @@ public class PlayerMenuController : MonoBehaviour
     {
         menuOpen = !menuOpen;
         menuPanel.SetActive(menuOpen);
-        activeMenus[playerIndex] = menuOpen;
         
         if (menuOpen)
         {
@@ -45,6 +44,7 @@ public class PlayerMenuController : MonoBehaviour
         }
         else
         {
+            menuOpen = false;
             playerInput.SwitchCurrentActionMap(previousActionMap);
         }
     }
@@ -54,10 +54,6 @@ public class PlayerMenuController : MonoBehaviour
         return playerIndex == menuOwnerIndex;
     }
     
-    public static bool IsPlayerAllowedToInteract(int playerIndex, int menuOwnerIndex)
-    {
-        return playerIndex == menuOwnerIndex && activeMenus.ContainsKey(menuOwnerIndex) && activeMenus[menuOwnerIndex];
-    }
     
     
 

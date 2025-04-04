@@ -77,10 +77,20 @@ public class PlayerManager : MonoBehaviour
         GameData.Players.Add(player.gameObject);
         Debug.Log("Player joined");
         Debug.Log($"Players:{PlayerStats.playerNo}");
-        var pc = player.GetComponent<PlayerControler>();
-        pc.cameraTarget = cameraTarget;
-        pc.playerCameraWeight = playerCameraWeight;
-        pc.playerCameraRadius = playerCameraRadius;
+        
+        print(player.name + "JOINED");
+        
+        if(player.TryGetComponent(out PlayerControler pc))
+        {
+            
+            
+            pc.playerCameraWeight = playerCameraWeight;
+            pc.playerCameraRadius = playerCameraRadius;
+        }
+        else
+        {
+            print("PlayerControler not found on " + player.name);
+        }
         //cameraTarget.AddMember(player.transform, 3, 2.5f);
         var spawn = player.playerIndex switch
         {

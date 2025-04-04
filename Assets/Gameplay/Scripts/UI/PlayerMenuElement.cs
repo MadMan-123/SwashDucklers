@@ -23,7 +23,7 @@ public class PlayerMenuElement : MonoBehaviour, IPointerClickHandler
         {
             int playerIndex = playerInput.playerIndex;
 
-            if (PlayerMenuController.IsPlayerAllowedToInteract(playerIndex, menuOwnerIndex))
+            if (PlayerMenuController.menuOpen)
             {
                 HandleUIAction();
             }
