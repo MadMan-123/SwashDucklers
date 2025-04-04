@@ -32,6 +32,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private CinemachineTargetGroup cameraTarget;
     [SerializeField] private float playerCameraWeight;
     [SerializeField] private float playerCameraRadius;
+
+    [SerializeField] private GameObject pauseMenuHolder;
+    [SerializeField] private GameObject menuPrefab;
+
+    private GameObject[] playersPauseMenus = new GameObject[4];
     // Start is called before the first frame update
     void Start()
     {
@@ -94,7 +99,11 @@ public class PlayerManager : MonoBehaviour
             3 => player4SpawnRotation,
             _ => throw new ArgumentOutOfRangeException()
         };
-        
+        playersPauseMenus[player.playerIndex] = Instantiate(menuPrefab);
+        //playersPauseMenus[player.playerIndex].SetActive(false);
+        playersPauseMenus[player.playerIndex].GetComponent<PlayerMenuElement>().menuOwnerIndex = player.playerIndex;
+        var pmc = player.GetComponent<PlayerMenuController>();
+        pmc.menuPanel = playersPauseMenus[player.playerIndex];
         pc.spawnpoint = spawn;
         pc.spawnRotation = rotation;
     }

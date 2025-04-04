@@ -4,8 +4,6 @@ using System.Collections;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance;
-    
-    public GameObject gameOverPanel;
 
     [SerializeField] GameObject StartTransition;
 
@@ -59,7 +57,7 @@ public class MenuManager : MonoBehaviour
         panel.SetActive(toggle);
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
         // Pause the game
         Time.timeScale = 0;
@@ -69,7 +67,7 @@ public class MenuManager : MonoBehaviour
         Cursor.visible = true;
     }
     
-    private void ResumeGame()
+    public void ResumeGame()
     {
         // Resume the game
         Time.timeScale = 1;
