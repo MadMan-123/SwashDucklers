@@ -48,6 +48,7 @@ public class Item : MonoBehaviour
             GetComponent<Collider>().enabled = true;
             var rb = GetComponent<Rigidbody>();
             
+            rb.isKinematic = false;
             //remove the item from the inventory
             current.item = null;
 
@@ -60,11 +61,11 @@ public class Item : MonoBehaviour
             //throw the item
             if (shouldLaunch)
             {
-                rb.isKinematic = false;
                 rb.AddForce(launchDirection * 5, ForceMode.VelocityChange);
             }
         }
 
+        //return the item
     }
     
     
