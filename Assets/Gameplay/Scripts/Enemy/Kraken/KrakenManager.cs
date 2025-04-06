@@ -1,11 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
-//using UnityEditor.Experimental.GraphView;
-using UnityEngine;
+using System.ComponentModel;
 using Cinemachine;
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Rendering;
+
+//using UnityEditor.Experimental.GraphView;
 
 public class KrakenManager : MonoBehaviour
 {
+    private static readonly int TextureSpeed = Shader.PropertyToID("_TextureSpeed");
+
     //This script will control the krakens behaviours and when it should do whatever
     
     [SerializeField] private Health health;
@@ -36,6 +41,9 @@ public class KrakenManager : MonoBehaviour
     [Header("Other World Stuff")]
     [SerializeField] Weather weather;
     [SerializeField] private EnvironmentManager environmentManager;
+    
+    [SerializeField] private float textureSpeed = -1, waterKrakenModifer = 2;
+    [SerializeField] private Material waterMaterial;
 
     float timeBeforeNext;
     //bool isActive = false;
@@ -43,6 +51,13 @@ public class KrakenManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        //assert we have a valid water material
+        Assert.IsNotNull(waterMaterial,"waterMaterial is null");
+       
+        //get the water speed
+        textureSpeed = waterMaterial.GetFloat(TextureSpeed);
+        
         if (!krakenBodyAsset.TryGetComponent(out krakenBodyAnimator))
         {
             Debug.LogError("Kraken Body Animator not found");
@@ -85,6 +100,13 @@ public class KrakenManager : MonoBehaviour
         yield return new WaitForSeconds(bodySpawns);
         krakenBody.SetActive(true);
         krakenHealth.SetActive(true);
+        //change the speed of the waves 
+        
+        
+        waterMaterial.SetFloat(TextureSpeed, textureSpeed / waterKrakenModifer);
+        
+        
+        
         SoundManager.PlayAudioClip("KrakenSpawn", transform.position, 1f);
         cameraTarget.AddMember(krakenBody.transform, cameraPullWeight, cameraPullRadius);
         
@@ -130,6 +152,9 @@ public class KrakenManager : MonoBehaviour
             StartCoroutine(environmentManager.SpawnRandomObject());
 
 
+            //make the water move regularly again
+            
+            waterMaterial.SetFloat(TextureSpeed, textureSpeed);
             health.SetHealth(0);
             if (StageParameters.levelLength != Length.Endless)
             {

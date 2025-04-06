@@ -17706,6 +17706,10 @@ MonoBehaviour:
   weatherChanges: 5
   weather: {fileID: 1645392301}
   environmentManager: {fileID: 1775374991}
+  waveSpeed: 1
+  textureSpeed: 1
+  waterKrakenModifer: 2
+  waterMaterial: {fileID: 2100000, guid: f817794c434b424479d385ecfd68ef8b, type: 2}
 --- !u!1 &1706081906
 GameObject:
   m_ObjectHideFlags: 0
@@ -19501,9 +19505,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b894d634c2ed029419adac7d8505839e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxShipHealth: 100
+  maxShipHealth: 200
   shipHealth: 0
-  regenRate: 2.5
+  regenRate: 500
   percentageDamaged: 0
   dmgRate: 1.25
   dmgSpeed: 0.25
