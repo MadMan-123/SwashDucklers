@@ -34,7 +34,7 @@ public class PlayerMenuController : MonoBehaviour
     
     private void ToggleMenu()
     {
-        menuOpen = !menuOpen;
+        //menuOpen = !menuOpen;
         menuPanel.SetActive(menuOpen);
         
         if (menuOpen)
