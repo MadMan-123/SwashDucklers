@@ -242,27 +242,45 @@ public class PlayerControler : MonoBehaviour
        }
     }
 
-    private Vector3 DecelerateOnAxis(Vector3 rbVelocity, Vector3 relativeVelocity, bool b)
+    private Vector3 DecelerateOnAxis(Vector3 rbVelocity, Vector3 relativeVelocity, bool isXAxis)
     {
-        float axis = b ? 0 : 2; //0 for x, 2 for z
-        float currentValue = b ? rbVelocity.x : rbVelocity.z;
-        float targetValue = b ? relativeVelocity.x : relativeVelocity.z;
+        float currentValue = isXAxis ? rbVelocity.x : rbVelocity.z;
+        float targetValue = isXAxis ? relativeVelocity.x : relativeVelocity.z;
 
+        // Moving in positive direction, need to decrease
         if (currentValue > targetValue)
         {
-            Vector3 decelerationVector = b ?
+            Vector3 decelerationVector = isXAxis ?
                 new Vector3(deceleration, 0.0f, 0.0f) :
                 new Vector3(0.0f, 0.0f, deceleration);
             
             rbVelocity -= decelerationVector;
             
-            if((b ? rbVelocity.x : rbVelocity.z) < targetValue)
+            // Check if we overshot the target
+            if((isXAxis ? rbVelocity.x : rbVelocity.z) < targetValue)
             {
-                //set the axis to align
-                if (b)
-                    rbVelocity.x  = targetValue;
+                if (isXAxis)
+                    rbVelocity.x = targetValue;
                 else
-                    rbVelocity.z = rbVelocity.z;
+                    rbVelocity.z = targetValue; // FIXED: Was not setting the value correctly
+            }
+        }
+        // Moving in negative direction, need to increase
+        else if (currentValue < targetValue)
+        {
+            Vector3 decelerationVector = isXAxis ?
+                new Vector3(deceleration, 0.0f, 0.0f) :
+                new Vector3(0.0f, 0.0f, deceleration);
+            
+            rbVelocity += decelerationVector;
+            
+            // Check if we overshot the target
+            if((isXAxis ? rbVelocity.x : rbVelocity.z) > targetValue)
+            {
+                if (isXAxis)
+                    rbVelocity.x = targetValue;
+                else
+                    rbVelocity.z = targetValue;
             }
         }
         
@@ -321,11 +339,15 @@ public class PlayerControler : MonoBehaviour
     {
         var main = movementVFX.main;
         
-        if (moveVector != Vector3.zero) // Movement detected
-                                        
+        if (Mathf.Abs(moveVector.magnitude) >= 0.1f) // Movement detected
         {
             if (!movementVFX.isPlaying) // If it's not playing, start it
             {
+                if (!isSoundPlaying)
+                {
+                    audioSource.Play();
+                    isSoundPlaying = true; // Mark sound as playing
+                }
                 main.loop = true;
                 movementVFX.Play();
             }
@@ -334,6 +356,8 @@ public class PlayerControler : MonoBehaviour
         {
             if (movementVFX.isPlaying)
             {
+                audioSource.Stop();
+                isSoundPlaying = false;
                 main.loop = false;
                 movementVFX.Stop();
             }
