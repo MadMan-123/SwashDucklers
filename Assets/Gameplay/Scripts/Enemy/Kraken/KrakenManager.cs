@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.ComponentModel;
 using Cinemachine;
@@ -78,7 +79,7 @@ public class KrakenManager : MonoBehaviour
             {
                 gameTimer.SetActive(true);
             }
-            StartRoutines();
+            StartCoroutine(StartRoutines());
         }
         else
         {
@@ -86,8 +87,10 @@ public class KrakenManager : MonoBehaviour
         }
     }
 
-    private void StartRoutines()
+    private IEnumerator StartRoutines(float waitTime = 0)
     {
+        
+        yield return new WaitForSeconds(waitTime);
         //efficiency, whats that? - TS
         StartCoroutine(KrakenBodySpawn());
         StartCoroutine(TentacleSpawn());
@@ -162,7 +165,7 @@ public class KrakenManager : MonoBehaviour
             }
 
             weather.KrakenDeSpawn();
-            //StartRoutines();
+            StartCoroutine(StartRoutines(30));
         }
     }
 
@@ -180,4 +183,10 @@ public class KrakenManager : MonoBehaviour
         tentacles.SetActive(false);
     }
 
+
+    private void OnDestroy()
+    {
+        //set the water speed back to normal
+        waterMaterial.SetFloat(TextureSpeed, textureSpeed);
+    }
 }
