@@ -14,6 +14,8 @@ public class PlayerMenuController : MonoBehaviour
     public static bool menuOpen = false;
     
     
+    //PlayerStats.Input
+    
     // Start is called before the first frame update
     private void Awake()
     {
