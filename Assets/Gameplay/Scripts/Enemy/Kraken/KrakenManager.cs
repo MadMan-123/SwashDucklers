@@ -5,6 +5,7 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 //using UnityEditor.Experimental.GraphView;
 
@@ -47,6 +48,8 @@ public class KrakenManager : MonoBehaviour
     [SerializeField] private Material waterMaterial;
 
     float timeBeforeNext;
+
+    [SerializeField] private float delayAfterDeath = 30f;
     //bool isActive = false;
 
     // Start is called before the first frame update
@@ -165,7 +168,7 @@ public class KrakenManager : MonoBehaviour
             }
 
             weather.KrakenDeSpawn();
-            StartCoroutine(StartRoutines(30));
+            StartCoroutine(StartRoutines(delayAfterDeath));
         }
     }
 

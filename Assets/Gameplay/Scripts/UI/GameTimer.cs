@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameTimer : MonoBehaviour
 {
-
     [SerializeField] float StartPosition;
     [SerializeField] float EndPosition;
 
@@ -17,6 +17,10 @@ public class GameTimer : MonoBehaviour
     [SerializeField] RectTransform Water;
     [SerializeField] RectTransform HudRect;
 
+    
+    [SerializeField] float shortTime = 30;
+    [SerializeField] float mediumTime = 45;
+    [SerializeField] float longTime = 90;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,21 +32,17 @@ public class GameTimer : MonoBehaviour
 
         //Caculate end time -SD
         //Values can be changed later -SD
-        switch (StageParameters.levelLength)
+
+        endTime = StageParameters.levelLength switch
         {
-            case Length.Short:
-                endTime = 30;
-                break;
-            case Length.Medium:
-                endTime = 45;
-                break;
-            case Length.Long:
-                endTime = 90;
-                break;
-            case Length.Endless:
+            Length.Short => shortTime,
+            Length.Medium => mediumTime,
+            Length.Long => longTime,
+            
+        };
+        
+        if(StageParameters.levelLength == Length.Endless)
                 Hud.SetActive(false);
-                break;
-        }
     }
 
     // Update is called once per frame
