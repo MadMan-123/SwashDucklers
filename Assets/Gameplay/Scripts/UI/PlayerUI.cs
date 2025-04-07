@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class PlayerUI : MonoBehaviour
 
     [SerializeField] Button lastHat;
     [SerializeField] Button forwardHat;
+
+    [SerializeField] GameObject readyButtonRef;
 
     //[SerializeField] TextMeshProUGUI costumeText;
     //[SerializeField] TextMeshProUGUI PlayerText;
@@ -136,6 +139,11 @@ public class PlayerUI : MonoBehaviour
                 // costumeText.text = PlayerStats.Hatlist[PlayerStats.player4Hat].name;
                 break;
         }
+
+        //if (EventSystem.current == null || EventSystem.current == "")
+        //{
+        //    Debug.Log("ohno");
+        //}
 
     }
 
@@ -275,7 +283,9 @@ public class PlayerUI : MonoBehaviour
 
     public void setColor(DuckColors color)
     {
-    
+
+        EventSystem.current.SetSelectedGameObject(readyButtonRef);
+
         switch (color)
         {
             case DuckColors.Yellow:
