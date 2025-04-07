@@ -165,8 +165,10 @@ public class AIBrain : MonoBehaviour
                                         hasCargo = true;
                                     }
 
-                                    //if the player is close enough then attack
-                                    ChangeState(State.Attack);
+
+                                   
+                                    //if the target transform is a player
+                                        ChangeState(State.Attack);
                                 }
 
                             }
@@ -210,11 +212,28 @@ public class AIBrain : MonoBehaviour
                                     //check if the player has an item
                                     if (target.trackedTransform.TryGetComponent(out CargoStack stack))
                                     {
+                                        
                                         stack.TryPickUp(gameObject);
                                         
                                         hasCargo = true;
                                         //we should run off now
-                                        ChangeState(State.JumpOff);
+                                        ChangeState(State.Wander);
+                                        gotCargoWander = true;
+                                        
+                                    }
+                                    
+                                    
+                                    
+                                    //if there is a cargo item to pick up then pick it up
+                                    if (target.trackedTransform.TryGetComponent(out Cargo cargo))
+                                    {
+                                        //pick up the cargo
+                                        cargo.PickUp(gameObject);
+                                        hasCargo = true;
+                                        //we should wander off now
+                                        ChangeState(State.Wander);
+                                        gotCargoWander = true;
+                                        
                                     }
                                 }
                             }
@@ -363,6 +382,14 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 JumpOff()
         {
+            
+            //check if we still have the cargo in our hand, if not we need to look for it
+            if (inventory.item is not Cargo || inventory.item == null)
+            {
+                //if we have no target then we should wander
+                ChangeState(State.Wander);
+                return transform.position;
+            }
             //get the edge of the navmesh on the z axis 
             NavMeshHit upHit = new();
             //jump into the enemy death area

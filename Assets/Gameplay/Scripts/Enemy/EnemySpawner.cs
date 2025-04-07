@@ -45,15 +45,11 @@ public class EnemySpawner : Spawner
    private IEnumerator _spawnEnemy()
    {
  
-        //check if we have reached the max spawn size
-        if (spawnedCount >= maxSpawnSize)
-        {
-            yield return new WaitForSeconds(interval);
-            routine = _spawnEnemy();
-            StartCoroutine(routine);
-            //exit the coroutine
-            yield break;
-        }
+       //while we are at max spawn size yield return null;
+         while (spawnedCount >= maxSpawnSize)
+             yield return null;
+         
+       
         area = AreaManager.GetArea(areaName);
         
  
