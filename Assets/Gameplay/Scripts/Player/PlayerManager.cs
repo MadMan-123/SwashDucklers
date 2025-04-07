@@ -33,10 +33,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float playerCameraWeight;
     [SerializeField] private float playerCameraRadius;
 
-    [SerializeField] private GameObject pauseMenuHolder;
-    [SerializeField] private GameObject menuPrefab;
+    //[SerializeField] private GameObject pauseMenuHolder;
+    //[SerializeField] private GameObject menuPrefab;
 
-    private GameObject[] playersPauseMenus = new GameObject[4];
+    //private GameObject[] playersPauseMenus = new GameObject[4];
     // Start is called before the first frame update
     void Start()
     {
@@ -53,8 +53,13 @@ public class PlayerManager : MonoBehaviour
         //Spawn joined players
         for (int i = 0; i < PlayerStats.playerNo; i++)
         {
-           
-            var currentInputState = i switch
+
+            var index = i - 1;
+            if (index < 0)
+            {
+                index = 0;
+            }
+            var currentInputState = index switch
             {
                 0 => PlayerStats.player1input,
                 1 => PlayerStats.player2input,
@@ -109,11 +114,11 @@ public class PlayerManager : MonoBehaviour
             3 => player4SpawnRotation,
             _ => throw new ArgumentOutOfRangeException()
         };
-        playersPauseMenus[player.playerIndex] = Instantiate(menuPrefab);
+        //playersPauseMenus[player.playerIndex] = Instantiate(menuPrefab);
         //playersPauseMenus[player.playerIndex].SetActive(false);
-        playersPauseMenus[player.playerIndex].GetComponent<PlayerMenuElement>().menuOwnerIndex = player.playerIndex;
-        var pmc = player.GetComponent<PlayerMenuController>();
-        pmc.menuPanel = playersPauseMenus[player.playerIndex];
+        //playersPauseMenus[player.playerIndex].GetComponent<PlayerMenuElement>().menuOwnerIndex = player.playerIndex;
+        //var pmc = player.GetComponent<PlayerMenuController>();
+        //pmc.menuPanel = playersPauseMenus[player.playerIndex];
         pc.spawnpoint = spawn;
         pc.spawnRotation = rotation;
     }
