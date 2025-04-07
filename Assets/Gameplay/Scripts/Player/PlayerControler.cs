@@ -143,15 +143,56 @@ public class PlayerControler : MonoBehaviour
         if (PlayerStats.Hatlist == null)
             return;
         //will the playerID align with the hat list? 
-        
+        //no thats not how it works maddox - sd
+        //Im readding this so the hats dont brick the game
+        switch (playerID)
+        {
+            case 0:
+            if (PlayerStats.Hatlist != null)
+            {
+                if (PlayerStats.Hatlist[PlayerStats.player1Hat].model != null)
+                {
+                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player1Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player1Hat].position, transform.rotation, hatTransform);
+                }
+            }
+            break;
+        case 1:
+            if (PlayerStats.Hatlist != null)
+            {
+                if (PlayerStats.Hatlist[PlayerStats.player2Hat].model != null)
+                {
+                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player2Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player2Hat].position, transform.rotation, hatTransform);
+                }
+            }
+            break;
+        case 2:
+            if (PlayerStats.Hatlist != null)
+            {
+                if (PlayerStats.Hatlist[PlayerStats.player3Hat].model != null)
+                {
+                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player3Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player3Hat].position, transform.rotation, hatTransform);
+                }
+            }
+            break;
+        case 3:
+            if (PlayerStats.Hatlist != null)
+            {
+                if (PlayerStats.Hatlist[PlayerStats.player4Hat].model != null)
+                {
+                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player4Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player4Hat].position, transform.rotation, hatTransform);
+                }
+            }
+            break;
+        }
+
         //get the hat
-        var hatPrefab = PlayerStats.Hatlist[playerID].model;
+        //var hatPrefab = PlayerStats.Hatlist[playerID].model;
 
         //get the prefab position
-        var offset = PlayerStats.Hatlist[playerID].position;
+        //var offset = PlayerStats.Hatlist[playerID].position;
         
         //Instantiate the hat
-        hat = Instantiate(hatPrefab, hatposition + offset, transform.rotation, hatTransform);
+        //hat = Instantiate(hatPrefab, hatposition + offset, transform.rotation, hatTransform);
         
 
     }
