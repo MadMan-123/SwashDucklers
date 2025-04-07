@@ -364,6 +364,15 @@ public class PlayerControler : MonoBehaviour
             }
         }
     
+        //Check if player ends up out of bounds somehow -SD
+        //Hopefully never triggers
+        if (this.transform.position.y < -10f)
+        {
+            Debug.LogError("Player fell out of bounds!");
+            //Debug.Break();
+            transform.position = spawnpoint;
+        }
+
     }
     private void SetPlayerColor(int playerId)
     {
