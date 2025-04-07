@@ -25,10 +25,13 @@ public class KrakenManager : MonoBehaviour
     [Header("Key Objects")]
     [SerializeField] GameObject krakenBody;
     [SerializeField] GameObject krakenBodyAsset;
+    [SerializeField] Kraken krakenBodyScript;
     private Animator krakenBodyAnimator;
     [SerializeField] GameObject tentacles;
     private TentacleAI tentacleAI;
     [SerializeField] GameObject krakenHealth;
+    [SerializeField] private GameObject cosmeticTentacles;
+        
     
     [Header("Camera")]
     [SerializeField] private CinemachineTargetGroup cameraTarget;
@@ -134,6 +137,7 @@ public class KrakenManager : MonoBehaviour
         yield return new WaitForSeconds(tentaclesSpawns);
         tentacles.SetActive(true);
         gameTimer.SetActive(false);
+        cosmeticTentacles.SetActive(true);
     }
 
     //Function called by cannons when fired -SD
@@ -152,6 +156,7 @@ public class KrakenManager : MonoBehaviour
             krakenBodyAnimator.SetTrigger("KrakenDies");
             //krakenBody.SetActive(false);
             StartCoroutine(tentacleAI.KrakenDeath());
+            StartCoroutine(krakenBodyScript.KrakenDead());
 
             //reengage the environment manager
             environmentManager.shouldMove = true;
@@ -191,5 +196,10 @@ public class KrakenManager : MonoBehaviour
     {
         //set the water speed back to normal
         waterMaterial.SetFloat(TextureSpeed, textureSpeed);
+    }
+
+    public void DisableCosmeticTentacles()
+    {
+        cosmeticTentacles.SetActive(false);
     }
 }
