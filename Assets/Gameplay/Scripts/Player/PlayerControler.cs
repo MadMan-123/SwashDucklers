@@ -12,6 +12,7 @@ using Quaternion = UnityEngine.Quaternion;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 using Debug = UnityEngine.Debug;
 
 //using static UnityEditor.Experimental.GraphView.GraphView;
@@ -20,7 +21,7 @@ public class PlayerControler : MonoBehaviour
 {
 
     private Vector3 moveVector = Vector3.zero;
-    public Rigidbody rb = null;
+    [FormerlySerializedAs("rb")] public Rigidbody rigidbody = null;
     private bool isGrounded = false;
     //private bool isJumping = true;
     //private bool isGliding = false;
@@ -96,7 +97,7 @@ public class PlayerControler : MonoBehaviour
     {
         cameraTarget.AddMember(transform, 3, 2.5f);
         //input = new InputManager();
-        rb = GetComponent<Rigidbody>();
+        rigidbody = GetComponent<Rigidbody>();
         relative0 = new Vector3(0.0f, 0.0f, 0.0f);
 
         playerInput = GetComponent<PlayerInput>();
@@ -168,7 +169,7 @@ public class PlayerControler : MonoBehaviour
     private void ApplyMovement()
     {
         float currentAcceleration = isGrounded ? acceleration : acceleration * airControl;
-        rb.velocity += (moveVector * currentAcceleration);
+        rigidbody.velocity += (moveVector * currentAcceleration);
         
         
     }
@@ -185,20 +186,20 @@ public class PlayerControler : MonoBehaviour
         //adjust the velocity
         if (PrevRelative0 != relative0)
         {
-            rb.velocity -= PrevRelative0;
-            rb.velocity += relative0;
+            rigidbody.velocity -= PrevRelative0;
+            rigidbody.velocity += relative0;
         }
         
     }
 
     private void ClampHorizontalVelocity()
     {
-        var horizontalVelocity = rb.velocity;
+        var horizontalVelocity = rigidbody.velocity;
         horizontalVelocity.y = 0; // Keeps gravity unchanged
         horizontalVelocity += moveVector * acceleration;
         horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeed);
         
-        rb.velocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
+        rigidbody.velocity = new Vector3(horizontalVelocity.x, rigidbody.velocity.y, horizontalVelocity.z);
     }
     
     
@@ -226,14 +227,14 @@ public class PlayerControler : MonoBehaviour
 
     private void ApplyDeceleration()
     {
-       if(ShouldDecelerateOnAxis(moveVector.x, rb.velocity.x, relative0.x)) 
+       if(ShouldDecelerateOnAxis(moveVector.x, rigidbody.velocity.x, relative0.x)) 
        {
-            rb.velocity = DecelerateOnAxis(rb.velocity, relative0,true);
+            rigidbody.velocity = DecelerateOnAxis(rigidbody.velocity, relative0,true);
        }
 
-       if (ShouldDecelerateOnAxis(moveVector.z, rb.velocity.z, relative0.z))
+       if (ShouldDecelerateOnAxis(moveVector.z, rigidbody.velocity.z, relative0.z))
        {
-           rb.velocity = DecelerateOnAxis(rb.velocity, relative0,false);
+           rigidbody.velocity = DecelerateOnAxis(rigidbody.velocity, relative0,false);
        }
 
        if (HasStopeed())
@@ -289,7 +290,7 @@ public class PlayerControler : MonoBehaviour
 
     private bool HasStopeed()
     {
-        return (Mathf.Approximately(rb.velocity.x, relative0.x) && Mathf.Approximately(rb.velocity.z, relative0.z));
+        return (Mathf.Approximately(rigidbody.velocity.x, relative0.x) && Mathf.Approximately(rigidbody.velocity.z, relative0.z));
     }
 
     private void StopMovmentSound()
@@ -424,14 +425,14 @@ public class PlayerControler : MonoBehaviour
                 //calculate force needed to jump to desired height for how everlong the duration is - MW
                 float force = ((2 * jumpPower / jumpDuration) - 9.81f * jumpDuration); 
                 //Start to Jump (Inital jump is more powerful to make the arc nicer)
-                rb.AddForce(0,force * 1.5f,0);
+                rigidbody.AddForce(0,force * 1.5f,0);
                 isGrounded = false;
                 isJumping = true;
                 jumpTimer = jumpDuration;
             }
             else
             {
-                glideHeight = rb.position.y;
+                glideHeight = rigidbody.position.y;
                 isGliding = true;
                 glideTimer = glideDuration;
             }
@@ -557,7 +558,7 @@ public class PlayerControler : MonoBehaviour
                 //If it is
                 if (platform != null)
                 {
-                    rb.velocity = platform.velocity;
+                    rigidbody.velocity = platform.velocity;
                 }
             }
         }
@@ -617,17 +618,17 @@ public class PlayerControler : MonoBehaviour
     }
     public void Ragdoll()
     {
-        rb.freezeRotation = false;
-        //rb.constraints &= ~RigidbodyConstraints.FreezeRotationZ;              //unlocks rotation on the z and x axis so it rolls about   : all below TS
-        //rb.constraints &= ~RigidbodyConstraints.FreezeRotationX;
+        rigidbody.freezeRotation = false;
+        //rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationZ;              //unlocks rotation on the z and x axis so it rolls about   : all below TS
+        //rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationX;
         StartCoroutine(UndoRagdoll(ragdollTime));
         DisableMovement();      //could not possibly extrapolate what this does
     }
     private void UnRagdoll()
     {
-        rb.freezeRotation = true;
-        //rb.constraints = RigidbodyConstraints.FreezeRotationZ;                 //locks rotation on the z and x axis
-        //rb.constraints = RigidbodyConstraints.FreezeRotationX;
+        rigidbody.freezeRotation = true;
+        //rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ;                 //locks rotation on the z and x axis
+        //rigidbody.constraints = RigidbodyConstraints.FreezeRotationX;
         transform.rotation = Quaternion.LookRotation(spawnRotation, Vector3.up);    //resets the rotation to normal, fix spawnRotation to maybe a temp value
         EnableMovement();    //i wonder what this does
     }
@@ -645,7 +646,7 @@ public class PlayerControler : MonoBehaviour
     public void Ragdoll(float customTime, bool addToBase)
     {
         if (addToBase) { customTime += ragdollTime; }
-        rb.freezeRotation = false;
+        rigidbody.freezeRotation = false;
         StartCoroutine(UndoRagdoll(customTime));
         DisableMovement();
 

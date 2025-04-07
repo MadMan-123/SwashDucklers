@@ -27,7 +27,7 @@ public class Item : MonoBehaviour
             if (current.AddItem(gameObject))                              //add this to inv
             {
                 /*//disable the rigidbody and collider
-                rb.isKinematic = true;                           //bunch of positioning stuff
+                rigidbody.isKinematic = true;                           //bunch of positioning stuff
                 col.enabled = false;
                 
                 //set the transforms
