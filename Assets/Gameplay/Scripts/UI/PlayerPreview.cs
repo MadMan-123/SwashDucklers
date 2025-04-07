@@ -47,11 +47,11 @@ public class PlayerPreview : MonoBehaviour
         if (hatToCheck != currentHat) //This if prevents unnessisary reinstantiation each frame
         {
             Destroy(hat);
-            if (PlayerStats.Hatlist[PlayerStats.player1Hat].model != null)
+            if (PlayerStats.Hatlist[hatToCheck].model != null)
             {
-                hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player1Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player1Hat].previewPosition, transform.rotation, hatTransform);
+                hat = Instantiate(PlayerStats.Hatlist[hatToCheck].model, hatposition + PlayerStats.Hatlist[hatToCheck].previewPosition, transform.rotation, hatTransform);
             }
-            currentHat = PlayerStats.player1Hat;
+            currentHat = hatToCheck;
         }
     }
     

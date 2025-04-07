@@ -141,28 +141,28 @@ public class UiPlayerControler : MonoBehaviour
 
 
                 joinText1.SetActive(false); //Disable join text
-                player.transform.GetChild(2).GetComponent<RawImage>().texture = player1Image;
+                player.transform.GetChild(1).GetComponent<RawImage>().texture = player1Image;
                 PlayerStats.player1Color = defaultPlayer1LitColor;
                 break;
             case 1:
                 player.GetComponent<RectTransform>().localPosition = new Vector3(400, 250, 0);
                 player.GetComponent<RectTransform>().localScale = new Vector3(0.4f, 0.4f, 1);
                 joinText2.SetActive(false);
-                player.transform.GetChild(2).GetComponent<RawImage>().texture = player2Image;
+                player.transform.GetChild(1).GetComponent<RawImage>().texture = player2Image;
                 PlayerStats.player2Color = defaultPlayer2LitColor;
                 break;
             case 2:
                 player.GetComponent<RectTransform>().localPosition = new Vector3(-500, -250, 0);
                 player.GetComponent<RectTransform>().localScale = new Vector3(0.4f, 0.4f, 1);
                 joinText3.SetActive(false);
-                player.transform.GetChild(2).GetComponent<RawImage>().texture = player3Image;
+                player.transform.GetChild(1).GetComponent<RawImage>().texture = player3Image;
                 PlayerStats.player3Color = defaultPlayer3LitColor;
                 break;
             case 3:
                 player.GetComponent<RectTransform>().localPosition = new Vector3(400, -250, 0);
                 player.GetComponent<RectTransform>().localScale = new Vector3(0.4f, 0.4f, 1);
                 joinText4.SetActive(false);
-                player.transform.GetChild(2).GetComponent<RawImage>().texture = player4Image;
+                player.transform.GetChild(1).GetComponent<RawImage>().texture = player4Image;
                 PlayerStats.player4Color = defaultPlayer4LitColor;
                 break;
         }
