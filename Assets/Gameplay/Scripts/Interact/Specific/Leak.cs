@@ -82,7 +82,7 @@ public class Leak : Interactable
         //take the players item
         inv.RemoveItem();
         //if the count is equal to the required amount
-        RepairAnim(smallRepairAnim,3);
+        RepairAnim(false,3);
         
         if (count != toRepair) return;
         //disable the object
@@ -101,7 +101,7 @@ public class Leak : Interactable
 
     void DisableLogic()
     {
-        RepairAnim(bigRepairAnim);
+        RepairAnim(true);
         if (tutLeak) return;
          if(cam == null) return;
          health.RepairShip(damage);
@@ -111,13 +111,24 @@ public class Leak : Interactable
          target.RemoveMember(transform);
     }
 
-    void RepairAnim(GameObject repairAnim,float distance = 0)
+    void RepairAnim(bool last, float distance = 0)
     {
         var pos = transform.position +  new Vector3(0, 0.5f, 0);
         Vector3 lookDir = (cam.transform.position - pos).normalized;
         var vfxSpawnLoc = transform.position +(lookDir*distance);
         Quaternion direction = Quaternion.LookRotation(lookDir);
-        Instantiate(repairAnim,vfxSpawnLoc,direction,vfxHolder);
+        if (last)
+        {
+            var inst = Instantiate(bigRepairAnim, vfxSpawnLoc, direction, vfxHolder);
+            if (inst.TryGetComponent(out DelayedPrefabSpawner dps))
+            {
+                dps.vfxHolder = vfxHolder;
+            }
+        }
+        else
+        {
+            Instantiate(smallRepairAnim, vfxSpawnLoc, direction, vfxHolder);
+        }
     }
 
 
