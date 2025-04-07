@@ -17709,6 +17709,7 @@ MonoBehaviour:
   textureSpeed: 1
   waterKrakenModifer: 2
   waterMaterial: {fileID: 2100000, guid: f817794c434b424479d385ecfd68ef8b, type: 2}
+  delayAfterDeath: 30
 --- !u!1 &1706081906
 GameObject:
   m_ObjectHideFlags: 0
@@ -19592,6 +19593,9 @@ MonoBehaviour:
   Hud: {fileID: 824746696}
   Water: {fileID: 1677275323}
   HudRect: {fileID: 824746697}
+  shortTime: 30
+  mediumTime: 45
+  longTime: 90
 --- !u!212 &2004744704
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -22107,12 +22111,12 @@ PrefabInstance:
     - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
         type: 3}
       propertyPath: player1SpawnRotation.z
-      value: 0.5
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
         type: 3}
       propertyPath: player2SpawnRotation.x
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
         type: 3}
@@ -22122,12 +22126,12 @@ PrefabInstance:
     - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
         type: 3}
       propertyPath: player3SpawnRotation.x
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
         type: 3}
       propertyPath: player3SpawnRotation.z
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
         type: 3}
@@ -22137,7 +22141,7 @@ PrefabInstance:
     - target: {fileID: 8032109325829588554, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
         type: 3}
       propertyPath: player4SpawnRotation.z
-      value: -0.5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8816275734192088354, guid: e61c28e90ffc5fa4cbd6a1e3880d9b19,
         type: 3}
