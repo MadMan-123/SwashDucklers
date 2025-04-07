@@ -44,4 +44,24 @@ public class PlayerMenuElement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
+
+    public void resumeButton()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void optionsButton()
+    {
+
+    }
+
+    public void DropOutButton()
+    {
+       
+    }
+
+    public void QuitButton()
+    {
+       
+    }
 }
