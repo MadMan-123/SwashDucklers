@@ -48,8 +48,9 @@ public class PlayerManager : MonoBehaviour
         //Spawn joined players
         for (int i = 0; i < PlayerStats.playerNo; i++)
         {
-           
-            var currentInputState = i switch
+            var index = i <  0 ? 0 : i - 1;
+
+            var currentInputState = index  switch
             {
                 0 => PlayerStats.player1input,
                 1 => PlayerStats.player2input,
