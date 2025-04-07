@@ -32,6 +32,7 @@ public class PlayerUI : MonoBehaviour
     float red;
     float green;
     float blue;
+    int HatID;
 
     public bool isReady = false;
 
@@ -116,18 +117,22 @@ public class PlayerUI : MonoBehaviour
         {  
             case 0:
                 PlayerStats.player1Color = new Color(red, green, blue);
+                PlayerStats.player1Hat = HatID;
                 costumeText.text = PlayerStats.Hatlist[PlayerStats.player1Hat].name;
                 break;
             case 1:
                 PlayerStats.player2Color = new Color(red, green, blue);
+                PlayerStats.player2Hat = HatID;
                 costumeText.text = PlayerStats.Hatlist[PlayerStats.player2Hat].name;
                 break;
             case 2:
                 PlayerStats.player3Color = new Color(red, green, blue);
+                PlayerStats.player3Hat = HatID;
                 costumeText.text = PlayerStats.Hatlist[PlayerStats.player3Hat].name;
                 break;
             case 3:
                 PlayerStats.player4Color = new Color(red, green, blue);
+                PlayerStats.player4Hat = HatID;
                 costumeText.text = PlayerStats.Hatlist[PlayerStats.player4Hat].name;
                 break;
         }
@@ -232,6 +237,11 @@ public class PlayerUI : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void setHat(int id)
+    {
+        HatID = id;
     }
 
     public void setRed(float r) 
