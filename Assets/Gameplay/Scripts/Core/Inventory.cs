@@ -96,6 +96,11 @@ public class Inventory : MonoBehaviour
     public void TakeItem(Inventory inv)
     {
         if(item == null) return;
+
+        
+        //you could make them drop infinitely but that means load of objects
+        if (inv.item != null) return;
+        
         //take the current item, move it to the passed inventory and remove it from the current inventory
         inv.AddItem(item.gameObject);
         inv.GetItem().current = inv;

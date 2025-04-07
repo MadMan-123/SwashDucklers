@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2828199631128990620}
   - component: {fileID: 957647159350866941}
   - component: {fileID: 6406141949958259162}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CargoTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,21 +110,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1701426334232833614}
     m_Modifications:
-    - target: {fileID: -2859109400176981367, guid: 19326fbacdf8cd24f91c30217b55fff0,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 05453c3c5f7d7d9439de810683d0375e, type: 2}
-    - target: {fileID: -2859109400176981367, guid: 19326fbacdf8cd24f91c30217b55fff0,
-        type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: fb5414bf87fcb13459f7f91f8f83478d, type: 2}
-    - target: {fileID: -2859109400176981367, guid: 19326fbacdf8cd24f91c30217b55fff0,
-        type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 2100000, guid: 8f133a236c1bb6b4da890ce615361b28, type: 2}
     - target: {fileID: -8679921383154817045, guid: 3a5a9dfca89a9c440ad340b1559b031b,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -235,6 +220,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 05453c3c5f7d7d9439de810683d0375e, type: 2}
+    - target: {fileID: -3133498875991405556, guid: 3a5a9dfca89a9c440ad340b1559b031b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: -2859109400176981367, guid: 3a5a9dfca89a9c440ad340b1559b031b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -245,6 +235,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 8f133a236c1bb6b4da890ce615361b28, type: 2}
+    - target: {fileID: 412263422147047578, guid: 3a5a9dfca89a9c440ad340b1559b031b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 533193074659131909, guid: 3a5a9dfca89a9c440ad340b1559b031b,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -259,6 +254,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gold_Chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3a5a9dfca89a9c440ad340b1559b031b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 999404285501708131, guid: 3a5a9dfca89a9c440ad340b1559b031b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202600370951054647, guid: 3a5a9dfca89a9c440ad340b1559b031b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2776823563818360533, guid: 3a5a9dfca89a9c440ad340b1559b031b,
         type: 3}
@@ -290,6 +300,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 05453c3c5f7d7d9439de810683d0375e, type: 2}
+    - target: {fileID: -2859109400176981367, guid: 19326fbacdf8cd24f91c30217b55fff0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 05453c3c5f7d7d9439de810683d0375e, type: 2}
+    - target: {fileID: -2859109400176981367, guid: 19326fbacdf8cd24f91c30217b55fff0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb5414bf87fcb13459f7f91f8f83478d, type: 2}
+    - target: {fileID: -2859109400176981367, guid: 19326fbacdf8cd24f91c30217b55fff0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8f133a236c1bb6b4da890ce615361b28, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

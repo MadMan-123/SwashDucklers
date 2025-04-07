@@ -66,7 +66,7 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    public void OnPlayerJoined(PlayerInput player)
+    public void OnPlayerJoined(PlayerInput player)  
     {
         //PlayerStats.playerNo++;
         players.Add(player.gameObject);
