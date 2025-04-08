@@ -58,7 +58,7 @@ public class ItemStack : MonoBehaviour
         
         //add the item to the inventory
         inv.AddItem(current);
-        
+        SoundManager.PlayAudioClip("pick up", this.transform.position, 1f);
         OnPickUp?.Invoke(current);
 
     }

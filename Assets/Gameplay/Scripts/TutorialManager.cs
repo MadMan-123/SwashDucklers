@@ -30,7 +30,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] GameObject carboardKraken;
     [SerializeField] GameObject cargocrab;
     [SerializeField] GameObject cargo;
-    
+    [SerializeField] GameObject cargoarrow;    
     
     [SerializeField] GameObject exampleCannons;
     [SerializeField] GameObject cannonballs;
@@ -230,16 +230,18 @@ public class TutorialManager : MonoBehaviour
         
         cargocrab.SetActive(true);
         cargo.SetActive(true);
-        StartCoroutine(TypeText("This is where id put my cargo tutorial"));
+        cargoarrow.SetActive(true);
+        StartCoroutine(TypeText("it seems like one of those pesky crabs have stolen your loot"));
         yield return new WaitForSeconds(5f);
-        StartCoroutine(TypeText("IF I HAD ONE"));
+        cargoarrow.SetActive(false);
+        StartCoroutine(TypeText("retrieve your bounty"));
         imageBox.SetActive(true);
         timmyTurnersDad.SetActive(true);
         yield return new WaitForSeconds(5f);
         imageBox.SetActive(false);
         timmyTurnersDad.SetActive(false);
                                                
-                                               yield return new WaitUntil(Cargoretrieved);
+        yield return new WaitUntil(Cargoretrieved);
         StartCoroutine(TypeText("Good Job! Theres just one last thing to teach you!"));
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("You might encounter the legendary Kraken!"));

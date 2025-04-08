@@ -42,8 +42,11 @@ public class PlankVisualiser : MonoBehaviour
       Quaternion rotation = (Quaternion.Euler(0, yRot, 0));
       if (count == toRepair)
       {
+        
          rotation = (Quaternion.Euler(0, firstRotation+90f, 0));
       }
+      
+      SoundManager.PlayAudioClip("plank place", this.transform.position, 1f);
       firstRotation = yRot;
       plankPool[count].transform.rotation = rotation;
       plankPool[count].transform.position = spawnLoc.transform.position;

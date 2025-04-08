@@ -90,6 +90,7 @@ public class Leak : Interactable
        
         DisableLogic();
         //wait to disable the object for x amount of time
+        SoundManager.PlayAudioClip("repair", this.transform.position, 1f);
         StartCoroutine(DisableLeak());
     }
 
