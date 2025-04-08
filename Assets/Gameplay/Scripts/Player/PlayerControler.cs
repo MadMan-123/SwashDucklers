@@ -700,6 +700,8 @@ public class PlayerControler : MonoBehaviour
         //rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ;                 //locks rotation on the z and x axis
         //rigidbody.constraints = RigidbodyConstraints.FreezeRotationX;
         transform.rotation = Quaternion.LookRotation(spawnRotation, Vector3.up);    //resets the rotation to normal, fix spawnRotation to maybe a temp value
+        animator.SetBool(IsWalking, false);
+        animator.SetBool(IsSlapping,false);
         animator.CrossFade("Idle",0.1f);
         EnableMovement();    //i wonder what this does
     }
