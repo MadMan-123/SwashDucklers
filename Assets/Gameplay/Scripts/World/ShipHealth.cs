@@ -186,7 +186,7 @@ public class ShipHealth : MonoBehaviour
         shipAnim.SetBool("Sinking", true);
         shipDestroyed = true;
         yield return new WaitForSeconds(5f);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScreen");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(4);
     }
 }
 

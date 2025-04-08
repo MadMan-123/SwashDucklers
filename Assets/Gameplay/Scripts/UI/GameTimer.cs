@@ -62,7 +62,7 @@ public class GameTimer : MonoBehaviour
             currentTime = endTime;
             //GAME WON
             //todo: remove magic string
-            UnityEngine.SceneManagement.SceneManager.LoadScene("WinScreen");
+            UnityEngine.SceneManagement.SceneManager.LoadScene(5);
         }
 
         PercentageTimePassed = (currentTime / endTime);
