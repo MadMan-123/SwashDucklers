@@ -439,7 +439,7 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3d72bca3-b734-46b4-8b5d-ca8bee072069
     m_ActionName: Menu/TrackedDeviceOrientation
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Menu
   m_SplitScreenIndex: -1
@@ -464,6 +464,7 @@ MonoBehaviour:
   lastHat: {fileID: 0}
   forwardHat: {fileID: 0}
   readyButtonRef: {fileID: 2463123760351750781}
+  eventSystem: {fileID: 8165429172669911365}
   playerSprite: {fileID: 8318219822500707352}
   playerTextSprites:
   - {fileID: 21300000, guid: 0bf1de7185335124bad624c0ced3ae32, type: 3}

@@ -23,6 +23,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] Button forwardHat;
 
     [SerializeField] GameObject readyButtonRef;
+    [SerializeField] EventSystem eventSystem;
 
     //[SerializeField] TextMeshProUGUI costumeText;
     //[SerializeField] TextMeshProUGUI PlayerText;
@@ -140,10 +141,11 @@ public class PlayerUI : MonoBehaviour
                 break;
         }
 
-        //if (EventSystem.current == null || EventSystem.current == "")
-        //{
-        //    Debug.Log("ohno");
-        //}
+        //Failsafe if we lose tracking -sd
+        if (eventSystem.currentSelectedGameObject == null)
+        {
+            eventSystem.SetSelectedGameObject(readyButtonRef);
+        }
 
     }
 
@@ -284,7 +286,25 @@ public class PlayerUI : MonoBehaviour
     public void setColor(DuckColors color)
     {
 
-        EventSystem.current.SetSelectedGameObject(readyButtonRef);
+        eventSystem.SetSelectedGameObject(readyButtonRef);
+
+        color = checkColor(color);
+
+        switch (playerInput.playerIndex)
+        {
+            case 0:
+                enableColor(PlayerStats.player1ColorName);
+                break;
+            case 1:
+                enableColor(PlayerStats.player2ColorName);
+                break;
+            case 2:
+                enableColor(PlayerStats.player3ColorName);
+                break;
+            case 3:
+                enableColor(PlayerStats.player4ColorName);
+                break;
+        }
 
         switch (color)
         {
@@ -358,19 +378,15 @@ public class PlayerUI : MonoBehaviour
         switch (playerInput.playerIndex)
         {
             case 0:
-                enableColor(PlayerStats.player1ColorName);
                 PlayerStats.player1ColorName = color;
                 break;
             case 1:
-                enableColor(PlayerStats.player2ColorName);
                 PlayerStats.player2ColorName = color;
                 break;
             case 2:
-                enableColor(PlayerStats.player3ColorName);
                 PlayerStats.player3ColorName = color;
                 break;
             case 3:
-                enableColor(PlayerStats.player4ColorName);
                 PlayerStats.player4ColorName = color;
                 break;
         }
@@ -390,7 +406,6 @@ public class PlayerUI : MonoBehaviour
         switch (color)
         {
             case DuckColors.Yellow:
-                Debug.Log("enabled");
                 PlayerStats.yellowTaken = false;
                 break;
             case DuckColors.Orange:
@@ -418,5 +433,109 @@ public class PlayerUI : MonoBehaviour
                 PlayerStats.purpleTaken = false;
                 break;
         }
+    }
+
+    public DuckColors checkColor(DuckColors color)
+    {
+        //Checks if color is taken if it is cycle to the next one
+        bool taken = true;
+        while (taken == true)
+        {
+            switch (color)
+            {
+                case DuckColors.Yellow:
+                    if (PlayerStats.yellowTaken == false)
+                    {
+                        taken = false;
+                    }
+                    else
+                    {
+                        color = DuckColors.Orange;
+                    }
+                    break;
+                case DuckColors.Orange:
+                    if (PlayerStats.orangeTaken == false)
+                    {
+                        taken = false;
+                        Debug.Log("color not taken");
+                    }
+                    else
+                    {
+                        color = DuckColors.Red;
+                    }
+                    break;
+                case DuckColors.Red:
+                    if (PlayerStats.redTaken == false)
+                    {
+                        taken = false;
+                    }
+                    else
+                    {
+                        color = DuckColors.Green;
+                    }
+                    break;
+                case DuckColors.Green:
+                    if (PlayerStats.greenTaken == false)
+                    {
+                        taken = false;
+                    }
+                    else
+                    {
+                        color = DuckColors.Pink;
+                    }
+                    break;
+                case DuckColors.Pink:
+                    if (PlayerStats.pinkTaken == false)
+                    {
+                        taken = false;
+                    }
+                    else
+                    {
+                        color = DuckColors.White;
+                    }
+                    break;
+                case DuckColors.White:
+                    if (PlayerStats.whiteTaken == false)
+                    {
+                        taken = false;
+                    }
+                    else
+                    {
+                        color = DuckColors.Blue;
+                    }
+                    break;
+                case DuckColors.Blue:
+                    if (PlayerStats.blueTaken == false)
+                    {
+                        taken = false;
+                    }
+                    else
+                    {
+                        color = DuckColors.Cyan;
+                    }
+                    break;
+                case DuckColors.Cyan:
+                    if (PlayerStats.cyanTaken == false)
+                    {
+                        taken = false;
+                    }
+                    else
+                    {
+                        color = DuckColors.Purple;
+                    }
+                    break;
+                case DuckColors.Purple:
+                    if (PlayerStats.purpleTaken == false)
+                    {
+                        taken = false;
+                    }
+                    else
+                    {
+                        color = DuckColors.Yellow;
+                    }
+                    break;
+            }
+        }
+        return color;
     }
 }
