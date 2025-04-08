@@ -36,6 +36,16 @@ public class UiPlayerControler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Reset colors
+        PlayerStats.yellowTaken = false;
+        PlayerStats.orangeTaken = false;
+        PlayerStats.redTaken = false;
+        PlayerStats.greenTaken = false;
+        PlayerStats.pinkTaken = false;
+        PlayerStats.whiteTaken = false;
+        PlayerStats.blueTaken = false;
+        PlayerStats.cyanTaken = false;
+        PlayerStats.purpleTaken = false;
 
         //References to join text
         joinText1 = this.transform.GetChild(0).gameObject;
