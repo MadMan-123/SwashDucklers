@@ -128,8 +128,11 @@ public class PlayerControler : MonoBehaviour
         StartCoroutine(PlayerNameFade2(true,2f));
         
         //Get the player colour and hat and set them
+        var index = playerID > 0 ? playerID - 1 : 0;
         
-        litColor = playerID switch 
+        
+        print(index);
+        litColor = index switch 
         {
             0 => PlayerStats.player1Color,
             1 => PlayerStats.player2Color,
@@ -137,15 +140,27 @@ public class PlayerControler : MonoBehaviour
             3 => PlayerStats.player4Color,
             _ => Color.white
         };
-       
-        //Set the color of the body
 
+        var playerHat = index switch
+        {
+            0 => PlayerStats.player1Hat,
+            1 => PlayerStats.player2Hat,
+            2 => PlayerStats.player3Hat,
+            3 => PlayerStats.player4Hat,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        
+        //Set the color of the body
         if (PlayerStats.Hatlist == null)
             return;
+        
+        hat = Instantiate(PlayerStats.Hatlist[playerHat].model, hatposition + PlayerStats.Hatlist[playerHat].position, hatTransform.rotation);
+        
         //will the playerID align with the hat list? 
         //no thats not how it works maddox - sd
         //Im readding this so the hats dont brick the game
-        switch (playerID)
+        /*switch (playerID)
         {
             case 0:
             if (PlayerStats.Hatlist != null)
@@ -183,7 +198,7 @@ public class PlayerControler : MonoBehaviour
                 }
             }
             break;
-        }
+        }*/
 
         //get the hat
         //var hatPrefab = PlayerStats.Hatlist[playerID].model;
@@ -281,6 +296,7 @@ public class PlayerControler : MonoBehaviour
        if (HasStopeed())
        {
            StopMovmentSound();
+           animator.CrossFade("Idle",0.1f);
        }
     }
 
@@ -381,8 +397,9 @@ public class PlayerControler : MonoBehaviour
     {
         var main = movementVFX.main;
         
-        if (Mathf.Abs(moveVector.magnitude) >= 0.1f) // Movement detected
+        if (Mathf.Abs(moveVector.magnitude) >= 0.01f) // Movement detected
         {
+            animator.SetBool(IsWalking, true);
             if (!movementVFX.isPlaying) // If it's not playing, start it
             {
                 if (!isSoundPlaying)
@@ -396,6 +413,8 @@ public class PlayerControler : MonoBehaviour
         }
         else // If no movement, stop VFX
         {
+            animator.SetBool(IsWalking, false);
+            
             if (movementVFX.isPlaying)
             {
                 audioSource.Stop();

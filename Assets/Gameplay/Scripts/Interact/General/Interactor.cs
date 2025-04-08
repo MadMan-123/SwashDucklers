@@ -136,6 +136,7 @@ public class Interactor : MonoBehaviour
         GameObject tracked = null;
         List<Rigidbody> rigidBodies = new(10);
         //go through and check if we can interact
+        if(valid.Count == 0){playerControler.animator.SetBool("IsSlapping", false);}
         for (int i = 0; i < valid.Count; i++)
         {
             //check if the collider has a rigidbody
