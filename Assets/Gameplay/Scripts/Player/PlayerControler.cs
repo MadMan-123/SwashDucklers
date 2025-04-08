@@ -273,8 +273,8 @@ public class PlayerControler : MonoBehaviour
         }
         else
         {
-            if (!animator.GetBool(IsSlapping))
-                animator.CrossFade("Idle", 0.1f);
+            //if (!animator.GetBool(IsSlapping))
+                //animator.CrossFade("Idle", 0.1f);
             
             animator.SetBool(IsWalking, true);
         }
@@ -548,18 +548,24 @@ public class PlayerControler : MonoBehaviour
                 Quack.pitch = Random.Range(0.0f, 1.0f);
             }
             Quack.Play(0);
+            
             //changing localScale.y /2 to 0.5f has 0 difference and does not fix the qwack clipping issue - MW
-            var localScale = transform.localScale;
-            localScale = new Vector3(localScale.x, localScale.y / 2, localScale.z);
+            
+            animator.SetTrigger("Taunt");
+            
+            //var localScale = transform.localScale;
+            //localScale = new Vector3(localScale.x, localScale.y / 2, localScale.z);
             
             
-            transform.localScale = localScale;
+            //transform.localScale = localScale;
+            
             //ensuring the player is not placed below the ground is what we want to do here. -MW
             
             
             //if the scale is 1, and we are dividing by 2 (or multiply 0.5f) then moving down by 0.5f is the same as moving down by half the scale,
             //which is causing the clipping issue.
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.4f, transform.position.z);
+            
+            //transform.position = new Vector3(transform.position.x, transform.position.y - 0.4f, transform.position.z);
         }
         else if (value.canceled) //Cancelled
         {
@@ -671,6 +677,10 @@ public class PlayerControler : MonoBehaviour
         //playerInput.DeactivateInput(); // for the pump we want to read if the player is mashing the button
         //Debug.Log("Input disabled"); 
         canMove = false; //new implementation
+        animator.SetBool(IsWalking, false);
+        animator.SetBool(IsSlapping,false);
+        animator.SetBool("CanMove", false);
+        animator.CrossFade("Ragdoll",0.1f);
         
     }
     public void EnableMovement()
@@ -678,6 +688,7 @@ public class PlayerControler : MonoBehaviour
         //playerInput.ActivateInput();
         //Debug.Log("Input enabled");
         canMove = true;
+        animator.SetBool("CanMove", true);
     }
     public IEnumerator TempDisableMovement(float time)
     {
@@ -700,9 +711,8 @@ public class PlayerControler : MonoBehaviour
         //rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ;                 //locks rotation on the z and x axis
         //rigidbody.constraints = RigidbodyConstraints.FreezeRotationX;
         transform.rotation = Quaternion.LookRotation(spawnRotation, Vector3.up);    //resets the rotation to normal, fix spawnRotation to maybe a temp value
-        animator.SetBool(IsWalking, false);
-        animator.SetBool(IsSlapping,false);
         EnableMovement();    //i wonder what this does
+        animator.CrossFade("Ragdoll",0.1f);
     }
 
     private IEnumerator UndoRagdoll(float RagdollTime)         //just a timer really
@@ -721,7 +731,7 @@ public class PlayerControler : MonoBehaviour
         rigidbody.freezeRotation = false;
         StartCoroutine(UndoRagdoll(customTime));
         DisableMovement();
-
+        animator.CrossFade("Ragdoll",0.1f);
         //Rumble
         Rumble(onHitRumble);
 
