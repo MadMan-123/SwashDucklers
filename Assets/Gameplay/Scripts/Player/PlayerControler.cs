@@ -691,7 +691,7 @@ public class PlayerControler : MonoBehaviour
         //rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationZ;              //unlocks rotation on the z and x axis so it rolls about   : all below TS
         //rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationX;
         StartCoroutine(UndoRagdoll(ragdollTime));
-        animator.SetBool("Ragdoll", true);
+        animator.CrossFade("Ragdoll",0.1f);
         DisableMovement();      //could not possibly extrapolate what this does
     }
     private void UnRagdoll()
@@ -700,7 +700,7 @@ public class PlayerControler : MonoBehaviour
         //rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ;                 //locks rotation on the z and x axis
         //rigidbody.constraints = RigidbodyConstraints.FreezeRotationX;
         transform.rotation = Quaternion.LookRotation(spawnRotation, Vector3.up);    //resets the rotation to normal, fix spawnRotation to maybe a temp value
-        animator.SetBool("Ragdoll", false);
+        animator.CrossFade("Idle",0.1f);
         EnableMovement();    //i wonder what this does
     }
 
