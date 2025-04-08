@@ -48,7 +48,7 @@ public class CargoStack : ItemStack
         ScoreManager.Instance.AddScore(score);
         
         //update the text
-        cargoText.text = $"Cargo: {GameData.CargoCount}/{GameData.CargoMax}";
+        cargoText.text = GameData.CargoCount+"/"+GameData.CargoMax;
         
         //remove the item from the inventory
         if (src.TryGetComponent(out Inventory inv))
@@ -67,6 +67,6 @@ public class CargoStack : ItemStack
         //decrease the score
         ScoreManager.Instance.DecreaseScore(score);
         //update the text
-        cargoText.text = $"Cargo: {GameData.CargoCount}/{GameData.CargoMax}";
+        cargoText.text = GameData.CargoCount + "/" + GameData.CargoMax;
     }
 }
