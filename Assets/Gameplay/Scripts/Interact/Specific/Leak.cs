@@ -47,24 +47,23 @@ public class Leak : Interactable
             else if (!tutLeak)
             {
 
-            int num = Random.Range(0, doubleRarity);
-            active = num < doubleRarity - 1 ? 0 : 1;
+                int num = Random.Range(0, doubleRarity);
+                active = num < doubleRarity - 1 ? 0 : 1;
 
-            leakEffect[active].SetActive(true);
-            toRepair = active + 1;
-            //reset the count
-            if (start)
-            {
-                plankVisualiser.LeakSpawn(active);
-            }
+                leakEffect[active].SetActive(true);
+                toRepair = active + 1;
+                //reset the count
+                if (start)
+                {
+                    plankVisualiser.LeakSpawn(active);
+                }
 
-            health = FindObjectOfType<ShipHealth>();
-            //effect the ship health
+                health = FindObjectOfType<ShipHealth>();
+                //effect the ship health
 
-
-            health.DamageShip(damage);
+            health?.DamageShip(damage);
             //health.dmgRate += leakAmmount;
-            target.AddMember(transform, cameraTargetWeight, cameraTargetRadius);
+            target?.AddMember(transform, cameraTargetWeight, cameraTargetRadius);
             start = true;
         }
     }

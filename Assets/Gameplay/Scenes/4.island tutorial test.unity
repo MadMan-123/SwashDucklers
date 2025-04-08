@@ -1272,7 +1272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c59de800c1e4caeb30db0b325a38669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemGenerated: {fileID: 0}
+  itemGenerated: {fileID: 1284458540}
   cargoText: {fileID: 0}
   score: 10
 --- !u!65 &637623570
@@ -4614,26 +4614,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1011209934}
     m_Modifications:
-    - target: {fileID: 5592110505597661869, guid: 0ddeb20cc0858d14ba85cbad458e66ab,
-        type: 3}
-      propertyPath: itemRequired
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592110505597661869, guid: 0ddeb20cc0858d14ba85cbad458e66ab,
-        type: 3}
-      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592110505597661869, guid: 0ddeb20cc0858d14ba85cbad458e66ab,
-        type: 3}
-      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DropItemAndDestroy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592110505597661869, guid: 0ddeb20cc0858d14ba85cbad458e66ab,
-        type: 3}
-      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: DropAndDestroy, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 1621200578353325088, guid: a64a03caa4a53c74db45fae1bfe27856,
         type: 3}
       propertyPath: inventory
@@ -4723,6 +4703,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592110505597661869, guid: 0ddeb20cc0858d14ba85cbad458e66ab,
+        type: 3}
+      propertyPath: itemRequired
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592110505597661869, guid: 0ddeb20cc0858d14ba85cbad458e66ab,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592110505597661869, guid: 0ddeb20cc0858d14ba85cbad458e66ab,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DropItemAndDestroy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592110505597661869, guid: 0ddeb20cc0858d14ba85cbad458e66ab,
+        type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DropAndDestroy, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9060514890699652477, guid: 0ddeb20cc0858d14ba85cbad458e66ab, type: 3}
