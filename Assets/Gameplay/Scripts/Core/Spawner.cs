@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour
     protected IEnumerator routine;
     private void Start()
     {
-        Init();
+        //Init();
     }
     
     public virtual void Init()
@@ -41,10 +41,9 @@ public class Spawner : MonoBehaviour
         {
             var obj = pool.GetObject();
             
+            
             //set the position
             obj.transform.position = area.GeneratePositionInArea(true,true,true);   
-            //draw the position
-            Debug.DrawLine(obj.transform.position,obj.transform.position + Vector3.up,Color.red,5f);
         }
         yield return new WaitForSeconds(interval);
         routine = _spawn();

@@ -9,7 +9,7 @@ public class Item : MonoBehaviour
     [SerializeField] public Vector3 offset;
     [SerializeField] public Quaternion pickupRotation;
     [SerializeField] public Type type;
-    [SerializeField] private Rigidbody rb;
+    [SerializeField] public Rigidbody rb;
     [SerializeField] private Collider col;
 
     private void Start()
@@ -27,7 +27,7 @@ public class Item : MonoBehaviour
             if (current.AddItem(gameObject))                              //add this to inv
             {
                 /*//disable the rigidbody and collider
-                rb.isKinematic = true;                           //bunch of positioning stuff
+                rigidbody.isKinematic = true;                           //bunch of positioning stuff
                 col.enabled = false;
                 
                 //set the transforms
@@ -40,22 +40,34 @@ public class Item : MonoBehaviour
         }
     }
     
-    public void DropItem(GameObject source)
+    public void DropItem(GameObject source,bool shouldLaunch,Vector3 launchDirection)
     {
         if (source.TryGetComponent(out Inventory inv)) //try to see if player has an inv
         {
             current = inv;
             GetComponent<Collider>().enabled = true;
-            GetComponent<Rigidbody>().isKinematic = false;
+            var rb = GetComponent<Rigidbody>();
+            
+            rb.isKinematic = false;
+            //remove the item from the inventory
             current.item = null;
 
             //set the inventory to null
             current = null;
-
+            
             //set the transforms to allow the item to be dropped
             transform.SetParent(null);
+            
+            //throw the item
+            if (shouldLaunch)
+            {
+                rb.AddForce(launchDirection * 5, ForceMode.VelocityChange);
+            }
         }
+
+        //return the item
     }
+    
     
     
     

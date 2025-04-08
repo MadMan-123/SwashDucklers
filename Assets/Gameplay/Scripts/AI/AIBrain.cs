@@ -8,13 +8,20 @@ using Random = UnityEngine.Random;
 
 public class AIBrain : MonoBehaviour
 {
+        //components from the Object
         public NavMeshAgent agent;
         public Rigidbody rb;
         public Inventory inventory;
         public EnemySpawner owner; 
+        
+        //AI metadata
         [SerializeField] private float viewRadius = 10;
         [SerializeField] private Target target;
         [SerializeField] private State state;
+        
+        [SerializeField] private float wanderSpeed = 1f;
+        [SerializeField] private float chaseSpeed = 1.25f;
+        [SerializeField] private float fleeSpeed = 0.5f;
         [Header("Wander behaviour")]
         [SerializeField] private float circleDistance = 5f;
         [SerializeField] private float randDifference = 90f;
@@ -34,8 +41,10 @@ public class AIBrain : MonoBehaviour
         private Health health;
         private LayerMask boatLayer;
         private Vector3 delta;
+
+        private bool gotCargoWander = true;
         
-        
+        private bool hasRun;
         float[] distances = new float[10];
         private float wanderAngle = 0f; 
         [SerializeField] private bool onFloor;
@@ -47,6 +56,9 @@ public class AIBrain : MonoBehaviour
         [SerializeField] private bool reenableFlag;
         
         [SerializeField] private Collider[] colliders = new Collider[10];
+        [SerializeField] private bool set = false;
+
+        //FSM states
         public enum State
         {
             Idle,
@@ -59,32 +71,47 @@ public class AIBrain : MonoBehaviour
 
         void Start()
         {
-            shouldDebug = true;
+            //setup the AI
+            
+            //get the boat layer
             boatLayer = LayerMask.NameToLayer("Boat");
+            //set the state to wander
             state = State.Wander;
             
+            //get the components
+            //if the agent is not present then add it
             if (!TryGetComponent(out agent))
                 agent = gameObject.AddComponent<NavMeshAgent>(); 
             
+            //disable the agent
             agent.enabled = false;
             
+            
+            //if the rigidbody is not present then add it
             if(!TryGetComponent(out rb))
                 rb = gameObject.AddComponent<Rigidbody>();
                 
+            
+            //set the rigidbody to kinematic
             rb.isKinematic = false;
             
+            //if the health is not present then add it
             if (!TryGetComponent(out health))
                 health = gameObject.AddComponent<Health>();
             
+            //set the health to max
             health.SetHealth(health.GetMaxHealth());
 
+            //if the inventory is not present then add it
             if (!TryGetComponent(out inventory))
                 inventory = gameObject.AddComponent<Inventory>();
+            
             walkingID = Animator.StringToHash("IsWalking");
         }
-       
+  
         private void Update()
         {
+            //if the agent is not enabled then wait until the agent is on the floor
             if (!agent.enabled || !enabled)
             {
                 //if the agent is not enabled wait to be on the floor
@@ -110,8 +137,16 @@ public class AIBrain : MonoBehaviour
                             //check if we have cargo
                             if (hasCargo)
                             {
+                                //check if we still have a cargo 
+                                if (inventory.item is not Cargo || inventory.item == null)
+                                {
+                                    //if not then
+                                    hasCargo = false;
+                                    ChangeState(State.Wander);
+                                }
                                 //if yes then flee
                                 ChangeState(State.JumpOff);
+                                
                             }
                             else if (!isFleeing)
                             {
@@ -130,12 +165,16 @@ public class AIBrain : MonoBehaviour
                                         hasCargo = true;
                                     }
 
-                                    ChangeState(State.Attack);
+
+                                   
+                                    //if the target transform is a player
+                                        ChangeState(State.Attack);
                                 }
 
                             }
                             else
                             {
+                                //if the player is near and we have cargo then flee
                                 ChangeState(State.Flee);
                             }
 
@@ -145,8 +184,23 @@ public class AIBrain : MonoBehaviour
                         {
                             if (hasCargo)
                             {
-                                //if yes then flee
-                                ChangeState(State.JumpOff);
+                                if(!hasRun)
+                                {
+                                    StartCoroutine(WanderThenJumpOff());
+
+                                    IEnumerator WanderThenJumpOff()
+                                    {
+                                        hasRun = true;
+                                        gotCargoWander = true;
+                                        //wander for 5 seconds
+                                        yield return new WaitForSeconds(5);
+                                        gotCargoWander = false;
+                                        yield return new WaitForSeconds(2);
+                                        hasRun = false;
+                                    }
+                                }
+
+                                ChangeState(!gotCargoWander ? State.JumpOff : State.Wander);
                             }
                             else if (target != null && target.trackedTransform)
                             {
@@ -158,10 +212,28 @@ public class AIBrain : MonoBehaviour
                                     //check if the player has an item
                                     if (target.trackedTransform.TryGetComponent(out CargoStack stack))
                                     {
+                                        
                                         stack.TryPickUp(gameObject);
+                                        
                                         hasCargo = true;
                                         //we should run off now
-                                        ChangeState(State.JumpOff);
+                                        ChangeState(State.Wander);
+                                        gotCargoWander = true;
+                                        
+                                    }
+                                    
+                                    
+                                    
+                                    //if there is a cargo item to pick up then pick it up
+                                    if (target.trackedTransform.TryGetComponent(out Cargo cargo))
+                                    {
+                                        //pick up the cargo
+                                        cargo.PickUp(gameObject);
+                                        hasCargo = true;
+                                        //we should wander off now
+                                        ChangeState(State.Wander);
+                                        gotCargoWander = true;
+                                        
                                     }
                                 }
                             }
@@ -275,9 +347,11 @@ public class AIBrain : MonoBehaviour
                 //if the agent is enabled and is placed on a nav mesh area
                 if (agent.enabled && NavMesh.SamplePosition(transform.position, out var hit2, 0.5f, NavMesh.AllAreas))
                 {
+                    //ignore the layer mask -> stairs
+                    /*var layer = 1 << LayerMask.NameToLayer("Stairs");
                     //obstacle avoidance
                     //check in front of the agent for physical objects
-                    var count = Physics.RaycastNonAlloc(transform.position, transform.forward, hits, 1f);
+                    var count = Physics.RaycastNonAlloc(transform.position, transform.forward, hits, 1f, ~layer);
                     //get the valid hits
                     var valid = hits.Where(h => h.collider).ToList();
                     
@@ -286,13 +360,19 @@ public class AIBrain : MonoBehaviour
                     {
                         //get the hit
                         var hitInfo = valid[0];
+                        
+                        
                         //get the normal
                         var normal = hitInfo.normal;
                         //get the direction
+                        //the strength of the direction is the distance to the hit based on the view radius
+                        
+                        var strength = (hitInfo.distance / (viewRadius * 2));
+                        //get the direction
                         var direction = Vector3.Cross(normal, Vector3.up);
                         //get the destination
-                        destination = transform.position + direction;
-                    }
+                        destination = transform.position + (direction * strength);
+                    }*/
                     agent.SetDestination(destination);
                 }
               
@@ -302,56 +382,71 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 JumpOff()
         {
+            
+            //check if we still have the cargo in our hand, if not we need to look for it
+            if (inventory.item is not Cargo || inventory.item == null)
+            {
+                //if we have no target then we should wander
+                ChangeState(State.Wander);
+                return transform.position;
+            }
             //get the edge of the navmesh on the z axis 
-            NavMeshHit upHit = new(), downHit = new();
+            NavMeshHit upHit = new();
             //jump into the enemy death area
-            var pos1 = transform.position + new Vector3(0, 0, 10);
-            var pos2 = transform.position + new Vector3(0, 0, -10);
+            var pos1 = transform.position + new Vector3(0, 0, -10);
             
             //try sample the position
             NavMesh.SamplePosition(pos1, out upHit, 10, NavMesh.AllAreas);
-            NavMesh.SamplePosition(pos2, out downHit, 10, NavMesh.AllAreas);
             
             //draw the two points
             if (shouldDebug)
             {
                 Debug.DrawLine(pos1, upHit.position, Color.green);
-                Debug.DrawLine(pos2, downHit.position, Color.green);
             }
             
             //get the distance to the two points
             var upDistance = (upHit.position - transform.position).magnitude;
-            var downDistance = (downHit.position - transform.position).magnitude;
             
             //get the closest point
-            var fleePosition = upDistance < downDistance ? upHit.position : downHit.position;
+            var fleePosition = upHit.position;
            
             //check if the distance is less than 1, if so we will make the launcher lanch the AI to the enemy death area
-            if ((fleePosition != upHit.position || !(upDistance < 0.5f)) &&
-                (fleePosition != downHit.position || !(downDistance < 0.5f))) return fleePosition;
+            if ((fleePosition != upHit.position || !(upDistance < 0.5f))) return fleePosition;
             // enable rigidbody and disable agent
             rb.isKinematic = false;
             agent.enabled = false;
+           
+            var camTransform = Camera.main.transform;
+            //ensure the crab's y axis is facing the camera 
+            //smoothly rotate the crab to face the camera
+            transform.rotation = Quaternion.LookRotation(-Vector3.forward);
+ 
             
-            //launch the AI to the enemy death area
-            //launch upright relative to the forward direction
             var direction = transform.forward;
             direction.y = 2;
             //launch the AI
-            rb.AddForce(direction * 3f , ForceMode.VelocityChange);
+            rb.AddForce(direction * 4.25f , ForceMode.VelocityChange);
             
             //reset the ai state
-            ChangeState(State.Wander);
-            //drop the cargo
-            hasCargo = false;
-            inventory.DropItem();
-            //disable the AI
-            enabled = false;
-
+            StartCoroutine(WaitForThrowAndDisable());
+            
             return fleePosition;
         }
 
-
+        IEnumerator WaitForThrowAndDisable(float throwTime = 1.5f, float disableTime = 1.5f)
+        {
+            yield return new WaitForSeconds(throwTime);
+            //throw the cargo
+            
+            hasCargo = false;
+            inventory.DropItem(Vector3.zero, true);
+            yield return new WaitForSeconds(disableTime);
+            
+            //disable the object
+            gameObject.SetActive(false);
+            
+            enabled = false;
+        }
 
         private void FixedUpdate()
         {
@@ -377,7 +472,7 @@ public class AIBrain : MonoBehaviour
             if(state == State.JumpOff) yield break;
              Physics.SphereCastNonAlloc(
                                 transform.position,
-                                0.2f,
+                                0.5f,
                                 Vector3.down,
                                 hits,
                                 0.1f,
@@ -394,11 +489,13 @@ public class AIBrain : MonoBehaviour
             agent.enabled = true;
             enabled = true;
             rb.isKinematic = true;
+     
         }
 
 
         private Vector3 Flee()
         {
+            agent.speed = fleeSpeed;
             if (target == null)
             {
                 ChangeState(State.Wander);
@@ -515,6 +612,9 @@ public class AIBrain : MonoBehaviour
 
         private Vector3 Chase()
         {
+            //set the speed to chase speed 
+            agent.speed = chaseSpeed;
+            
             if(target == null || target.trackedTransform == null)
             {
                 ChangeState(State.Wander);
@@ -542,7 +642,9 @@ public class AIBrain : MonoBehaviour
         
         private Vector3 Wander()
         {
-
+            //set speed
+            agent.speed = wanderSpeed;
+            
             wanderAngle += Random.Range(-randDifference, randDifference) * Mathf.Deg2Rad;
             var circlePos = transform.position + (transform.forward * circleDistance);
             
@@ -624,10 +726,52 @@ public class AIBrain : MonoBehaviour
             Gizmos.DrawRay(transform.position, transform.forward * viewRadius);
         }
 
+
+
+        private void ResetAgent()
+        {
+            //set the agent to the default values
+            agent.speed = wanderSpeed;
+            
+            //set the agent to wander
+            ChangeState(State.Wander);
+            
+            //reset target
+            target = null;
+            
+            //reset the health
+            health.SetHealth(health.GetMaxHealth());
+            
+            //reset the inventory
+            inventory.DropItem(Vector3.zero, true);
+            
+            //reset the flags
+            hasCargo = false;
+            isFleeing = false;
+            canAttack = true;
+            reenableFlag = false;
+            onFloor = false;
+            hasRun = false;
+            gotCargoWander = true;
+            
+        }
+
+        private void OnDisable()
+        {
+            if (!set)
+            {
+                set = true;
+            }
+            else
+            {
+                ResetAgent();
+            }
+        }
+
         /*public void Death()
         {
             //disable the object
-            owner.spawnedCount--; 
+            owner.spawnedCount--;
             gameObject.SetActive(false);
         }*/
         

@@ -19,10 +19,12 @@ public class GameManager : MonoBehaviour
     {
         if (gameOver == true)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScreen");
+            //I just moved this to ship health we dont call it anywhere else anyway -SD
+            //UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScreen");
 
             //g_over.SetActive(true);
             //Time.timeScale = 0f;
         }
     }
+
 }

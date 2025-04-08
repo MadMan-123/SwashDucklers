@@ -19,7 +19,7 @@ public class KrakenImpact : MonoBehaviour
     {
       Vector3 lookDir = cam.transform.position - col.gameObject.transform.position;
       Quaternion direction = Quaternion.LookRotation(lookDir);
-      Instantiate(impactAnim,col.gameObject.transform.position,direction);
+      Instantiate(impactAnim,col.transform.position,direction);
     }
     Debug.Log("Impacted");
     

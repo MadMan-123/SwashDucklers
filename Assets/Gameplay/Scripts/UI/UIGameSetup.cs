@@ -15,6 +15,8 @@ public class UIGameSetup : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI LevelLengthText;
 
+    [SerializeField] GameObject StartTransition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,14 +35,16 @@ public class UIGameSetup : MonoBehaviour
         //Return to previous menu
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+            StartCoroutine(Transition(1));
+            //UnityEngine.SceneManagement.SceneManager.LoadScene(1);
         }
 
     }
 
     public void startGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(3);
+        StartCoroutine(Transition(3));
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(3);
     }
 
     public void kraken()
@@ -115,5 +119,17 @@ public class UIGameSetup : MonoBehaviour
                 LevelLengthText.text = "Long";
                 break;
         }
+    }
+
+    //Starts transition animation and waits till its done before moving scene
+    //Ive coppied this into a bunch of scripts ideally we could set it up to be usable in any scene
+    //It also would probably be better if the time wasnt hardcoded, and the animation had a loop while the next scene loads
+    //-SD
+    private IEnumerator Transition(int scene)
+    {
+
+        StartTransition.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
     }
 }

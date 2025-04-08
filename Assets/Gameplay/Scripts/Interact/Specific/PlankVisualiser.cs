@@ -1,29 +1,93 @@
-﻿
-    
+﻿using System;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
+using System.Collections; 
 public class PlankVisualiser : MonoBehaviour
 {
-   //order of visuals is the order of how the planks are placed
-   [SerializeField] private GameObject[] plankVisuals;
-   public int repairCount = 0;
+   //New idea, Instantiate an instance of the planks so we can move it later, also i cant get it to rotate for some reason cos im a dumbass - TS
    
-   public void RepairPlank()
+   
+   //order of visuals is the order of how the planks are placed
+   [SerializeField] private GameObject plankVisuals;
+   [SerializeField] GameObject[] plankPool= new GameObject[2];
+   [SerializeField] private Leak leak;
+   [SerializeField] private GameObject spawnLoc;
+   private float firstRotation;
+   public Transform vfxHolder;
+   private int toRepair = 0;
+
+
+   private void Start()
    {
-      if (repairCount >= plankVisuals.Length) return;
-      plankVisuals[repairCount].SetActive(true);
-      repairCount++;
+      leak = gameObject.GetComponent<Leak>();
+      vfxHolder = leak.vfxHolder;
+      for (int i = 0; i < plankPool.Length; i++)
+      {
+         plankPool[i] = Instantiate(plankVisuals,spawnLoc.transform.position,Quaternion.Euler(0,0,0),vfxHolder);
+         plankPool[i].SetActive(false);
+      }
+      
+   }
+
+   public void LeakSpawn(int num)
+   {
+      toRepair = num;
+      StartCoroutine(PopOff());
+   }
+   public void RepairPlank(int count)
+   {
+      //if (repairCount >= toRepair+1) return;
+
+      float yRot = Random.Range(0, 180);
+      Quaternion rotation = (Quaternion.Euler(0, yRot, 0));
+      if (count == toRepair)
+      {
+        
+         rotation = (Quaternion.Euler(0, firstRotation+90f, 0));
+      }
+      
+      SoundManager.PlayAudioClip("plank place", this.transform.position, 1f);
+      firstRotation = yRot;
+      plankPool[count].transform.rotation = rotation;
+      plankPool[count].transform.position = spawnLoc.transform.position;
+      plankPool[count].SetActive(true);
+   }
+
+   public IEnumerator PopOff()
+   {
+      for (int i = 0; i < plankPool.Length; i++)
+      {
+         if (plankPool[i].TryGetComponent(out Rigidbody rb))
+         {
+            float ranX = Random.Range(0.75f, 0);
+            float ranZ = Random.Range(0.75f, 0);
+            rb.isKinematic = false;
+            rb.AddForce((Vector3.up + new Vector3(ranX,0,ranZ)) * 15, ForceMode.Impulse);
+            rb.AddTorque(30000f,40000f, 40f, ForceMode.Acceleration);
+         }
+      }
+      yield return new WaitForSeconds(1);
+      for (int i = 0; i < plankPool.Length; i++)
+      {
+         if (plankPool[i].TryGetComponent(out Rigidbody rb))
+         {
+            rb.velocity = Vector3.zero;
+         }
+         plankPool[i].SetActive(false);
+      }
+      
    }
    
    //on disable reset the visuals
    private void OnDisable()
    {
-      foreach (var plankVisual in plankVisuals)
-      {
-         plankVisual.SetActive(false);
-      }
-      repairCount = 0;
+      //foreach (var plankVisual in plankVisuals)
+      //{
+      //   plankVisual.SetActive(false);
+      //}
+      //repairCount = 0;
    }
+
 
 
 }

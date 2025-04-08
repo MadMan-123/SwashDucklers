@@ -18,7 +18,7 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
         //GM: Accumulate damage and cap health at 100%
         health += damage;
         health = Mathf.Clamp(health, 0, maxHealth);
-        UpdateHealthUI();
+        //UpdateHealthUI();
         
         //sean suggested a quack when the player gets slapped so ill implament a quick on damage
         onDamageTaken?.Invoke(source);
@@ -50,6 +50,6 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
     public void SetHealth(float getMaxHealth)
     {
         health = getMaxHealth;
-        UpdateHealthUI();
+        //UpdateHealthUI();
     }
 }

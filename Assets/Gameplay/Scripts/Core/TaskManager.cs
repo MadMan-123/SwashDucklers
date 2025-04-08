@@ -35,7 +35,10 @@ public class TaskManager : MonoBehaviour
         
         LayerMask playerMask;
 
+        [Header("Dependency Injection")]
+        
         [SerializeField] private CinemachineTargetGroup cinemachineTarget;
+        [SerializeField] private Transform vfxHolder;
 
 
         private bool ranOnce = false;
@@ -73,7 +76,11 @@ public class TaskManager : MonoBehaviour
                                 dynamicIds.Add(i);
                         foreach (var interactable in taskList[i].Interactables)
                         {
-                                if (interactable is Leak leak) { leak.target = cinemachineTarget; } 
+                                if (interactable is Leak leak)
+                                {
+                                        leak.target = cinemachineTarget;
+                                        leak.vfxHolder = vfxHolder;
+                                } 
                                 interactable.gameObject.SetActive(false);
                         }
                 }

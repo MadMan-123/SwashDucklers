@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class Cannon : Interactable
 {
-    
+    private static readonly int IsShooting = Animator.StringToHash("IsShooting");
+    private static readonly int Unjammed = Animator.StringToHash("UNJAMMED");
+
     public GameObject cannonballPrefab;
     GameObjectPool cannonballPool;
     public Transform cannonballSpawnPoint;
@@ -18,7 +20,7 @@ public class Cannon : Interactable
     [SerializeField] private float coolDownTime = 5f;
     [SerializeField] private Animator anim;
     
-    private int cannonballCount = 0, jamAmmount = 3, timeToUnJam = 12;
+    [SerializeField]private int cannonballCount = 0, jamAmmount = 3, timeToUnJam = 12;
 
     void Start()
     {
@@ -29,6 +31,8 @@ public class Cannon : Interactable
         } 
         cannonballParticles = this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
         anim = this.transform.gameObject.GetComponent<Animator>();
+        
+        TryGetOutlineMaterials();
     }
 
     public void Fire(GameObject Source)
@@ -38,7 +42,7 @@ public class Cannon : Interactable
         canFire = false;
         
         //get rid of the cannonball
-        if (!Source.TryGetComponent(out Inventory inv))
+        if (!Source.TryGetComponent(out Inventory inv) )
         {
             canFire = true;
             return;
@@ -47,33 +51,37 @@ public class Cannon : Interactable
         //remove the cannonball from the inventory
         inv.RemoveItem();
         
-        
-
         StartCoroutine(FireCannon());
-
-        StartCoroutine(CoolDown());
-        
+        if(cannonballCount + 1 < jamAmmount)
+        {
+            StartCoroutine(CoolDown());
+        }
         cannonballCount++;
     
         if(cannonballCount >= jamAmmount)
         {
-            cannonballCount = 0;
+            
+            anim.CrossFade("shoot 0", 0.1f);
+            anim.SetBool(Unjammed,false);
             StartCoroutine(UnJam());
+            cannonballCount = 0;
+            
         }
     }
 
     IEnumerator UnJam()
     {
         canFire = false;
+        anim.SetBool(IsShooting, false);
         yield return new WaitForSeconds(timeToUnJam);
         canFire = true;
+        anim.SetBool(Unjammed,true);
     }
      
     IEnumerator FireCannon()
     {
-        if (!anim.GetBool("IsShooting"))
-            //animator.CrossFade("IsWalking")
-            anim.SetBool("IsShooting", true);
+       if(cannonballCount >= jamAmmount) yield break; 
+        anim.SetBool(IsShooting, true);
         yield return new WaitForSeconds(0.75f);
 
         //fire the cannon
@@ -85,7 +93,7 @@ public class Cannon : Interactable
         cannonball.transform.rotation = cannonballSpawnPoint.rotation;
         cannonballParticles.Play();
 
-        SoundManager.PlayAudioClip("CannnonFire", this.transform.position, 1f);
+        SoundManager.PlayAudioClip("CannonFire", this.transform.position, 1f);
 
         if (cannonball.TryGetComponent(out Rigidbody rb))
         {
@@ -103,7 +111,13 @@ public class Cannon : Interactable
         yield return new WaitForSeconds(coolDownTime);
         if(cannonballCount < jamAmmount)
             canFire = true;
+        else
+            yield break;
+        
+
+        
         anim.SetBool("IsShooting", false);
+    
     }
 
     private void OnDrawGizmos()

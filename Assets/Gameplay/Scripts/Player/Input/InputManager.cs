@@ -80,6 +80,15 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DisplayNames"",
+                    ""type"": ""Button"",
+                    ""id"": ""d6f91cd0-210f-468c-871d-658e29f59958"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -302,6 +311,28 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
                     ""action"": ""DropItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11c0e456-141e-498a-85d2-ddd7c94145aa"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""DisplayNames"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a83c166-a068-4b73-9d38-aeee7084720f"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DisplayNames"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -339,6 +370,7 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
         m_Player_Taunt = m_Player.FindAction("Taunt", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_DropItem = m_Player.FindAction("DropItem", throwIfNotFound: true);
+        m_Player_DisplayNames = m_Player.FindAction("DisplayNames", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -406,6 +438,7 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Taunt;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_DropItem;
+    private readonly InputAction m_Player_DisplayNames;
     public struct PlayerActions
     {
         private @InputManager m_Wrapper;
@@ -416,6 +449,7 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
         public InputAction @Taunt => m_Wrapper.m_Player_Taunt;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @DropItem => m_Wrapper.m_Player_DropItem;
+        public InputAction @DisplayNames => m_Wrapper.m_Player_DisplayNames;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -443,6 +477,9 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
             @DropItem.started += instance.OnDropItem;
             @DropItem.performed += instance.OnDropItem;
             @DropItem.canceled += instance.OnDropItem;
+            @DisplayNames.started += instance.OnDisplayNames;
+            @DisplayNames.performed += instance.OnDisplayNames;
+            @DisplayNames.canceled += instance.OnDisplayNames;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -465,6 +502,9 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
             @DropItem.started -= instance.OnDropItem;
             @DropItem.performed -= instance.OnDropItem;
             @DropItem.canceled -= instance.OnDropItem;
+            @DisplayNames.started -= instance.OnDisplayNames;
+            @DisplayNames.performed -= instance.OnDisplayNames;
+            @DisplayNames.canceled -= instance.OnDisplayNames;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -508,5 +548,6 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
         void OnTaunt(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnDropItem(InputAction.CallbackContext context);
+        void OnDisplayNames(InputAction.CallbackContext context);
     }
 }

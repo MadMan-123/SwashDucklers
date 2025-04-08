@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -39,38 +40,33 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-
+        //clear the game data's player list
+        GameData.Players.Clear();
+        
         Debug.Log($"Players on spawn: {PlayerStats.playerNo}");
 
         //Spawn joined players
         for (int i = 0; i < PlayerStats.playerNo; i++)
         {
-            switch (i)
+            var index = i <  0 ? 0 : i - 1;
+
+            var currentInputState = index  switch
             {
-                case 0:
-                    PlayerInput.Instantiate(playerPrefab, i, null, -1, PlayerStats.player1input);
-                    break;
-                case 1:
-                    PlayerInput.Instantiate(playerPrefab, i, null, -1, PlayerStats.player2input);
-                    break;
-                case 2:
-                    PlayerInput.Instantiate(playerPrefab, i, null, -1, PlayerStats.player3input);
-                    break;
-                case 3:
-                    PlayerInput.Instantiate(playerPrefab, i, null, -1, PlayerStats.player4input);
-                    break;
-            }
+                0 => PlayerStats.player1input,
+                1 => PlayerStats.player2input,
+                2 => PlayerStats.player3input,
+                3 => PlayerStats.player4input,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            
+            PlayerInput.Instantiate(playerPrefab, i, null, -1, currentInputState);
       
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
-
-    public void OnPlayerJoined(PlayerInput player)
+    public void OnPlayerJoined(PlayerInput player)  
     {
         //PlayerStats.playerNo++;
         players.Add(player.gameObject);
@@ -82,27 +78,26 @@ public class PlayerManager : MonoBehaviour
         pc.playerCameraWeight = playerCameraWeight;
         pc.playerCameraRadius = playerCameraRadius;
         //cameraTarget.AddMember(player.transform, 3, 2.5f);
-
-        switch (player.playerIndex)
+        var spawn = player.playerIndex switch
         {
-            case 0:
-               player.GetComponent<PlayerControler>().spawnpoint = player1Spawn;
-                player.GetComponent<PlayerControler>().spawnRotation = player1SpawnRotation;
-                break;
-            case 1:
-                player.GetComponent<PlayerControler>().spawnpoint = player2Spawn;
-                player.GetComponent<PlayerControler>().spawnRotation = player2SpawnRotation;
-                break;
-            case 2:
-                player.GetComponent<PlayerControler>().spawnpoint = player3Spawn;
-                player.GetComponent<PlayerControler>().spawnRotation = player2SpawnRotation;
-                break;
-            case 3:
-                player.GetComponent<PlayerControler>().spawnpoint = player4Spawn;
-                player.GetComponent<PlayerControler>().spawnRotation = player4SpawnRotation;
-                break;
-        }
-
+            0 => player1Spawn,
+            1 => player2Spawn,
+            2 => player3Spawn,
+            3 => player4Spawn,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        var rotation = player.playerIndex switch
+        {
+            0 => player1SpawnRotation,
+            1 => player2SpawnRotation,
+            2 => player3SpawnRotation,
+            3 => player4SpawnRotation,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        pc.spawnpoint = spawn;
+        pc.spawnRotation = rotation;
     }
 
     public void OnPlayerLeft(PlayerInput player)

@@ -12,55 +12,57 @@ public class TentacleAI : MonoBehaviour
     public float waitBetweenTents;
     public GameObject[] tentacleObjects;
     private int lastCalled;
-    
+    private int tentIndex = 0;
     public bool shouldDebug = false;
    
     
     
     //COMMIT 500 baby
-    private void Start()
-    {
-        Random.seed = System.DateTime.Now.Millisecond;
-    }
 
     void OnEnable()
     {
-        foreach (GameObject obj in tentacleObjects)
+        for (var i = 0; i < tentacleObjects.Length; i++)
+        {
+            var obj = tentacleObjects[i];
             obj.SetActive(false);
-        
-        if(shouldDebug)
-            Debug.Log("TentacleAI OnEnable");
-        
-        int tentIndex = Random.Range(0, tentacleObjects.Length);
-        var routine = EnableTentacle(tentIndex);
+        }
+
+        tentIndex = Random.Range(0, tentacleObjects.Length);
+
+        var routine = EnableTentacle();
 
         StartCoroutine(routine);
         //lastCalled = tentAttack;
-        
-        if(shouldDebug)
-            Debug.Log("Activated tentacle " + tentIndex);
     }
 
-    private IEnumerator EnableTentacle(int tentIndex, float animationTime = 0.5f)
+
+    /*
+    private IEnumerator GetNewTentacle()
+    {
+        //wait some time before picking the new tentacle
+    }
+    */
+    
+    private IEnumerator EnableTentacle( float animationTime = 0.5f)
     {
         var tentacle = tentacleObjects[tentIndex];
-        
-        if(shouldDebug)
-            Debug.Log("Enabling tentacle " + tentIndex);
-       
-        //animation shit
         yield return new WaitForSeconds(animationTime);
-        
         tentacle.SetActive(true);
-        
-        //other tentacle shit here 
-        
     }
 
+    public IEnumerator KrakenDeath()
+    {
+        yield return new WaitForSeconds(1f);
+        if (tentacleObjects[tentIndex].TryGetComponent(out Tentacle tentacle))
+        {
+            tentacle.KrakenDead();
+        }
+    }
     private void OnDisable()
     {
-        foreach (GameObject obj in tentacleObjects)
-            obj.SetActive(false);
-        //throw new NotImplementedException();
+        for (var i = 0; i < tentacleObjects.Length; i++)
+        { 
+            tentacleObjects[i].SetActive(false);
+        }
     }
 }

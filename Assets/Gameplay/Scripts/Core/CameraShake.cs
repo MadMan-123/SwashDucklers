@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Assertions;
 
 public class CameraShake : MonoBehaviour
 {
@@ -10,16 +11,27 @@ public class CameraShake : MonoBehaviour
     private float baseFrequency = 1;
     [SerializeField] private float shakeTimer;
     private bool toggle;
+    CinemachineBasicMultiChannelPerlin cmCamp;
     
-    // Start is called before the first frame update
     private void Awake()
     {
         Instance = this;
-        cmCam = GetComponent<CinemachineVirtualCamera>();
+        if (!TryGetComponent(out cmCam))
+        {
+            Debug.LogError("No Cinemachine Virtual Camera found in scene!");
+        }
+        
+        //try and get the cmCamp component
+        cmCamp = cmCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        
+        //assert a null check
+        Assert.IsNotNull(cmCamp);
+        
         ShakeCamera(0, 0.1f);
     }
 
-    // Update is called once per frame
+    
+    
     void Update()
     {
         if (!toggle)
@@ -30,11 +42,7 @@ public class CameraShake : MonoBehaviour
             }
             else if (shakeTimer <= 0f)
             {
-                //Timer over!
-                CinemachineBasicMultiChannelPerlin cmCamP =
-                    cmCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
-                cmCamP.m_AmplitudeGain = 0f;
+                cmCamp.m_AmplitudeGain = 0f;
                 cmCam.m_Lens.FieldOfView = 60f;
             }
 
@@ -47,29 +55,26 @@ public class CameraShake : MonoBehaviour
 
     public void ShakeCamera(float intensity, float time, float frequency = 1)
     {
-        CinemachineBasicMultiChannelPerlin cmCamP = cmCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
-        cmCamP.m_AmplitudeGain = intensity;
-        cmCamP.m_FrequencyGain = frequency;
+        //see if we can get 
+        cmCamp.m_AmplitudeGain = intensity;
+        cmCamp.m_FrequencyGain = frequency;
         shakeTimer = time;
     }
 
     public void ShakeCameraToggle(float intensity, float frequency, bool on)
     {
-        CinemachineBasicMultiChannelPerlin cmCamP =
-            cmCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         if (!on)
         {
             toggle = true;
-            cmCamP.m_AmplitudeGain = intensity;
-            cmCamP.m_FrequencyGain = frequency;
+            cmCamp.m_AmplitudeGain = intensity;
+            cmCamp.m_FrequencyGain = frequency;
         }
         else
         {
             toggle = false;
             shakeTimer = 0f;
-            cmCamP.m_AmplitudeGain = 0f;
-            cmCamP.m_FrequencyGain = baseFrequency;
+            cmCamp.m_AmplitudeGain = 0f;
+            cmCamp.m_FrequencyGain = baseFrequency;
         }
     }
 }

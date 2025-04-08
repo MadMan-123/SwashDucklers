@@ -34,13 +34,14 @@ public class Inventory : MonoBehaviour
         return false;
     }
     //drop
-    public void DropItem()
+    public void DropItem(Vector3 direction, bool shouldLaunch = false)
     {
         if (item)  //if holding item?
         {
-            item.DropItem(gameObject);
+             item.DropItem(gameObject,shouldLaunch,direction); //drop the item
             //enable rigidbody and collider
         }
+
     }
     //get current item
     public bool AddItem(GameObject itemObj)
@@ -95,6 +96,11 @@ public class Inventory : MonoBehaviour
     public void TakeItem(Inventory inv)
     {
         if(item == null) return;
+
+        
+        //you could make them drop infinitely but that means load of objects
+        if (inv.item != null) return;
+        
         //take the current item, move it to the passed inventory and remove it from the current inventory
         inv.AddItem(item.gameObject);
         inv.GetItem().current = inv;
