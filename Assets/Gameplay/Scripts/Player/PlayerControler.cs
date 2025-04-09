@@ -64,6 +64,7 @@ public class PlayerControler : MonoBehaviour
     //Reference to gamepad for rumble -SD
     public bool isGamepad = false;
     public Gamepad pad;
+    public PlayerManager playerManager;
 
     //Rumble values -SD
     [Serializable] public struct RumbleVariables
@@ -604,7 +605,7 @@ public class PlayerControler : MonoBehaviour
     public void OnPause(InputAction.CallbackContext value)
     {
 
-        if (value.performed && canMove) //Performed
+        if (value.performed && canMove && !PlayerStats.paused) //Performed
         {
             pauseMenu.SetActive(true);
 

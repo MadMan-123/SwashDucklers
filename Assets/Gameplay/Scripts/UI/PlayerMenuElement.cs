@@ -6,13 +6,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerMenuElement : MonoBehaviour
 {
+    private GameObject playerObject;
     [SerializeField] public int menuOwnerIndex;
+    private PlayerControler playerControl;
+    private PlayerManager playerManager;
     //private MenuManager menuManager;
 
-    private void Awake()
+    private void Start()
     {
         //TryGetComponent(out menuManager);
         gameObject.SetActive(false);
+        playerObject = transform.parent.gameObject;
+        playerControl = playerObject.GetComponent<PlayerControler>();
+        playerManager = playerControl.playerManager;
     }
 
     private void OnEnable()
@@ -27,22 +33,28 @@ public class PlayerMenuElement : MonoBehaviour
 
     public void PauseGame()
     {
-        // Pause the game
-        Time.timeScale = 0;
-
-        //unlock the cursor
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        //if (PlayerStats.paused == false)
+        //{
+            // Pause the game
+            Time.timeScale = 0;
+            PlayerStats.paused = true;
+            //unlock the cursor
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        //}
     }
 
     public void ResumeGame()
     {
-        // Resume the game
-        Time.timeScale = 1;
-
-        //lock the cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //if (PlayerStats.paused)
+        //{
+            // Resume the game
+            Time.timeScale = 1;
+            PlayerStats.paused = false;
+            //lock the cursor
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        //}
     }
 
     public void resumeButton()
@@ -57,7 +69,8 @@ public class PlayerMenuElement : MonoBehaviour
 
     public void DropOutButton()
     {
-       
+       Destroy(playerObject);
+       //Test sean said would work
     }
 
     public void QuitButton()

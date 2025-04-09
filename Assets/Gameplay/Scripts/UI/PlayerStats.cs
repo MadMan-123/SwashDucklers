@@ -44,4 +44,5 @@ public static class PlayerStats
     //List of Hats
     public static List<Hat> Hatlist { get; set; }
 
+    public static bool paused { get; set; } = false;
 }

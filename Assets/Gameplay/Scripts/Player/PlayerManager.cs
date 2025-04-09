@@ -33,6 +33,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float playerCameraWeight;
     [SerializeField] private float playerCameraRadius;
 
+
+    public bool paused=false;
     //[SerializeField] private GameObject pauseMenuHolder;
     //[SerializeField] private GameObject menuPrefab;
 
@@ -87,10 +89,9 @@ public class PlayerManager : MonoBehaviour
         
         if(player.TryGetComponent(out PlayerControler pc))
         {
-            
-            
             pc.playerCameraWeight = playerCameraWeight;
             pc.playerCameraRadius = playerCameraRadius;
+            pc.playerManager = this;
         }
         else
         {
