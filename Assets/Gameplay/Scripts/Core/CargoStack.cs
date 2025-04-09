@@ -12,7 +12,7 @@ public class CargoStack : ItemStack
     [SerializeField] public TextMeshProUGUI cargoText;
     //score to decrease
     public int score = 10;
-   
+    
      
     
     private void Start()
@@ -56,6 +56,19 @@ public class CargoStack : ItemStack
             inv.RemoveItem();
         }
         
+    }
+    
+    public void tutcargo(GameObject src)
+    {
+     
+        //remove the item from inventory
+        if (src.TryGetComponent(out Inventory inv))
+        {
+            inv.RemoveItem();
+        }
+
+        // Destroy this cargo item instead of pooling
+        Destroy(gameObject);
     }
     
     //Handles what happens when the cargo is picked up
