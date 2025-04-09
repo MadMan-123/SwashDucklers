@@ -73,7 +73,7 @@ public class PlayerMenuElement : MonoBehaviour
        //Test sean said would work
     }
 
-    public void QuitButton()
+    public void ReturnToMenuButton()
     {
        
     }
