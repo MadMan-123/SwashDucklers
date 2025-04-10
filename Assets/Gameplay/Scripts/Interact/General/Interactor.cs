@@ -70,7 +70,6 @@ public class Interactor : MonoBehaviour
             //try to flash the object
             interactable.ToggleFlash(true);
            
-            print("Flashing");
             
             //add to the tracked list
             

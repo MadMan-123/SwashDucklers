@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class GameTimer : MonoBehaviour
@@ -21,10 +22,14 @@ public class GameTimer : MonoBehaviour
     [SerializeField] float shortTime = 30;
     [SerializeField] float mediumTime = 45;
     [SerializeField] float longTime = 90;
+
+    private int levelIndex = -1;
     // Start is called before the first frame update
     void Start()
     {
 
+        levelIndex = SceneManager.GetActiveScene().buildIndex;
+        
         //StartPosition = (0 + 500) * (Screen.width / 9020f);
         //EndPosition = (HudRect.rect.width - 500) * (Screen.width/9020f);//Width of this object;
 
@@ -61,8 +66,10 @@ public class GameTimer : MonoBehaviour
         {
             currentTime = endTime;
             //GAME WON
-            //todo: remove magic string
-            UnityEngine.SceneManagement.SceneManager.LoadScene(5);
+            //play transition animation and then load this scene again 
+            
+            if(levelIndex != -1)
+                SceneManager.LoadScene(levelIndex);
         }
 
         PercentageTimePassed = (currentTime / endTime);

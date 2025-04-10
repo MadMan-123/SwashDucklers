@@ -80,15 +80,19 @@ public class ShipHealth : MonoBehaviour
 
         shipAnim.SetInteger("Ship Health", (int)shipHealth);
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            DamageShip(5);
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            RepairShip(5);
-        }
+        
+        #if UNITY_EDITOR
 
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                DamageShip(5);
+            }
+
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                RepairShip(5);
+            }
+        #endif
         StageParameters.currentShipHealth = shipHealth;
 
         if (shipHealth <= 0)
