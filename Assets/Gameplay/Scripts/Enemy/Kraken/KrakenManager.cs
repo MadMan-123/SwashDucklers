@@ -160,8 +160,8 @@ public class KrakenManager : MonoBehaviour
 
             //reengage the environment manager
             environmentManager.shouldMove = true;
-            StartCoroutine(environmentManager.SpawnRandomObject());
-
+            environmentManager.StartEachLaneUp();
+            
 
             //make the water move regularly again
             
