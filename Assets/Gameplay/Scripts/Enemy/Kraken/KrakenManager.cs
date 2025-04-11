@@ -109,7 +109,7 @@ public class KrakenManager : MonoBehaviour
         yield return new WaitForSeconds(bodySpawns -2);
         TurnUpKrakenAudio();
         //Initiates body related functions - TS
-        yield return new WaitForSeconds(bodySpawns);
+        yield return new WaitForSeconds(2);
         krakenBody.SetActive(true);
         krakenHealth.SetActive(true);
         //change the speed of the waves 
@@ -129,16 +129,17 @@ public class KrakenManager : MonoBehaviour
 
     void TurnUpKrakenAudio()
     {
-        //lerp the kraken audio up
-        float target = 0.5f;
-        
-        //lerp the kraken audio up
-        MusicManager.instance.LerpChannelVolume(MusicManager.SpookyLeadChannel,target,1.5f);
-        MusicManager.instance.LerpChannelVolume(MusicManager.SpookyBassChannel,target,1.5f);
-        //lerp the jolly channel down
-        MusicManager.instance.LerpChannelVolume(MusicManager.JollyChannel,0,1.5f);
-        
-        
+        if (MusicManager.instance != null)
+        {
+            //lerp the kraken audio up
+            float target = 0.5f;
+
+            //lerp the kraken audio up
+            MusicManager.instance.LerpChannelVolume(MusicManager.SpookyLeadChannel, target, 1.5f);
+            MusicManager.instance.LerpChannelVolume(MusicManager.SpookyBassChannel, target, 1.5f);
+            //lerp the jolly channel down
+            MusicManager.instance.LerpChannelVolume(MusicManager.JollyChannel, 0, 1.5f);
+        }
     }
 
     void TurnDownKrakenAudio()
