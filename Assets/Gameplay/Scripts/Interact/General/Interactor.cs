@@ -179,7 +179,10 @@ public class Interactor : MonoBehaviour
         {
             if(shouldDebug)
                 print("Interacting with " + tracked.name);
-            interact.Interact(inventory.item, gameObject);
+            //check if the objects interactable is enabled
+            
+            if(interact.enabled)
+                interact.Interact(inventory.item, gameObject);
         }
         
 
