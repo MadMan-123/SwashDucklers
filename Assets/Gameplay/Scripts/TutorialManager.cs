@@ -155,7 +155,6 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator tutorial()
     {
-        /*
         //Intro
         StartCoroutine(TypeText("Welcome to Swashducklers!!!"));
         yield return new WaitForSeconds(5f);
@@ -228,7 +227,6 @@ public class TutorialManager : MonoBehaviour
         exampleLeak.SetActive(false);
         moreExampleLeaks.SetActive(false);
         examplePlanks.SetActive(false); 
-        */
         
         cargocrab.SetActive(true);
         cargo.SetActive(true);
