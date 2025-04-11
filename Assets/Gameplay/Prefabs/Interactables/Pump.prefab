@@ -10082,6 +10082,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   itemRequired: 1
+  outlineMaterials: []
   cam: {fileID: 0}
   bigRepairAnim: {fileID: 1493615812239809161, guid: 66e5ad187614a8147b7be7805cdd91e2,
     type: 3}
@@ -10097,10 +10098,11 @@ MonoBehaviour:
   - {fileID: 4735619967402330355}
   vfxHolder: {fileID: 0}
   active: 0
-  doubleRarity: 2
+  doubleRarity: 4
   target: {fileID: 0}
   cameraTargetWeight: 2.25
   cameraTargetRadius: 0.5
+  tutLeak: 0
 --- !u!114 &4540782507161105190
 MonoBehaviour:
   m_ObjectHideFlags: 0

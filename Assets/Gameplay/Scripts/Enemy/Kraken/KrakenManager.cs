@@ -55,12 +55,10 @@ public class KrakenManager : MonoBehaviour
     [SerializeField] private float delayAfterDeath = 30f;
     //bool isActive = false;
 
-    
     // Start is called before the first frame update
     void Start()
     {
-    
-  
+        
         //assert we have a valid water material
         Assert.IsNotNull(waterMaterial,"waterMaterial is null");
        
@@ -111,7 +109,7 @@ public class KrakenManager : MonoBehaviour
         yield return new WaitForSeconds(bodySpawns -2);
         TurnUpKrakenAudio();
         //Initiates body related functions - TS
-        yield return new WaitForSeconds(bodySpawns);
+        yield return new WaitForSeconds(2);
         krakenBody.SetActive(true);
         krakenHealth.SetActive(true);
         //change the speed of the waves 
