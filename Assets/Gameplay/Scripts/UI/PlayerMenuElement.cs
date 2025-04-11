@@ -69,12 +69,16 @@ public class PlayerMenuElement : MonoBehaviour
 
     public void DropOutButton()
     {
-       Destroy(playerObject);
-       //Test sean said would work
+        Destroy(playerObject);
     }
 
     public void ReturnToMenuButton()
     {
-       
+        MenuManager.instance.LoadScene(0);
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("I was destroyed");
     }
 }
