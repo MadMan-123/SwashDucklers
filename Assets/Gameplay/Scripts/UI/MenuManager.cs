@@ -30,6 +30,12 @@ public class MenuManager : MonoBehaviour
         //UnityEngine.SceneManagement.SceneManager.LoadScene(index);
     }
     
+    public void LoadScene(int index)
+    {
+        // Load the scene
+        StartCoroutine(Transition(index));
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(index);
+    }
     public void ExitGame()
     {
         // Quit the game
