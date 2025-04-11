@@ -62,18 +62,7 @@ public class CargoStack : ItemStack
         
     }
     
-    public void tutcargo(GameObject src)
-    {
-     
-        //remove the item from inventory
-        if (src.TryGetComponent(out Inventory inv))
-        {
-            inv.RemoveItem();
-        }
 
-        // Destroy this cargo item instead of pooling
-        Destroy(gameObject);
-    }
     
     //Handles what happens when the cargo is picked up
     void UpdateCargo(GameObject src)
