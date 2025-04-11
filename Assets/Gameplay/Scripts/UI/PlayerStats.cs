@@ -58,6 +58,7 @@ public static class PlayerStats
     //List of Hats
     public static List<Hat> Hatlist { get; set; }
 
+    public static bool paused { get; set; } = false;
 
     //Fixed players
     //This is sort of thrown together but im using it to ensure players cant overlap with each other
@@ -75,7 +76,5 @@ public static class PlayerStats
     public static DuckColors player2ColorName { get; set; } = DuckColors.Orange;
     public static DuckColors player3ColorName { get; set; } = DuckColors.Cyan;
     public static DuckColors player4ColorName { get; set; } = DuckColors.Blue;
-    
-    
     
 }

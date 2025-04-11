@@ -162,7 +162,7 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         //Movement Tutorial
-        StartCoroutine(TypeText("First, lets make sure you have your land legs, use the right stick to move"));
+        StartCoroutine(TypeText("First, lets make sure you have your land legs, use the left stick to move"));
         imageBox.SetActive(true);
         movementImage.SetActive(true);
         yield return new WaitForSeconds(10f);
