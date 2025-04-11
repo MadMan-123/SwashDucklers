@@ -42,16 +42,15 @@ public class PlayerManager : MonoBehaviour
     {
         //clear the game data's player list
         GameData.Players.Clear();
-        
-        Debug.Log($"Players on spawn: {PlayerStats.playerNo}");
+       
+        if(shouldDebug)
+            Debug.Log($"Players on spawn: {PlayerStats.playerNo}");
 
         //Spawn joined players
         for (int i = 0; i < PlayerStats.playerNo; i++)
         {
-            var index = i > 0 ? i - 1 : 0;
             
-            print(index);
-            var currentInputState = index  switch
+            var currentInputState = i switch
             {
                 0 => PlayerStats.player1input,
                 1 => PlayerStats.player2input,

@@ -44,14 +44,21 @@ public class PlayerUI : MonoBehaviour
     private void PlayerUIHandle()
     {
         //get the correct player input
-        var input = this.playerInput.playerIndex switch
+        switch (playerInput.playerIndex)
         {
-            0 => PlayerStats.player1input,
-            1 => PlayerStats.player2input,
-            2 => PlayerStats.player3input,
-            3 => PlayerStats.player4input,
-            _ => throw new ArgumentOutOfRangeException()
-        };
+            case 0:
+                PlayerStats.player1input = playerInput.devices[0];
+                break;
+            case 1:
+                PlayerStats.player2input = playerInput.devices[0];
+                break;
+            case 2:
+                PlayerStats.player3input = playerInput.devices[0];
+                break;
+            case 3:
+                PlayerStats.player4input = playerInput.devices[0];
+                break;
+        }
 
         //get the colours
         var color = this.playerInput.playerIndex switch
@@ -63,8 +70,7 @@ public class PlayerUI : MonoBehaviour
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        input = this.playerInput.devices[0]; //Set device
-
+        
         setColor(color);//Default Colors
 
         playerSprite.sprite = playerTextSprites[playerInput.playerIndex];

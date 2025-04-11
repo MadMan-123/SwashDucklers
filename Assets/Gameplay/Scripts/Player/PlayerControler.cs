@@ -28,7 +28,7 @@ public class PlayerControler : MonoBehaviour
     private float jumpTimer;
     private float glideTimer;
     private float glideHeight;
-    private PlayerInput playerInput;
+    [SerializeField] private PlayerInput playerInput;
     private InputAction displayNames;
     private Rigidbody platform; //Rigidbody of object player is standing on if there is one
     private Vector3 relative0; //A vector representing 0 relative to whatever platform you are currently on
@@ -95,6 +95,8 @@ public class PlayerControler : MonoBehaviour
 
     private void Awake()
     {
+        //get the camera target
+        cameraTarget = FindObjectOfType<CinemachineTargetGroup>();
         cameraTarget.AddMember(transform, 3, 2.5f);
         //input = new InputManager();
         rigidbody = GetComponent<Rigidbody>();
@@ -106,13 +108,15 @@ public class PlayerControler : MonoBehaviour
         //Check type on input, used for rumble -SD
         if (playerInput.devices[0] is Gamepad)
         {
+            /*
             Debug.Log("Gamepad");
+            */
             isGamepad = true;
             pad = (Gamepad)playerInput.devices[0];
         }
         else
         {
-            Debug.Log("Keyboard");
+            /*Debug.Log("Keyboard");*/
             isGamepad = false;
         }
 
@@ -127,11 +131,9 @@ public class PlayerControler : MonoBehaviour
         StartCoroutine(PlayerNameFade2(true,2f));
         
         //Get the player colour and hat and set them
-        var index = playerID > 0 ? playerID - 1 : 0;
         
         
-        print(index);
-        litColor = index switch 
+        litColor = playerID switch 
         {
             0 => PlayerStats.player1Color,
             1 => PlayerStats.player2Color,
@@ -140,7 +142,7 @@ public class PlayerControler : MonoBehaviour
             _ => Color.white
         };
 
-        var playerHat = index switch
+        var playerHat = playerID switch
         {
             0 => PlayerStats.player1Hat,
             1 => PlayerStats.player2Hat,
@@ -156,47 +158,7 @@ public class PlayerControler : MonoBehaviour
             hat = Instantiate(PlayerStats.Hatlist[playerHat].model, hatposition + PlayerStats.Hatlist[playerHat].position, transform.rotation, hatTransform);
         
         //will the playerID align with the hat list? 
-        //no thats not how it works maddox - sd
-        //Im readding this so the hats dont brick the game
-        /*switch (playerID)
-        {
-            case 0:
-            if (PlayerStats.Hatlist != null)
-            {
-                if (PlayerStats.Hatlist[PlayerStats.player1Hat].model != null)
-                {
-                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player1Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player1Hat].position, transform.rotation, hatTransform);
-                }
-            }
-            break;
-        case 1:
-            if (PlayerStats.Hatlist != null)
-            {
-                if (PlayerStats.Hatlist[PlayerStats.player2Hat].model != null)
-                {
-                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player2Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player2Hat].position, transform.rotation, hatTransform);
-                }
-            }
-            break;
-        case 2:
-            if (PlayerStats.Hatlist != null)
-            {
-                if (PlayerStats.Hatlist[PlayerStats.player3Hat].model != null)
-                {
-                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player3Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player3Hat].position, transform.rotation, hatTransform);
-                }
-            }
-            break;
-        case 3:
-            if (PlayerStats.Hatlist != null)
-            {
-                if (PlayerStats.Hatlist[PlayerStats.player4Hat].model != null)
-                {
-                    hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player4Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player4Hat].position, transform.rotation, hatTransform);
-                }
-            }
-            break;
-        }*/
+       
 
         //get the hat
         //var hatPrefab = PlayerStats.Hatlist[playerID].model;
