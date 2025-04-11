@@ -74,7 +74,8 @@ public class PlayerMenuElement : MonoBehaviour
 
     public void ReturnToMenuButton()
     {
-        MenuManager.instance.LoadScene(0);
+        resumeButton();
+        MenuManager.instance.LoadScene(1,0.5f);
     }
 
     private void OnDestroy()

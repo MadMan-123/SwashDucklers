@@ -54,7 +54,7 @@ public class KrakenHud : MonoBehaviour
 
     public void KrakenHit()
     {
-        Destroy(BombList[^1]);
+        if (BombList[^1].TryGetComponent(out ImageAnimation imageAnimation)) { imageAnimation.activated = true;}
         BombList.Remove(BombList[^1]);
     }
 

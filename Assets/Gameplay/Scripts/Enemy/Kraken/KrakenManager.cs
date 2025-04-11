@@ -144,7 +144,6 @@ public class KrakenManager : MonoBehaviour
     public void krakenHit()
     {
         SoundManager.PlayAudioClip("KrakenHit", transform.position, 2f);
-        krakenHud.KrakenHit();
         
         if (!health.IsDead)
         {

@@ -19,7 +19,7 @@ public class Cannon : Interactable
     [SerializeField] private bool canFire = true;
     [SerializeField] private float coolDownTime = 5f;
     [SerializeField] private Animator anim;
-    
+    [SerializeField] private KrakenHud krakenHud;
     [SerializeField]private int cannonballCount = 0, jamAmmount = 3, timeToUnJam = 12;
 
     void Start()
@@ -82,6 +82,7 @@ public class Cannon : Interactable
     {
        if(cannonballCount >= jamAmmount) yield break; 
         anim.SetBool(IsShooting, true);
+        krakenHud.KrakenHit();
         yield return new WaitForSeconds(0.75f);
 
         //fire the cannon
