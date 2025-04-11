@@ -24,7 +24,7 @@ public class CargoStack : ItemStack
         gameObject.layer = LayerMask.NameToLayer("Cargo");
         
         //initialize the pool
-        pool = new GameObjectPool(itemGenerated, 10, transform); 
+        pool = new GameObjectPool(itemGenerated, 5, transform); 
         
         //set the cargo count 
         GameData.CargoCount = GameData.CargoMax;
@@ -43,12 +43,16 @@ public class CargoStack : ItemStack
         if(src.TryGetComponent(out AIBrain brain)) return;
         //increase the cargo count
         GameData.CargoCount++;
-        
+
+
         //increase the score
-        ScoreManager.Instance.AddScore(score);
+        if(ScoreManager.Instance)
+            ScoreManager.Instance.AddScore(score);
+        
         
         //update the text
-        cargoText.text = GameData.CargoCount+"/"+GameData.CargoMax;
+        if(cargoText)
+            cargoText.text = GameData.CargoCount+"/"+GameData.CargoMax;
         
         //remove the item from the inventory
         if (src.TryGetComponent(out Inventory inv))
@@ -58,18 +62,7 @@ public class CargoStack : ItemStack
         
     }
     
-    public void tutcargo(GameObject src)
-    {
-     
-        //remove the item from inventory
-        if (src.TryGetComponent(out Inventory inv))
-        {
-            inv.RemoveItem();
-        }
 
-        // Destroy this cargo item instead of pooling
-        Destroy(gameObject);
-    }
     
     //Handles what happens when the cargo is picked up
     void UpdateCargo(GameObject src)

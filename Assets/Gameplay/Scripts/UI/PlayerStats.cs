@@ -75,4 +75,7 @@ public static class PlayerStats
     public static DuckColors player2ColorName { get; set; } = DuckColors.Orange;
     public static DuckColors player3ColorName { get; set; } = DuckColors.Cyan;
     public static DuckColors player4ColorName { get; set; } = DuckColors.Blue;
+    
+    
+    
 }

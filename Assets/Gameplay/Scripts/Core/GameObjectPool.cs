@@ -141,6 +141,14 @@ namespace Core
 
             }
         
+            
+            public void AddToPool(GameObject obj)
+            {
+                // Add the object to the pool
+                if (obj == null) return;
+                objects.Add(obj);
+                obj.SetActive(false);
+            }
         
             public List<GameObject> GetAllObjects()
             {

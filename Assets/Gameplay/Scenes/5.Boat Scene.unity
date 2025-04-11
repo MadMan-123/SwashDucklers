@@ -8160,6 +8160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1143316912}
   - component: {fileID: 1143316914}
+  - component: {fileID: 1143316915}
   m_Layer: 0
   m_Name: ---------CORE--------
   m_TagString: Untagged
@@ -8219,6 +8220,20 @@ MonoBehaviour:
   spawnedCount: 0
   start: 0
   startInterval: 10
+--- !u!114 &1143316915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143316911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b99987b665380f74c9b83f4aef6836ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverPanel: {fileID: 0}
+  StartTransition: {fileID: 1211941505}
 --- !u!1001 &1211941504
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8342,6 +8357,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4fbfca26d11a40f4fb038312a31db565, type: 3}
+--- !u!1 &1211941505 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2438033353485847130, guid: 4fbfca26d11a40f4fb038312a31db565,
+    type: 3}
+  m_PrefabInstance: {fileID: 1211941504}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1213591004
 GameObject:
   m_ObjectHideFlags: 0
@@ -16993,12 +17014,16 @@ MonoBehaviour:
   - prefabs:
     - {fileID: 760277361}
     position: {x: 26, y: 0, z: 18.5}
+    laneDelay: 10
+    rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
     speed: 5
     bobSpeed: 1.17
     bobHeight: 2.23
   - prefabs:
     - {fileID: 760277361}
     position: {x: 47.3, y: 1.88, z: 41}
+    laneDelay: 10
+    rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
     speed: 1.13
     bobSpeed: 1.16
     bobHeight: 2.33
@@ -17216,53 +17241,9 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: d6f91cd0-210f-468c-871d-658e29f59958
     m_ActionName: Player/DisplayNames[/Keyboard/f,/XInputControllerWindows/leftTrigger]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0f3a6a02-d8d4-4a42-a093-6c9048d7348d
-    m_ActionName: UI/Start[/Keyboard/enter,/XInputControllerWindows/start]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e5805e4f-dc97-4749-8733-5f9589e42e27
-    m_ActionName: UI/Navigate[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/rightStick/right,/XInputControllerWindows/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: cdc02b72-0b1b-4d4e-b5c2-1511680cc986
-    m_ActionName: UI/Submit[/Keyboard/enter,/XInputControllerWindows/buttonSouth,/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: bb338849-0a85-46b3-ab60-063ff4ee60e3
-    m_ActionName: UI/Cancel[/Keyboard/escape,/XInputControllerWindows/buttonEast]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 885b6273-0685-430a-957a-0a7ae538dad9
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a7d8b851-5b54-4357-a5b5-8edf6e82a64e
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7899a5f6-8a5e-4da7-b072-43296767f4fe
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e9ef782a-4dc8-465e-a0be-bfe5fa88de6a
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 19d5aa00-dd46-44eb-a425-73833ef740a5
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0c4774e9-92e8-407b-98f4-bf89632ab9c9
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: cf291125-bce1-4b22-9011-d8261a61934c
-    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
-  m_DefaultActionMap: UI
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &1778453314
@@ -18823,6 +18804,7 @@ MonoBehaviour:
   shortTime: 30
   mediumTime: 45
   longTime: 90
+  secondsToAdd: 10
 --- !u!212 &2004744704
 SpriteRenderer:
   m_ObjectHideFlags: 0

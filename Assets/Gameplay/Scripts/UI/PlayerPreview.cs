@@ -16,7 +16,7 @@ public class PlayerPreview : MonoBehaviour
     [SerializeField] Transform hatTransform;
 
     public Color litColor;
-
+    
     private Vector3 hatposition;
 
     // Start is called before the first frame update
@@ -25,7 +25,7 @@ public class PlayerPreview : MonoBehaviour
         modelTransform = transform;
         bodyRenderer = modelTransform.GetComponent<Renderer>();
 
-        hatposition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        hatposition = transform.position; 
         //Test
         //hat = Instantiate(hatTest, transform.position, transform.rotation, this.transform);
 
