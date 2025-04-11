@@ -94,7 +94,7 @@ public class EnvironmentManager : MonoBehaviour
                 active[index] = null;
             }
         }
-}
+    }
 
     public IEnumerator SpawnRandomObject(GameObjectPool pool,float interval = 15)
     {
@@ -170,10 +170,10 @@ public class EnvironmentManager : MonoBehaviour
                 //get a formated string of each prefab name line for line
                 var prefabNames = environmentObject.prefabs.Aggregate("", (current, prefab) => current + prefab.name + "\n");
                 
-                #if UNITY_EDITOR
-                    //draw the name of the prefab above this and display the speed of the object
-                    Handles.Label(environmentObject.position + Vector3.up * 1.25f + Vector3.right / 2 + Vector3.forward /2,  prefabNames +" \nSpeed: " + environmentObject.speed);
-                #endif
+#if UNITY_EDITOR
+                //draw the name of the prefab above this and display the speed of the object
+                Handles.Label(environmentObject.position + Vector3.up * 1.25f + Vector3.right / 2 + Vector3.forward /2,  prefabNames +" \nSpeed: " + environmentObject.speed);
+#endif
                 Gizmos.DrawWireCube(environmentObject.position, Vector3.one);
             }
             

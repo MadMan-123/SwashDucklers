@@ -105,6 +105,9 @@ public class KrakenManager : MonoBehaviour
     }
     IEnumerator KrakenBodySpawn()
     {
+     
+        yield return new WaitForSeconds(bodySpawns -2);
+        TurnUpKrakenAudio();
         //Initiates body related functions - TS
         yield return new WaitForSeconds(bodySpawns);
         krakenBody.SetActive(true);
@@ -113,8 +116,8 @@ public class KrakenManager : MonoBehaviour
         
         
         waterMaterial.SetFloat(TextureSpeed, textureSpeed / waterKrakenModifer);
-        
-        
+
+
         
         SoundManager.PlayAudioClip("KrakenSpawn", transform.position, 1f);
         cameraTarget.AddMember(krakenBody.transform, cameraPullWeight, cameraPullRadius);
@@ -124,6 +127,32 @@ public class KrakenManager : MonoBehaviour
         
     }
 
+    void TurnUpKrakenAudio()
+    {
+        //lerp the kraken audio up
+        float target = 0.5f;
+        
+        //lerp the kraken audio up
+        MusicManager.instance.LerpChannelVolume(MusicManager.SpookyLeadChannel,target,1.5f);
+        MusicManager.instance.LerpChannelVolume(MusicManager.SpookyBassChannel,target,1.5f);
+        //lerp the jolly channel down
+        MusicManager.instance.LerpChannelVolume(MusicManager.JollyChannel,0,1.5f);
+        
+        
+    }
+
+    void TurnDownKrakenAudio()
+    {
+        //lerp the kraken audio up
+        float target = 0.5f;
+        
+        //lerp the kraken audio up
+        MusicManager.instance.LerpChannelVolume(MusicManager.SpookyLeadChannel,0,2f);
+        MusicManager.instance.LerpChannelVolume(MusicManager.SpookyBassChannel,0,2f);
+        
+        //lerp the jolly channel down
+        MusicManager.instance.LerpChannelVolume(MusicManager.JollyChannel,target,2);
+    }
     IEnumerator WeatherSpawn()
     {
         //Initiates Weather (should be activated first) - TS
@@ -151,6 +180,7 @@ public class KrakenManager : MonoBehaviour
         }
         else
         {
+            TurnDownKrakenAudio();
             //Kraken is dead
             krakenBodyAnimator.SetTrigger("KrakenDies");
             //krakenBody.SetActive(false);
