@@ -99,7 +99,6 @@ public class PlayerControler : MonoBehaviour
         //input = new InputManager();
         rigidbody = GetComponent<Rigidbody>();
         relative0 = new Vector3(0.0f, 0.0f, 0.0f);
-
         playerInput = GetComponent<PlayerInput>();
         playerID = playerInput.playerIndex;
         displayNames = playerInput.actions["DisplayNames"];
@@ -152,10 +151,9 @@ public class PlayerControler : MonoBehaviour
 
         
         //Set the color of the body
-        if (PlayerStats.Hatlist == null)
-            return;
-        
-        hat = Instantiate(PlayerStats.Hatlist[playerHat].model, hatposition + PlayerStats.Hatlist[playerHat].position, hatTransform.rotation);
+        if (PlayerStats.Hatlist == null) return;
+        if(PlayerStats.Hatlist[playerHat].model != null)
+            hat = Instantiate(PlayerStats.Hatlist[playerHat].model, hatposition + PlayerStats.Hatlist[playerHat].position, transform.rotation, hatTransform);
         
         //will the playerID align with the hat list? 
         //no thats not how it works maddox - sd

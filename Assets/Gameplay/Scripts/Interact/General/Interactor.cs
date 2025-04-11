@@ -36,8 +36,17 @@ public class Interactor : MonoBehaviour
     [SerializeField] private float howFar = 0.45f;
     [SerializeField] private Vector3 offset = new(0,-0.1f,0);
     [SerializeField] private float interactCooldown = 1f;
+    
+    [SerializeField] private Inventory inv;
     void Start()
     {
+        //get the inventory
+        if (!TryGetComponent(out inv))
+        {
+            Debug.LogWarning("No inventory found on interactor");
+            return;
+        }
+        //get the camera
         cam = Camera.main?.gameObject.transform;
         //smh tom, im not sure i get why were doing that tbh
         TryGetComponent(out playerControler);
@@ -122,12 +131,12 @@ public class Interactor : MonoBehaviour
 
         //isInteracting = true;
         StartCoroutine(InteractCooldown(interactCooldown));
-        if (TryGetComponent(out Inventory inv) && inv.TryPickUp())
+        if (inv.TryPickUp() || inv.item)
         {
            return;
         }
 
-        var count = Physics.OverlapSphereNonAlloc((transform.position + offset) + (transform.forward * howFar), slapRadius, colliders);
+        Physics.OverlapSphereNonAlloc((transform.position + offset) + (transform.forward * howFar), slapRadius, colliders);
 
         var valid = colliders.Where(col => col!=null && col.gameObject != gameObject).ToList();
         
@@ -152,11 +161,13 @@ public class Interactor : MonoBehaviour
             tracked = colliders[i].gameObject;
         }
 
-        foreach (var body in rigidBodies)
+        for (var i = 0; i < rigidBodies.Count; i++)
         {
-            if(body.gameObject == gameObject || !body) continue;
-            Slap(body.gameObject); 
+            var body = rigidBodies[i];
+            if (body.gameObject == gameObject || !body && body.gameObject != inv.item.gameObject ) continue;
+            Slap(body.gameObject);
         }
+
         if (tracked == null)
         {
             return;
