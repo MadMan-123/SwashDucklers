@@ -17,6 +17,7 @@ public class CargoStack : ItemStack
     
     private void Start()
     {
+        GameData.CargoCount = 5;
         //subscribe to the event
         OnPickUp += UpdateCargo;
         
@@ -34,6 +35,8 @@ public class CargoStack : ItemStack
     public override void TryPickUp(GameObject source)
     {
         if(GameData.CargoCount <= 0) return;
+        //increment the cargo count in stage parameter
+        GameData.CargoCount--;
         base.TryPickUp(source);
     }
     

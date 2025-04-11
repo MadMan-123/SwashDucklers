@@ -26,7 +26,6 @@ public class GameTimer : MonoBehaviour
     [SerializeField] float mediumTime = 45;
     [SerializeField] float longTime = 90;
     [SerializeField] float secondsToAdd = 10;
-    private static bool isStart = true;
     private int levelIndex = -1;
     // Start is called before the first frame update
     void Start()
@@ -53,15 +52,15 @@ public class GameTimer : MonoBehaviour
         };
         
         //check if we should add time to the end time
-        if(!isStart)
+        if(!TempGameDataCarrier.IsStart)
             endTime += secondsToAdd;
         
         
         if(StageParameters.levelLength == Length.Endless)
                 Hud.SetActive(false);
         
-        if(isStart)
-            isStart = false;
+        if(TempGameDataCarrier.IsStart)
+            TempGameDataCarrier.IsStart = false;
         
         
         
@@ -107,6 +106,24 @@ public class GameTimer : MonoBehaviour
             
             ResetState();
 
+            //add score based on cargo 
+            //from 0 - 100 add score from 0 cargo to 5 cargo
+            var cargo = StageParameters.currentCargo;
+            var score = (cargo / 5) * 100;
+           
+            //add score to manager
+            ScoreManager.Instance.AddScore(score);
+            
+            //save data to send to the next scene
+            TempGameData.LeakSpawnIncrease += 0.2f;
+            TempGameData.CrabSpawnIncrease += 0.2f;
+
+            TempGameData.CrabSpawnSize = 1;
+            TempGameData.KrakenHealthIncrease = 1;
+            
+            
+            
+            
             if(levelIndex != -1)
                 MenuManager.instance.LoadScene(levelIndex,0.5f);
             

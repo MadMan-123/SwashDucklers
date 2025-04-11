@@ -52,4 +52,10 @@ public class Health : MonoBehaviour//GM this script will be for the player's hea
         health = getMaxHealth;
         //UpdateHealthUI();
     }
+
+    public void SetMaxHealth(float krakenHealthIncrease)
+    {
+        maxHealth = krakenHealthIncrease;
+        //UpdateHealthUI();
+    }
 }

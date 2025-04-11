@@ -54,6 +54,8 @@ public class KrakenHud : MonoBehaviour
 
     public void KrakenHit()
     {
+        //if we are not enabled, we should not be able to hit the kraken
+        if (!gameObject.activeSelf) return;
         if (BombList[^1].TryGetComponent(out ImageAnimation imageAnimation)) { imageAnimation.activated = true;}
         BombList.Remove(BombList[^1]);
     }

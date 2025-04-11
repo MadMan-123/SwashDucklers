@@ -14,8 +14,8 @@ public class KrakenManager : MonoBehaviour
     private static readonly int TextureSpeed = Shader.PropertyToID("_TextureSpeed");
 
     //This script will control the krakens behaviours and when it should do whatever
-    
-    [SerializeField] private Health health;
+     
+    [SerializeField] public Health health;
     [SerializeField] KrakenHud krakenHud;
     [SerializeField] GameObject gameTimer;
     [SerializeField] float SpawnTime;
@@ -55,10 +55,12 @@ public class KrakenManager : MonoBehaviour
     [SerializeField] private float delayAfterDeath = 30f;
     //bool isActive = false;
 
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+    
+  
         //assert we have a valid water material
         Assert.IsNotNull(waterMaterial,"waterMaterial is null");
        
@@ -133,10 +135,10 @@ public class KrakenManager : MonoBehaviour
         float target = 0.5f;
         
         //lerp the kraken audio up
-        MusicManager.instance.LerpChannelVolume(MusicManager.SpookyLeadChannel,target,1.5f);
-        MusicManager.instance.LerpChannelVolume(MusicManager.SpookyBassChannel,target,1.5f);
+        MusicManager.instance?.LerpChannelVolume(MusicManager.SpookyLeadChannel,target,1.5f);
+        MusicManager.instance?.LerpChannelVolume(MusicManager.SpookyBassChannel,target,1.5f);
         //lerp the jolly channel down
-        MusicManager.instance.LerpChannelVolume(MusicManager.JollyChannel,0,1.5f);
+        MusicManager.instance?.LerpChannelVolume(MusicManager.JollyChannel,0,1.5f);
         
         
     }
@@ -147,11 +149,11 @@ public class KrakenManager : MonoBehaviour
         float target = 0.5f;
         
         //lerp the kraken audio up
-        MusicManager.instance.LerpChannelVolume(MusicManager.SpookyLeadChannel,0,2f);
-        MusicManager.instance.LerpChannelVolume(MusicManager.SpookyBassChannel,0,2f);
+        MusicManager.instance?.LerpChannelVolume(MusicManager.SpookyLeadChannel,0,2f);
+        MusicManager.instance?.LerpChannelVolume(MusicManager.SpookyBassChannel,0,2f);
         
         //lerp the jolly channel down
-        MusicManager.instance.LerpChannelVolume(MusicManager.JollyChannel,target,2);
+        MusicManager.instance?.LerpChannelVolume(MusicManager.JollyChannel,target,2);
     }
     IEnumerator WeatherSpawn()
     {
@@ -177,6 +179,8 @@ public class KrakenManager : MonoBehaviour
         if (!health.IsDead)
         {
             krakenBodyAnimator.SetTrigger("KrakenHit");
+            
+            krakenHud.KrakenHit();
         }
         else
         {

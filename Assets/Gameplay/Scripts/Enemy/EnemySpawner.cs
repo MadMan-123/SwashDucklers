@@ -33,11 +33,8 @@ public class EnemySpawner : Spawner
              }
          }
         
-         
          routine = _spawnEnemy();
          StartCoroutine(routine);
-
-         
   }
    
     

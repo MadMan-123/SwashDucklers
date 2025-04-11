@@ -82,7 +82,6 @@ public class Cannon : Interactable
     {
        if(cannonballCount >= jamAmmount) yield break; 
         anim.SetBool(IsShooting, true);
-        krakenHud.KrakenHit();
         yield return new WaitForSeconds(0.75f);
 
         //fire the cannon
