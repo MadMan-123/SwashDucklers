@@ -141,7 +141,7 @@ public class KrakenManager : MonoBehaviour
         
     }
 
-    void TurnDownKrakenAudio()
+    public void TurnDownKrakenAudio()
     {
         //lerp the kraken audio up
         float target = 0.5f;
@@ -173,6 +173,8 @@ public class KrakenManager : MonoBehaviour
     public void krakenHit()
     {
         SoundManager.PlayAudioClip("KrakenHit", transform.position, 2f);
+       //incrament the score
+       ScoreManager.Instance.AddScore(20);
         
         if (!health.IsDead)
         {
@@ -205,6 +207,7 @@ public class KrakenManager : MonoBehaviour
 
             weather.KrakenDeSpawn();
             StartCoroutine(StartRoutines(delayAfterDeath));
+            ScoreManager.Instance.AddScore(250);
         }
     }
 

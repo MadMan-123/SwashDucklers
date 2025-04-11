@@ -18,6 +18,8 @@ public class MenuManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        
     }
 
     private bool toggle;

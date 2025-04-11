@@ -86,7 +86,7 @@ public class Leak : Interactable
         if (count != toRepair) return;
         //disable the object
         leakEffect[active].SetActive(false);
-       
+        ScoreManager.Instance.AddScore(10); 
         DisableLogic();
         //wait to disable the object for x amount of time
         SoundManager.PlayAudioClip("repair", this.transform.position, 1f);

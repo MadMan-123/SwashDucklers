@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 
 public class GameTimer : MonoBehaviour
 {
+
+    [SerializeField] private KrakenManager krakenManager;
     [SerializeField] float StartPosition;
     [SerializeField] float EndPosition;
 
@@ -20,13 +22,16 @@ public class GameTimer : MonoBehaviour
     [SerializeField] GameObject Hud;
     [SerializeField] RectTransform Water;
     [SerializeField] RectTransform HudRect;
-
+    
     
     [SerializeField] float shortTime = 30;
     [SerializeField] float mediumTime = 45;
     [SerializeField] float longTime = 90;
     [SerializeField] float secondsToAdd = 10;
     private int levelIndex = -1;
+    
+    
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -121,8 +126,8 @@ public class GameTimer : MonoBehaviour
             TempGameData.CrabSpawnSize = 1;
             TempGameData.KrakenHealthIncrease = 1;
             
-            
-            
+            //set the kraken to change the volume
+            krakenManager.TurnDownKrakenAudio();
             
             if(levelIndex != -1)
                 MenuManager.instance.LoadScene(levelIndex,0.5f);

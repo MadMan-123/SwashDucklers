@@ -49,7 +49,10 @@ public class Interactor : MonoBehaviour
         //get the camera
         cam = Camera.main?.gameObject.transform;
         //smh tom, im not sure i get why were doing that tbh
-        TryGetComponent(out playerControler);
+        if (!playerControler)
+        {
+            TryGetComponent(out playerControler);
+        }
         if (TryGetComponent(out input))
         {
             interact = input.actions["Interact"];
@@ -225,9 +228,10 @@ public class Interactor : MonoBehaviour
 
                 if(brain.TryGetComponent(out Inventory inv))
                 {
+                    ScoreManager.Instance.AddScore(5);
                     inv.DropItem(Vector3.zero, false);
                 }
-                
+            
             }
             rb.AddForce(((transform.forward ) * (slapForce + extraForce/5) )+ ((transform.up * howMuchUp) * slapForce / 5), ForceMode.Impulse);
             

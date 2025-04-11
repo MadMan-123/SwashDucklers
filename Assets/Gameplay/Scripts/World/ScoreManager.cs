@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class ScoreManager : MonoBehaviour 
 {   
     //current score
-    public int score = 0;
+    public static int score = 0;
     //score text reference
     [SerializeField] private TextMeshProUGUI scoreText;
 
@@ -26,6 +26,8 @@ public class ScoreManager : MonoBehaviour
         {
             Destroy(gameObject);
         } 
+        
+        DontDestroyOnLoad(gameObject);
     }
     
     //initialize the score

@@ -575,6 +575,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Transitions
       objectReference: {fileID: 0}
+    - target: {fileID: 2438033353485847130, guid: 4fbfca26d11a40f4fb038312a31db565,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1623,7 +1628,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b99987b665380f74c9b83f4aef6836ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverPanel: {fileID: 0}
   StartTransition: {fileID: 1248372795}
 --- !u!1 &2334757498800542978
 GameObject:
