@@ -33,9 +33,28 @@ namespace Core
                 var str =  prefab ? prefab.name : "Empty Object";
                 Debug.Log($"Pool Created: {str}, Pool Size: {objects.Count}");
             }
-        
-       
 
+
+
+            public GameObjectPool(List<GameObject> prefabs, Transform parent, int countPerPrefab = 1)
+            {
+                //get the total count of objects needed 
+                int totalCount = prefabs.Count * countPerPrefab;
+                objects = new List<GameObject>(totalCount);
+                prefab = null;
+                if (parent != null)
+                    pTransform = parent;
+                // Create the initial pool of objects
+                for (var i = 0; i < objects.Count; i++)
+                {
+                    for (var j = 0; j < countPerPrefab; j++)
+                    {
+                        //create the object in the pool
+                        CreateObjectInPool(objects[i]);
+                        
+                    }
+                }
+            }
             // Create a new object in the pool and add it to the list
             private GameObject CreateObjectInPool()
             {
@@ -54,6 +73,23 @@ namespace Core
                 obj.tag = "Pooled";
                 objects.Add(obj);
                 return obj;
+            }
+
+            private GameObject CreateObjectInPool(GameObject prefab)
+            {
+                var obj = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity, pTransform ? pTransform : null);
+                if (!obj)
+                {
+                    Debug.LogError("Object created is null");
+                    return null;
+                }
+                
+                obj.SetActive(false);
+                // Give the object the "Pooled" tag
+                obj.tag = "Pooled";
+                objects.Add(obj);
+                return obj;
+                
             }
             public GameObject CreateObjectInPool(GameObject newPrefab, Transform newTransformParent = null)
             {
@@ -105,6 +141,14 @@ namespace Core
 
             }
         
+            
+            public void AddToPool(GameObject obj)
+            {
+                // Add the object to the pool
+                if (obj == null) return;
+                objects.Add(obj);
+                obj.SetActive(false);
+            }
         
             public List<GameObject> GetAllObjects()
             {

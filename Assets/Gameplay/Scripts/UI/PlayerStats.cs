@@ -14,6 +14,20 @@ public struct Hat
     public Vector3 previewPosition;
 }
 
+[Serializable]
+public enum DuckColors
+{
+    Yellow,
+    Orange,
+    Red,
+    Green,
+    Pink,
+    White,
+    Blue,
+    Cyan,
+    Purple
+}
+
 public static class PlayerStats
 {
 
@@ -45,4 +59,22 @@ public static class PlayerStats
     public static List<Hat> Hatlist { get; set; }
 
     public static bool paused { get; set; } = false;
+
+    //Fixed players
+    //This is sort of thrown together but im using it to ensure players cant overlap with each other
+    public static bool yellowTaken = false;
+    public static bool orangeTaken = false;
+    public static bool redTaken = false;
+    public static bool greenTaken = false;
+    public static bool pinkTaken = false;
+    public static bool whiteTaken = false;
+    public static bool blueTaken = false;
+    public static bool cyanTaken = false;
+    public static bool purpleTaken = false;
+
+    public static DuckColors player1ColorName { get; set; } = DuckColors.Yellow;
+    public static DuckColors player2ColorName { get; set; } = DuckColors.Orange;
+    public static DuckColors player3ColorName { get; set; } = DuckColors.Cyan;
+    public static DuckColors player4ColorName { get; set; } = DuckColors.Blue;
+    
 }

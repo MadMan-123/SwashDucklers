@@ -40,14 +40,25 @@ public class ItemStack : MonoBehaviour
         }
         
         //check if the source already has an item
-        if (inv.item != null) inv.RemoveItem();
+        if (inv.item != null)
+        {
+            //if a crab then drop, if player then return
+            if (source.TryGetComponent(out AIBrain brain))
+            {
+                inv.DropItem(Vector3.zero,false);
+            }
+            else
+            {
+                return;
+            }
+        }
         
         //instantiate the item
         GameObject current = pool.GetObject();
         
         //add the item to the inventory
         inv.AddItem(current);
-        
+        SoundManager.PlayAudioClip("pick up", this.transform.position, 1f);
         OnPickUp?.Invoke(current);
 
     }

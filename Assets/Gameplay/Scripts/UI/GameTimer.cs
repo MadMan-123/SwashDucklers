@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+
+
 
 public class GameTimer : MonoBehaviour
 {
-
     [SerializeField] float StartPosition;
     [SerializeField] float EndPosition;
 
@@ -17,10 +21,21 @@ public class GameTimer : MonoBehaviour
     [SerializeField] RectTransform Water;
     [SerializeField] RectTransform HudRect;
 
+    
+    [SerializeField] float shortTime = 30;
+    [SerializeField] float mediumTime = 45;
+    [SerializeField] float longTime = 90;
+    [SerializeField] float secondsToAdd = 10;
+    private static bool isStart = true;
+    private int levelIndex = -1;
     // Start is called before the first frame update
     void Start()
     {
-
+        
+        
+        //make sure this dosent delete when we load a new scene
+        levelIndex = SceneManager.GetActiveScene().buildIndex;
+        
         //StartPosition = (0 + 500) * (Screen.width / 9020f);
         //EndPosition = (HudRect.rect.width - 500) * (Screen.width/9020f);//Width of this object;
 
@@ -28,23 +43,48 @@ public class GameTimer : MonoBehaviour
 
         //Caculate end time -SD
         //Values can be changed later -SD
-        switch (StageParameters.levelLength)
+
+        endTime = StageParameters.levelLength switch
         {
-            case Length.Short:
-                endTime = 30;
-                break;
-            case Length.Medium:
-                endTime = 45;
-                break;
-            case Length.Long:
-                endTime = 90;
-                break;
-            case Length.Endless:
+            Length.Short => shortTime,
+            Length.Medium => mediumTime,
+            Length.Long => longTime,
+
+        };
+        
+        //check if we should add time to the end time
+        if(!isStart)
+            endTime += secondsToAdd;
+        
+        
+        if(StageParameters.levelLength == Length.Endless)
                 Hud.SetActive(false);
-                break;
-        }
+        
+        if(isStart)
+            isStart = false;
+        
+        
+        
     }
 
+    void ResetState()
+    {
+        //Reset the timer
+        currentTime = 0;
+        endTime = StageParameters.levelLength switch
+        {
+            Length.Short => shortTime,
+            Length.Medium => mediumTime,
+            Length.Long => longTime,
+
+        };
+        
+        //Reset the boat position
+        boatposition = StartPosition;
+        
+        
+    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -61,8 +101,16 @@ public class GameTimer : MonoBehaviour
         {
             currentTime = endTime;
             //GAME WON
-            //todo: remove magic string
-            UnityEngine.SceneManagement.SceneManager.LoadScene("WinScreen");
+            //play transition animation and then load this scene again 
+            
+            //play transition animation
+            
+            ResetState();
+
+            if(levelIndex != -1)
+                MenuManager.instance.LoadScene(levelIndex,0.5f);
+            
+            
         }
 
         PercentageTimePassed = (currentTime / endTime);

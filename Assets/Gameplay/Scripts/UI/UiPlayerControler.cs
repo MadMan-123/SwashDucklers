@@ -36,6 +36,16 @@ public class UiPlayerControler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Reset colors
+        PlayerStats.yellowTaken = false;
+        PlayerStats.orangeTaken = false;
+        PlayerStats.redTaken = false;
+        PlayerStats.greenTaken = false;
+        PlayerStats.pinkTaken = false;
+        PlayerStats.whiteTaken = false;
+        PlayerStats.blueTaken = false;
+        PlayerStats.cyanTaken = false;
+        PlayerStats.purpleTaken = false;
 
         //References to join text
         joinText1 = this.transform.GetChild(0).gameObject;
@@ -92,7 +102,7 @@ public class UiPlayerControler : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton9))
                 {
                     //UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial debug screen");
-                    StartCoroutine(Transition("Tutorial debug screen"));
+                    StartCoroutine(Transition(6));
                 }
 
             }
@@ -108,7 +118,7 @@ public class UiPlayerControler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
-            StartCoroutine(Transition("Title Screen"));
+            StartCoroutine(Transition(0));
             //UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
 
@@ -141,28 +151,28 @@ public class UiPlayerControler : MonoBehaviour
 
 
                 joinText1.SetActive(false); //Disable join text
-                player.transform.GetChild(2).GetComponent<RawImage>().texture = player1Image;
+                player.transform.GetChild(1).GetComponent<RawImage>().texture = player1Image;
                 PlayerStats.player1Color = defaultPlayer1LitColor;
                 break;
             case 1:
                 player.GetComponent<RectTransform>().localPosition = new Vector3(400, 250, 0);
                 player.GetComponent<RectTransform>().localScale = new Vector3(0.4f, 0.4f, 1);
                 joinText2.SetActive(false);
-                player.transform.GetChild(2).GetComponent<RawImage>().texture = player2Image;
+                player.transform.GetChild(1).GetComponent<RawImage>().texture = player2Image;
                 PlayerStats.player2Color = defaultPlayer2LitColor;
                 break;
             case 2:
                 player.GetComponent<RectTransform>().localPosition = new Vector3(-500, -250, 0);
                 player.GetComponent<RectTransform>().localScale = new Vector3(0.4f, 0.4f, 1);
                 joinText3.SetActive(false);
-                player.transform.GetChild(2).GetComponent<RawImage>().texture = player3Image;
+                player.transform.GetChild(1).GetComponent<RawImage>().texture = player3Image;
                 PlayerStats.player3Color = defaultPlayer3LitColor;
                 break;
             case 3:
                 player.GetComponent<RectTransform>().localPosition = new Vector3(400, -250, 0);
                 player.GetComponent<RectTransform>().localScale = new Vector3(0.4f, 0.4f, 1);
                 joinText4.SetActive(false);
-                player.transform.GetChild(2).GetComponent<RawImage>().texture = player4Image;
+                player.transform.GetChild(1).GetComponent<RawImage>().texture = player4Image;
                 PlayerStats.player4Color = defaultPlayer4LitColor;
                 break;
         }
@@ -201,7 +211,7 @@ public class UiPlayerControler : MonoBehaviour
     //Ive coppied this into a bunch of scripts ideally we could set it up to be usable in any scene
     //It also would probably be better if the time wasnt hardcoded, and the animation had a loop while the next scene loads
     //-SD
-    private IEnumerator Transition(string scene)
+    private IEnumerator Transition(int scene)
     {
 
         StartTransition.SetActive(true);

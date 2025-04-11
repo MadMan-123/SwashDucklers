@@ -36,8 +36,17 @@ public class Interactor : MonoBehaviour
     [SerializeField] private float howFar = 0.45f;
     [SerializeField] private Vector3 offset = new(0,-0.1f,0);
     [SerializeField] private float interactCooldown = 1f;
+    
+    [SerializeField] private Inventory inv;
     void Start()
     {
+        //get the inventory
+        if (!TryGetComponent(out inv))
+        {
+            Debug.LogWarning("No inventory found on interactor");
+            return;
+        }
+        //get the camera
         cam = Camera.main?.gameObject.transform;
         //smh tom, im not sure i get why were doing that tbh
         TryGetComponent(out playerControler);
@@ -70,7 +79,6 @@ public class Interactor : MonoBehaviour
             //try to flash the object
             interactable.ToggleFlash(true);
            
-            print("Flashing");
             
             //add to the tracked list
             
@@ -123,17 +131,20 @@ public class Interactor : MonoBehaviour
 
         //isInteracting = true;
         StartCoroutine(InteractCooldown(interactCooldown));
-        if (TryGetComponent(out Inventory inv) && inv.TryPickUp())
+        if (inv.TryPickUp() && inv.item)
         {
            return;
         }
 
-        var count = Physics.OverlapSphereNonAlloc((transform.position + offset) + (transform.forward * howFar), slapRadius, colliders);
+        Physics.OverlapSphereNonAlloc((transform.position + offset) + (transform.forward * howFar), slapRadius, colliders);
 
         var valid = colliders.Where(col => col!=null && col.gameObject != gameObject).ToList();
+        
+        
         GameObject tracked = null;
         List<Rigidbody> rigidBodies = new(10);
         //go through and check if we can interact
+        if(valid.Count == 0){playerControler.animator.SetBool("IsSlapping", false);}
         for (int i = 0; i < valid.Count; i++)
         {
             //check if the collider has a rigidbody
@@ -150,11 +161,13 @@ public class Interactor : MonoBehaviour
             tracked = colliders[i].gameObject;
         }
 
-        foreach (var body in rigidBodies)
+        for (var i = 0; i < rigidBodies.Count; i++)
         {
-            if(body.gameObject == gameObject || !body) continue;
-            Slap(body.gameObject); 
+            var body = rigidBodies[i];
+            if (body.gameObject == gameObject || !body && body.gameObject != inv.item.gameObject ) continue;
+            Slap(body.gameObject);
         }
+
         if (tracked == null)
         {
             return;
@@ -166,7 +179,10 @@ public class Interactor : MonoBehaviour
         {
             if(shouldDebug)
                 print("Interacting with " + tracked.name);
-            interact.Interact(inventory.item, gameObject);
+            //check if the objects interactable is enabled
+            
+            if(interact.enabled)
+                interact.Interact(inventory.item, gameObject);
         }
         
 

@@ -35,12 +35,19 @@ public class SoundManager : MonoBehaviour
             }
     }
 
-    public static void PlayAudioClip(string name,Vector3 position, float volume)
+    public static void PlayAudioClip2D(string name, float volume)
     {
         if (audioClips.TryGetValue(name, out var clip))
         {
-            //AudioSource.PlayClipAtPoint(clip.clip, position, volume);
             AudioSource.PlayClipAtPoint(clip.clip, Camera.main.transform.position, volume);//temp change
+        }
+    }   
+    
+    public static void PlayAudioClip(string name, Vector3 position, float volume)
+    {
+        if (audioClips.TryGetValue(name, out var clip))
+        {
+            AudioSource.PlayClipAtPoint(clip.clip, position,volume);
         }
     }
 

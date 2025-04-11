@@ -54,24 +54,34 @@ public class Launcher : MonoBehaviour
 
     protected void ValidateLaunchPosition(Vector3 vel,GameObject obj)
     {
-        //take the position of the player and the position of the boat
-        //get a difference in the z axis and based if positive or negative adjust the player position along the z axis in the respective direction
-        //only if the path is not valid
+        //move the player to underneath the camera
         
-        var playerPos = obj.transform.position;
-        var diff = playerPos.z - 5;
+        var camera = Camera.main;
+        if (camera == null) return;
         
-        //figure out if positive or negative
-        var sign = diff > 0 ? 1 : -1;
+        var camPos = camera.transform.position;
         
+        //get the camera position and make the y axis the same as the player
+        var position = new Vector3(obj.transform.position.x, obj.transform.position.y, camPos.z);
         
-        //try to adjust the player position until a valid path is found
-        while (!IsValidPath(obj,playerPos - obj.transform.position))
+        //set the object to the new position
+        obj.transform.position = position;
+        
+        //get the new velocity
+        vel = LaunchManager.CalculateVelocity(pos,position,launchDuration,(pos - position).y);
+        
+        //while the velocity is not valid, move the player to a new position
+        while (!IsValidPath(obj,vel))
         {
-            playerPos.z += sign > 0 ? -1 : 1;
-            playerPos.z *= 2.5f;
+            //keep pushing the player behind the camera
+            position = new Vector3(position.x, position.y, position.z - 5);
+       
+            //set the object to the new position
+            obj.transform.position = position;
+            
+            //get the new velocity
+            vel = LaunchManager.CalculateVelocity(pos,position,launchDuration,(pos - position).y);
         }
-        
     }
         
         public bool IsValidPath(GameObject obj,Vector3 velocity)

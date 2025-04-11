@@ -1,11 +1,18 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-//using UnityEditor.Experimental.GraphView;
-using UnityEngine;
+using System.ComponentModel;
 using Cinemachine;
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Rendering;
+using UnityEngine.Serialization;
+
+//using UnityEditor.Experimental.GraphView;
 
 public class KrakenManager : MonoBehaviour
 {
+    private static readonly int TextureSpeed = Shader.PropertyToID("_TextureSpeed");
+
     //This script will control the krakens behaviours and when it should do whatever
     
     [SerializeField] private Health health;
@@ -18,10 +25,13 @@ public class KrakenManager : MonoBehaviour
     [Header("Key Objects")]
     [SerializeField] GameObject krakenBody;
     [SerializeField] GameObject krakenBodyAsset;
+    [SerializeField] Kraken krakenBodyScript;
     private Animator krakenBodyAnimator;
     [SerializeField] GameObject tentacles;
     private TentacleAI tentacleAI;
     [SerializeField] GameObject krakenHealth;
+    [SerializeField] private GameObject cosmeticTentacles;
+        
     
     [Header("Camera")]
     [SerializeField] private CinemachineTargetGroup cameraTarget;
@@ -36,13 +46,25 @@ public class KrakenManager : MonoBehaviour
     [Header("Other World Stuff")]
     [SerializeField] Weather weather;
     [SerializeField] private EnvironmentManager environmentManager;
+    
+    [SerializeField] private float textureSpeed = -1, waterKrakenModifer = 2;
+    [SerializeField] private Material waterMaterial;
 
     float timeBeforeNext;
+
+    [SerializeField] private float delayAfterDeath = 30f;
     //bool isActive = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        
+        //assert we have a valid water material
+        Assert.IsNotNull(waterMaterial,"waterMaterial is null");
+       
+        //get the water speed
+        textureSpeed = waterMaterial.GetFloat(TextureSpeed);
+        
         if (!krakenBodyAsset.TryGetComponent(out krakenBodyAnimator))
         {
             Debug.LogError("Kraken Body Animator not found");
@@ -63,7 +85,7 @@ public class KrakenManager : MonoBehaviour
             {
                 gameTimer.SetActive(true);
             }
-            StartRoutines();
+            StartCoroutine(StartRoutines());
         }
         else
         {
@@ -71,8 +93,10 @@ public class KrakenManager : MonoBehaviour
         }
     }
 
-    private void StartRoutines()
+    private IEnumerator StartRoutines(float waitTime = 0)
     {
+        
+        yield return new WaitForSeconds(waitTime);
         //efficiency, whats that? - TS
         StartCoroutine(KrakenBodySpawn());
         StartCoroutine(TentacleSpawn());
@@ -85,6 +109,13 @@ public class KrakenManager : MonoBehaviour
         yield return new WaitForSeconds(bodySpawns);
         krakenBody.SetActive(true);
         krakenHealth.SetActive(true);
+        //change the speed of the waves 
+        
+        
+        waterMaterial.SetFloat(TextureSpeed, textureSpeed / waterKrakenModifer);
+        
+        
+        
         SoundManager.PlayAudioClip("KrakenSpawn", transform.position, 1f);
         cameraTarget.AddMember(krakenBody.transform, cameraPullWeight, cameraPullRadius);
         
@@ -106,6 +137,7 @@ public class KrakenManager : MonoBehaviour
         yield return new WaitForSeconds(tentaclesSpawns);
         tentacles.SetActive(true);
         gameTimer.SetActive(false);
+        cosmeticTentacles.SetActive(true);
     }
 
     //Function called by cannons when fired -SD
@@ -124,12 +156,16 @@ public class KrakenManager : MonoBehaviour
             krakenBodyAnimator.SetTrigger("KrakenDies");
             //krakenBody.SetActive(false);
             StartCoroutine(tentacleAI.KrakenDeath());
+            StartCoroutine(krakenBodyScript.KrakenDead());
 
             //reengage the environment manager
             environmentManager.shouldMove = true;
-            StartCoroutine(environmentManager.SpawnRandomObject());
+            environmentManager.StartEachLaneUp();
+            
 
-
+            //make the water move regularly again
+            
+            waterMaterial.SetFloat(TextureSpeed, textureSpeed);
             health.SetHealth(0);
             if (StageParameters.levelLength != Length.Endless)
             {
@@ -137,7 +173,7 @@ public class KrakenManager : MonoBehaviour
             }
 
             weather.KrakenDeSpawn();
-            //StartRoutines();
+            StartCoroutine(StartRoutines(delayAfterDeath));
         }
     }
 
@@ -155,4 +191,15 @@ public class KrakenManager : MonoBehaviour
         tentacles.SetActive(false);
     }
 
+
+    private void OnDestroy()
+    {
+        //set the water speed back to normal
+        waterMaterial.SetFloat(TextureSpeed, textureSpeed);
+    }
+
+    public void DisableCosmeticTentacles()
+    {
+        cosmeticTentacles.SetActive(false);
+    }
 }

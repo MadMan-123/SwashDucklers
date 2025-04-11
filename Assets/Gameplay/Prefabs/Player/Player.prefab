@@ -593,7 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133f363b79e9aa1429dc8902a2a19f6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 3701548156983837710}
+  rigidbody: {fileID: 3701548156983837710}
   acceleration: 0.5
   maxSpeed: 3.3
   vMaxSpeed: 20
@@ -851,7 +851,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 08de54ea4d107644f98b90f391cc44c0, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.506
+  m_Volume: 1
   m_Pitch: 1.94
   Loop: 0
   Mute: 0
@@ -895,7 +895,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.6
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1073,9 +1073,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f3ac23b3ebdc326419d6f22662421a44, type: 3}
+  m_audioClip: {fileID: 8300000, guid: cf2e86e26b9eeaa4a99410b3dabf57f3, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.327
   m_Pitch: 1
   Loop: 1
   Mute: 0

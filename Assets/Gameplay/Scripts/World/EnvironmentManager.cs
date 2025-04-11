@@ -38,18 +38,27 @@ public class EnvironmentManager : MonoBehaviour
                 environmentObject.pools[i] = new GameObjectPool(environmentObject.prefabs[i], MaxObjects, transform);
             }
             
-            waves = FindObjectOfType<Waves>(); // Find the wave generator in the scene
         }
         
 
+        waves = FindObjectOfType<Waves>(); // Find the wave generator in the scene
+        StartEachLaneUp();
+    }
+
+    public void StartEachLaneUp()
+    {
         //for each environment object prefab 
         for (var i = 0; i < environmentObjects.Count; i++)
         {
-            //start the coroutine to spawn the objects
-            StartCoroutine(SpawnRandomObject());
+            //for each pool 
+            for (var j = 0; j < environmentObjects[i].pools.Length; j++)
+            {
+                var routine = SpawnRandomObject(environmentObjects[i].pools[j],environmentObjects[i].laneDelay);
+                StartCoroutine(routine);
+            }
         }
     }
-
+    
     private void Update()
     {
         for (var index = 0; index < active.Length; index++)
@@ -87,15 +96,13 @@ public class EnvironmentManager : MonoBehaviour
         }
 }
 
-    public IEnumerator SpawnRandomObject(float interval = 15)
+    public IEnumerator SpawnRandomObject(GameObjectPool pool,float interval = 15)
     {
         if(!shouldMove) yield break;
         //get a random enviroment object
         var index = Random.Range(0, environmentObjects.Count );
         var current = environmentObjects[index];
         
-        //get a random prefab from the pools
-        var pool = current.pools[Random.Range(0, current.pools.Length)];
         //check if its valid
         if (pool == null) yield break;
         
@@ -103,6 +110,9 @@ public class EnvironmentManager : MonoBehaviour
         
         //set the position of the object
         obj.transform.position = current.position;
+        
+        //set the rotation of the object
+        obj.transform.rotation = current.rotation;
         obj.SetActive(true);
         
         int validIndex = active.ToList().FindIndex(x => x == null);
@@ -110,7 +120,8 @@ public class EnvironmentManager : MonoBehaviour
         if (validIndex == -1)
         {
             yield return new WaitForSeconds(interval);
-            StartCoroutine(SpawnRandomObject());
+            var routine = SpawnRandomObject(pool, interval);
+            StartCoroutine(routine);
             yield break;
         }
        
@@ -125,8 +136,11 @@ public class EnvironmentManager : MonoBehaviour
         
         
         yield return new WaitForSeconds(interval);
-        if(shouldMove) 
-            StartCoroutine(SpawnRandomObject()); 
+        if (shouldMove)
+        {
+            var routine = SpawnRandomObject(pool, interval);
+            StartCoroutine(routine);
+        }
     }
 
 
@@ -188,6 +202,8 @@ public class EnvironmentObjectType
     public GameObject[] prefabs;
     public Vector3 position;
     public GameObjectPool[] pools;
+    public float laneDelay = 10;
+    public Quaternion rotation;
     public float speed;
     public float bobSpeed;
     public float bobHeight;

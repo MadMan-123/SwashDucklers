@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4456679808497179571}
   - component: {fileID: 9107167135941202187}
   - component: {fileID: 3691937864187367181}
+  - component: {fileID: 9118806513727584607}
+  - component: {fileID: 1645729914120910189}
   m_Layer: 0
   m_Name: fix vfx (TEMP)
   m_TagString: Untagged
@@ -4889,3 +4891,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 10
+--- !u!114 &9118806513727584607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493615812239809161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1149199d745a14cbba750e6fcfbf43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thingToSpawn: {fileID: 0}
+  timeToWait: 0
+  spawnLocation: {fileID: 0}
+  lookAtCamera: 0
+  vfxHolder: {fileID: 0}
+--- !u!114 &1645729914120910189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493615812239809161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1149199d745a14cbba750e6fcfbf43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thingToSpawn: {fileID: 2560531576955680677, guid: f9797ef95e3bf3c4d8548950475ca0c5,
+    type: 3}
+  timeToWait: 0.5
+  spawnLocation: {fileID: 0}
+  lookAtCamera: 1
+  vfxHolder: {fileID: 0}

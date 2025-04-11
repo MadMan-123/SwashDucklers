@@ -7,6 +7,7 @@ public class TentacleAnimationEvents : MonoBehaviour
     [SerializeField]private KrakenManager krakenManager;
     [SerializeField]private TentacleAI tentacleAI;
     [SerializeField] private Tentacle tentacle;
+    [SerializeField]private bool isCosmetic;
     public float intensity = 10f;
     public float duration = 0.1f;
     public void Shake()
@@ -17,7 +18,8 @@ public class TentacleAnimationEvents : MonoBehaviour
     public void DisableTentacles()
     {
         Debug.Log("Disabling tentacles");
-        krakenManager.DisableTentacles();
+        if (isCosmetic) {krakenManager.DisableCosmeticTentacles();}
+        else {krakenManager.DisableTentacles();}
     }
 
     public void EnableHitBoxes()
@@ -29,4 +31,5 @@ public class TentacleAnimationEvents : MonoBehaviour
     {
         tentacle.ToggleHitboxes(false);
     }
+    
 }

@@ -27,7 +27,7 @@ public class Item : MonoBehaviour
             if (current.AddItem(gameObject))                              //add this to inv
             {
                 /*//disable the rigidbody and collider
-                rb.isKinematic = true;                           //bunch of positioning stuff
+                rigidbody.isKinematic = true;                           //bunch of positioning stuff
                 col.enabled = false;
                 
                 //set the transforms
@@ -48,6 +48,7 @@ public class Item : MonoBehaviour
             GetComponent<Collider>().enabled = true;
             var rb = GetComponent<Rigidbody>();
             
+            rb.isKinematic = false;
             //remove the item from the inventory
             current.item = null;
 
@@ -60,11 +61,11 @@ public class Item : MonoBehaviour
             //throw the item
             if (shouldLaunch)
             {
-                rb.isKinematic = false;
                 rb.AddForce(launchDirection * 5, ForceMode.VelocityChange);
             }
         }
 
+        //return the item
     }
     
     

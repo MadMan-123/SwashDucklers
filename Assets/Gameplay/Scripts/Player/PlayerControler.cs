@@ -2,6 +2,7 @@ using TMPro;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,20 +11,24 @@ using Vector3 = UnityEngine.Vector3;
 using Quaternion = UnityEngine.Quaternion;
 using UnityEngine.SceneManagement;
 using Cinemachine;
+using UnityEngine.Assertions;
+using UnityEngine.Serialization;
+using Debug = UnityEngine.Debug;
+
 //using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerControler : MonoBehaviour
 {
 
     private Vector3 moveVector = Vector3.zero;
-    public Rigidbody rb = null;
+    [FormerlySerializedAs("rb")] public Rigidbody rigidbody = null;
     private bool isGrounded = false;
     //private bool isJumping = true;
     //private bool isGliding = false;
     private float jumpTimer;
     private float glideTimer;
     private float glideHeight;
-    private PlayerInput playerInput;
+    [SerializeField] private PlayerInput playerInput;
     private InputAction displayNames;
     private Rigidbody platform; //Rigidbody of object player is standing on if there is one
     private Vector3 relative0; //A vector representing 0 relative to whatever platform you are currently on
@@ -83,20 +88,21 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] public RumbleVariables itemStolenRumble;
 
     private static readonly int Color1 = Shader.PropertyToID("_Color");
+    private static readonly int IsWalking = Animator.StringToHash("IsWalking");
+    private static readonly int IsSlapping = Animator.StringToHash("IsSlapping");
     [SerializeField] public CinemachineTargetGroup cameraTarget;
     [SerializeField] public float playerCameraWeight;
     [SerializeField] public float playerCameraRadius;
     //On Awake
+
     private void Awake()
     {
-        //get the camera target group
-        //this is a god awful way to do this, but you guys be setting shit up in the editor weird man, dont hate the player hate the game fool - mw
-        cameraTarget = GameObject.Find("Camera Target").GetComponent<CinemachineTargetGroup>();
+        //get the camera target
+        cameraTarget = FindObjectOfType<CinemachineTargetGroup>();
         cameraTarget.AddMember(transform, 3, 2.5f);
         //input = new InputManager();
-        rb = GetComponent<Rigidbody>();
+        rigidbody = GetComponent<Rigidbody>();
         relative0 = new Vector3(0.0f, 0.0f, 0.0f);
-
         playerInput = GetComponent<PlayerInput>();
         playerID = playerInput.playerIndex;
         displayNames = playerInput.actions["DisplayNames"];
@@ -104,13 +110,15 @@ public class PlayerControler : MonoBehaviour
         //Check type on input, used for rumble -SD
         if (playerInput.devices[0] is Gamepad)
         {
+            /*
             Debug.Log("Gamepad");
+            */
             isGamepad = true;
             pad = (Gamepad)playerInput.devices[0];
         }
         else
         {
-            Debug.Log("Keyboard");
+            /*Debug.Log("Keyboard");*/
             isGamepad = false;
         }
 
@@ -123,356 +131,281 @@ public class PlayerControler : MonoBehaviour
         hatposition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         StartCoroutine(PlayerNameFade2(true,2f));
-        //Get Color and hat
-        switch (playerID)
+        
+        //Get the player colour and hat and set them
+        
+        
+        litColor = playerID switch 
         {
-            case 0:
-                litColor = PlayerStats.player1Color;
-                if (PlayerStats.Hatlist != null)
-                {
-                    if (PlayerStats.Hatlist[PlayerStats.player1Hat].model != null)
-                    {
-                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player1Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player1Hat].position, transform.rotation, hatTransform);
-                    }
-                }
-                break;
-            case 1:
-                litColor = PlayerStats.player2Color;
-                if (PlayerStats.Hatlist != null)
-                {
-                    if (PlayerStats.Hatlist[PlayerStats.player2Hat].model != null)
-                    {
-                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player2Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player2Hat].position, transform.rotation, hatTransform);
-                    }
-                }
-                break;
-            case 2:
-                litColor = PlayerStats.player3Color;
-                if (PlayerStats.Hatlist != null)
-                {
-                    if (PlayerStats.Hatlist[PlayerStats.player3Hat].model != null)
-                    {
-                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player3Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player3Hat].position, transform.rotation, hatTransform);
-                    }
-                }
-                break;
-            case 3:
-                litColor = PlayerStats.player4Color;
-                if (PlayerStats.Hatlist != null)
-                {
-                    if (PlayerStats.Hatlist[PlayerStats.player4Hat].model != null)
-                    {
-                        hat = Instantiate(PlayerStats.Hatlist[PlayerStats.player4Hat].model, hatposition + PlayerStats.Hatlist[PlayerStats.player4Hat].position, transform.rotation, hatTransform);
-                    }
-                }
-                break;
-        }
+            0 => PlayerStats.player1Color,
+            1 => PlayerStats.player2Color,
+            2 => PlayerStats.player3Color,
+            3 => PlayerStats.player4Color,
+            _ => Color.white
+        };
+
+        var playerHat = playerID switch
+        {
+            0 => PlayerStats.player1Hat,
+            1 => PlayerStats.player2Hat,
+            2 => PlayerStats.player3Hat,
+            3 => PlayerStats.player4Hat,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        
+        //Set the color of the body
+        if (PlayerStats.Hatlist == null) return;
+        if(PlayerStats.Hatlist[playerHat].model != null)
+            hat = Instantiate(PlayerStats.Hatlist[playerHat].model, hatposition + PlayerStats.Hatlist[playerHat].position, transform.rotation, hatTransform);
+        
+        //will the playerID align with the hat list? 
+       
+
+        //get the hat
+        //var hatPrefab = PlayerStats.Hatlist[playerID].model;
+
+        //get the prefab position
+        //var offset = PlayerStats.Hatlist[playerID].position;
+        
+        //Instantiate the hat
+        //hat = Instantiate(hatPrefab, hatposition + offset, transform.rotation, hatTransform);
+        
 
         //Set up pause menu
         pauseMenu.SetActive(false);
 
     }
 
-    //On start
+    private void HandleInitalSpawn()
+    {
+        if (!spawned)
+        {
+            transform.rotation = Quaternion.LookRotation(spawnRotation, Vector3.up);
+            transform.position = spawnpoint;
+            spawned = true;
+        }
+    }
+
+    private void ApplyMovement()
+    {
+        float currentAcceleration = isGrounded ? acceleration : acceleration * airControl;
+        rigidbody.velocity += (moveVector * currentAcceleration);
+        
+        
+    }
+
+    //do we really need this? in the current state of the project - MW
+    private void HandlePlatformMovment()
+    {
+        //store previous platform velocity
+        PrevRelative0 = relative0;
+        
+        //set the reference velocity
+        relative0 = platform != null ? platform.velocity : Vector3.zero;
+        
+        //adjust the velocity
+        if (PrevRelative0 != relative0)
+        {
+            rigidbody.velocity -= PrevRelative0;
+            rigidbody.velocity += relative0;
+        }
+        
+    }
+
+    private void ClampHorizontalVelocity()
+    {
+        var horizontalVelocity = rigidbody.velocity;
+        horizontalVelocity.y = 0; // Keeps gravity unchanged
+        horizontalVelocity += moveVector * acceleration;
+        horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeed);
+        
+        rigidbody.velocity = new Vector3(horizontalVelocity.x, rigidbody.velocity.y, horizontalVelocity.z);
+    }
+    
+    
+    private void HandleRotationAndAnimation()
+    {
+        //Rotate to face direction moving
+        //if the move vector is not zero
+        if (Mathf.Abs(moveVector.magnitude) >= 0.01f)
+        {
+            //rotate the player
+            transform.rotation = Quaternion.LookRotation(moveVector, Vector3.up);
+            
+            if (!animator.GetBool(IsWalking))
+                animator.SetBool(IsWalking, true);
+        }
+        else
+        {
+            //if (!animator.GetBool(IsSlapping))
+                //animator.CrossFade("Idle", 0.1f);
+            
+            animator.SetBool(IsWalking, true);
+        }
+    }
+
+
+    private void ApplyDeceleration()
+    {
+       if(ShouldDecelerateOnAxis(moveVector.x, rigidbody.velocity.x, relative0.x)) 
+       {
+            rigidbody.velocity = DecelerateOnAxis(rigidbody.velocity, relative0,true);
+       }
+
+       if (ShouldDecelerateOnAxis(moveVector.z, rigidbody.velocity.z, relative0.z))
+       {
+           rigidbody.velocity = DecelerateOnAxis(rigidbody.velocity, relative0,false);
+       }
+
+       if (HasStopeed())
+       {
+           StopMovmentSound();
+           animator.CrossFade("Idle",0.1f);
+       }
+    }
+
+    private Vector3 DecelerateOnAxis(Vector3 rbVelocity, Vector3 relativeVelocity, bool isXAxis)
+    {
+        float currentValue = isXAxis ? rbVelocity.x : rbVelocity.z;
+        float targetValue = isXAxis ? relativeVelocity.x : relativeVelocity.z;
+
+        // Moving in positive direction, need to decrease
+        if (currentValue > targetValue)
+        {
+            Vector3 decelerationVector = isXAxis ?
+                new Vector3(deceleration, 0.0f, 0.0f) :
+                new Vector3(0.0f, 0.0f, deceleration);
+            
+            rbVelocity -= decelerationVector;
+            
+            // Check if we overshot the target
+            if((isXAxis ? rbVelocity.x : rbVelocity.z) < targetValue)
+            {
+                if (isXAxis)
+                    rbVelocity.x = targetValue;
+                else
+                    rbVelocity.z = targetValue; // FIXED: Was not setting the value correctly
+            }
+        }
+        // Moving in negative direction, need to increase
+        else if (currentValue < targetValue)
+        {
+            Vector3 decelerationVector = isXAxis ?
+                new Vector3(deceleration, 0.0f, 0.0f) :
+                new Vector3(0.0f, 0.0f, deceleration);
+            
+            rbVelocity += decelerationVector;
+            
+            // Check if we overshot the target
+            if((isXAxis ? rbVelocity.x : rbVelocity.z) > targetValue)
+            {
+                if (isXAxis)
+                    rbVelocity.x = targetValue;
+                else
+                    rbVelocity.z = targetValue;
+            }
+        }
+        
+        return rbVelocity;
+    }
+
+    private bool HasStopeed()
+    {
+        return (Mathf.Approximately(rigidbody.velocity.x, relative0.x) && Mathf.Approximately(rigidbody.velocity.z, relative0.z));
+    }
+
+    private void StopMovmentSound()
+    {
+        if (isSoundPlaying)
+        {
+            audioSource.Stop();
+            isSoundPlaying = false; // Mark sound as playing
+        }
+    }
+
+    private bool ShouldDecelerateOnAxis(float moveVectorX, float velocityX, float relative0X) => (moveVectorX == 0 && Math.Abs(velocityX - relative0X) > 0.1f);
+    
     private void Start()
     {
-
         SetPlayerColor(playerID);
+    }
+    
+    //FixedUpdate
+    void FixedUpdate()
+    {
+        HandleInitalSpawn();
+        
+        //if we can move
+        if (canMove)
+        {
+            //apply proper movement
+            ApplyMovement();
+
+            //relative 
+            HandlePlatformMovment();
+            
+            ClampHorizontalVelocity();
+
+            HandleRotationAndAnimation();
+
+            //apply deceleration
+            ApplyDeceleration();
+
+
+        }
 
     }
+
+
     void Update()
     {
         var main = movementVFX.main;
         
-        if (moveVector != Vector3.zero) // Movement detected
-                                        
+        if (Mathf.Abs(moveVector.magnitude) >= 0.01f) // Movement detected
         {
+            animator.SetBool(IsWalking, true);
             if (!movementVFX.isPlaying) // If it's not playing, start it
             {
-                
+                if (!isSoundPlaying)
+                {
+                    audioSource.Play();
+                    isSoundPlaying = true; // Mark sound as playing
+                }
                 main.loop = true;
                 movementVFX.Play();
             }
         }
         else // If no movement, stop VFX
         {
+            animator.SetBool(IsWalking, false);
+            
             if (movementVFX.isPlaying)
             {
-                
+                audioSource.Stop();
+                isSoundPlaying = false;
                 main.loop = false;
                 movementVFX.Stop();
             }
         }
     
+        //Check if player ends up out of bounds somehow -SD
+        //Hopefully never triggers
+        if (this.transform.position.y < -10f)
+        {
+            Debug.LogError("Player fell out of bounds!");
+            //Debug.Break();
+            transform.position = spawnpoint;
+        }
+
     }
     private void SetPlayerColor(int playerId)
     {
 
         //Body
         bodyRenderer.material.SetColor("_Color", litColor); //Light Color
-        //bodyRenderer.material.SetColor("_1st_ShadeColor", darkColor); //Shaded Color
 
-        //Beak and legs
-        //beakRenderer.material.SetColor("_BaseColor", secondaryColor); //Light Color
-        //beakRenderer.material.SetColor("_1st_ShadeColor", secondaryColor); //Shaded Color
-
-        //for (int i = 0; i < bodyRenderer.material.shader.GetPropertyCount(); i++)
-        //{
-        //    Debug.Log(bodyRenderer.material.shader.GetPropertyName(i));
-        //}
-
-
-
-        //Debug.Log(bodymaterial.color);
-        //Debug.Log(LitColor);
     }
-    //FixedUpdate
-    void FixedUpdate()
-    {
-
-        //Sean:This should really be in start but transform.positon doesnt work in there for whatever reason
-        if (spawned == false)
-        {
-            transform.position = spawnpoint;
-            transform.rotation = Quaternion.LookRotation(spawnRotation, Vector3.up);
-            spawned = true;
-        }
-
-        //commented out cuz was flooding the console - MW
-        //Debug.Log(moveVector);
-
-        if (canMove)
-        {
-           
-            //If on the ground
-            if (isGrounded)
-            {
-                //add direction * acceleration to velocity
-                rb.velocity += (moveVector * acceleration);
-
-                // Debug.Log(rb.velocity);
-            }
-            else
-            {
-                //add direction * acceleration to velocity changed by the air control modifier
-                rb.velocity += (moveVector * (acceleration * airControl));
-            }
-
-            PrevRelative0 = relative0;
-
-            //If on moving object
-            if (platform != null)
-            {
-
-                //Find 0 velocity relative to current platform
-                relative0 = platform.velocity;
-
-            }
-            else
-            {
-                //Relative 0 is just 0
-                relative0 = new Vector3(0.0f, 0.0f, 0.0f);
-
-            }
-
-            //If platform has changed, or changed direction
-            if (PrevRelative0 != relative0)
-            {
-                //Remove speed of old patform and replace with speed of new platform
-                rb.velocity -= PrevRelative0;
-                rb.velocity += relative0;
-            }
-
-        
-            Vector3 horizontalVelocity = rb.velocity; 
-            horizontalVelocity.y = 0; // Keeps gravity unchanged
-            horizontalVelocity += moveVector * acceleration;
-            horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeed);
-                
-            rb.velocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
-            
-            //Debug.Log(rb.velocity);
-
-            //Rotate to face direction moving
-            if (moveVector != Vector3.zero && canMove)
-            {
-                Quaternion rotation = Quaternion.LookRotation(moveVector, Vector3.up);
-                transform.rotation = rotation;
-
-                if (!animator.GetBool("IsWalking"))
-                    //animator.CrossFade("IsWalking")
-                    animator.SetBool("IsWalking", true);
-
-                //Code to come to a stop quicker if diffrent keys are being pressed than current acceleration
-                //If moveVector X = 0
-                if (moveVector.x == 0)
-                {
-                    //If velocity X isnt 0
-                    if (rb.velocity.x != relative0.x)
-                    {
-                        
-                        //If Velocity X is positive
-                        if (Mathf.Sign(rb.velocity.x) == 1)
-                        {
-                            //Lower velocity by deceleration value
-                            rb.velocity = rb.velocity - new Vector3(deceleration, 0.0f, 0.0f);
-
-                            //If lowered below 0
-                            if (rb.velocity.x < relative0.x)
-                            {
-                                //Set X value to 0
-                                rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
-                                
-                            }
-                        }
-                        else //If Velocity X is Negative
-                        {
-                            //Lower velocity by deceleration value
-                            rb.velocity += new Vector3(deceleration, 0.0f, 0.0f);
-
-                            //If raised below 0
-                            if (rb.velocity.x > relative0.x)
-                            {
-                                //Set X value to 0
-                                rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
-                                
-                                ;
-                            }
-                        }
-                    }
-                }
-
-                //If moveVector Z = 0
-                if (moveVector.z == 0)
-                {
-                    //If velocity Z isnt 0
-                    if (rb.velocity.z != relative0.z)
-                    {
-                        //If Velocity z is positive
-                        if (Mathf.Sign(rb.velocity.z) == 1)
-                        {
-                            //Lower velocity by deceleration value
-                            rb.velocity = rb.velocity - new Vector3(0.0f, 0.0f, deceleration);
-
-                            //If lowered below 0
-                            if (rb.velocity.z < relative0.z)
-                            {
-                                //Set z value to 0
-                                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
-                            }
-                        }
-                        else //If Velocity Z is Negative
-                        {
-                            //Lower velocity by deceleration value
-                            rb.velocity = rb.velocity + new Vector3(0.0f, 0.0f, deceleration);
-
-                            //If raised above 0
-                            if (rb.velocity.z > relative0.z)
-                            {
-                                //Set z value to 0
-                                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
-                            }
-                        }
-                    }
-                }
-            }
-            else //If moveVector = 0 then no movement is being provided
-            {
-                if (!animator.GetBool("IsSlapping"))
-                    animator.CrossFade("Idle", 0.1f);
-                animator.SetBool("IsWalking", false);
-
-
-                //Code to come to a stop quicker if no movement keys are being pressed
-                //If velocity X isnt 0
-                if (rb.velocity.x != relative0.x)
-                {
-                    //If Velocity X is positive
-                    if (Mathf.Sign(rb.velocity.x) == 1)
-                    {
-                        //Lower velocity by deceleration value
-                        rb.velocity = rb.velocity - new Vector3(deceleration, 0.0f, 0.0f);
-
-                        //If lowered below 0
-                        if (rb.velocity.x < relative0.x)
-                        {
-                            //Set X value to 0
-                            rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
-                            ;  if (isSoundPlaying)
-                            {
-                                audioSource.Stop();
-
-                                isSoundPlaying = false; // Mark sound as playing
-                            }
-                        }
-                    }
-                    else //If Velocity X is Negative
-                    {
-                        //Lower velocity by deceleration value
-                        rb.velocity = rb.velocity + new Vector3(deceleration, 0.0f, 0.0f);
-
-                        //If raised below 0
-                        if (rb.velocity.x > relative0.x)
-                        {
-                            //Set X value to 0
-                            rb.velocity = new Vector3(relative0.x, rb.velocity.y, rb.velocity.z);
-                            if (isSoundPlaying)
-                            {
-                                audioSource.Stop();
-
-                                isSoundPlaying = false; // Mark sound as playing
-                            }
-                        }
-                    }
-                }
-
-                //If velocity Z isnt 0
-                if (rb.velocity.z != relative0.z)
-                {
-                    //If Velocity z is positive
-                    if (Mathf.Sign(rb.velocity.z) == 1)
-                    {
-                        //Lower velocity by deceleration value
-                        rb.velocity = rb.velocity - new Vector3(0.0f, 0.0f, deceleration);
-
-                        //If lowered below 0
-                        if (rb.velocity.z < relative0.z)
-                        {
-                            //Set z value to 0
-                            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
-                            ;  if (isSoundPlaying)
-                            {
-                                audioSource.Stop();
-
-                                isSoundPlaying = false; // Mark sound as playing
-                            }
-                        }
-                    }
-                    else //If Velocity Z is Negative
-                    {
-                        //Lower velocity by deceleration value
-                        rb.velocity = rb.velocity + new Vector3(0.0f, 0.0f, deceleration);
-
-                        //If raised above 0
-                        if (rb.velocity.z > relative0.z)
-                        {
-                            //Set z value to 0
-                            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, relative0.z);
-                            if (isSoundPlaying)
-                            {
-                                audioSource.Stop();
-
-                                isSoundPlaying = false; // Mark sound as playing
-                            }
-                          
-                        }
-                    }
-                }
-            }
-        }
-      
-    }
-
     //Movement
     public void OnMovement(InputAction.CallbackContext value)
     {
@@ -526,14 +459,14 @@ public class PlayerControler : MonoBehaviour
                 //calculate force needed to jump to desired height for how everlong the duration is - MW
                 float force = ((2 * jumpPower / jumpDuration) - 9.81f * jumpDuration); 
                 //Start to Jump (Inital jump is more powerful to make the arc nicer)
-                rb.AddForce(0,force * 1.5f,0);
+                rigidbody.AddForce(0,force * 1.5f,0);
                 isGrounded = false;
                 isJumping = true;
                 jumpTimer = jumpDuration;
             }
             else
             {
-                glideHeight = rb.position.y;
+                glideHeight = rigidbody.position.y;
                 isGliding = true;
                 glideTimer = glideDuration;
             }
@@ -580,18 +513,24 @@ public class PlayerControler : MonoBehaviour
                 Quack.pitch = Random.Range(0.0f, 1.0f);
             }
             Quack.Play(0);
+            
             //changing localScale.y /2 to 0.5f has 0 difference and does not fix the qwack clipping issue - MW
-            var localScale = transform.localScale;
-            localScale = new Vector3(localScale.x, localScale.y / 2, localScale.z);
+            
+            animator.SetTrigger("Taunt");
+            
+            //var localScale = transform.localScale;
+            //localScale = new Vector3(localScale.x, localScale.y / 2, localScale.z);
             
             
-            transform.localScale = localScale;
+            //transform.localScale = localScale;
+            
             //ensuring the player is not placed below the ground is what we want to do here. -MW
             
             
             //if the scale is 1, and we are dividing by 2 (or multiply 0.5f) then moving down by 0.5f is the same as moving down by half the scale,
             //which is causing the clipping issue.
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.4f, transform.position.z);
+            
+            //transform.position = new Vector3(transform.position.x, transform.position.y - 0.4f, transform.position.z);
         }
         else if (value.canceled) //Cancelled
         {
@@ -650,7 +589,7 @@ public class PlayerControler : MonoBehaviour
                 //If it is
                 if (platform != null)
                 {
-                    rb.velocity = platform.velocity;
+                    rigidbody.velocity = platform.velocity;
                 }
             }
         }
@@ -694,6 +633,10 @@ public class PlayerControler : MonoBehaviour
         //playerInput.DeactivateInput(); // for the pump we want to read if the player is mashing the button
         //Debug.Log("Input disabled"); 
         canMove = false; //new implementation
+        animator.SetBool(IsWalking, false);
+        animator.SetBool(IsSlapping,false);
+        animator.SetBool("CanMove", false);
+        animator.CrossFade("Ragdoll",0.1f);
         
     }
     public void EnableMovement()
@@ -701,6 +644,7 @@ public class PlayerControler : MonoBehaviour
         //playerInput.ActivateInput();
         //Debug.Log("Input enabled");
         canMove = true;
+        animator.SetBool("CanMove", true);
     }
     public IEnumerator TempDisableMovement(float time)
     {
@@ -710,19 +654,21 @@ public class PlayerControler : MonoBehaviour
     }
     public void Ragdoll()
     {
-        rb.freezeRotation = false;
-        //rb.constraints &= ~RigidbodyConstraints.FreezeRotationZ;              //unlocks rotation on the z and x axis so it rolls about   : all below TS
-        //rb.constraints &= ~RigidbodyConstraints.FreezeRotationX;
+        rigidbody.freezeRotation = false;
+        //rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationZ;              //unlocks rotation on the z and x axis so it rolls about   : all below TS
+        //rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationX;
         StartCoroutine(UndoRagdoll(ragdollTime));
         DisableMovement();      //could not possibly extrapolate what this does
+        animator.CrossFade("Ragdoll",0.1f);
     }
     private void UnRagdoll()
     {
-        rb.freezeRotation = true;
-        //rb.constraints = RigidbodyConstraints.FreezeRotationZ;                 //locks rotation on the z and x axis
-        //rb.constraints = RigidbodyConstraints.FreezeRotationX;
+        rigidbody.freezeRotation = true;
+        //rigidbody.constraints = RigidbodyConstraints.FreezeRotationZ;                 //locks rotation on the z and x axis
+        //rigidbody.constraints = RigidbodyConstraints.FreezeRotationX;
         transform.rotation = Quaternion.LookRotation(spawnRotation, Vector3.up);    //resets the rotation to normal, fix spawnRotation to maybe a temp value
         EnableMovement();    //i wonder what this does
+        animator.CrossFade("Ragdoll",0.1f);
     }
 
     private IEnumerator UndoRagdoll(float RagdollTime)         //just a timer really
@@ -738,10 +684,10 @@ public class PlayerControler : MonoBehaviour
     public void Ragdoll(float customTime, bool addToBase)
     {
         if (addToBase) { customTime += ragdollTime; }
-        rb.freezeRotation = false;
+        rigidbody.freezeRotation = false;
         StartCoroutine(UndoRagdoll(customTime));
         DisableMovement();
-
+        animator.CrossFade("Ragdoll",0.1f);
         //Rumble
         Rumble(onHitRumble);
 
