@@ -3980,7 +3980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &678999127287863694
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4381,17 +4381,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3864856063959088931}
-  m_LocalRotation: {x: -0, y: -0.9616702, z: -0, w: 0.27420875}
-  m_LocalPosition: {x: 0, y: 0, z: 7.76}
+  m_LocalRotation: {x: -0, y: -0.70710707, z: -0, w: 0.7071066}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.032059997, y: 0.03206, z: 0.032059997}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1518950490518152705}
-  m_Father: {fileID: 1011209934}
+  m_Father: {fileID: 4963174706085327989}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2.87, y: -2.255001}
+  m_AnchoredPosition: {x: 0, y: 2.466999}
   m_SizeDelta: {x: 93.6763, y: 122.914}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &2941522073112555919
@@ -5043,6 +5043,7 @@ Transform:
   - {fileID: 8111294689523953424}
   - {fileID: 8917556954047334963}
   - {fileID: 683291440583726990}
+  - {fileID: 2749197084036858889}
   m_Father: {fileID: 1011209934}
   m_LocalEulerAnglesHint: {x: 0, y: -58.17, z: 0}
 --- !u!65 &4982489402661022405
@@ -5236,6 +5237,7 @@ GameObject:
   - component: {fileID: 6040782096371729110}
   - component: {fileID: 6645858018161686991}
   - component: {fileID: 1769517766902363038}
+  - component: {fileID: 6645858018161686992}
   m_Layer: 0
   m_Name: Crab CardboardPopUp
   m_TagString: Untagged
@@ -5277,8 +5279,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.14879228, y: 1.5596274, z: 2.81868}
-  m_Center: {x: -0.054408096, y: -0.27981383, z: 0.029764056}
+  m_Size: {x: 1.1257048, y: 1.5596274, z: 1.1398782}
+  m_Center: {x: 0.025024239, y: -0.27981383, z: -0.102517195}
 --- !u!1 &6325903406277968962
 GameObject:
   m_ObjectHideFlags: 0
@@ -5373,6 +5375,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &6645858018161686992
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5740802778345451215}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6677758644321653721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5767,10 +5790,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 637623571}
-    - targetCorrespondingSourceObject: {fileID: 765455522764394976, guid: 569c9a282ca765f4b89121c7dfa0893b,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2749197084036858889}
     - targetCorrespondingSourceObject: {fileID: 765455522764394976, guid: 569c9a282ca765f4b89121c7dfa0893b,
         type: 3}
       insertIndex: -1
