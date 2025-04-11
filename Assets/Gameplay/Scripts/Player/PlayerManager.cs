@@ -32,6 +32,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private CinemachineTargetGroup cameraTarget;
     [SerializeField] private float playerCameraWeight;
     [SerializeField] private float playerCameraRadius;
+
+
+    public bool paused=false;
+    //[SerializeField] private GameObject pauseMenuHolder;
+    //[SerializeField] private GameObject menuPrefab;
+
+    //private GameObject[] playersPauseMenus = new GameObject[4];
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +56,6 @@ public class PlayerManager : MonoBehaviour
         //Spawn joined players
         for (int i = 0; i < PlayerStats.playerNo; i++)
         {
-            
             var currentInputState = i switch
             {
                 0 => PlayerStats.player1input,
@@ -73,10 +79,19 @@ public class PlayerManager : MonoBehaviour
         GameData.Players.Add(player.gameObject);
         Debug.Log("Player joined");
         Debug.Log($"Players:{PlayerStats.playerNo}");
-        var pc = player.GetComponent<PlayerControler>();
-        pc.cameraTarget = cameraTarget;
-        pc.playerCameraWeight = playerCameraWeight;
-        pc.playerCameraRadius = playerCameraRadius;
+        
+        print(player.name + "JOINED");
+        
+        if(player.TryGetComponent(out PlayerControler pc))
+        {
+            pc.playerCameraWeight = playerCameraWeight;
+            pc.playerCameraRadius = playerCameraRadius;
+            pc.playerManager = this;
+        }
+        else
+        {
+            print("PlayerControler not found on " + player.name);
+        }
         //cameraTarget.AddMember(player.transform, 3, 2.5f);
         var spawn = player.playerIndex switch
         {
@@ -95,7 +110,11 @@ public class PlayerManager : MonoBehaviour
             3 => player4SpawnRotation,
             _ => throw new ArgumentOutOfRangeException()
         };
-        
+        //playersPauseMenus[player.playerIndex] = Instantiate(menuPrefab);
+        //playersPauseMenus[player.playerIndex].SetActive(false);
+        //playersPauseMenus[player.playerIndex].GetComponent<PlayerMenuElement>().menuOwnerIndex = player.playerIndex;
+        //var pmc = player.GetComponent<PlayerMenuController>();
+        //pmc.menuPanel = playersPauseMenus[player.playerIndex];
         pc.spawnpoint = spawn;
         pc.spawnRotation = rotation;
     }

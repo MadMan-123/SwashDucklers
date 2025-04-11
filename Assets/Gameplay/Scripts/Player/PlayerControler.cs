@@ -51,6 +51,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] float bumpForceUp;
     [SerializeField] float ragdollTime=5f;
     [SerializeField] Transform hatTransform;
+    [SerializeField] public GameObject pauseMenu;
     public bool isSoundPlaying = false;
     public Vector3 spawnpoint;
     public Vector3 spawnRotation;
@@ -68,6 +69,7 @@ public class PlayerControler : MonoBehaviour
     //Reference to gamepad for rumble -SD
     public bool isGamepad = false;
     public Gamepad pad;
+    public PlayerManager playerManager;
 
     //Rumble values -SD
     [Serializable] public struct RumbleVariables
@@ -169,6 +171,9 @@ public class PlayerControler : MonoBehaviour
         //Instantiate the hat
         //hat = Instantiate(hatPrefab, hatposition + offset, transform.rotation, hatTransform);
         
+
+        //Set up pause menu
+        pauseMenu.SetActive(false);
 
     }
 
@@ -539,18 +544,9 @@ public class PlayerControler : MonoBehaviour
     public void OnPause(InputAction.CallbackContext value)
     {
 
-        if (value.performed && canMove) //Performed
+        if (value.performed && canMove && !PlayerStats.paused) //Performed
         {
-
-            //Disabled for demo day -SD
-            //SceneManager.LoadScene("Character Select"); //GM: returns to the "menu test" screen
-            //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-
-            //Same thing as above but only works on keyboard -SD
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                SceneManager.LoadScene("Character Select"); //GM: returns to the "menu test" screen
-            }
+            pauseMenu.SetActive(true);
 
         }
         else if (value.canceled) //Cancelled
