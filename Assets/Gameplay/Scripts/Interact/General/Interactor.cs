@@ -131,7 +131,7 @@ public class Interactor : MonoBehaviour
 
         //isInteracting = true;
         StartCoroutine(InteractCooldown(interactCooldown));
-        if (inv.TryPickUp() || inv.item)
+        if (inv.TryPickUp() && inv.item)
         {
            return;
         }

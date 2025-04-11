@@ -23,10 +23,10 @@ public class MenuManager : MonoBehaviour
     }
 
     private bool toggle;
-    public void LoadScene(int index)
+    public void LoadScene(int index, float time = 1f)
     {
         // Load the scene
-        StartCoroutine(Transition(index));
+        StartCoroutine(Transition(index,time));
         //UnityEngine.SceneManagement.SceneManager.LoadScene(index);
     }
     
@@ -81,13 +81,13 @@ public class MenuManager : MonoBehaviour
 
     //Starts transition animation and waits till its done before moving scene
     //Ive coppied this into a bunch of scripts ideally we could set it up to be usable in any scene
-    //It also would probably be better if the time wasnt hardcoded, and the animation had a loop while the next scene loads
+                                                                    //It also would probably be better if the time wasnt hardcoded, and the animation had a loop while the next scene loads
     //-SD
-    private IEnumerator Transition(int scene)
+    private IEnumerator Transition(int scene, float time = 1f)
     {
 
         StartTransition.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(time);
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
         //UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scene);
         //AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scene);
