@@ -102,7 +102,7 @@ public class UiPlayerControler : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton9))
                 {
                     //UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial debug screen");
-                    StartCoroutine(Transition("Tutorial debug screen"));
+                    StartCoroutine(Transition(6));
                 }
 
             }
@@ -118,7 +118,7 @@ public class UiPlayerControler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
-            StartCoroutine(Transition("Title Screen"));
+            StartCoroutine(Transition(0));
             //UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
 
@@ -211,7 +211,7 @@ public class UiPlayerControler : MonoBehaviour
     //Ive coppied this into a bunch of scripts ideally we could set it up to be usable in any scene
     //It also would probably be better if the time wasnt hardcoded, and the animation had a loop while the next scene loads
     //-SD
-    private IEnumerator Transition(string scene)
+    private IEnumerator Transition(int scene)
     {
 
         StartTransition.SetActive(true);
