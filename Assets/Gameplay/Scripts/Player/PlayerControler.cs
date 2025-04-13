@@ -520,8 +520,7 @@ public class PlayerControler : MonoBehaviour
             
             //var localScale = transform.localScale;
             //localScale = new Vector3(localScale.x, localScale.y / 2, localScale.z);
-            
-            
+
             //transform.localScale = localScale;
             
             //ensuring the player is not placed below the ground is what we want to do here. -MW
@@ -535,7 +534,7 @@ public class PlayerControler : MonoBehaviour
         else if (value.canceled) //Cancelled
         {
             //Stop Taunt behaviour
-            gameObject.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x, transform.localScale.x);
+            //gameObject.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.x, transform.localScale.x);
         }
       
     }
