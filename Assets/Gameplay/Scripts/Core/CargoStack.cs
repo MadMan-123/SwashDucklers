@@ -36,7 +36,7 @@ public class CargoStack : ItemStack
     {
         if(GameData.CargoCount <= 0) return;
         //increment the cargo count in stage parameter
-        GameData.CargoCount--;
+        //GameData.CargoCount--;
         base.TryPickUp(source);
     }
     
