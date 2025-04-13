@@ -242,6 +242,7 @@ public class TutorialManager : MonoBehaviour
         timmyTurnersDad.SetActive(false);
                                                
         yield return new WaitUntil(Cargoretrieved);
+        flagsTriggered = 0;
         StartCoroutine(TypeText("Good Job! Theres just one last thing to teach you!"));
         yield return new WaitForSeconds(5f);
         StartCoroutine(TypeText("You might encounter the legendary Kraken!"));
