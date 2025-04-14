@@ -81,6 +81,7 @@ public class MusicManager : MonoBehaviour
         source.loop = false;
         source.volume = audioChannels.channelVolumes[channelIndex];
         source.spatialBlend = 0; // Make it 2D
+        source.ignoreListenerPause = true;
     }
     
     public void AddAudioClipToChannel(int channel, AudioClip clip)

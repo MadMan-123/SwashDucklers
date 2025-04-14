@@ -70,6 +70,7 @@ public class PlayerControler : MonoBehaviour
     public bool isGamepad = false;
     public Gamepad pad;
     public PlayerManager playerManager;
+    public AudioListener audioListener;
 
     //Rumble values -SD
     [Serializable] public struct RumbleVariables
@@ -98,6 +99,7 @@ public class PlayerControler : MonoBehaviour
     private void Awake()
     {
         //get the camera target
+        audioListener = Camera.main?.GetComponent<AudioListener>();
         cameraTarget = FindObjectOfType<CinemachineTargetGroup>();
         cameraTarget.AddMember(transform, 3, 2.5f);
         //input = new InputManager();

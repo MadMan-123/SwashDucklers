@@ -106,5 +106,8 @@ public class MenuManager : MonoBehaviour
         //return null;
     }
 
-
+    public void ChangeVolume(float volume)
+    {
+        AudioListener.volume = volume;
+    }
 }

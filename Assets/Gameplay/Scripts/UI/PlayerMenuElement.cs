@@ -38,6 +38,7 @@ public class PlayerMenuElement : MonoBehaviour
             // Pause the game
             Time.timeScale = 0;
             PlayerStats.paused = true;
+            AudioListener.pause = true;
             //unlock the cursor
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -51,6 +52,7 @@ public class PlayerMenuElement : MonoBehaviour
             // Resume the game
             Time.timeScale = 1;
             PlayerStats.paused = false;
+            AudioListener.pause = false;
             //lock the cursor
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
