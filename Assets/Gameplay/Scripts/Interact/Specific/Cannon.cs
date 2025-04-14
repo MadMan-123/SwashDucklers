@@ -14,6 +14,7 @@ public class Cannon : Interactable
     public Transform cannonballSpawnPoint;
     
     [SerializeField] private ParticleSystem cannonballParticles;
+    [SerializeField] private ParticleSystem jammedParticles;
     [SerializeField] private float launchDuration = 1f;
     [SerializeField] private float strength = 10f;
     [SerializeField] private bool canFire = true;
@@ -21,6 +22,7 @@ public class Cannon : Interactable
     [SerializeField] private Animator anim;
     [SerializeField] private KrakenHud krakenHud;
     [SerializeField]private int cannonballCount = 0, jamAmmount = 3, timeToUnJam = 12;
+    
 
     void Start()
     {
@@ -73,7 +75,9 @@ public class Cannon : Interactable
     {
         canFire = false;
         anim.SetBool(IsShooting, false);
+        jammedParticles.Play();
         yield return new WaitForSeconds(timeToUnJam);
+        jammedParticles.Stop();
         canFire = true;
         anim.SetBool(Unjammed,true);
     }

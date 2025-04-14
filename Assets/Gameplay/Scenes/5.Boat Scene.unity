@@ -2413,7 +2413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c077ef7677a97ca409a06e9c05076e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
   scoreText: {fileID: 1416713295}
 --- !u!1001 &391088166
 PrefabInstance:
@@ -7460,6 +7459,11 @@ PrefabInstance:
       propertyPath: cannonfire
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
+        type: 3}
+      propertyPath: jammedParticles
+      value: 
+      objectReference: {fileID: 1318065001}
     - target: {fileID: 5661676496664633201, guid: dac2729b836eb4f4eb1fda4a1718acff,
         type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.size
@@ -13017,6 +13021,12 @@ Transform:
   - {fileID: 44706969}
   m_Father: {fileID: 410785622}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &1318065001 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2278362712197636274, guid: dac2729b836eb4f4eb1fda4a1718acff,
+    type: 3}
+  m_PrefabInstance: {fileID: 1127802236}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1322299441
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17805,6 +17815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17fc169664e80ff4fa960dad2b8f41a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  krakenManager: {fileID: 0}
   StartPosition: 0
   EndPosition: 0
   currentTime: 0

@@ -130,7 +130,7 @@ public class KrakenManager : MonoBehaviour
     void TurnUpKrakenAudio()
     {
         //lerp the kraken audio up
-        float target = 0.5f;
+        float target = 0.075f;
         
         //lerp the kraken audio up
         MusicManager.instance?.LerpChannelVolume(MusicManager.SpookyLeadChannel,target,1.5f);
@@ -144,7 +144,7 @@ public class KrakenManager : MonoBehaviour
     public void TurnDownKrakenAudio()
     {
         //lerp the kraken audio up
-        float target = 0.5f;
+        float target = 0.075f;
         
         //lerp the kraken audio up
         MusicManager.instance?.LerpChannelVolume(MusicManager.SpookyLeadChannel,0,2f);
