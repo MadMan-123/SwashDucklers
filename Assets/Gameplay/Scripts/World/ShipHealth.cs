@@ -14,13 +14,13 @@ public class ShipHealth : MonoBehaviour
     bool regenerate;
     bool loop;
     private bool shipDestroyed = false;
-
+    [SerializeField] public KrakenManager krakenReference;
+    
     [Header("Damage")]
     [SerializeField] public float dmgRate;
     [SerializeField] float dmgSpeed;
     [SerializeField] int leaks;
     [SerializeField] float shipFilled;
-    [SerializeField] GameManager gm;
     [SerializeField] GameObject ship;
     [SerializeField] Animator shipAnim;
 
@@ -34,6 +34,10 @@ public class ShipHealth : MonoBehaviour
     [SerializeField] float maxShipHeight = 0f;
     [SerializeField] float minShipHeight = -6.5f;
     public static ShipHealth instance;
+
+    private static readonly int Property = Animator.StringToHash("Ship Health");
+
+    private static readonly int Sinking = Animator.StringToHash("Sinking");
     //private CinemachineVirtualCamera vCam;
 
     //Death animation stuff
@@ -71,14 +75,15 @@ public class ShipHealth : MonoBehaviour
         leaks = 0;
         regenerate = true;
         loop = true;
-        gm = gameObject.AddComponent<GameManager>();
+        
+       
 
     }
 
     void Update()
     {
 
-        shipAnim.SetInteger("Ship Health", (int)shipHealth);
+        shipAnim.SetInteger(Property, (int)shipHealth);
 
         
         #if UNITY_EDITOR
@@ -97,7 +102,7 @@ public class ShipHealth : MonoBehaviour
 
         if (shipHealth <= 0)
         {
-            gm.gameOver = true;
+            
             StartCoroutine(Death());
         }
 
@@ -120,7 +125,7 @@ public class ShipHealth : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (loop == true)
+        if (loop)
         {
             StartCoroutine(PassiveShipHealth(regenerate));
             loop = false;
@@ -179,17 +184,17 @@ public class ShipHealth : MonoBehaviour
         }
     }
 
-    public void UpdateScoreDisplay()
-    {
-        healthText.text = string.Format("ship health: {0:0}%", displayhealth);
-    }
+
 
 
     private IEnumerator Death()
     {
-        shipAnim.SetBool("Sinking", true);
+        shipAnim.SetBool(Sinking, true);
         shipDestroyed = true;
         yield return new WaitForSeconds(5f);
+        
+        //i dont like this implementation but im getting quick fixes before i branch stuff for ryan
+        krakenReference.TurnDownKrakenAudio();
         UnityEngine.SceneManagement.SceneManager.LoadScene(4);
     }
 }

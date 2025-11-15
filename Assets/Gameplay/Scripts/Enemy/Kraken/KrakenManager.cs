@@ -12,7 +12,8 @@ using UnityEngine.Serialization;
 public class KrakenManager : MonoBehaviour
 {
     private static readonly int TextureSpeed = Shader.PropertyToID("_TextureSpeed");
-
+    
+    
     //This script will control the krakens behaviours and when it should do whatever
      
     [SerializeField] public Health health;
