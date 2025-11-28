@@ -100,7 +100,13 @@ public class EnemySpawner : Spawner
 
     private IEnumerator _reenable(GameObject aiInstance, NavMeshAgent agent) 
     {
-        while (!Physics.Raycast(aiInstance.transform.position, Vector3.down, 0.5f,LayerMask.GetMask("Boat")))
+        var boatMask = LayerMask.GetMask("Boat");
+        if (boatMask == 0)
+        {
+            boatMask = Physics.DefaultRaycastLayers;
+        }
+
+        while (!Physics.Raycast(aiInstance.transform.position, Vector3.down, 0.5f, boatMask))
         {
             yield return null;
         }

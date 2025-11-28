@@ -38,8 +38,8 @@ public class AIBrain : MonoBehaviour
         private int walkingID;
         [SerializeField] private Animator anim;
         [SerializeField] private float fleeDistance = 10f;
-        private Health health;
-        private LayerMask boatLayer;
+    private Health health;
+    private int boatLayer;
         private Vector3 delta;
 
         private bool gotCargoWander = true;
@@ -54,6 +54,12 @@ public class AIBrain : MonoBehaviour
 
         private readonly RaycastHit[] hits = new RaycastHit[2];
         [SerializeField] private bool reenableFlag;
+        [SerializeField] private bool isKnockedDown = false;
+        
+        private Vector3 lastPosition;
+        private float stuckTimer = 0f;
+        [SerializeField] private float stuckTimeLimit = 5f;
+        [SerializeField] private float minMovementThreshold = 0.1f;
         
         [SerializeField] private Collider[] colliders = new Collider[10];
         [SerializeField] private bool set = false;
@@ -87,13 +93,11 @@ public class AIBrain : MonoBehaviour
             agent.enabled = false;
             
             
+                
+            
             //if the rigidbody is not present then add it
             if(!TryGetComponent(out rb))
                 rb = gameObject.AddComponent<Rigidbody>();
-                
-            
-            //set the rigidbody to kinematic
-            rb.isKinematic = false;
             
             //if the health is not present then add it
             if (!TryGetComponent(out health))
@@ -108,11 +112,12 @@ public class AIBrain : MonoBehaviour
             
             walkingID = Animator.StringToHash("IsWalking");
         }
-  
+
+        private bool waitingForFloor = false;
         private void Update()
         {
             //if the agent is not enabled then wait until the agent is on the floor
-            if (!agent.enabled || !enabled)
+            if ((!agent.enabled && !waitingForFloor && !isKnockedDown))
             {
                 //if the agent is not enabled wait to be on the floor
                 StartCoroutine(WaitUntilFloorHit());
@@ -249,7 +254,45 @@ public class AIBrain : MonoBehaviour
                     HandleMovement();
             }
             
+            CheckIfStuck();
 
+        }
+        
+        private void CheckIfStuck()
+        {
+            if (isKnockedDown) return;
+            
+            var currentPos = transform.position;
+            
+            //initialize lastPosition if not set
+            if (lastPosition == Vector3.zero)
+                lastPosition = currentPos;
+                
+            var distanceMoved = Vector3.Distance(currentPos, lastPosition);
+            
+            if (distanceMoved < minMovementThreshold)
+            {
+                stuckTimer += Time.deltaTime;
+                
+                if (stuckTimer >= stuckTimeLimit)
+                {
+                    UnstickCrab();
+                    stuckTimer = 0f;
+                }
+            }
+            else
+            {
+                stuckTimer = 0f;
+                lastPosition = currentPos;
+            }
+        }
+        
+        private void UnstickCrab()
+        {
+            if (shouldDebug)
+                Debug.Log($"{gameObject.name} appears stuck, moving down to unstick");
+                
+            transform.position += Vector3.down * 2f;
         }
             
         //return the closest cargo
@@ -260,7 +303,7 @@ public class AIBrain : MonoBehaviour
             if(target != null && target.trackedTransform) 
             {
                 //check if the target is in the view radius
-                if ((target.trackedTransform.position - transform.position).magnitude > viewRadius)
+                if ((target.trackedTransform.position - transform.position).magnitude > viewRadius * 1.2f)
                 {
                     //if not then set the target to null
                     target = null;
@@ -312,7 +355,7 @@ public class AIBrain : MonoBehaviour
             target.type = targetType;
             //get the delta for later calculations
             if (target != null)
-                delta = transform.position - target.trackedTransform.position;
+                delta = target.trackedTransform.position - transform.position;
             
             return target;
         }
@@ -467,29 +510,37 @@ public class AIBrain : MonoBehaviour
             }
         }
 
+        bool OnFloorCheck()
+        {
+             Physics.SphereCastNonAlloc(
+            transform.position,
+            0.5f,
+            Vector3.down,
+                    hits, 
+            0.1f,
+            1 << boatLayer
+);
+                            
+            var objects = hits.Where(x => x.collider).ToArray();
+
+            return objects.Length > 0;
+        }
         private IEnumerator WaitUntilFloorHit()
         {
-            if(state == State.JumpOff) yield break;
-             Physics.SphereCastNonAlloc(
-                                transform.position,
-                                0.5f,
-                                Vector3.down,
-                                hits,
-                                0.1f,
-                                1 << boatLayer
-            );
-                
-            var objects = hits.Where(x => x.collider).ToArray();
-            
-            
-            //wait until the agent is on the floor
-            while(objects.Length == 0 || reenableFlag) yield return null;
-            
-            //check underneath 
+            if (waitingForFloor) yield break;
+            waitingForFloor = true;
+            if (state == State.JumpOff)
+            {
+                waitingForFloor = false;
+                yield break;
+            }
+
+            while (!OnFloorCheck()) yield return null;
+
             agent.enabled = true;
             enabled = true;
             rb.isKinematic = true;
-     
+            waitingForFloor = false;
         }
 
 
@@ -568,7 +619,7 @@ public class AIBrain : MonoBehaviour
             if (!canAttack) return transform.position;
             canAttack = false;
             
-            var destination = delta * 0.95f;
+            var destination = target.trackedTransform.position;
             //do attack
             if (target.trackedTransform.TryGetComponent(out Health health))
             {
@@ -629,14 +680,14 @@ public class AIBrain : MonoBehaviour
         IEnumerator ResetFleeFlag( float time)
         {
             yield return new WaitForSeconds(time);
-            isFleeing = !isFleeing;
+            isFleeing = false;
             
         }
         
         IEnumerator ResetAttackFlag( float time)
         {
             yield return new WaitForSeconds(time);
-            canAttack = !canAttack;
+            canAttack = true;
         }
         
         
@@ -662,10 +713,49 @@ public class AIBrain : MonoBehaviour
 
         public void ChangeState(State newState)
         {
+            if (state == newState) return;
             state = newState;
-            
+
+            var canUseAgent = false;
+            // only touch the agent if it's enabled and placed on the NavMesh
+            if (agent && agent.enabled)
+            {
+                NavMeshHit tmp;
+                canUseAgent = NavMesh.SamplePosition(transform.position, out tmp, 0.6f, NavMesh.AllAreas);
+            }
+
+            switch (state)
+            {
+                case State.Wander:
+                    if (canUseAgent) { agent.isStopped = false; agent.speed = wanderSpeed; }
+                    if (anim) anim.SetBool(walkingID, true);
+                    break;
+                case State.Chase:
+                    if (canUseAgent) { agent.isStopped = false; agent.speed = chaseSpeed; }
+                    if (anim) anim.SetBool(walkingID, true);
+                    break;
+                case State.Flee:
+                    if (canUseAgent) { agent.isStopped = false; agent.speed = fleeSpeed; }
+                    if (anim) anim.SetBool(walkingID, true);
+                    break;
+                case State.Attack:
+                    if (canUseAgent) agent.isStopped = false;
+                    if (anim) anim.SetBool(walkingID, true);
+                    break;
+                case State.Idle:
+                case State.JumpOff:
+                    if (canUseAgent) agent.isStopped = true;
+                    if (anim) anim.SetBool(walkingID, false);
+                    break;
+            }
         }
-  
+        bool TrySetState(State newState, State minPriority = (State)0)
+        {
+            if ((int)newState < (int)minPriority) return false;
+            state = newState;
+            return true;
+        }
+ 
 
 
         public void ToggleAttack(GameObject source)
@@ -681,33 +771,29 @@ public class AIBrain : MonoBehaviour
         public IEnumerator ReenableAgent(float sec)
         {
             //wait for sec
+            isKnockedDown = true;
             agent.enabled = false;
             rb.isKinematic = false;
-           
-            //REMOVE THIS IF YOU DONT WANT THE AI TO GO LIMP - MW
+
             //unfreeze agent x and z rotation
             rb.constraints = RigidbodyConstraints.None;
 
-            reenableFlag = true;
             //while the agent is not on the ground
             yield return new WaitForSeconds(sec);
-            //reenable the agent
-            
-            //ALSO REMOVE THIS -MW
+
             //freeze agent x and z rotation
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-            
-            
+
             //clamp the agent to the navmesh before enabling the agent
             NavMeshHit hit;
             if (NavMesh.SamplePosition(transform.position, out hit, 1.0f, NavMesh.AllAreas))
             {
                 transform.position = hit.position;
             }
-            
+
             rb.isKinematic = true;
             agent.enabled = true;
-            reenableFlag = false;
+            isKnockedDown = false;
             
         }
 
@@ -753,6 +839,8 @@ public class AIBrain : MonoBehaviour
             onFloor = false;
             hasRun = false;
             gotCargoWander = true;
+            isKnockedDown = false;
+            stuckTimer = 0f;
             
         }
 
